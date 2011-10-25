@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+  <!--
+     Use Guice-based ServletConfig
+     see http://code.google.com/p/google-guice/wiki/Servlets
+    -->
+  <filter>
+    <filter-name>guiceFilter</filter-name>
+    <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>guiceFilter</filter-name>
+    <url-pattern>*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <listener>
+    <listener-class>${servlet-config-class}</listener-class>
+  </listener>
+
+  <!--
+     Require login & SSL for all pages by default
+     see http://code.google.com/appengine/docs/java/config/webxml.html
+    -->
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <!--
+     Admin-only pages
+    -->
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/admin/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <!--
+     Task queue servlets.  We require admin as described in
+     http://code.google.com/appengine/docs/java/taskqueue/overview-push.html#Securing_URLs_for_Tasks
+    -->
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/taskqueue/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <!--
+     Object-store pages - no constraints, constraints are
+     programmatically imposed.
+    -->
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/store/mutate</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+
+  <!--
+     Pages that don't require login
+    -->
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/loggedout.html</url-pattern>
+      <url-pattern>/favicon.ico</url-pattern>
+      <url-pattern>/version</url-pattern>
+      <url-pattern>/google${google-site-verification-code}.html</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
+
+  ${more-web-app-children}
+
+</web-app>

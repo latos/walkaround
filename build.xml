@@ -1,0 +1,478 @@
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+  Author: ohler@google.com (Christian Ohler)
+-->
+<project name="walkaround" default="war">
+  <description>Walkaround</description>
+
+  <property file="build.properties"/>
+
+  <property name="gwt.args" value=""/>
+  <property name="webinf" value="${build.war}/WEB-INF"/>
+  <property name="warlib" value="${webinf}/lib"/>
+
+  <import file="${appengine-sdk.dir}/config/user/ant-macros.xml"/>
+
+  <taskdef name="gxpc" classname="com.google.gxp.compiler.ant.GxpcTask"
+      classpath="${thirdparty}/gxp/gxp-0.2.4-beta.jar"/>
+
+  <macrodef name="pstmessage">
+    <attribute name="proto" description="Protocol buffer class file"/>
+    <sequential>
+      <runpst proto="@{proto}"
+          templates='"${thirdparty}/wave/pst-templates/api/api.st"
+                     "${thirdparty}/wave/pst-templates/pojo/pojo.st"
+                     "${thirdparty}/wave/pst-templates/jso/jso.st"
+                     "${thirdparty}/wave/pst-templates/util/util.st"
+                     "${thirdparty}/wave/pst-templates/gson/gson.st"
+                     "${thirdparty}/wave/pst-templates/proto/proto.st"'
+          outputdir="${gen.messages}"/>
+    </sequential>
+  </macrodef>
+
+  <!-- Macro which runs the PST compiler.
+       Don't use this directly, use pstmessage. -->
+  <macrodef name="runpst">
+    <attribute name="proto" description="Protocol buffer class file"/>
+    <attribute name="templates" description="Template files"/>
+    <attribute name="outputdir" description="Output directory"/>
+    <sequential>
+      <java failonerror="true" fork="true" classname="org.waveprotocol.pst.PstMain">
+        <classpath>
+          <path refid="server.classpath"/>
+          <path location="${build.proto}"/>
+          <fileset dir="${thirdparty}">
+            <include name="**/*.jar"/>
+          </fileset>
+        </classpath>
+        <arg line="-s pst"/>
+        <arg value="-d"/><arg value="@{outputdir}"/>
+        <arg value="-f"/><arg value="@{proto}"/>
+        <arg line="@{templates}"/>
+      </java>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="runtests">
+    <attribute name="forkmode" description="How to fork the JVM for each test/batch"/>
+    <element name="tests" description="Fileset describing tests to run" implicit="true"/>
+    <sequential>
+      <delete dir="${test.out.dir}"/>
+      <mkdir dir="${test.out.dir}"/>
+
+      <junit fork="yes" forkmode="@{forkmode}" printsummary="yes"
+          showoutput="no" haltonfailure="no" failureProperty="test.failed">
+        <jvmarg value="-Xmx512M"/>
+        <jvmarg value="-ea"/>
+
+        <!-- This classpath includes src folders for the gwt.xml files -->
+        <classpath>
+          <path location="${build.proto}"/>
+          <path location="${build.server}"/>
+          <path location="${build.messages.dir}"/>
+          <path location="${build.test.dir}"/>
+          <path location="${src.dir}"/>
+          <path location="${test.dir}"/>
+          <path refid="server.classpath"/>
+          <path refid="testlibs.classpath"/>
+        </classpath>
+
+        <!-- Set formatter so that the output is saved in xml files -->
+        <formatter type="xml"/>
+
+        <batchtest todir="${test.out.dir}">
+          <tests/>
+        </batchtest>
+      </junit>
+
+      <!-- Parses the xml files previously saved into readable HTML -->
+      <junitreport todir="${test.out.dir}">
+        <fileset dir="${test.out.dir}">
+          <include name="TEST*.xml"/>
+        </fileset>
+        <report format="frames" todir="${test.out.dir}"/>
+      </junitreport>
+
+      <fail message="Tests failed. Check log and/or reports: ${test.out.dir}/index.html" if="test.failed"/>
+    </sequential>
+  </macrodef>
+
+  <!-- Standard time properties and a timestamp pattern -->
+  <tstamp>
+    <format property="DSTAMP_INT" pattern="-yyyy-MM-dd"/>
+  </tstamp>
+  <tstamp>
+    <format property="LOG_STAMP" pattern="yyyy-MM-dd_HH-mm-ss"/>
+  </tstamp>
+
+  <!-- Classpath of external dependencies -->
+  <path id="client.classpath">
+    <fileset dir="${thirdparty}">
+      <!-- order matters -->
+      <include name="gwt/*.jar"/>
+      <include name="gdata/jsr305.jar"/>
+      <include name="guava/guava-gwt-10.0.1.jar"/>
+      <include name="guava/guava-10.0.1.jar"/>
+      <include name="guice/guice-3.0.jar"/>
+      <include name="wave/communication-src.jar"/>
+      <include name="wave/client-common-src.jar"/>
+      <include name="wave/model-src.jar"/>
+      <include name="wave/concurrencycontrol-src.jar"/>
+      <include name="wave/box-src.jar"/>
+      <include name="wave/client-src.jar"/>
+      <include name="wave/client-scheduler-src.jar"/>
+      <include name="wave/common-src.jar"/>
+      <include name="wave/media-src.jar"/>
+      <include name="wave/util-src.jar"/>
+      <include name="wave/gwt-util-src.jar"/>
+      <include name="wave/federation-src.jar"/>
+      <include name="wave/proto-msg.jar"/>
+      <include name="socketio/socketio-java-src.jar"/>
+    </fileset>
+  </path>
+  <path id="server.classpath">
+    <fileset id="server.thirdpartylibs" dir="${thirdparty}">
+      <include name="commons-cli/commons-cli-1.2.jar"/>
+      <include name="commons-codec/commons-codec-1.5.jar"/>
+      <include name="guava/guava-10.0.1.jar"/>
+      <include name="guice/aopalliance.jar"/>
+      <include name="guice/guice-3.0.jar"/>
+      <include name="guice/guice-assistedinject-3.0.jar"/>
+      <include name="guice/guice-servlet-3.0.jar"/>
+      <include name="guice/javax.inject.jar"/>
+      <include name="gson/gson-1.7.1.jar"/>
+      <include name="gxp/gxp-0.2.4-beta.jar"/>
+      <include name="joda-time/joda-time-2.0.jar"/>
+      <include name="json-org/json-org.jar"/>
+      <include name="gdata/*.jar"/>
+      <include name="appengine-mapreduce/*.jar"/>
+      <include name="protobuf/protobuf.jar"/>
+      <include name="wave/*.jar"/>
+      <include name="google-api-client/*.jar"/>
+    </fileset>
+    <fileset id="server.appenginelibs" dir="${appengine-sdk.dir}">
+      <include name="lib/shared/*.jar"/>
+      <include name="lib/user/*.jar"/>
+    </fileset>
+  </path>
+  <path id="testlibs.classpath">
+    <fileset dir="${thirdparty}">
+      <include name="junit/*.jar"/>
+    </fileset>
+    <fileset dir="${appengine-sdk.dir}">
+      <include name="lib/testing/*.jar"/>
+      <include name="lib/impl/appengine-api-stubs.jar"/>
+    </fileset>
+  </path>
+
+  <target name="clean" description="Cleans up the build artifacts and temporary directories">
+    <delete dir="${build}"/>
+  </target>
+
+  <target name="init">
+    <mkdir dir="${build.log.dir}"/>
+    <record name="${build.log.dir}/buildlog.txt"
+        loglevel="verbose" append="false"/>
+    <echo message="Logging to ${build.log.dir}/buildlog.txt"/>
+    <condition property="enable-slob-backends">
+      <not>
+        <equals arg1="${num-slob-backends}" arg2="0"/>
+      </not>
+    </condition>
+    <condition property="enable-site-verification">
+      <not>
+        <equals arg1="${google-site-verification-code}" arg2=""/>
+      </not>
+    </condition>
+    <mkdir dir="${gen.gxp}"/>
+    <mkdir dir="${gen.messages}"/>
+    <mkdir dir="${dep}"/>
+    <mkdir dir="${build.proto}"/>
+    <mkdir dir="${build.server}"/>
+    <mkdir dir="${build.gwt}"/>
+    <mkdir dir="${build.gwtextra}"/>
+    <mkdir dir="${build.war}"/>
+    <mkdir dir="${build.test.dir}"/>
+    <mkdir dir="${webinf}"/>
+    <mkdir dir="${webinf}/classes"/>
+    <mkdir dir="${warlib}"/>
+  </target>
+
+  <target name="gen-messages-dep">
+    <uptodate targetfile="${dep}/gen-messages" property="skip.gen-messages">
+      <srcfiles dir="${thirdparty}/wave"/>
+      <srcfiles dir="${build.proto}"/>
+    </uptodate>
+  </target>
+  <target name="gen-messages" depends="compile-proto, gen-messages-dep"
+      unless="skip.gen-messages"
+      description="Generates PST messages">
+    <echo message="Generating PST messages"/>
+    <pstmessage proto="${build.proto}/com/google/walkaround/proto/Diff.class"/>
+    <pstmessage proto="${build.proto}/com/google/walkaround/proto/Extensions.class"/>
+    <pstmessage proto="${build.proto}/com/google/walkaround/proto/GoogleImport.class"/>
+    <pstmessage proto="${build.proto}/com/google/walkaround/proto/Proto.class"/>
+    <pstmessage proto="${build.proto}/com/google/walkaround/proto/Walkaround.class"/>
+    <touch file="${dep}/gen-messages"/>
+  </target>
+
+  <target name="compile-proto-dep">
+    <uptodate targetfile="${dep}/compile-proto" property="skip.compile-proto">
+      <srcfiles dir="${thirdparty}"/>
+      <srcfiles dir="${proto_src}" includes="**/*.java"/>
+    </uptodate>
+  </target>
+
+  <target name="compile-proto" depends="init, compile-proto-dep"
+      unless="skip.compile-proto" description="Compiles protocol buffers">
+    <javac destdir="${build.proto}">
+      <src path="${proto_src}"/>
+      <classpath>
+        <path refid="server.classpath"/>
+      </classpath>
+    </javac>
+    <touch file="${dep}/compile-proto"/>
+  </target>
+
+  <target name="gen-gxp-dep">
+    <uptodate targetfile="${dep}/gen-gxp" property="skip.gen-gxp">
+      <srcfiles dir="${thirdparty}" includes="gxp/gxp-*.jar"/>
+      <srcfiles dir="${src}" includes="**/*.gxp"/>
+    </uptodate>
+  </target>
+  <!-- Generates the Java files from templates -->
+  <target name="gen-gxp" description="Generates GXP files"
+      depends="init, gen-gxp-dep" unless="skip.gen-gxp">
+    <echo message="Processing GXP templates"/>
+    <gxpc srcdir="${src}/${projpath}" srcpaths="${src}" destdir="${gen.gxp}"
+        target="${projpkg}.wave.server.gxp"/>
+    <touch file="${dep}/gen-gxp"/>
+  </target>
+
+  <target name="compile-dep">
+    <uptodate targetfile="${dep}/compile" property="skip.compile">
+      <srcfiles dir="${src}" includes="**"/>
+      <srcfiles dir="${gen.gxp}" includes="**"/>
+      <srcfiles dir="${gen.messages}" includes="**"/>
+    </uptodate>
+  </target>
+  <target name="compile" depends="init,gen-messages,gen-gxp,compile-dep" unless="skip.compile">
+    <javac sourcepath="" destdir="${build.server}" debug="on" fork="true" memoryMaximumSize="512m">
+      <src path="${src}"/>
+      <src path="${gen.gxp}"/>
+      <src path="${gen.messages}"/>
+      <src path="more-guava"/>
+
+      <include name="com/google/common/**"/>
+      <include name="com/google/api/**"/>
+      <include name="com/google/gdata/**"/>
+
+      <include name="more-guava/**"/>
+      <include name="${projpath}/wave/server/**"/>
+      <include name="${projpath}/wave/shared/**"/>
+      <include name="${projpath}/slob/server/**"/>
+      <include name="${projpath}/slob/shared/**"/>
+      <include name="${projpath}/util/server/**"/>
+      <include name="${projpath}/util/shared/**"/>
+      <include name="${projpath}/proto/**"/>
+      <exclude name="**/super/**"/>
+      <exclude name="**/proto/jso/**"/>
+      <classpath>
+        <path refid="server.classpath"/>
+        <path location="${build.proto}/"/>
+      </classpath>
+    </javac>
+
+    <copy todir="${webinf}/classes/${projpath}">
+      <fileset dir="${gen.gxp}/${projpath}">
+        <include name="**/gxp_*.properties"/>
+      </fileset>
+    </copy>
+
+    <touch file="${dep}/compile"/>
+  </target>
+
+  <target name="compile-gwt-dep">
+    <uptodate targetfile="${dep}/compile-gwt" property="skip.compile-gwt">
+      <srcfiles dir="${thirdparty}" includes="**"/>
+      <srcfiles dir="${src}" includes="**/client/**"/>
+      <srcfiles dir="${src}" includes="**/shared/**"/>
+      <srcfiles dir="${gen.messages}" includes="**"/>
+    </uptodate>
+  </target>
+  <target name="compile-gwt" depends="gen-messages,compile-gwt-dep"
+      description="GWT compile to production JavaScript" unless="skip.compile-gwt">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="${src}"/>
+        <pathelement location="${gen.messages}"/>
+        <path refid="client.classpath"/>
+      </classpath>
+      <jvmarg value="-Xmx512M"/>
+      <arg line="-style OBFUSCATED"/>
+      <!-- Do not include class and package names in compiled JS. -->
+      <arg line="-XdisableClassMetadata"/>
+      <arg line="-XdisableCastChecking"/>
+      <arg line="-localWorkers 8"/>
+      <arg line='-extra ${build.gwtextra}'/>
+      <arg line='-war ${build.gwt}'/>
+      <arg line="${gwt.args}"/>
+      <arg value="${projpkg}.wave.client.Walkaround"/>
+    </java>
+    <touch file="${dep}/compile-gwt"/>
+  </target>
+
+  <!-- Depend on the full war so that WEB-INF/flags.json etc. are in
+       the right place.  Unfortunately, this also adds a dependency on
+       compile-gwt; we should find a better way. -->
+  <target name="compile-tests" depends="war">
+    <javac destdir="${build.test.dir}"
+           excludes="**/proto/jso/**,**/wave/client/**">
+      <src path="${test}"/>
+      <!-- Compile everything again to include slob/client files.  We
+           should find a better way. -->
+      <src path="${src}"/>
+      <classpath>
+        <path refid="server.classpath"/>
+        <path refid="client.classpath"/>
+        <path refid="testlibs.classpath"/>
+        <pathelement location="${build.server}"/>
+        <pathelement location="${build.proto}"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="test" depends="compile-tests" description="Runs unit tests">
+    <runtests forkmode="once">
+      <fileset dir="${test}">
+        <include name="**/*Test.java"/>
+        <exclude name="**/*GwtTest.java"/>
+      </fileset>
+    </runtests>
+  </target>
+
+  <target name="test-gwt" depends="compile-tests" description="Runs GWT tests (slow)">
+    <!-- Fork per test due to GWT test failure in shared JVM -->
+    <runtests forkmode="perTest">
+      <fileset dir="${test}">
+        <include name="**/*GwtTest.java"/>
+      </fileset>
+    </runtests>
+  </target>
+
+  <target name="check-required-properties">
+    <fail unless="app-id">Required property missing; see runant.sample.</fail>
+    <fail unless="app-version">Required property missing; see runant.sample.</fail>
+    <fail unless="oauth-client-id">Required property missing; see runant.sample.</fail>
+    <fail unless="oauth-client-secret">Required property missing; see runant.sample.</fail>
+    <fail unless="secret">Required property missing; see runant.sample.</fail>
+  </target>
+
+  <target name="war-step-1"
+      depends="compile,compile-gwt,check-required-properties">
+    <!-- TODO(danilatos): Try just using a zip file instead -->
+    <jar destfile="${webinf}/gwt-extra.jar"
+       basedir="${build.gwtextra}/${projpkg}.wave.client.Walkaround"/>
+    <copy todir="${build.war}">
+      <fileset dir="${build.gwt}/${projpkg}.wave.client.Walkaround">
+        <include name="**"/>
+      </fileset>
+    </copy>
+    <copy todir="${warlib}" flatten="true">
+      <fileset refid="server.thirdpartylibs"/>
+    </copy>
+    <copy todir="${warlib}" flatten="true">
+      <fileset refid="server.appenginelibs"/>
+    </copy>
+    <copy todir="${webinf}/classes">
+      <fileset dir="${build.proto}"/>
+      <fileset dir="${build.server}"/>
+    </copy>
+    <copy todir="${build.war}">
+      <fileset dir="${src}/${projpath}/wave/client/public"/>
+    </copy>
+    <copy todir="${webinf}" overwrite="true">
+      <fileset dir="webinf"/>
+      <filterchain>
+        <expandproperties/>
+      </filterchain>
+    </copy>
+  </target>
+
+  <target name="war-step-2" depends="war-step-1"
+      unless="enable-slob-backends">
+    <delete file="${webinf}/backends.xml"/>
+  </target>
+
+  <target name="war-step-3" depends="war-step-2"
+      if="enable-site-verification">
+    <echo file="${build.war}/google${google-site-verification-code}.html">
+      google-site-verification: google${google-site-verification-code}.html
+    </echo>
+  </target>
+
+  <target name="war" depends="war-step-3"/>
+
+  <!-- Running these from inside ant is not ideal; ants default of
+       prefixing every line with [java] gets in the way.  Perhaps we
+       should make separate scripts, or I should get used to running
+       ant -e. -->
+  <target name="run" depends="war"
+      description="Starts the development server.">
+    <dev_appserver war="${build.war}" port="8080">
+      <options>
+        <arg value="--jvm_flag=-XX:+ClassUnloading"/>
+      </options>
+    </dev_appserver>
+  </target>
+
+  <target name="run-debug" depends="war"
+      description="Starts the development server and waits for a debugger to be attached.">
+    <dev_appserver war="${build.war}" port="8080">
+      <options>
+        <arg value="--jvm_flag=-XX:+ClassUnloading"/>
+        <arg value="--jvm_flag=-Xdebug"/>
+        <arg value="--jvm_flag=-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9999"/>
+      </options>
+    </dev_appserver>
+  </target>
+
+  <!-- Deployment is very slow unless most of the files are already in
+       place and can be shared; it would be much faster if we put our
+       classes into a JAR file rather than leaving them in
+       WEB-INF/classes/.  However, we'd have to check whether Jetty
+       reloads JARs on the fly (it does reload individual class
+       files); if not, we'd need separate rules for those two war
+       layouts to preserve on-the-fly reloading.  Maybe most
+       deployments will be able to share files anyway; so, for now,
+       I'll wait and see if it bothers anyone. -->
+  <target name="deploy" depends="war"
+      description="Uploads the application to App Engine.">
+    <appcfg action="update" war="${build.war}"/>
+  </target>
+
+  <target name="update-indexes" depends="war"
+      description="Uploads just the datastore index configuration to App Engine.">
+    <appcfg action="update_indexes" war="${build.war}"/>
+  </target>
+
+  <target name="rollback" depends="war"
+      description="Rolls back an interrupted application update.">
+    <appcfg action="rollback" war="${build.war}"/>
+  </target>
+
+</project>

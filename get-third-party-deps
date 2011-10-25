@@ -1,0 +1,204 @@
+#!/bin/bash
+
+# Copyright (C) 2011 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Script to fetch and build the third-party packages that we depend
+# on.
+
+set -e
+
+get() {
+  urlbase=$1
+  filename="$2"
+  algorithm=$3
+  checksum=$4
+  echo "fetching $urlbase$filename"
+  wget -nv -O "$filename" "$urlbase$filename"
+  ${algorithm}sum "$filename"
+  ${algorithm}sum --quiet -c <<EOF
+$checksum  $filename
+EOF
+}
+
+dir() {
+  mkdir -p $1
+  cd $1
+}
+
+mkdir -p out
+out="$(pwd)/third_party"
+
+dir third_party_src
+
+[[ -f $out/gxp/gxp-0.2.4-beta.jar ]] || (
+  dir $out/gxp
+  get http://gxp.googlecode.com/files/ gxp-0.2.4-beta.jar sha1 b80c7c780973ffd5eac63de301eb6a05035aeb46
+)
+
+[[ -f $out/commons-cli/commons-cli-1.2.jar ]] || (
+  dir commons-cli
+  get http://www.apache.org/dist/commons/cli/binaries/ commons-cli-1.2-bin.zip md5 c10b9d17317815e44367c477ccecb075
+  unzip -o -q commons-cli-1.2-bin.zip
+  mkdir -p $out/commons-cli
+  cp commons-cli-1.2/{commons-cli-1.2.jar,LICENSE.txt,NOTICE.txt} $out/commons-cli
+)
+
+[[ -f $out/commons-codec/commons-codec-1.5.jar ]] || (
+  dir commons-codec
+  get http://mirrors.axint.net/apache//commons/codec/binaries/ commons-codec-1.5-bin.zip md5 376bd4a1cb78f41bf1eb1c544af6f1c0
+  unzip -o -q commons-codec-1.5-bin.zip
+  mkdir -p $out/commons-codec
+  cp commons-codec-1.5/{commons-codec-1.5.jar,LICENSE.txt,NOTICE.txt} $out/commons-codec
+)
+
+[[ -f $out/wave/pst.jar ]] || (
+  dir wave
+  [[ -d trunk ]] || (
+    set -x
+    # Version 1187363 introduced a reverse dependency from
+    # org.waveprotocol.wave to org.waveprotocol.box that is still
+    # present (as of this writing).  This reverse dependency adds an
+    # entry point that tries to initialize socket.io, which breaks
+    # walkaround.
+    svn co -r 1187362 -q https://svn.apache.org/repos/asf/incubator/wave/trunk
+  )
+  cd trunk
+  (
+    set -x
+    ant -q dist-pst compile-messages dist-proto dist-libraries
+  )
+  (
+    cd src/org/waveprotocol/pst/templates/
+    destdir=$out/wave/pst-templates
+    mkdir -p $destdir
+    for i in $(find . -name \*.st -o -name properties); do
+      mkdir -p $destdir/$(dirname $i)
+      cp $i $destdir/$i
+    done
+  )
+  cp dist/*.jar COPYING $out/wave
+)
+
+[[ -f $out/protobuf/protobuf.jar ]] || (
+  mkdir -p protobuf
+  cd protobuf
+  # Unfortunately, PST is incompatible with protobuf-2.4.1.
+  #get http://protobuf.googlecode.com/files/ protobuf-2.4.1.zip sha1 e1daabd7c3c509807d357b95c17a4324a91fb546
+  #unzip -o -q protobuf-2.4.1.zip
+  #cd protobuf-2.4.1
+  get http://protobuf.googlecode.com/files/ protobuf-2.3.0.zip sha1 66860a49124633657434cf31e2e9792c92f3c6c7
+  unzip -o -q protobuf-2.3.0.zip
+  cd protobuf-2.3.0
+  ./configure
+  make -j20 -s
+  src/protoc --java_out=java/src/main/java -Isrc src/google/protobuf/descriptor.proto
+  (
+    cd java/src/main/java
+    javac `find . -name \*.java`
+    jar cf ../../../../protobuf.jar .
+  )
+  mkdir -p $out/protobuf
+  cp COPYING.txt $out/protobuf
+  cp protobuf.jar $out/protobuf
+)
+
+[[ -f $out/guava/guava-10.0.1.jar ]] || (
+  dir $out/guava
+  get http://search.maven.org/remotecontent?filepath=com/google/guava/guava-gwt/10.0.1/ guava-gwt-10.0.1.jar sha1 31af27f6f13b66bcd8095313541178e51c78f9e5
+  get http://search.maven.org/remotecontent?filepath=com/google/guava/guava/10.0.1/ guava-10.0.1.jar sha1 292c96f9cb18231528cac4b0bf17d28149d14809
+)
+
+[[ -f $out/antlr/antlr-3.4-complete.jar ]] || (
+  dir $out/antlr
+  get http://www.antlr.org/download/ antlr-3.4-complete.jar sha1 5cab59d859caa6598e28131d30dd2e89806db57f
+)
+
+[[ -f $out/guice/guice-3.0.jar ]] || (
+  dir guice
+  get http://google-guice.googlecode.com/files/ guice-3.0.zip sha1 010556e9792fd5d74f85af233afa2156f233122a
+  unzip -o -q guice-3.0.zip
+  mkdir -p $out/guice
+  cp guice-3.0/*.jar guice-3.0/COPYING $out/guice
+)
+
+[[ -f $out/gson/gson-1.7.1.jar ]] || (
+  dir gson
+  get http://google-gson.googlecode.com/files/ google-gson-1.7.1-release.zip sha1 ac34133111dd7eefcc3810bfbf1f796c003fa2a9
+  unzip -o -q google-gson-1.7.1-release.zip
+  mkdir -p $out/gson
+  cp google-gson-1.7.1/{gson-1.7.1.jar,LICENSE} $out/gson
+)
+
+[[ -f $out/gdata/gdata-base-1.0.jar ]] || (
+  dir gdata
+  get http://gdata-java-client.googlecode.com/files/ gdata-src.java-1.46.0.zip sha1 62ab7fc53fcd91a30d4419f9e8bb31878ae085af
+  unzip -o -q gdata-src.java-1.46.0.zip
+  mkdir -p $out/gdata
+  cp gdata/COPYING $out/gdata
+  cp gdata/java/deps/jsr305.jar $out/gdata
+  cp gdata/java/lib/gdata-{contacts-3.0,core-1.0,client-1.0,base-1.0}.jar $out/gdata
+)
+
+
+[[ -f $out/appengine-mapreduce/appengine-mapper.jar ]] || (
+  dir appengine-mapreduce
+  [[ -d appengine-mapreduce-read-only ]] || (
+    set -x
+    svn co -q http://appengine-mapreduce.googlecode.com/svn/trunk/ appengine-mapreduce-read-only
+  )
+  # TODO(ohler): link our SDK in here
+  cd appengine-mapreduce-read-only/java
+  ant -q dist
+  mkdir -p $out/appengine-mapreduce
+  cp dist/lib/{appengine-mapper,charts4j-1.2,commons-logging-1.1.1,hadoop-0.20.2-core}.jar COPYING NOTICE $out/appengine-mapreduce
+)
+
+[[ -f $out/google-api-client/google-api-client-1.5.0-beta.jar ]] || (
+  dir google-api-java-client
+  get http://google-api-java-client.googlecode.com/files/ google-api-java-client-1.5.0-beta.zip sha1 71e9a1a7f3e6cfbc9d2fbe81f676593802a320a3
+  unzip -o -q google-api-java-client-1.5.0-beta.zip
+  mkdir -p $out/google-api-client
+  cp dependencies/jackson-core-asl-1.6.7.jar $out/google-api-client
+  cp google-{api-client,http-client,http-client-extensions,oauth-client}-1.5.0-beta.jar LICENSE $out/google-api-client
+)
+
+[[ -f $out/joda-time/joda-time-2.0.jar ]] || (
+  dir joda-time
+  get http://downloads.sourceforge.net/project/joda-time/joda-time/2.0/ joda-time-2.0-dist.zip sha1 97e4616d0c9c8e3432ed081841ec0bc767ab0075
+  unzip -o -q joda-time-2.0-dist.zip
+  cd joda-time-2.0
+  mkdir -p $out/joda-time
+  cp joda-time-2.0.jar LICENSE.txt NOTICE.txt $out/joda-time
+)
+
+[[ -f $out/gwt/gwt-user.jar ]] || (
+  dir gwt
+  # GWT downloads are at http://code.google.com/p/google-web-toolkit/downloads/list
+  gwtver=2.4.0
+  get http://google-web-toolkit.googlecode.com/files/ gwt-$gwtver.zip sha1 a91ac20db0ddd5994ac3cbfb0e8061d5bbf66f88
+  unzip -o -q gwt-$gwtver.zip
+  cd gwt-$gwtver
+  mkdir -p $out/gwt
+  cp validation*.jar $out/gwt
+  cp gwt-{dev,user}.jar COPYING $out/gwt
+)
+
+[[ -f $out/junit/junit-4.10.jar ]] || (
+  dir junit
+  get https://github.com/downloads/KentBeck/junit/ junit4.10.zip sha1 2d9663bdfe3079673ff66f1154b42a31b40d8235
+  unzip -o -q junit4.10.zip
+  mkdir -p $out/junit
+  cp junit4.10/junit-4.10.jar $out/junit
+)

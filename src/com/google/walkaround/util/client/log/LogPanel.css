@@ -1,0 +1,102 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Expand to container. */
+.self {
+  position: absolute;
+  top: 0;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+
+  background-color: white;
+  border: 1px solid lightGray;
+}
+
+.header {
+  height: 30px;
+  overflow: auto;
+  border-bottom: 1px solid lightGrey;
+}
+
+.entries {
+  position: absolute;
+  top: 30px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  padding: 10px 5px 50px 5px;
+}
+
+.button {
+  cursor: pointer;
+  float: left;
+  padding: 3px;
+  margin: 3px;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.button.control {
+  border: 1px solid #955;
+  color: #500;
+  background: #fee;
+}
+
+.button.level {
+  border: 1px solid #559;
+  color: #005;
+  background: #eef;
+}
+
+.button.stream {
+  border: 1px solid #595;
+  color: #050;
+  background: #efe;
+}
+
+.button.enabled {
+}
+
+.button.disabled {
+  opacity: 0.3;
+}
+
+.item {
+  margin: 0;  /* Override pre default. */
+}
+
+.item.debug {
+  color: gray;
+}
+
+.item.info {
+  color: black;
+}
+
+.item.warning {
+  color: blue;
+}
+
+.item.severe {
+  color: red;
+  font-weight: bold;
+}

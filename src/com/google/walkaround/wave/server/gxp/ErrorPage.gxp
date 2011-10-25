@@ -1,0 +1,88 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: ohler@google.com (Christian Ohler)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.ErrorPage'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:call='http://google.com/2001/gxp/call'
+  xmlns:gxp='http://google.com/2001/gxp'>
+
+  <gxp:param name='userEmail' type='String'/>
+  <gxp:param name='errorCode' type='String'/>
+  <gxp:param name='userTrusted' type='boolean'/>
+  <gxp:param name='publicMessage' type='String'/>
+  <gxp:param name='internalMessage' type='HtmlClosure'/>
+
+  <style type='text/css'>
+    .main {
+      z-index: 1000;
+    }
+    #panel {
+      padding: 40px 100px;
+    }
+
+    h3.error {
+      margin-top: 0px;
+      color: #800;
+    }
+
+    .message {
+      margin: 20px 0px;
+    }
+
+    .user {
+    }
+  </style>
+  <script type='text/javascript'>
+    var popup;
+
+    function switchUser() {
+      if (popup) {
+        popup.close();
+      }
+
+      var w = 620;
+      var h = 500;
+      var left = screen.width / 2 - w / 2;
+      var top = screen.height / 2 - h / 2;
+      popup = window.open('/logout?switchUser', 'switch',
+          'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top +
+          ',toolbar=0,resizable=1');
+    }
+
+    function success() {
+      window.location.reload(true);
+    }
+  </script>
+  <div id='panel'>
+    <gxp:nomsg>
+      <h3 class='error'>Error <gxp:eval expr='errorCode'/></h3>
+      <div class='message'><strong><gxp:eval expr='publicMessage'/></strong></div>
+    </gxp:nomsg>
+    <span style='font-size:80%'>
+      <call:ReportBugFragment/>
+    </span>
+    <gxp:if cond='userTrusted'>
+      <br/>
+      <!-- The <pre> block is whitespace-sensitive. -->
+      <pre><gxp:eval expr='internalMessage'/></pre>
+    </gxp:if>
+  </div>
+</gxp:template>

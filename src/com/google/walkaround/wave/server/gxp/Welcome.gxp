@@ -1,0 +1,84 @@
+<?xml version='1.0' ?>
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+-->
+<gxp:template name='com.google.walkaround.wave.server.gxp.Welcome'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:call='http://google.com/2001/gxp/call'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:gxp='http://google.com/2001/gxp'
+  xmlns:nomsg='http://google.com/2001/gxp/nomsg'>
+
+  <gxp:param name='token' type='String'/>
+
+  <style type='text/css'>
+    .panel {
+      text-align: center;
+      padding: 50px;
+      height: 400px;
+      width: 330px;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    #new-wave {
+      display: block;
+      text-decoration: none;
+      width: 150px;
+      margin: auto;
+      background: #789e35;
+      background: -webkit-gradient(linear, left top, left bottom, from(#9cb869), to(#789e35));
+      background: -moz-linear-gradient(top, #9cb869, #789e35);
+      box-shadow: 0px 2px 8px #bbb;
+      -moz-box-shadow: 0px 2px 8px #bbb;
+      overflow: hidden;
+      padding: 10px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      color: white;
+      font-size: 1.2em;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .content {
+      margin-bottom: 3em;
+    }
+
+    .reportbug {
+      margin-top: 4em;
+      font-size: .8em;
+    }
+  </style>
+
+  <div class='panel'>
+
+    <div class='content'>
+      <gxp:msg>Welcome to walkaround.</gxp:msg>
+    </div>
+
+    <form method='post' action='inbox'>
+      <input type='hidden' name='action' value='newwave'/>
+      <input type='hidden' name='token' expr:value='token'/>
+      <input id='new-wave' type='submit' value='New wave'/>
+    </form>
+
+  </div>
+
+</gxp:template>

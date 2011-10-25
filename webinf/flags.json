@@ -1,0 +1,39 @@
+/* Flags */
+{
+
+oauth_client_id: '${oauth-client-id}',
+oauth_client_secret: '${oauth-client-secret}',
+analytics_account: '${analytics-id}',
+
+secret: '${secret}',
+
+object_channel_expiration_seconds: 200,
+
+store_server: '${slob-backend-name}',
+num_store_servers: '${num-slob-backends}',
+
+access_cache_expiration_seconds: 45,
+
+enable_udw: true,
+enable_diff_on_open: true,
+
+/* Image file headers are not much more than 50 bytes, this should be plenty */
+attachment_header_bytes_upper_bound: 4096,
+
+/* Don't save thumbnails larger than 50K (entity max size is 1MB).
+   In practice, they should be around 2-3KB each. */
+max_thumbnail_saved_size_bytes: 50000,
+
+/* Client version bumped to 6 because the ChangeData format changed. */
+client_version: 6,
+
+/*
+  2 weeks = 3600 * 24 * 14
+  long time because we don't currently have a mechanism for sending a new token
+  to the client without refreshing the entire page.
+ */
+xsrf_token_expiry_seconds: 1209600,
+
+announcement_html: '${announcement-html}'
+
+}

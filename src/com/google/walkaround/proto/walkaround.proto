@@ -1,0 +1,208 @@
+// Copyright 2011 Google Inc. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Author: piotrkaleta@google.com (Piotr Kaleta)
+// Author: ohler@google.com (Christian Ohler)
+
+syntax = "proto2";
+
+package proto;
+
+import "com/google/walkaround/proto/diff.proto";
+import "com/google/walkaround/proto/extensions.proto";
+import "com/google/walkaround/proto/federation.protodevel";
+
+option java_package = "com.google.walkaround.proto";
+option java_outer_classname = "Walkaround";
+
+message OperationBatch {
+  repeated federation.ProtocolWaveletOperation operation = 1;
+}
+
+// A wavelet and associated metadata.
+message WalkaroundWaveletSnapshot {
+  // Participant id of the creator.
+  required string creator = 1;
+  // Time of creation in millis.
+  required int64 creationTime = 2 [(int52) = true];
+
+  // Current version.
+  required int64 version = 3 [(int52) = true];
+  // Last modification time in millis.
+  required int64 last_modified_time = 4 [(int52) = true];
+
+  // Participant ids.
+  repeated string participant = 5;
+
+  // Snapshots of all the documents.
+  repeated WalkaroundDocumentSnapshot document = 6;
+}
+
+// A document and associated metadata.
+message WalkaroundDocumentSnapshot {
+  // Id of the document.
+  required string documentId = 1;
+
+  // Participant who submitted the first operation to the document.
+  required string author = 2;
+  // All participants who have made changes to the document.
+  repeated string contributor = 3;
+  // Wavelet version when the document was last changed.
+  required int64 last_modified_version = 4 [(int52) = true];
+  // Timestamp when the document was last changed in millis.
+  required int64 last_modified_time = 5 [(int52) = true];
+
+  // Content as a document initialization.
+  required federation.ProtocolDocumentOperation content = 6;
+}
+
+// Wrapper around an operation that has the participant id of the
+// author as well as a timestamp.
+message Delta {
+  // Participant id of the author of the op.
+  required string author = 1;
+  required int64 timestamp_millis = 2;
+  required federation.ProtocolWaveletOperation operation = 3;
+}
+
+// Non-model metadata for a UDW.
+message UdwMetadata {
+  // The object id of the conversation object that this UDW is (intended to be)
+  // associated with.  The UserDataWaveletDirectory is authoritative, however;
+  // if it points to another UDW for this conversation wavelet and owner, then
+  // this UDW is garbage.
+  required string associated_conv_id = 2;
+  // Stable user id of the owner.
+  required string owner = 4;
+  // reserved tags that should not be re-used: 3 (1 was apparently never used)
+}
+
+// Non-model metadata for a wavelet.
+message WaveletMetadata {
+  enum Type {
+    CONV = 0;
+    UDW = 1;
+  }
+  required Type type = 1;
+  // Only set if type is UDW.
+  optional UdwMetadata udw_metadata = 2;
+}
+
+// Information required to access an object.  SignedObjectSession adds
+// a signature to this to make it tamper-proof and not transferrable.
+message ObjectSessionProto {
+  // The object id.
+  required string object_id = 1;
+  // The object store uses client ids to distinguish different clients that are
+  // accessing the same object.  The client id is stored in the mutation log to
+  // detect when a client has submitted the same operation twice, and to allow a
+  // client to detect whether an incoming operation is its own.
+  //
+  // For a given object at a given point in time, this needs to be unique, but
+  // not across objects or across time.  In particular, the server may assign
+  // the same client id to a UDW session as to the corresponding conv session,
+  // but the client should not rely on this.
+  //
+  // TODO(ohler): Understand these client ids better and think more about how
+  // they should be plumbed.  Is it an accident that the server assigns the same
+  // client id to UDW and conv sessions, or does it have to be this way because
+  // of the way we use the channel API?  If it has to be this way, should we
+  // rename this id here (with its documented semantics) to session id, and pass
+  // in the client id separately since it isn't really per-object?  Does a
+  // separation of these two concepts make sense in the ObjectStore API?
+  required string client_id = 2;
+  // The type of object on the server.  Opaque to the client.
+  required string store_type = 3;
+}
+
+// Information required to make authorized requests to access an object.
+message SignedObjectSession {
+  // The session.
+  required ObjectSessionProto session = 1;
+  // HMAC generated and verified by the server.  This is an HMAC of the session,
+  // together with some other information such as timestamp and user id.  Opaque
+  // to the client.
+  required string signature = 2;
+}
+
+// Server's response to a client's request to establish a live connection to an
+// object.  (The initial load is an implicit connection request.)
+message ConnectResponse {
+  required SignedObjectSession signed_session = 1;
+  // signed_session as a string in JSON format.  HACK(ohler): The client can't
+  // re-serialize protobufs once parsed since JsonMessage.toJson() fails with an
+  // NPE since JsonMessage.serializer is apparently null, which shouldn't
+  // happen.  As a workaround, we give the client this string representation in
+  // addition to the parsed representation above.  Let's see if the problem goes
+  // away when we switch to an open-source toolchain (GWT in particular); if
+  // not, we'll have to investigate some more.
+  required string signed_session_string = 99;
+  // If absent, object will not be live.
+  //
+  // TODO(ohler): do we need to sign this?  Should it be in ObjectSessionProto?
+  optional string channel_token = 2;
+  required int64 object_version = 3;
+}
+
+// The set of variables passed from the server to the client in the initial
+// page.
+//
+// For this message type, the numeric tags don't need to be stable over time,
+// since the vars are only parsed when the server sends a new client to the
+// browser, so there is no requirement for different versions of client and
+// server to be compatible.
+message ClientVars {
+
+  message UdwLoadData {
+    required ConnectResponse connect_response = 1;
+    required WalkaroundWaveletSnapshot snapshot = 2;
+  }
+
+  message SuccessVars {
+    required int32 client_version = 1;
+    required int32 random_seed = 2;
+    required string user_email = 3;
+    required bool have_oauth_token = 4;
+
+    required ConnectResponse conv_connect_response = 10;
+    required diff.WaveletDiffSnapshot conv_snapshot = 11;
+
+    // Absent means UDWs are disabled.
+    optional UdwLoadData udw = 20;
+  }
+
+  message ErrorVars {
+    required string error_message = 1;
+  }
+
+  // Exactly one of these must be present.
+  optional SuccessVars success_vars = 1;
+  optional ErrorVars error_vars = 2;
+}
+
+// Server-internal representation of a mutation request including the
+// verified session.
+message ServerMutateRequest {
+  required ObjectSessionProto session = 1;
+  required int64 version = 2;
+  repeated string payload = 3;
+}
+
+// Server-internal response to a mutation request.
+message ServerMutateResponse {
+  required int64 resulting_version = 1;
+  required string broadcast_data = 2;
+  // TODO(ohler): Eliminate this to make this layer Wave-agnostic.
+  required string index_data = 3;
+}

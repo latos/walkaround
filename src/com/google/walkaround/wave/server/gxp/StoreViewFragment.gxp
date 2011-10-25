@@ -1,0 +1,87 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.StoreViewFragment'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:gxp='http://google.com/2001/gxp'>
+
+  <gxp:import class='org.waveprotocol.wave.model.util.Pair'/>
+
+  <gxp:param name='storeType' type='String'/>
+  <gxp:param name='objectId' type='String'/>
+  <gxp:param name='objectVersion' type='String'/>
+  <gxp:param name='historyStart' type='String'/>
+  <gxp:param name='historyEnd' type='String'/>
+  <gxp:param name='history' type='java.util.List{Pair{Long,String}}'/>
+  <gxp:param name='snapshotVersion' type='String'/>
+  <gxp:param name='snapshot' type='String'/>
+
+  <gxp:nomsg>
+  <form method='get' action=''>
+    <table>
+      <tr>
+        <td>store type</td>
+        <td><input name='storeType' expr:value='storeType'/></td>
+      </tr>
+      <tr>
+        <td>object id</td>
+        <td><input name='id' expr:value='objectId'/></td>
+      </tr>
+      <tr>
+        <td>history start</td>
+        <td><input name='historyStart' expr:value='historyStart'/></td>
+      </tr>
+      <tr>
+        <td>history end</td>
+        <td><input name='historyEnd' expr:value='historyEnd'/></td>
+      </tr>
+      <tr>
+        <td>snapshot version</td>
+        <td><input name='snapshotVersion' expr:value='snapshotVersion'/></td>
+      </tr>
+    </table>
+    <input type='submit' value='Fetch'/>
+  </form>
+
+  <br/>
+  Object <gxp:eval expr='objectId'/> is at <gxp:eval expr='objectVersion'/>
+  <br/>
+  <br/>
+  Snapshot at <gxp:eval expr='snapshotVersion'/>:
+  <br/>
+  <gxp:eval expr='snapshot'/>
+  <br/>
+  <br/>
+  <br/>
+  <table>
+    <gxp:loop var='item' type='Pair{Long,String}' iterable='history'>
+      <tr>
+        <td>
+          <gxp:eval expr='item.getFirst()'/>
+        </td>
+        <td>
+          <gxp:eval expr='item.getSecond().toString()'/>
+        </td>
+      </tr>
+    </gxp:loop>
+  </table>
+  </gxp:nomsg>
+</gxp:template>

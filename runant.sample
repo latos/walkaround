@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Sample shell script for invoking ant.
+# Copy to a new file and fill in the values below.
+# To keep the secrets secret, don't share your runant script.
+
+#            01234567890123456789
+ant -Dsecret=<a random secret string, 20 chars long> \
+    -Dapp-id=your-app-id \
+    -Dapp-version=1 \
+    -Doauth-client-id=your-oauth-client-id \
+    -Doauth-client-secret=your-oauth-client-secret \
+    "$@"

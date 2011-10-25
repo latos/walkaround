@@ -1,0 +1,62 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.Admin'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:call='http://google.com/2001/gxp/call'
+  xmlns:gxp='http://google.com/2001/gxp'>
+
+  <gxp:param name='analyticsAccount' type='String'/>
+  <gxp:param name='content' type='HtmlClosure'/>
+
+  <gxp:nomsg>
+  <!-- Generate doctype to trigger standards mode -->
+  <html gxp:doctype='transitional'>
+    <head>
+      <meta http-equiv='Content-type' content='text/html;charset=UTF-8'/>
+      <title>Admin Walkaround</title>
+      <style type='text/css'>
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+        }
+      </style>
+      <call:AnalyticsFragment expr:account='analyticsAccount'/>
+    </head>
+    <body>
+      <h4>Admin</h4>
+      <div>
+          <a href='/admin/buildinfo'>Buildinfo</a> |
+          <a href='/admin/flags'>Flags</a> |
+          <a href='/admin/appstats'>AppStats</a> |
+          <a href='/admin/mapreduce/status'>Mapreduce</a> |
+          <a href='/admin/clearmemcache'>Clear memcache</a> |
+          <a href="/admin/storeview">View Object</a> |
+          ...
+      </div>
+      <div>
+        <gxp:eval expr='content'/>
+      </div>
+    </body>
+  </html>
+  </gxp:nomsg>
+</gxp:template>

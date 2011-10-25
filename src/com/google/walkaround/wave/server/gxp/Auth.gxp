@@ -1,0 +1,145 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.Auth'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:call='http://google.com/2001/gxp/call'
+  xmlns:gxp='http://google.com/2001/gxp'>
+
+  <gxp:param name='authUrl' type='String'/>
+  <gxp:param name='redirectUrl' type='String'/>
+  <gxp:param name='userEmail' type='String'/>
+
+  <style type='text/css'>
+    html, body {
+      font-family: sans-serif;
+    }
+
+    #error-message {
+      padding: 1em;
+      border: 2px solid #FC0;
+      background: #FFE475;
+    }
+
+    .panel {
+      text-align: center;
+      padding: 80px;
+      height: 400px;
+      width: 530px;
+      margin: auto;
+      overflow: hidden;
+
+      padding-top: 40px;
+    }
+
+    #enable-button {
+      display: block;
+      text-decoration: none;
+      width: 150px;
+      margin: auto;
+      background: #68E;
+      background: -webkit-gradient(linear, left top, left bottom, from(#8AE), to(#68E));
+      background: -moz-linear-gradient(top, #8AE, #68E);
+      box-shadow: 0px 2px 8px #bbb;
+      -moz-box-shadow: 0px 2px 8px #bbb;
+      overflow: hidden;
+      padding: 10px;
+      border-radius: 2px;
+      -moz-border-radius: 2px;
+      color: white;
+      font-size: 1.2em;
+      text-align: center;
+      cursor: pointer;
+
+      margin-bottom: 2em;
+    }
+
+    #content {
+      margin-top: 1.5em;
+      margin-bottom: 2.5em;
+      font-size: .9em;
+    }
+  </style>
+  <script type="text/javascript">
+    var popup;
+
+    function authwindow() {
+      if (popup) {
+        popup.close();
+      }
+
+      var w = 500;
+      var h = 500;
+      var left = screen.width / 2 - w / 2;
+      var top = screen.height / 2 - h / 2;
+      popup = window.open(<gxp:eval expr='authUrl'/>, 'authenticate',
+          'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top +
+          ',toolbar=0,resizable=1');
+    }
+
+    function success() {
+      $('error-message').style.display = 'none';
+      $('auth-page').style.display='none';
+      $('loading-page').style.display='';
+      window.location.href = <gxp:eval expr='redirectUrl'/>;
+    }
+
+    function error(message){
+      $('error-message').style.display = '';
+      setInnerText($('error-message'), message);
+    }
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+    function setInnerText(e, t) {
+      if ('innerText' in e) {
+        e.innerText = t;
+      } else {
+        e.textContent = t;
+      }
+    }
+  </script>
+  <div id='loading-page' style='display:none'>
+    <gxp:msg>Loading...</gxp:msg>
+  </div>
+  <div id='auth-page'>
+    <div class='panel'>
+      <h4><gxp:msg>Enable optional features</gxp:msg></h4>
+
+      <div id='content'>
+        <gxp:msg>
+          <p>User names and pictures</p>
+          <!-- The word "manual" here is an attempt to avoid giving
+               the user the impression that waves will be imported as
+               soon as the button is clicked, which might not be what
+               they want and scare them away. -->
+          <p>Wave import (manual)</p>
+        </gxp:msg>
+      </div>
+
+      <div id="enable-button" onclick="authwindow()"><gxp:msg>Enable</gxp:msg></div>
+
+      <div id='error-message' style='display:none'></div>
+    </div>
+  </div>
+</gxp:template>

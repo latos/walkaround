@@ -1,0 +1,157 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Author: ohler@google.com (Christian Ohler)
+
+syntax = "proto2";
+
+package google_import_proto;
+
+import "com/google/walkaround/proto/extensions.proto";
+import "com/google/walkaround/proto/federation.protodevel";
+
+option java_package = "com.google.walkaround.proto";
+option java_outer_classname = "GoogleImport";
+
+// Protobuf for wavelet metadata without documents.
+message GoogleWavelet {
+  required string wave_id = 1;
+  required string wavelet_id = 2;
+  required string creator = 3;
+  required int64 creation_time_millis = 4;
+  repeated string participant = 5;
+  // Current version number.
+  required int64 version = 7;
+  // Time of last modification, the timestamp of the last WaveDelta applied to
+  // this wavelet. Note that this is different from the lastModifiedTime of a
+  // document, which is not necessarily the timestamp of the last delta applying
+  // to that document.
+  required int64 last_modified_time_millis = 8;
+}
+
+message GoogleDocument {
+  // Identifier of document (unique within wavelet).
+  required string document_id = 1;
+  // Participant who submitted the first operation to the document.
+  required string author = 2;
+  // Last modified time (milliseconds).  May not be up-to-date for data
+  // documents.
+  required int64 last_modified_time_millis = 3;
+  // List of participants that modified the document in the past.  May
+  // be missing for data documents.
+  repeated string contributor = 7;
+  optional int64 last_modified_version = 15;
+  required GoogleDocumentContent content = 16;
+}
+
+// These look similar to what's used in the federation protocol but are subtly
+// different; the definitions here are for intializations while the federation
+// protocol has operations, and some tag numbers differ.
+//
+// Also, it's the right thing to have our own independent definition here anyway
+// because the encoding used in googlewave.com's APIs will not change even if
+// the federation protocol evolves.
+message GoogleDocumentContent {
+
+  message KeyValuePair {
+    required string key = 1;
+    required string value = 2;
+  }
+
+  message KeyValueUpdate {
+    required string key = 1;
+    // Absent field means that the attribute was absent/the annotation was null.
+    optional string old_value = 2;
+    // Absent field means that the attribute should be removed/the annotation
+    // should be set to null.
+    optional string new_value = 3;
+  }
+
+  message ElementStart {
+    required string type = 1;
+    // Attributes must be sorted by key according to Java's way of sorting
+    // Strings.  Must not have two pairs with the same key.
+    repeated KeyValuePair attribute = 2;
+  }
+
+  message AnnotationBoundary {
+    // This field is set to true if and only if both ends and changes are empty.
+    // It is needed to ensure that the optional annotation_boundary field of
+    // Component is not dropped during serialization; if it were dropped, the
+    // entire Component would be empty, and it would be impossible to tell that
+    // it represents an AnnotationBoundary.
+    optional bool empty = 1;
+    // Must not have the same string twice.
+    repeated string end = 2;
+    // Must not have two updates with the same key.  None of the keys must be
+    // listed in the 'end' field.
+    repeated KeyValueUpdate change = 3;
+  }
+
+  // A component of a document initialization.  One (and only one) of the
+  // component types must be set.
+  message Component {
+    optional AnnotationBoundary annotation_boundary = 1;
+    optional string characters = 2;
+    optional ElementStart element_start = 4;
+    optional bool element_end = 5;
+  }
+
+  repeated Component component = 2;
+}
+
+
+// A digest as returned from Wave's robot API.
+message RobotSearchDigest {
+  required string wave_id = 1;
+  repeated string participant = 2;
+  required string title = 3;
+  required string snippet = 4;
+  required int64 last_modified_millis = 5;
+  required int32 blip_count = 6;
+  required int32 unread_blip_count = 7;
+}
+
+// Task to find waves to import.
+message FindRemoteWavesTask {
+  // Source instance in serialized form.
+  required string instance = 1;
+  // Beginning of time period to search in days since Unix epoch.  Inclusive.
+  required int64 on_or_after_days = 2;
+  // End of time period to search in days since Unix epoch.  Exclusive.
+  required int64 before_days = 3;
+}
+
+// Task to import a wave.
+message ImportWaveTask {
+  // Source instance in serialized form.
+  required string instance = 1;
+  // Wave to import (including all private replies).
+  required string wave_id = 2;
+}
+
+// An import task scheduled for execution through the task queue.  We
+// store these in the datastore (rather than storing them in the task
+// queue payload) so that we can query and display the list of pending
+// tasks.  The payload of the task queue task is merely a pointer to
+// this payload in the datastore.
+message ImportTaskPayload {
+  // User id and task id are implicit in the datastore key/parent key.
+
+  // Exactly one of the following fields must be set.
+  optional FindRemoteWavesTask find_waves_task = 1;
+  optional ImportWaveTask import_wave_task = 2;
+}

@@ -1,0 +1,47 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.UploadResult'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:call='http://google.com/2001/gxp/call'
+  xmlns:gxp='http://google.com/2001/gxp'>
+
+  <gxp:param name='analyticsAccount' type='String'/>
+  <gxp:param name='attachmentId' type='String'/>
+
+  <html>
+    <head>
+      <title><gxp:msg>Upload Result</gxp:msg></title>
+      <script type='text/javascript'>
+        <gxp:cond>
+          <gxp:clause cond='attachmentId != null'>
+            window._attachmentId = <gxp:eval expr='attachmentId'/>;
+          </gxp:clause>
+        </gxp:cond>
+      </script>
+      <call:AnalyticsFragment expr:account='analyticsAccount'/>
+    </head>
+    <body>
+      <!-- for debuggability -->
+      <gxp:eval expr='attachmentId'/>
+    </body>
+  </html>
+</gxp:template>

@@ -1,0 +1,145 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.Client'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:call='http://google.com/2001/gxp/call'
+  xmlns:gxp='http://google.com/2001/gxp'>
+
+  <gxp:param name='analyticsAccount' type='String'/>
+  <gxp:param name='vars' type='org.json.JSONObject'/>
+  <gxp:param name='gwtBootstrap' type='HtmlClosure'/>
+  <gxp:param name='channelApiUrl' type='String'/>
+
+  <html>
+    <head>
+      <meta http-equiv='Content-type' content='text/html;charset=UTF-8'/>
+      <meta name='gwt:property' content='locale=en'/>
+      <title><gxp:msg>Walkaround</gxp:msg></title>
+      <style type='text/css'>
+        /* Full screen box. */
+        body {
+          position: absolute;
+          margin: 0;
+          padding: 0;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          font-family: arial;
+          font-size: small;
+          background-color: #fafafa;
+        }
+
+        #initialContainer {
+          position: absolute;
+          left: 0;
+          right: 0;
+          /* top: 115px; */
+          /* top: 50px; */
+          top: 5px;
+          bottom: 0;
+        }
+
+        /* Fixed-width and horizontally centered, in a way that works on IE. */
+        #initialHtml {
+          position: absolute;
+          left: 50%;
+          right: 50%;
+          top: 0;
+          bottom: 0;
+          border: 1px solid lightGrey;
+          border-top: none;
+          /* Expand out of the center line, aiming for a width of ~90 chars. */
+          margin-left: -350px;
+          margin-right: -350px;
+          background-color: white;
+
+          transition: all 400ms ease-in-out;
+          -moz-transition: all 400ms ease-in-out;
+          -webkit-transition: all 400ms ease-in-out;
+        }
+
+        #savedStateContainer {
+          text-align: right;
+          position: absolute;
+          right: 0;
+        }
+
+        #logHolder {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 0;
+          bottom: 0;
+
+          transition: all 400ms ease-in-out;
+          -moz-transition: all 400ms ease-in-out;
+          -webkit-transition: all 400ms ease-in-out;
+        }
+
+        .debug-menu {
+          position: absolute;
+          border: 1px solid #164FB0;
+          z-index: 10000;
+        }
+
+        .debug-menu a {
+          display: block;
+          cursor: pointer;
+        }
+
+        .debug-menu a:hover {
+          color: red;
+        }
+      </style>
+      <script type="text/javascript" expr:src='channelApiUrl'></script>
+      <script type="text/javascript">
+        function enableAvatars() {
+          window.location.href = "/enable?originalRequest=" + escape(window.location.href);
+        }
+      </script>
+      <call:AnalyticsFragment expr:account='analyticsAccount'/>
+    </head>
+    <body>
+
+      <div id='initialContainer'>
+        <div id='savedStateContainer'/>
+        <div id='enableAvatarsButton' style='display:none'>
+          <a href='javascript:enableAvatars()'>
+            <gxp:msg>Enable user names and pictures</gxp:msg>
+          </a>
+        </div>
+        <div id='initialHtml'><gxp:msg>Loading...</gxp:msg></div>
+        <div id='logHolder' style='display:none'/>
+      </div>
+      <!-- HACK(danilatos): It would be simpler to say <body spellcheck='false'>
+           above, but GXP doesn't allow that. If there's a better way I'd like to know. -->
+      <script type='text/javascript'>
+        document.body.setAttribute('spellcheck', 'false');
+      </script>
+
+      <script type='text/javascript'>var __vars = <gxp:eval expr='vars'/></script>
+
+      <gxp:eval expr='gwtBootstrap'/>
+    </body>
+  </html>
+</gxp:template>

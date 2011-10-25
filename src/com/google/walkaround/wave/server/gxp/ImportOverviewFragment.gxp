@@ -1,0 +1,179 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: ohler@google.com (Christian Ohler)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.ImportOverviewFragment'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:gxp='http://google.com/2001/gxp'
+  xmlns:nomsg='http://google.com/2001/gxp/nomsg'>
+
+  <gxp:import class='com.google.walkaround.wave.server.gxp.ImportWaveDisplayRecord'/>
+  <gxp:import class='java.util.List'/>
+
+  <gxp:param name='userEmail' type='String'/>
+  <gxp:param name='token' type='String'/>
+  <gxp:param name='instanceSelectionHtml' type='HtmlClosure'/>
+  <gxp:param name='tasksInProgress' type='List{String}'/>
+  <gxp:param name='waveRecords' type='List{ImportWaveDisplayRecord}'/>
+
+  <style type='text/css'>
+    .main {
+      z-index: 1000;
+    }
+    #panel {
+      padding: 10px 40px;
+    }
+    table {
+      border-collapse: collapse;
+      font-size: 90%;
+      table-layout: fixed;
+      width: 100%;
+      border-bottom: 1px solid lightgray;
+    }
+    td {
+      padding: 10px;
+      overflow: hidden;
+    }
+    th {
+      border-bottom: 1px solid lightgray;
+      font-weight: bold;
+      border-top: 1px solid lightgray;
+      border-bottom: 1px solid lightgray;
+      padding: 10px;
+      text-align: left;
+    }
+    .titlecolumn {
+      width: 40%;
+    }
+  </style>
+
+  <div id='panel'>
+    <h3><gxp:msg>Import status for</gxp:msg> <gxp:eval expr='userEmail'/></h3>
+
+    <gxp:if cond='!tasksInProgress.isEmpty()'>
+      <h4><gxp:msg>Import in progress</gxp:msg></h4>
+      <gxp:eval expr='tasksInProgress.size()'/> <gxp:msg>tasks in progress (reload page
+        to update)</gxp:msg>
+      <!-- This option can cause data loss, so it should probably
+           not exist or be more hidden; but for now, it's useful for
+           debugging. -->
+      <form method='post' action='import'>
+        <input type='hidden' name='action' value='canceltasks'/>
+        <input type='hidden' name='token' expr:value='token'/>
+        <input type='submit' value='cancel all tasks (!)'/>
+      </form>
+      <ol>
+        <gxp:loop var='task' type='String' iterable='tasksInProgress'>
+          <li><gxp:eval expr='task'/></li>
+        </gxp:loop>
+      </ol>
+      <br/>
+      <br/>
+    <gxp:else/>
+      <gxp:msg>No import tasks in progress</gxp:msg>
+      <br/>
+      <br/>
+    </gxp:if>
+
+    <gxp:if cond='!waveRecords.isEmpty()'>
+      <h4><gxp:msg>Remote waves</gxp:msg></h4>
+      <p>
+        <gxp:if cond='tasksInProgress.isEmpty()'>
+          <gxp:eval expr='waveRecords.size()'/> <gxp:msg>remote waves</gxp:msg>
+        <gxp:else/>
+          <gxp:eval expr='waveRecords.size()'/> <gxp:msg>remote waves found so far</gxp:msg>
+        </gxp:if>
+        <!-- This option can cause data loss, so it should probably
+             not exist or be more hidden; but for now, it's useful for
+             debugging. -->
+        <form method='post' action='import'>
+          <input type='hidden' name='action' value='forgetwaves'/>
+          <input type='hidden' name='token' expr:value='token'/>
+          <input type='submit' value='forget all remote waves (!)'/>
+        </form>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th><gxp:msg>Origin</gxp:msg></th>
+            <th><gxp:msg>Creator</gxp:msg></th>
+            <th class='titlecolumn'><gxp:msg>Title</gxp:msg></th>
+            <th><gxp:msg>Last modified</gxp:msg></th>
+            <th><gxp:msg>Import status</gxp:msg></th>
+            <th><gxp:msg>Link to imported wave</gxp:msg></th>
+            <th><gxp:msg>Action</gxp:msg></th>
+          </tr>
+        </thead>
+        <tbody>
+          <gxp:loop var='record' type='ImportWaveDisplayRecord' iterable='waveRecords'>
+            <tr>
+              <td>
+                <a expr:href='record.getLinkToOriginal()' target='_blank'>
+                  <gxp:eval expr='record.getInstance().getShortName()'/>
+                </a>
+              </td>
+              <td><gxp:eval expr='record.getCreator()'/></td>
+              <td><gxp:eval expr='record.getTitle()'/></td>
+              <td><gxp:eval expr='record.getLastModifiedDate()'/></td>
+              <td><gxp:eval expr='record.getStatus()'/></td>
+              <td>
+                <gxp:if cond='record.getLinkToImported() != null'>
+                  <a expr:href='record.getLinkToImported()' target='_blank'>
+                    <gxp:msg>link</gxp:msg>
+                  </a>
+                </gxp:if>
+              </td>
+              <td>
+                <gxp:if cond='record.isImportable()'>
+                  <form method='post' action='import'>
+                    <input type='hidden' name='action' value='importwave'/>
+                    <input type='hidden' name='instance'
+                           expr:value='record.getInstance().serialize()'/>
+                    <input type='hidden' name='waveid' expr:value='record.getWaveId().serialise()'/>
+                    <input type='hidden' name='token' expr:value='token'/>
+                    <input type='submit' value='import'/>
+                  </form>
+                </gxp:if>
+              </td>
+            </tr>
+          </gxp:loop>
+        </tbody>
+      </table>
+      <br/>
+      <br/>
+    </gxp:if>
+
+    <form method='post' action='import'>
+      <h4><gxp:msg>Start new import</gxp:msg></h4>
+      <gxp:msg>Find waves to import</gxp:msg>
+      <br/>
+      <!-- GXP won't let us <gxp:eval> inside <input>, and I can't get
+           form:form to work, and I can't get html:html to work.  So
+           we include an HTML snippet generated by hand-written
+           servlet code. -->
+      <gxp:eval expr='instanceSelectionHtml'/>
+      <input type='hidden' name='action' value='findwaves'/>
+      <input type='hidden' name='token' expr:value='token'/>
+      <input type='submit' value='Begin import'/>
+    </form>
+
+  </div>
+
+</gxp:template>
