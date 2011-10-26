@@ -178,7 +178,7 @@ public class WaveObjectStoreModel implements SlobModel {
 
       List<String> ret = Lists.newArrayListWithCapacity(clientOps.length);
       for (int i = 0; i < clientOps.length; i++) {
-        ret.add(serializer.serializeOperation(clientOps[i]));
+        ret.add(serializer.serializeDelta(clientOps[i]));
       }
 
       return ret;
