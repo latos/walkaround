@@ -197,7 +197,7 @@ dir third_party_src
 
 [[ -f $out/junit/junit-4.10.jar ]] || (
   dir junit
-  get https://github.com/downloads/KentBeck/junit/ junit4.10.zip sha1 2d9663bdfe3079673ff66f1154b42a31b40d8235
+  get http://cloud.github.com/downloads/KentBeck/junit/ junit4.10.zip sha1 2d9663bdfe3079673ff66f1154b42a31b40d8235
   unzip -o -q junit4.10.zip
   mkdir -p $out/junit
   cp junit4.10/junit-4.10.jar $out/junit
