@@ -18,7 +18,7 @@
 <backends>
   <backend name="${slob-backend-name}">
     <instances>${num-slob-backends}</instances>
-    <class>B4</class>
+    <class>${slob-backend-class}</class>
     <max-concurrent-requests>50</max-concurrent-requests>
   </backend>
 </backends>
