@@ -22,6 +22,7 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.common.net.UriEscapers;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 
 import java.io.IOException;
@@ -48,11 +49,17 @@ public class ServletAuthHelper {
 
   private final AccountStore accountStore;
   private final UserContext userContext;
-  private final User user;
+  // Provider so that this helper can be instantiated for task queue handlers
+  // (where we have no User); serve() doesn't need the User as long as an
+  // AccountStore.Record is present.  TODO(ohler): This is convoluted, find a
+  // better factoring.  Should probably replace AccountLookup with a method to
+  // provide StableUserId and e-mail, and do the account store lookup in this
+  // helper.
+  private final Provider<User> user;
 
   @Inject ServletAuthHelper(AccountStore accountStore,
       UserContext userContext,
-      User user) {
+      Provider<User> user) {
     this.accountStore = accountStore;
     this.userContext = userContext;
     this.user = user;
@@ -117,8 +124,8 @@ public class ServletAuthHelper {
      * Extracts the user id from the request and reads and returns the
      * corresponding account store record.
      *
-     * A null return value is equivalent to throwing
-     * {@link NeedNewOAuthTokenException}.
+     * A null return value indicates that a new account store record should be
+     * created based on App Engine's {@link User} object.
      */
     @Nullable AccountStore.Record getAccount() throws PermanentFailure, IOException;
   }
@@ -169,8 +176,8 @@ public class ServletAuthHelper {
         throw new IOException("PermanentFailure getting account information", e);
       }
       if (record == null) {
-        userContext.setUserId(new StableUserId(user.getUserId()));
-        userContext.setParticipantId(ParticipantId.ofUnsafe(user.getEmail()));
+        userContext.setUserId(new StableUserId(user.get().getUserId()));
+        userContext.setParticipantId(ParticipantId.ofUnsafe(user.get().getEmail()));
       } else {
         populateContext(record);
       }

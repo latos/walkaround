@@ -140,6 +140,9 @@ public class ImportOverviewHandler extends AbstractHandler {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    if (!userContext.hasOAuthCredentials()) {
+      throw new NeedNewOAuthTokenException("No OAuth credentials: " + userContext);
+    }
     Pair<List<String>, List<ImportWaveDisplayRecord>> pair;
     try {
       pair = new RetryHelper().run(
@@ -178,7 +181,7 @@ public class ImportOverviewHandler extends AbstractHandler {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     if (!userContext.hasOAuthCredentials()) {
-      throw new NeedNewOAuthTokenException("No OAuth credentials: " + userContext);
+      throw new NeedNewOAuthTokenException("POST with no OAuth credentials: " + userContext);
     }
     try {
       xsrfHelper.verify(XSRF_ACTION, requireParameter(req, "token"));
