@@ -33,9 +33,7 @@
 
   <set-property name="loglevel" value="none"/>
 
-  <!-- Only build supported clients. -->
-  <set-property name="user.agent" value="safari,gecko1_8,ie6,ie8"/>
-  <set-property name="mobile.user.agent" value="not_mobile"/>
+  <set-property name="user.agent" value="safari,gecko1_8,ie6,ie8,opera"/>
 
   <!-- For now, we emulate stack traces for Chrome, which otherwise only provides
        the top few (~10) stack frames. The performance hit doesn't seem to be very
@@ -43,4 +41,11 @@
   <set-property name="compiler.emulatedStack" value="true">
     <when-property-is name="user.agent" value="safari"/>
   </set-property>
+
+  <!-- Hack to get Opera to work. -->
+  <replace-with class="org.waveprotocol.wave.client.common.util.UserAgentStaticProperties.FirefoxImpl">
+    <when-type-is class="org.waveprotocol.wave.client.common.util.UserAgentStaticProperties"/>
+    <when-property-is name="user.agent" value="opera"/>
+  </replace-with>
+
 </module>
