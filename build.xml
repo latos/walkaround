@@ -433,7 +433,7 @@
        ant -e. -->
   <target name="run" depends="war"
       description="Starts the development server.">
-    <dev_appserver war="${build.war}" port="8080">
+    <dev_appserver war="${build.war}" port="8080" address="0.0.0.0">
       <options>
         <arg value="--jvm_flag=-XX:+ClassUnloading"/>
       </options>
