@@ -76,7 +76,9 @@ public class FindRemoteWavesProcessor {
     this.random = random;
   }
 
-  private static final int MAX_RESULTS = 300;
+  // This used to be 300 but has been raised.  Some of the comments elsewhere in
+  // the code probably still assume 300.
+  private static final int MAX_RESULTS = 10000;
 
   private String getQueryDateRestriction(String facet, long dateDays) {
     LocalDate date = DaysSinceEpoch.toLocalDate(dateDays);
@@ -202,8 +204,16 @@ public class FindRemoteWavesProcessor {
     }
   }
 
+  // Transaction limit is 500 entities but let's stay well below that.
+  private static final int MAX_DIGESTS_PER_TRANSACTION = 300;
+
   private void storeResults(final SourceInstance instance, final List<RobotSearchDigest> results)
       throws PermanentFailure {
+    if (results.size() > MAX_DIGESTS_PER_TRANSACTION) {
+      storeResults(instance, results.subList(0, MAX_DIGESTS_PER_TRANSACTION));
+      storeResults(instance, results.subList(MAX_DIGESTS_PER_TRANSACTION, results.size()));
+      return;
+    }
     new RetryHelper().run(
         new RetryHelper.VoidBody() {
           @Override public void run() throws RetryableFailure, PermanentFailure {
