@@ -68,7 +68,16 @@ public class OAuthInterstitialHandler extends AbstractHandler {
     String userEmail = user.getEmail();
     String originalRequest = requireParameter(req, "originalRequest");
     String authorizeUrl =
-        new GoogleAuthorizationRequestUrl(clientId, callbackPath, oAuthScopes).build();
+        new GoogleAuthorizationRequestUrl(clientId, callbackPath, oAuthScopes).build()
+        // TODO(ohler): Find out if GoogleAuthorizationRequestUrl offers an API
+        // to do this rather than appending the literal string.  Also consider
+        // using server-side auto-approval rather than offline access ("perform
+        // these operations when I'm not using the application") since that's
+        // scary -- but import is meant to be able to run in the background over
+        // a few hours, so maybe we do need it.
+        // http://googlecode.blogspot.com/2011/10/upcoming-changes-to-oauth-20-endpoint.html
+        // has more details.
+        + "&access_type=offline&approval_prompt=force";
 
     log.info("userEmail=" + userEmail
         + ", originalRequest=" + originalRequest
