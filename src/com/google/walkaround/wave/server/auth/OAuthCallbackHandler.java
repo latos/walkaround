@@ -115,8 +115,12 @@ public class OAuthCallbackHandler extends AbstractHandler {
     String refreshToken = authResponse.refreshToken;
     String accessToken = authResponse.accessToken;
 
-    if (refreshToken == null || accessToken == null) {
-      writeRegularError(req, resp, "Error gaining authorization");
+    if (refreshToken == null) {
+      writeRegularError(req, resp, "Error gaining authorization: no refresh token");
+      return;
+    }
+    if (accessToken == null) {
+      writeRegularError(req, resp, "Error gaining authorization: no access token");
       return;
     }
 
