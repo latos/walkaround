@@ -64,15 +64,16 @@ public class HistorySynthesizer {
   public HistorySynthesizer() {
   }
 
-  private WaveletOperationContext getContext(String author, long timestampMillis) {
+  private static WaveletOperationContext getContext(String author, long timestampMillis) {
     return new WaveletOperationContext(ParticipantId.ofUnsafe(author), timestampMillis, 1);
   }
 
-  private WaveletOperation newNoOp(String author, long timestampMillis) {
+  private static WaveletOperation newNoOp(String author, long timestampMillis) {
     return new NoOp(getContext(author, timestampMillis));
   }
 
-  private WaveletOperation newAddParticipant(String author, long timestampMillis, String userId) {
+  public static WaveletOperation newAddParticipant(
+      String author, long timestampMillis, String userId) {
     return new AddParticipant(getContext(author, timestampMillis), ParticipantId.ofUnsafe(userId));
   }
 

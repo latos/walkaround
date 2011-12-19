@@ -18,6 +18,7 @@ package com.google.walkaround.wave.server.googleimport;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.walkaround.proto.GoogleImport.GoogleDocument;
 import com.google.walkaround.proto.GoogleImport.GoogleWavelet;
@@ -37,6 +38,7 @@ import org.waveprotocol.wave.model.id.WaveletId;
 import org.waveprotocol.wave.model.id.WaveletName;
 import org.waveprotocol.wave.model.operation.wave.WaveletOperation;
 import org.waveprotocol.wave.model.util.Pair;
+import org.waveprotocol.wave.model.wave.ParticipantId;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,14 +57,17 @@ public class ImportWaveProcessor {
   private final RobotApi.Factory robotApiFactory;
   private final SourceInstance.Factory sourceInstanceFactory;
   private final WaveletCreator waveletCreator;
+  private final ParticipantId importingUser;
 
   @Inject
   public ImportWaveProcessor(RobotApi.Factory robotApiFactory,
       SourceInstance.Factory sourceInstanceFactory,
-      WaveletCreator waveletCreator) {
+      WaveletCreator waveletCreator,
+      ParticipantId importingUser) {
     this.robotApiFactory = robotApiFactory;
     this.sourceInstanceFactory = sourceInstanceFactory;
     this.waveletCreator = waveletCreator;
+    this.importingUser = importingUser;
   }
 
   /** Nindo converter for conversational wavelets. */
@@ -102,12 +107,12 @@ public class ImportWaveProcessor {
   }
 
   private List<WaveletOperation> convertConvHistory(List<WaveletOperation> in) {
-    ImmutableList.Builder<WaveletOperation> out = ImmutableList.builder();
+    List<WaveletOperation> out = Lists.newArrayList();
     WaveletHistoryConverter m = new WaveletHistoryConverter(CONV_NINDO_CONVERTER);
     for (WaveletOperation op : in) {
       out.add(m.convertAndApply(op));
     }
-    return out.build();
+    return out;
   }
 
   public void importWave(ImportWaveTask task) throws IOException, PermanentFailure {
@@ -132,6 +137,13 @@ public class ImportWaveProcessor {
         history = new HistorySynthesizer().synthesizeHistory(wavelet, documents);
         log.info("Synthesized history: " + history);
         history = convertConvHistory(history);
+        if (!wavelet.getParticipantList().contains(importingUser.getAddress())) {
+          log.info(
+              importingUser + " is not a participant, adding: " + wavelet.getParticipantList());
+          history.add(
+              HistorySynthesizer.newAddParticipant(importingUser.getAddress(),
+                  wavelet.getLastModifiedTimeMillis(), importingUser.getAddress()));
+        }
         log.info("Converted synthesized history: " + history);
         log.info("" + waveletCreator.newConvWithGeneratedId(history));
       } catch (InvalidInputException e) {
@@ -142,7 +154,6 @@ public class ImportWaveProcessor {
       // TODO(ohler): import attachments
       // TODO(ohler): make imported wave links work
       // TODO(ohler): make imported waves recognizable as imported
-      // TODO(ohler): add the importer as an explicit participant since groups don't work
     }
   }
 
