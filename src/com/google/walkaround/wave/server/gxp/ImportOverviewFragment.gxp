@@ -160,9 +160,9 @@
       <br/>
     </gxp:if>
 
-    <h4><gxp:msg>Start new import</gxp:msg></h4>
+    <h3><gxp:msg>Start new import</gxp:msg></h3>
     <form method='post' action='import'>
-      <gxp:msg>Please select instance:</gxp:msg>
+      <b><gxp:msg>Find waves to import</gxp:msg></b>
       <br/>
       <gxp:eval expr='instanceSelectionHtml'/>
       <!-- GXP won't let us <gxp:eval> inside <input>, and I can't get
@@ -174,14 +174,16 @@
       <input type='submit' value='Find waves to import'/>
     </form>
 
+
+    <br/>
+    <b><gxp:msg>Import wave by ID</gxp:msg></b>
     <form method='post' action='import'>
-      <gxp:msg>Please select instance:</gxp:msg>
+      <input type='hidden' name='action' value='importwave'/>
+      <input type='hidden' name='token' expr:value='token'/>
+      Wave ID: <input name='waveid'/>
       <br/>
       <gxp:eval expr='instanceSelectionHtml'/>
-      <input type='hidden' name='action' value='importwave' />
-      <input type='hidden' name='token' expr:value='token' /> 
-      <input type='submit' value='Import by Wave Id' />
-      <input name='waveid' value='' /> 
+      <input type='submit' value='Import wave'/>
     </form>
   </div>
 

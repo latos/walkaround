@@ -46,7 +46,7 @@ public class DefaultModule extends AbstractModule {
         return "https://www-opensocial.googleusercontent.com/api/rpc";
       }
       @Override public String getShortName() { return "googlewave.com"; }
-      @Override public String getLongName() { return "googlewave.com public instance"; }
+      @Override public String getLongName() { return "googlewave.com"; }
       @Override public String getWaveLink(WaveId waveId) {
         return "https://wave.google.com/wave/waveref/"
             + JavaWaverefEncoder.encodeToUriPathSegment(WaveRef.of(waveId));
@@ -57,7 +57,7 @@ public class DefaultModule extends AbstractModule {
         return "https://www-opensocial-sandbox.googleusercontent.com/api/rpc";
       }
       @Override public String getShortName() { return "wavesandbox.com"; }
-      @Override public String getLongName() { return "wavesandbox.com public developer instance"; }
+      @Override public String getLongName() { return "wavesandbox.com developer sandbox"; }
       @Override public String getWaveLink(WaveId waveId) {
         // TODO(ohler): test this
         return "https://www.wavesandbox.com/wave/waveref/"
