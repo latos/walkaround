@@ -8,7 +8,7 @@
 	<classpathentry kind="lib" path="build/proto"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 
-	<classpathentry kind="lib" path="appengine-sdk/appengine-java-sdk-1.5.5/lib/testing/appengine-testing.jar"/>
+	<classpathentry kind="lib" path="appengine-sdk/appengine-java-sdk-1.6.1/lib/testing/appengine-testing.jar"/>
 	<classpathentry kind="lib" path="third_party/gson/gson-1.7.1.jar"/>
 	<classpathentry kind="lib" path="third_party/joda-time/joda-time-2.0.jar"/>
 	<classpathentry kind="lib" path="third_party/antlr/antlr-3.4-complete.jar"/>
