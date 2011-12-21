@@ -39,12 +39,12 @@ import com.google.walkaround.util.shared.RandomBase64Generator;
 
 import org.waveprotocol.wave.model.util.Pair;
 
+import javax.annotation.Nullable;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
-
-import javax.annotation.Nullable;
 
 /**
  * Datastore (and other app enginy things) backed implementation.
@@ -62,7 +62,6 @@ public class SlobStoreImpl implements SlobStore {
   private final SlobMessageRouter messageRouter;
   private final AffinityMutationProcessor defaultProcessor;
   private final AccessChecker accessChecker;
-  private final PostMutateHook postMutateHook;
   private final PreCommitHook preCommitHook;
 
   @Inject
@@ -73,14 +72,12 @@ public class SlobStoreImpl implements SlobStore {
       AffinityMutationProcessor defaultProcessor,
       LocalMutationProcessor localProcessor,
       AccessChecker accessChecker,
-      PostMutateHook postMutateHook,
       PreCommitHook preCommitHook) {
     this.datastore = datastore;
     this.mutationLogFactory = mutationLogFactory;
     this.messageRouter = messageRouter;
     this.defaultProcessor = defaultProcessor;
     this.accessChecker = accessChecker;
-    this.postMutateHook = postMutateHook;
     this.preCommitHook = preCommitHook;
   }
 
@@ -140,7 +137,7 @@ public class SlobStoreImpl implements SlobStore {
   }
 
   @Override
-  public String loadAtVersion(SlobId objectId, long version)
+  public String loadAtVersion(SlobId objectId, @Nullable Long version)
       throws IOException, AccessDeniedException {
     accessChecker.checkCanRead(objectId);
     try {
@@ -202,9 +199,6 @@ public class SlobStoreImpl implements SlobStore {
         "Can't create objects with mutateObject()");
     ServerMutateResponse response = defaultProcessor.mutateObject(req);
     MutateResult result = new MutateResult(response.getResultingVersion(), response.getIndexData());
-    // Sending the broadcast message is not critical, so run the
-    // postMutateHook first.
-    postMutateHook.run(objectId, result);
     if (response.getBroadcastData() != null) {
       messageRouter.publishMessages(objectId, response.getBroadcastData());
     }

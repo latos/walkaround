@@ -18,7 +18,6 @@ package com.google.walkaround.wave.server.udw;
 
 import com.google.inject.PrivateModule;
 import com.google.walkaround.slob.server.AccessChecker;
-import com.google.walkaround.slob.server.PostMutateHook;
 import com.google.walkaround.slob.server.PreCommitHook;
 import com.google.walkaround.slob.server.StoreModuleHelper;
 import com.google.walkaround.slob.shared.SlobId;
@@ -52,7 +51,6 @@ public class UdwStoreModule extends PrivateModule {
           @Override public void checkCanModify(SlobId objectId) {}
           @Override public void checkCanCreate(SlobId objectId) {}
         });
-    bind(PostMutateHook.class).toInstance(PostMutateHook.NO_OP);
     bind(PreCommitHook.class).toInstance(PreCommitHook.NO_OP);
   }
 

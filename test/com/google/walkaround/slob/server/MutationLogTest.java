@@ -76,7 +76,7 @@ public class MutationLogTest extends TestCase {
         // accept any payload, do nothing with it
       }
 
-      public String getIndexedHtml() {
+      public String getIndexedContent() {
         throw new AssertionError("Not implemented");
       }
     }

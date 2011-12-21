@@ -28,6 +28,8 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.google.appengine.api.search.IndexManager;
+import com.google.appengine.api.search.IndexManagerFactory;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.urlfetch.URLFetchService;
@@ -42,26 +44,24 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
+import com.google.walkaround.slob.server.MutationLog;
 import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendInstanceCount;
 import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendName;
-import com.google.walkaround.slob.server.MutationLog;
-import com.google.walkaround.slob.server.SlobManager;
 import com.google.walkaround.slob.server.SlobMessageRouter.SlobChannelExpirationSeconds;
 import com.google.walkaround.util.server.Util;
 import com.google.walkaround.util.server.auth.DigestUtils2.Secret;
 import com.google.walkaround.util.server.flags.FlagDeclaration;
 import com.google.walkaround.util.server.flags.FlagFormatException;
 import com.google.walkaround.util.server.flags.JsonFlags;
-import com.google.walkaround.util.server.gwt.StackTraceDeobfuscator.SymbolMapsDirectory;
 import com.google.walkaround.util.server.gwt.ZipSymbolMapsDirectory;
-import com.google.walkaround.util.shared.RandomBase64Generator.RandomProvider;
+import com.google.walkaround.util.server.gwt.StackTraceDeobfuscator.SymbolMapsDirectory;
 import com.google.walkaround.util.shared.RandomProviderAdapter;
+import com.google.walkaround.util.shared.RandomBase64Generator.RandomProvider;
 import com.google.walkaround.wave.server.auth.OAuthInterstitialHandler.Scopes;
 import com.google.walkaround.wave.server.conv.PermissionCache.PermissionCacheExpirationSeconds;
 import com.google.walkaround.wave.server.googleimport.ImportTaskQueue;
 import com.google.walkaround.wave.server.model.LegacyDeltaEntityConverter;
 import com.google.walkaround.wave.server.model.ServerMessageSerializer;
-import com.google.walkaround.wave.server.wavemanager.WaveManager;
 import com.google.walkaround.wave.shared.MessageSerializer;
 
 import java.io.File;
@@ -110,7 +110,6 @@ public class WalkaroundServerModule extends AbstractModule {
     bind(Key.get(Queue.class, ImportTaskQueue.class)).toInstance(QueueFactory.getQueue("import"));
 
     bind(MessageSerializer.class).to(ServerMessageSerializer.class);
-    bind(SlobManager.class).to(WaveManager.class);
     bind(MutationLog.DeltaEntityConverter.class).to(LegacyDeltaEntityConverter.class);
 
     JsonFlags.bind(binder(), Arrays.asList(FlagName.values()),
@@ -197,6 +196,12 @@ public class WalkaroundServerModule extends AbstractModule {
   @Provides
   BackendService provideBackendService() {
     return BackendServiceFactory.getBackendService();
+  }
+
+  @Singleton
+  @Provides
+  IndexManager provideIndexManager() {
+    return IndexManagerFactory.newIndexManager();
   }
 
   @Provides

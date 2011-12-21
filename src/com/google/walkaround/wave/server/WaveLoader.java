@@ -51,12 +51,12 @@ import org.waveprotocol.wave.model.wave.data.impl.ObservablePluggableMutableDocu
 import org.waveprotocol.wave.model.wave.data.impl.WaveletDataImpl;
 import org.waveprotocol.wave.model.wave.opbased.OpBasedWavelet;
 
+import javax.annotation.Nullable;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
-
-import javax.annotation.Nullable;
 
 /**
  * Handles loading waves.
@@ -187,7 +187,7 @@ public class WaveLoader {
 
     long convVersion = convResult.getVersion();
     if (convVersion != convWavelet.getVersion()) {
-      throw new AssertionError("ConnectResult revision " + convVersion +
+      throw new AssertionError("ConnectResult version " + convVersion +
           " does not match wavelet version " + convWavelet.getVersion());
     }
 

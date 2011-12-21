@@ -396,7 +396,7 @@ public class MutationLog {
     // queue task.  That would make indexing reliable and avoid polluting this
     // API with SlobManager concerns like indexing.
     public String getIndexedHtml() {
-      return state.getState().getIndexedHtml();
+      return state.getState().getIndexedContent();
     }
 
     /**

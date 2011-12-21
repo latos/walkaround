@@ -24,4 +24,13 @@
       <task-age-limit>3d</task-age-limit>
     </retry-parameters>
   </queue>
+  <queue>
+    <name>index</name>
+    <!-- TODO(danilatos): Determine proper values for these parameters -->
+    <rate>100/s</rate>
+    <bucket-size>100</bucket-size>
+    <retry-parameters>
+      <task-age-limit>3d</task-age-limit>
+    </retry-parameters>
+  </queue>
 </queue-entries>

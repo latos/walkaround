@@ -21,7 +21,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.Query;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -33,9 +32,8 @@ import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
-import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedIterator;
-import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.util.server.appengine.DatastoreUtil;
+import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.util.shared.Assert;
 import com.google.walkaround.wave.server.conv.ConvStore;
 import com.google.walkaround.wave.server.model.WaveObjectStoreModel.ReadableWaveletObject;
@@ -43,16 +41,15 @@ import com.google.walkaround.wave.server.model.WaveObjectStoreModel.ReadableWave
 import org.waveprotocol.wave.model.util.ValueUtils;
 import org.waveprotocol.wave.model.wave.ParticipantId;
 
+import javax.annotation.Nullable;
+
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.annotation.Nullable;
-
 /**
- * Manages indexing and ACL storage.
+ * Manages ACL storage.
  *
  * @author ohler@google.com (Christian Ohler)
  */
@@ -242,22 +239,4 @@ public class WaveIndex {
     log.info("Index entry for " + objectId + ": " + result);
     return result;
   }
-
-  // TODO(ohler): make this scalable, e.g. by adding pagination
-  public List<IndexEntry> getAllWaves(ParticipantId participantId)
-      throws RetryableFailure, PermanentFailure {
-    log.info("getAllWaves(" + participantId + ")");
-    CheckedIterator i = datastore.prepareNontransactionalQuery(new Query(INDEX_ENTITY_KIND)
-        .addFilter(ACL_PROPERTY, Query.FilterOperator.EQUAL, participantId.getAddress())
-        .addSort(LAST_MODIFIED_MILLIS_PROPERTY, Query.SortDirection.DESCENDING))
-        .asIterator();
-    ImmutableList.Builder<IndexEntry> b = ImmutableList.builder();
-    while (i.hasNext()) {
-      b.add(parseEntity(i.next()));
-    }
-    List<IndexEntry> out = b.build();
-    log.info("got " + out.size() + " waves");
-    return out;
-  }
-
 }

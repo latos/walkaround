@@ -42,7 +42,7 @@ public interface SlobModel {
     /**
      * Returns text to be indexed for search purposes.
      */
-    String getIndexedHtml();
+    String getIndexedContent();
   }
 
   /**

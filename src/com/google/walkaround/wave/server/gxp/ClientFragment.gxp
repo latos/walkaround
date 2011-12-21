@@ -1,0 +1,41 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: danilatos@google.com (Daniel Danilatos)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.ClientFragment'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:gxp='http://google.com/2001/gxp'
+  xmlns:nomsg='http://google.com/2001/gxp/nomsg'>
+ 
+  <gxp:param name='announcementHtml' type='HtmlClosure'/>
+ 
+  <gxp:if cond='announcementHtml != null'>
+    <div id='announcement'><gxp:eval expr='announcementHtml'/></div>
+    <p/>
+  </gxp:if>
+ 
+  <div style='float:left; width: 49%'>
+    <iframe style='width: 50%' src='/inbox'/>
+  </div>
+  <div style='float:left; width: 49%'>
+    <iframe style='width: 50%' name='wave'/>
+  </div>
+  <div style='clear:both'></div>
+</gxp:template>

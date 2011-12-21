@@ -28,7 +28,6 @@
   <gxp:import class='java.util.List'/>
 
   <gxp:param name='token' type='String'/>
-  <gxp:param name='announcementHtml' type='HtmlClosure'/>
   <gxp:param name='waveRecords' type='List{InboxDisplayRecord}'/>
 
   <style type='text/css'>
@@ -90,15 +89,15 @@
 
   <div id='panel'>
 
-    <gxp:if cond='announcementHtml != null'>
-      <div id='announcement'><gxp:eval expr='announcementHtml'/></div>
-      <p/>
-    </gxp:if>
-
-    <form method='post' action='inbox'>
+    <form method='post' action='inbox' target='wave'>
       <input type='hidden' name='action' value='newwave'/>
       <input type='hidden' name='token' expr:value='token'/>
       <input id='new-wave' type='submit' value='New wave'/>
+    </form>
+
+    <form method='get' action='inbox'>
+      <input type='text' name='q' value=''/>
+      <input type='submit' value='Search'/>
     </form>
 
     <gxp:if cond='waveRecords.isEmpty()'>
@@ -120,7 +119,7 @@
             <tr>
               <td><gxp:eval expr='record.getCreator()'/></td>
               <td>
-                <a expr:href='record.getLink()' target='_blank'>
+                <a expr:href='record.getLink()' target='wave'>
                   <gxp:if
                      cond='record.getTitle().isEmpty() &amp;&amp; record.getSnippet().isEmpty()'>
                     <i><gxp:msg>no title</gxp:msg></i>
