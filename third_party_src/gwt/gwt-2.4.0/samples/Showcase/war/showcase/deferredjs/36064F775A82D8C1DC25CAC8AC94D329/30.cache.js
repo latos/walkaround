@@ -1,0 +1,2 @@
+function jMb(){var a,b,c;b=new ajc;Fwc(b.R,FRc,'cwFlowPanel');for(c=0;c<30;++c){a=new dbc(c_c+c);Pe(a.R,'cw-FlowPanel-checkBox',true);v9b(b,a,b.R)}return b}
+_=nMb.prototype;_.fc=function rMb(){oqb(this.b,jMb())};DRc(Hj)(30);

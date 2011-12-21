@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive
+END
+RobotConnector.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/RobotConnector.java
+END
+Robot.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/Robot.java
+END
+RobotOperationApplicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/RobotOperationApplicator.java
+END
+WaveletAndDeltas.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/WaveletAndDeltas.java
+END
+WaveletOperationInverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/WaveletOperationInverter.java
+END
+EventGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/EventGenerator.java
+END
+RobotsGateway.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/RobotsGateway.java
+END
+OperationServiceRegistryImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/passive/OperationServiceRegistryImpl.java
+END

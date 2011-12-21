@@ -1,0 +1,353 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util
+END
+AnnotationRegistry.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/AnnotationRegistry.java
+END
+DocOpScrub.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocOpScrub.java
+END
+DocProviders.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocProviders.java
+END
+MuteDocEventRouter.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/MuteDocEventRouter.java
+END
+GenericAnnotationCursor.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/GenericAnnotationCursor.java
+END
+FocusedRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/FocusedRange.java
+END
+ElementStyleView.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/ElementStyleView.java
+END
+DocHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocHelper.java
+END
+PointRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/PointRange.java
+END
+RangeTracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/RangeTracker.java
+END
+DocCompare.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocCompare.java
+END
+DocumentListenerRegistry.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocumentListenerRegistry.java
+END
+DefaultDocEventRouter.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DefaultDocEventRouter.java
+END
+RangedAnnotationImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/RangedAnnotationImpl.java
+END
+FocusedPointRange.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/FocusedPointRange.java
+END
+RawElementStyleView.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/RawElementStyleView.java
+END
+AnnotationBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/AnnotationBuilder.java
+END
+ContextProviders.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/ContextProviders.java
+END
+DocIterate.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocIterate.java
+END
+LocalAnnotationSetImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/LocalAnnotationSetImpl.java
+END
+WritableLocalDocument.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/WritableLocalDocument.java
+END
+Property.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/Property.java
+END
+DocPredicate.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocPredicate.java
+END
+ReadableDocumentView.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/ReadableDocumentView.java
+END
+DocumentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocumentParser.java
+END
+Range.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/Range.java
+END
+DomOperationUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DomOperationUtil.java
+END
+DocumentOperationCodePrinter.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocumentOperationCodePrinter.java
+END
+XmlStringBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/XmlStringBuilder.java
+END
+DocumentImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocumentImpl.java
+END
+GenericRangedAnnotationIterable.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/GenericRangedAnnotationIterable.java
+END
+AnnotationIntervalImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/AnnotationIntervalImpl.java
+END
+DocEventRouter.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocEventRouter.java
+END
+TextLocator.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/TextLocator.java
+END
+RepaintingPersistentContent.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/RepaintingPersistentContent.java
+END
+LineContainers.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/LineContainers.java
+END
+ListenerRegistration.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/ListenerRegistration.java
+END
+TextExtractor.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/TextExtractor.java
+END
+DocumentEventRouter.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocumentEventRouter.java
+END
+NodeNotFoundException.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/NodeNotFoundException.java
+END
+DocumentContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocumentContext.java
+END
+GenericAnnotationIntervalIterable.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/GenericAnnotationIntervalIterable.java
+END
+ElementManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/ElementManager.java
+END
+IdentityView.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/IdentityView.java
+END
+XmlStringBuilderDoc.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/XmlStringBuilderDoc.java
+END
+AnnotationRegistryImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/AnnotationRegistryImpl.java
+END
+ReadableTreeWalker.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/ReadableTreeWalker.java
+END
+FilterProduct.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/FilterProduct.java
+END
+DefaultDocumentEventRouter.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DefaultDocumentEventRouter.java
+END
+Pretty.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/Pretty.java
+END
+FilteredView.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/FilteredView.java
+END
+DocumentProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/DocumentProvider.java
+END
+LocalDocument.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/LocalDocument.java
+END
+Point.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/Point.java
+END
+MutableDocumentProxy.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/MutableDocumentProxy.java
+END
+PersistentContent.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/PersistentContent.java
+END
+EmptyDocument.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/EmptyDocument.java
+END
+Annotations.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/document/util/Annotations.java
+END

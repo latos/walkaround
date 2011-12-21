@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content
+END
+PassiveSelectionHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/PassiveSelectionHelper.java
+END
+CaretMovementHelperWebkitImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/CaretMovementHelperWebkitImpl.java
+END
+SelectionUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/SelectionUtil.java
+END
+AggressiveSelectionHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/AggressiveSelectionHelper.java
+END
+SelectionHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/SelectionHelper.java
+END
+ValidSelectionStrategy.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/ValidSelectionStrategy.java
+END
+CaretMovementHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/CaretMovementHelper.java
+END
+CaretMovementHelperImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/selection/content/CaretMovementHelperImpl.java
+END

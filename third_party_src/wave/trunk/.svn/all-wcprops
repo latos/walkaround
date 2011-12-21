@@ -1,0 +1,155 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/asf/!svn/ver/1185789/incubator/wave/trunk
+END
+.project_template
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/.project_template
+END
+build-macros.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build-macros.xml
+END
+run-server.sh
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/run-server.sh
+END
+jaas.config
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/jaas.config
+END
+process-script-args.sh
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/process-script-args.sh
+END
+server.federation.config.example
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/server.federation.config.example
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/.project
+END
+build-common.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build-common.xml
+END
+build-proto.properties.example
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build-proto.properties.example
+END
+run-client-console.sh
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/run-client-console.sh
+END
+server.federation.config
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/server.federation.config
+END
+check-certificates.sh
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/check-certificates.sh
+END
+build.properties
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build.properties
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/README
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build.xml
+END
+build-proto.xml
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build-proto.xml
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/.classpath
+END
+make_cert.sh
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/make_cert.sh
+END
+request_codereview
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/request_codereview
+END
+server.config.example
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/server.config.example
+END
+issue_exporter.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/issue_exporter.py
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/COPYING
+END
+server-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/server-config.xml
+END
+build-libraries-proto.xml
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build-libraries-proto.xml
+END
+build-classpath.xml
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/build-classpath.xml
+END

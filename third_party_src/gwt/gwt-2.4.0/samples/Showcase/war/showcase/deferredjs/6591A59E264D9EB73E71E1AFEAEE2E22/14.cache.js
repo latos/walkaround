@@ -1,0 +1,7 @@
+function Lob(){}
+function Pob(){}
+function Qob(a){this.a=a}
+function Mob(a,b){this.a=a;this.b=b}
+function Hob(a){var b,c,d;b=fpc(ul(a.a.Q,BFc));c=fpc(ul(a.b.Q,BFc));d=fpc(ul(a.c.Q,BFc));g$b(a.d,"Utilisateur '"+b+"' a de s\xE9curit\xE9 '"+c+"' et ne peuvent acc\xE9der aux '"+d+JBc)}
+function Gob(a){var b,c,d,e,f,g;d=new j1b;b=iP(d.j,90);d.o[VDc]=5;g=y8(tW);e=new ZUb(g);Je(e,new Mob(a,g),(dq(),dq(),cq));f=new n3b;f.e[VDc]=3;k3b(f,new q$b(DGc));k3b(f,e);c1b(d,0,0,f);t1b(b,0)[jGc]=2;_0b(d,1,0,'<b>Message mod\xE8le:<\/b>');_0b(d,1,1,"Utilisateur '{0}' a de s\xE9curit\xE9 '{1}' et ne peuvent acc\xE9der aux '{2}'");a.a=new k7b;$6b(a.a,'amelie');_0b(d,2,0,NGc);c1b(d,2,1,a.a);a.b=new k7b;$6b(a.b,'guest');_0b(d,3,0,'<b>Param\xE8tre {1}:<\/b>');c1b(d,3,1,a.b);a.c=new k7b;$6b(a.c,'/secure/blueprints.xml');_0b(d,4,0,'<b>Param\xE8tre {2}:<\/b>');c1b(d,4,1,a.c);a.d=new o$b;_0b(d,5,0,HGc);c1b(d,5,1,a.d);y1b(b,5,0,(E2b(),D2b));c=new Qob(a);Je(a.a,c,(Zq(),Zq(),Yq));Je(a.b,c,Yq);Je(a.c,c,Yq);Hob(a);return d}
+_=Mob.prototype=Lob.prototype=new Y;_.gC=function Nob(){return gW};_.oc=function Oob(a){q8(this.a,this.b+nGc)};_.cM={22:1,44:1};_.a=null;_.b=null;_=Qob.prototype=Pob.prototype=new Y;_.gC=function Rob(){return hW};_.qc=function Sob(a){Hob(this.a)};_.cM={27:1,44:1};_.a=null;_=Tob.prototype;_.ac=function Xob(){U8(this.b,Gob(this.a))};var tW=Pnc(ZEc,'ErrorMessages'),gW=Nnc(ZEc,'CwMessagesExample$1'),hW=Nnc(ZEc,'CwMessagesExample$2');eAc(tj)(14);

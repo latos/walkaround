@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/client
+END
+MergingSequence.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/client/MergingSequence.java
+END
+OperationQueue.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/client/OperationQueue.java
+END
+ServerConnection.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/client/ServerConnection.java
+END
+ConcurrencyControl.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/client/ConcurrencyControl.java
+END
+ServerConnectionListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/client/ServerConnectionListener.java
+END

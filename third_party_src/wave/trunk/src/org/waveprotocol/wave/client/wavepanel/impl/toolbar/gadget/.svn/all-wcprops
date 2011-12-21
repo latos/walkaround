@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/gadget
+END
+GadgetSelectorWidget.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/gadget/GadgetSelectorWidget.java
+END
+GadgetInfoWidget.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/gadget/GadgetInfoWidget.ui.xml
+END
+GadgetInfoWidget.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/gadget/GadgetInfoWidget.java
+END
+GadgetSelectorWidget.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/gadget/GadgetSelectorWidget.ui.xml
+END

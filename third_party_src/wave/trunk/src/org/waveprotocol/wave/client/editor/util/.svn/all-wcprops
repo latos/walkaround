@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/util
+END
+EditorAnnotationUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/util/EditorAnnotationUtil.java
+END
+EditorDocFormatter.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/util/EditorDocFormatter.java
+END
+PaddingBundle.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/util/PaddingBundle.java
+END
+EditorDocHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/util/EditorDocHelper.java
+END
+AnnotationBehaviourLogic.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/util/AnnotationBehaviourLogic.java
+END
+NodeMutationDelegator.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/util/NodeMutationDelegator.java
+END

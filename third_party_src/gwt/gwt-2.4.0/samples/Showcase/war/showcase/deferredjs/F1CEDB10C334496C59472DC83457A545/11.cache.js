@@ -1,0 +1,10 @@
+function Q9(){}
+function Oab(){}
+function Sab(){}
+function Tab(a){this.b=a}
+function S9(){this.b=new bkc}
+function Pab(a,b){this.b=a;this.c=b}
+function Kab(b){var a,c,d;d=rcc(am(b.b.R,Rsc));if(ecc(d,snc)){bWb(b.d,'<Please enter a method name above>')}else{try{c=R9(b.c,d);bWb(b.d,c)}catch(a){a=kU(a);if(MC(a,149)){bWb(b.d,'<Not found>')}else throw a}}}
+function Jab(a){var b,c,d,e,f;a.c=new S9;c=new jQb;b=KC(c.k,89);c.p[jrc]=5;f=BX(VI);d=new ZHb(f);Xe(d,new Pab(a,f),(Lq(),Lq(),Kq));e=new pSb;e.f[jrc]=3;mSb(e,new qNb(xtc));mSb(e,d);cQb(c,0,0,e);tQb(b,0)[ytc]=2;a.b=new nWb;bWb(a.b,vtc);Fe(a.b,Htc);_Pb(c,1,0,'<b>Name of method:<\/b>');cQb(c,1,1,a.b);a.d=new nWb;OHb(a.d,false);Fe(a.d,Htc);_Pb(c,2,0,'<b>Lookup results:<\/b>');cQb(c,2,1,a.d);Xe(a.b,new Tab(a),(Fr(),Fr(),Er));Kab(a);return c}
+function R9(a,b){var c;c=KC(a.b.dd(b),1);if(c!=null){return c}if(ecc(b,utc)){a.b.fd(utc,Stc);return Stc}if(ecc(b,Mtc)){a.b.fd(Mtc,Utc);return Utc}if(ecc(b,Jtc)){a.b.fd(Jtc,Ptc);return Ptc}if(ecc(b,Ktc)){a.b.fd(Ktc,Qtc);return Qtc}if(ecc(b,Ntc)){a.b.fd(Ntc,Vtc);return Vtc}if(ecc(b,Ltc)){a.b.fd(Ltc,Ttc);return Ttc}if(ecc(b,vtc)){a.b.fd(vtc,Otc);return Otc}if(ecc(b,wtc)){a.b.fd(wtc,Rtc);return Rtc}throw new jlc("Cannot find constant '"+b+"'; expecting a method name")}
+_=S9.prototype=Q9.prototype=new Y;_.gC=function T9(){return UI};_=Pab.prototype=Oab.prototype=new Y;_.gC=function Qab(){return dJ};_.wc=function Rab(a){tX(this.b,this.c+Gtc)};_.cM={22:1,44:1};_.b=null;_.c=null;_=Tab.prototype=Sab.prototype=new Y;_.gC=function Uab(){return eJ};_.yc=function Vab(a){Kab(this.b)};_.cM={27:1,44:1};_.b=null;_=Wab.prototype;_.fc=function $ab(){XX(this.c,Jab(this.b))};var UI=Zac(osc,'ColorConstants_'),VI=_ac(osc,'ColorConstants'),dJ=Zac(osc,'CwConstantsWithLookupExample$1'),eJ=Zac(osc,'CwConstantsWithLookupExample$2');qnc(Hj)(11);

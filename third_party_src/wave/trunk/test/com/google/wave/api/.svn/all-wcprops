@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api
+END
+ElementRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/ElementRobotTest.java
+END
+AnnotationRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/AnnotationRobotTest.java
+END
+GadgetRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/GadgetRobotTest.java
+END
+AnnotationsRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/AnnotationsRobotTest.java
+END
+FormElementRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/FormElementRobotTest.java
+END
+UtilRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/UtilRobotTest.java
+END
+TagsRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/TagsRobotTest.java
+END
+BlipIteratorRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/BlipIteratorRobotTest.java
+END
+ImageRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/ImageRobotTest.java
+END
+AbstractRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/AbstractRobotTest.java
+END
+OperationQueueRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/OperationQueueRobotTest.java
+END
+BlipRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/BlipRobotTest.java
+END
+WaveletRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/WaveletRobotTest.java
+END
+AttachmentRobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/AttachmentRobotTest.java
+END

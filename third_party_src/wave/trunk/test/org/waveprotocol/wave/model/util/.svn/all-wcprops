@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util
+END
+Utf16UtilTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/Utf16UtilTest.java
+END
+EvaluableOffsetListTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/EvaluableOffsetListTest.java
+END
+ObservableMapImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/ObservableMapImplTest.java
+END
+FuzzingBackOffSchedulerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/FuzzingBackOffSchedulerTest.java
+END
+DocumentEventRouterTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/DocumentEventRouterTestBase.java
+END
+TitleExtractorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/TitleExtractorTest.java
+END
+ConcurrentListTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/ConcurrentListTest.java
+END
+FuzzingBackOffGeneratorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/FuzzingBackOffGeneratorTest.java
+END
+CharBase64Test.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/CharBase64Test.java
+END
+ChainedDataTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/ChainedDataTest.java
+END
+DefaultDocumentEventRouterTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/DefaultDocumentEventRouterTest.java
+END
+FilteredViewTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/FilteredViewTest.java
+END
+PairTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/PairTest.java
+END
+ValueUtilsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/ValueUtilsTest.java
+END
+CopyOnWriteSetTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/CopyOnWriteSetTest.java
+END
+ConcurrentSetTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/util/ConcurrentSetTest.java
+END

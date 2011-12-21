@@ -1,0 +1,7 @@
+function lTb(){}
+function pTb(){}
+function qTb(a){this.a=a}
+function mTb(a,b){this.a=a;this.b=b}
+function hTb(a){var b,c,d;b=QTc(tl(a.a.Q,I8c));c=QTc(tl(a.b.Q,I8c));d=QTc(tl(a.c.Q,I8c));Psc(a.d,"User '"+b+"' has security clearance '"+c+"' and cannot access '"+d+t4c)}
+function gTb(a){var b,c,d,e,f,g;d=new Svc;b=Egb(d.j,90);d.o[$6c]=5;g=$Cb(Vob);e=new Gnc(g);Ie(e,new mTb(a,g),(oq(),oq(),nq));f=new Wxc;f.e[$6c]=3;Txc(f,new Zsc(q9c));Txc(f,e);Lvc(d,0,0,f);awc(b,0)[r9c]=2;Ivc(d,1,0,s9c);Ivc(d,1,1,"User '{0}' has security clearance '{1}' and cannot access '{2}'");a.a=new TBc;HBc(a.a,'amelie');Ivc(d,2,0,t9c);Lvc(d,2,1,a.a);a.b=new TBc;HBc(a.b,'guest');Ivc(d,3,0,u9c);Lvc(d,3,1,a.b);a.c=new TBc;HBc(a.c,'/secure/blueprints.xml');Ivc(d,4,0,v9c);Lvc(d,4,1,a.c);a.d=new Xsc;Ivc(d,5,0,Z9c);Lvc(d,5,1,a.d);fwc(b,5,0,(lxc(),kxc));c=new qTb(a);Ie(a.a,c,(ir(),ir(),hr));Ie(a.b,c,hr);Ie(a.c,c,hr);hTb(a);return d}
+_=mTb.prototype=lTb.prototype=new Y;_.gC=function nTb(){return Iob};_.oc=function oTb(a){SCb(this.a,this.b+z9c)};_.cM={22:1,44:1};_.a=null;_.b=null;_=qTb.prototype=pTb.prototype=new Y;_.gC=function rTb(){return Job};_.qc=function sTb(a){hTb(this.a)};_.cM={27:1,44:1};_.a=null;_=tTb.prototype;_.ac=function xTb(){uDb(this.b,gTb(this.a))};var Vob=ySc(e8c,'ErrorMessages'),Iob=wSc(e8c,'CwMessagesExample$1'),Job=wSc(e8c,'CwMessagesExample$2');P2c(sj)(14);

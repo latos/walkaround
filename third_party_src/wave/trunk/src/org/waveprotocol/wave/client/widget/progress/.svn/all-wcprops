@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/progress
+END
+ProgressWidget.css
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/progress/ProgressWidget.css
+END
+Progress.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/progress/Progress.gwt.xml
+END
+progress_mini_groove.gif
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/progress/progress_mini_groove.gif
+END
+ProgressWidget.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/progress/ProgressWidget.java
+END
+progress_mini_bar.gif
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/progress/progress_mini_bar.gif
+END

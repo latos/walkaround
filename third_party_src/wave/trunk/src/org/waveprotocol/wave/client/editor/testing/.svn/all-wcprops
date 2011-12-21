@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing
+END
+ContentSerialisationUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/ContentSerialisationUtil.java
+END
+FakeEditorEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/FakeEditorEvent.java
+END
+FakeEditorContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/FakeEditorContext.java
+END
+StubDocumentOperationSink.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/StubDocumentOperationSink.java
+END
+StubSelectionHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/StubSelectionHelper.java
+END
+FakeUser.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/FakeUser.java
+END
+DocumentFreeSelectionHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/DocumentFreeSelectionHelper.java
+END
+MockTypingSink.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/MockTypingSink.java
+END
+TestEditors.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/TestEditors.java
+END
+TestInlineDoodad.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/TestInlineDoodad.java
+END
+Testing.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/testing/Testing.gwt.xml
+END

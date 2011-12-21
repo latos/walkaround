@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations
+END
+ParticipantServicesTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/ParticipantServicesTest.java
+END
+SearchServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/SearchServiceTest.java
+END
+WaveletSetTitleServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/WaveletSetTitleServiceTest.java
+END
+DocumentModifyServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/DocumentModifyServiceTest.java
+END
+DoNothingServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/DoNothingServiceTest.java
+END
+NotifyOperationServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/NotifyOperationServiceTest.java
+END
+BlipOperationServicesTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/BlipOperationServicesTest.java
+END
+CreateWaveletServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/CreateWaveletServiceTest.java
+END
+FetchWaveServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/FetchWaveServiceTest.java
+END
+FetchProfilesServiceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/operations/FetchProfilesServiceTest.java
+END

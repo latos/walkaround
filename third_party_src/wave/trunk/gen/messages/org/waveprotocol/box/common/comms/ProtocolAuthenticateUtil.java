@@ -1,0 +1,58 @@
+/**
+ * Copyright 2010 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.waveprotocol.box.common.comms;
+
+import org.waveprotocol.box.common.comms.ProtocolAuthenticate.*;
+import org.waveprotocol.wave.communication.Blob;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * Compares {@link ProtocolAuthenticate}s for equality.
+ *
+ * Generated from org/waveprotocol/box/common/comms/waveclient-rpc.proto. Do not edit.
+ */
+public final class ProtocolAuthenticateUtil {
+  private ProtocolAuthenticateUtil() {
+  }
+
+  /** Returns true if m1 and m2 are structurally equal. */
+  public static boolean isEqual(ProtocolAuthenticate m1, ProtocolAuthenticate m2) {
+    if (!m1.getToken().equals(m2.getToken())) return false;
+    return true;
+  }
+
+  /** Returns true if m1 and m2 are equal according to isEqual. */
+  public static boolean areAllEqual(List<? extends ProtocolAuthenticate> m1,
+  List<? extends ProtocolAuthenticate> m2) {
+    if (m1.size() != m2.size()) return false;
+    Iterator<? extends ProtocolAuthenticate> i1 = m1.iterator();
+    Iterator<? extends ProtocolAuthenticate> i2 = m2.iterator();
+    while (i1.hasNext()) {
+      if (!isEqual(i1.next(), i2.next())) return false;
+    }
+    return true;
+  }
+
+  /** Returns a structural hash code of message. */
+  public static int getHashCode(ProtocolAuthenticate message) {
+    int result = 1;
+    result = (31 * result) + message.getToken().hashCode();
+    return result;
+  }
+
+}

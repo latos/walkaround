@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/data
+END
+ElementSerializerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/data/ElementSerializerTest.java
+END
+ApiViewTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/data/ApiViewTest.java
+END
+DocumentHitIteratorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/com/google/wave/api/data/DocumentHitIteratorTest.java
+END

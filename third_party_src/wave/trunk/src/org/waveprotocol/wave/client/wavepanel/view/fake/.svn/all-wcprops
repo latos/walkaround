@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake
+END
+FakeDocumentView.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeDocumentView.java
+END
+FakeAnchor.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeAnchor.java
+END
+FakeBlipView.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeBlipView.java
+END
+FakeBlipLinkPopupView.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeBlipLinkPopupView.java
+END
+FakeTopConversationView.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeTopConversationView.java
+END
+FakeBlipMetaView.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeBlipMetaView.java
+END
+Fake.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/Fake.gwt.xml
+END
+FakeReplyBoxView.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeReplyBoxView.java
+END
+FakeInlineThreadView.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeInlineThreadView.java
+END
+FakeThreadView.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeThreadView.java
+END
+FakeContinuationIndicatorView.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeContinuationIndicatorView.java
+END
+FakeInlineConversationView.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeInlineConversationView.java
+END
+FakeConversationView.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeConversationView.java
+END
+FakeRootThreadView.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeRootThreadView.java
+END
+FakeRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/fake/FakeRenderer.java
+END

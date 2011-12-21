@@ -1,0 +1,2 @@
+function cub(){}
+_=cub.prototype=new Y;_.gC=function dub(){return BX};_.ec=function eub(a){m9(this.b,a)};_.fc=function fub(){n9(this.b,null.th())};_.cM={10:1};_.b=null;var BX=joc(GFc,'CwFrame$3');CAc(Hj)(25);

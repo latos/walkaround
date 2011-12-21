@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client
+END
+ServerConnectionMock.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/ServerConnectionMock.java
+END
+ServerMock.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/ServerMock.java
+END
+MergingSequenceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/MergingSequenceTest.java
+END
+DeltaPairTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/DeltaPairTest.java
+END
+OT3Test.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/OT3Test.java
+END
+OperationQueueTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/OperationQueueTest.java
+END
+SimpleDeltaHistory.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/SimpleDeltaHistory.java
+END
+MockDeltaTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/MockDeltaTransformer.java
+END
+ClientAndServerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/ClientAndServerTest.java
+END
+ClientMock.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/concurrencycontrol/client/ClientMock.java
+END

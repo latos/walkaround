@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome
+END
+DesktopPopupChrome.css
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/DesktopPopupChrome.css
+END
+DesktopPopupChromeProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/DesktopPopupChromeProvider.java
+END
+DropdownPopupChrome.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/DropdownPopupChrome.ui.xml
+END
+popup_nw.png
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_nw.png
+END
+popup_e.png
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_e.png
+END
+DropdownPopupChrome.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/DropdownPopupChrome.java
+END
+popup_nw_titled.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_nw_titled.png
+END
+popup_sw.png
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_sw.png
+END
+popup_n.png
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_n.png
+END
+DropdownPopupChrome.css
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/DropdownPopupChrome.css
+END
+DesktopPopupChrome.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/DesktopPopupChrome.ui.xml
+END
+popup_s.png
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_s.png
+END
+popup_ne.png
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_ne.png
+END
+popup_n_titled.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_n_titled.png
+END
+DesktopPopupChrome.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/DesktopPopupChrome.java
+END
+popup_w.png
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_w.png
+END
+popup_ne_titled.png
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_ne_titled.png
+END
+popup_ene.png
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_ene.png
+END
+popup_se.png
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/popup/desktopchrome/popup_se.png
+END

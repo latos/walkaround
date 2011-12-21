@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed
+END
+SimpleAnnotationSetTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/SimpleAnnotationSetTest.java
+END
+IndexedDocumentImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/IndexedDocumentImplTest.java
+END
+AnnotationTreePerformanceTester.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/AnnotationTreePerformanceTester.java
+END
+IndexedDocumentImplPerformanceTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/IndexedDocumentImplPerformanceTest.java
+END
+ObservableIndexedDocumentTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/ObservableIndexedDocumentTest.java
+END
+GenericAnnotationCursorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/GenericAnnotationCursorTest.java
+END
+NindoTestCases.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/NindoTestCases.java
+END
+AnnotationTreeTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/AnnotationTreeTest.java
+END
+IndexedDocumentImplRandomLargeTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/IndexedDocumentImplRandomLargeTest.java
+END
+LocationMapperTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/document/indexed/LocationMapperTest.java
+END

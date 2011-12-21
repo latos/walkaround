@@ -1,0 +1,3 @@
+function Yyb(){}
+function Xyb(){}
+_=Yyb.prototype=Xyb.prototype=new Y;_.gC=function Zyb(){return sY};_.sc=function $yb(a){$Sb('Arr\xEAtez de me tapoter!')};_.cM={22:1,44:1};_=_yb.prototype;_.fc=function dzb(){var a,b,c;n9(this.b,(b=new I3b,b.f[AEc]=10,c=new TVb('Bouton normal',new Yyb),Efc(c.R,EAc,'cwBasicButton-normal'),F3b(b,c),a=new SVb('Bouton d\xE9sactiv\xE9'),Efc(a.R,EAc,'cwBasicButton-disabled'),a.R[$Jc]=true,F3b(b,a),b))};var sY=joc(LFc,'CwBasicButton$1');CAc(Hj)(41);

@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo
+END
+clearField.st
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/clearField.st
+END
+imports.st
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/imports.st
+END
+copyField.st
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/copyField.st
+END
+returnFalseIfNotEqual.st
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/returnFalseIfNotEqual.st
+END
+class.st
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/class.st
+END
+addHashCode.st
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/addHashCode.st
+END
+pojo.st
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/pojo.st
+END
+properties
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/properties
+END
+beans.st
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/beans.st
+END
+importUtil.st
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/importUtil.st
+END
+fieldDeclaration.st
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/pojo/fieldDeclaration.st
+END

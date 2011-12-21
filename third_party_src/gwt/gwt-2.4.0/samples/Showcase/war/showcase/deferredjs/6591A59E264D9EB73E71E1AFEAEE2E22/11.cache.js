@@ -1,0 +1,10 @@
+function Nmb(){}
+function Lnb(){}
+function Pnb(){}
+function Qnb(a){this.a=a}
+function Pmb(){this.a=new Rwc}
+function Mnb(a,b){this.a=a;this.b=b}
+function Hnb(b){var a,c,d;d=fpc(ul(b.a.Q,BFc));if(Uoc(d,gAc)){$6b(b.c,'<entrer un nom de m\xE9thode, s\u2019il vous pla\xEEt>')}else{try{c=Omb(b.b,d);$6b(b.c,c)}catch(a){a=b5(a);if(kP(a,150)){$6b(b.c,'<Pas de r\xE9sultats trouv\xE9s>')}else throw a}}}
+function Gnb(a){var b,c,d,e,f;a.b=new Pmb;c=new j1b;b=iP(c.j,90);c.o[VDc]=5;f=y8(NV);d=new ZUb(f);Je(d,new Mnb(a,f),(dq(),dq(),cq));e=new n3b;e.e[VDc]=3;k3b(e,new q$b(DGc));k3b(e,d);c1b(c,0,0,e);t1b(b,0)[jGc]=2;a.a=new k7b;$6b(a.a,hGc);re(a.a,oGc);_0b(c,1,0,'<b>Nom de la m\xE9thode:<\/b>');c1b(c,1,1,a.a);a.c=new k7b;PUb(a.c,false);re(a.c,oGc);_0b(c,2,0,'<b>R\xE9sultats du Lookup:<\/b>');c1b(c,2,1,a.c);Je(a.a,new Qnb(a),(Zq(),Zq(),Yq));Hnb(a);return c}
+function Omb(a,b){var c;c=iP(a.a.Vd(b),1);if(c!=null){return c}if(Uoc(b,gGc)){a.a.Xd(gGc,zGc);return zGc}if(Uoc(b,tGc)){a.a.Xd(tGc,BGc);return BGc}if(Uoc(b,qGc)){a.a.Xd(qGc,wGc);return wGc}if(Uoc(b,rGc)){a.a.Xd(rGc,xGc);return xGc}if(Uoc(b,uGc)){a.a.Xd(uGc,CGc);return CGc}if(Uoc(b,sGc)){a.a.Xd(sGc,AGc);return AGc}if(Uoc(b,hGc)){a.a.Xd(hGc,vGc);return vGc}if(Uoc(b,iGc)){a.a.Xd(iGc,yGc);return yGc}throw new Zxc("Cannot find constant '"+b+"'; expecting a method name")}
+_=Pmb.prototype=Nmb.prototype=new Y;_.gC=function Qmb(){return MV};_=Mnb.prototype=Lnb.prototype=new Y;_.gC=function Nnb(){return XV};_.oc=function Onb(a){q8(this.a,this.b+nGc)};_.cM={22:1,44:1};_.a=null;_.b=null;_=Qnb.prototype=Pnb.prototype=new Y;_.gC=function Rnb(){return YV};_.qc=function Snb(a){Hnb(this.a)};_.cM={27:1,44:1};_.a=null;_=Tnb.prototype;_.ac=function Xnb(){U8(this.b,Gnb(this.a))};var MV=Nnc(ZEc,'ColorConstants_fr'),NV=Pnc(ZEc,'ColorConstants'),XV=Nnc(ZEc,'CwConstantsWithLookupExample$1'),YV=Nnc(ZEc,'CwConstantsWithLookupExample$2');eAc(tj)(11);

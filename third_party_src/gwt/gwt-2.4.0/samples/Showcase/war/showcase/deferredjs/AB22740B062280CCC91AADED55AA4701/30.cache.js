@@ -1,0 +1,2 @@
+function dib(){var a,b,c;b=new TQb;z2b(b.R,Fnc,'cwFlowPanel');for(c=0;c<30;++c){a=new WIb(bwc+c);Qe(a.R,'cw-FlowPanel-checkBox',true);jHb(b,a,b.R)}return b}
+_=hib.prototype;_.fc=function lib(){jY(this.b,dib())};Dnc(Hj)(30);

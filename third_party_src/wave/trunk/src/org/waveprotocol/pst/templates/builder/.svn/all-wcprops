@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder
+END
+imports.st
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/imports.st
+END
+buildField.st
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/buildField.st
+END
+class.st
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/class.st
+END
+builder.st
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/builder.st
+END
+properties
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/properties
+END
+beans.st
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/beans.st
+END
+importUtil.st
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/importUtil.st
+END
+fieldDeclaration.st
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/templates/builder/fieldDeclaration.st
+END

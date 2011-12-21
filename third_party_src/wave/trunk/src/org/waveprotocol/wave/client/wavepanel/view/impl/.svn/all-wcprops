@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl
+END
+BlipViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/BlipViewImpl.java
+END
+BlipMenuItemViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/BlipMenuItemViewImpl.java
+END
+TopConversationViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/TopConversationViewImpl.java
+END
+BlipMetaViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/BlipMetaViewImpl.java
+END
+AbstractConversationViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/AbstractConversationViewImpl.java
+END
+ParticipantsViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/ParticipantsViewImpl.java
+END
+Impl.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/Impl.gwt.xml
+END
+ReplyBoxViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/ReplyBoxViewImpl.java
+END
+InlineThreadViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/InlineThreadViewImpl.java
+END
+AbstractStructuredView.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/AbstractStructuredView.java
+END
+ThreadViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/ThreadViewImpl.java
+END
+ContinuationIndicatorViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/ContinuationIndicatorViewImpl.java
+END
+InlineConversationViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/InlineConversationViewImpl.java
+END
+AnchorViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/AnchorViewImpl.java
+END
+RootThreadViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/RootThreadViewImpl.java
+END
+ParticipantViewImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/impl/ParticipantViewImpl.java
+END

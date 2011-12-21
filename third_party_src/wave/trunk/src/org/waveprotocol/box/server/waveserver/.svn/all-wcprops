@@ -1,0 +1,215 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver
+END
+WaveServerModule.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveServerModule.java
+END
+ByteStringMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/ByteStringMessage.java
+END
+WaveMap.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveMap.java
+END
+DeltaStore.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/DeltaStore.java
+END
+WaveServerException.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveServerException.java
+END
+FutureUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/FutureUtil.java
+END
+InvalidHashException.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/InvalidHashException.java
+END
+WaveBus.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveBus.java
+END
+SearchProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/SearchProvider.java
+END
+WaveletProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletProvider.java
+END
+AppliedDeltaUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/AppliedDeltaUtil.java
+END
+WaveletStateException.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletStateException.java
+END
+WaveletContainerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletContainerImpl.java
+END
+SignatureHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/SignatureHandler.java
+END
+CertificateManagerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/CertificateManagerImpl.java
+END
+WaveletNotificationSubscriber.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletNotificationSubscriber.java
+END
+DeltaStoreBasedSnapshotStore.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/DeltaStoreBasedSnapshotStore.java
+END
+WaveletDeltaRecordReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletDeltaRecordReader.java
+END
+LocalWaveletContainerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/LocalWaveletContainerImpl.java
+END
+RemoteWaveletContainerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/RemoteWaveletContainerImpl.java
+END
+WaveletState.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletState.java
+END
+DeltaAndSnapshotStore.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/DeltaAndSnapshotStore.java
+END
+WaveletContainer.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletContainer.java
+END
+WaveServerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveServerImpl.java
+END
+CertificateManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/CertificateManager.java
+END
+SigningSignatureHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/SigningSignatureHandler.java
+END
+WaveletDeltaRecord.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletDeltaRecord.java
+END
+AccessControlException.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/AccessControlException.java
+END
+WaveletStore.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletStore.java
+END
+WaveletNotificationDispatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/WaveletNotificationDispatcher.java
+END
+LocalWaveletContainer.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/LocalWaveletContainer.java
+END
+ForwardingWaveletDeltaRecordReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/ForwardingWaveletDeltaRecordReader.java
+END
+RemoteWaveletContainer.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/RemoteWaveletContainer.java
+END
+NonSigningSignatureHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/NonSigningSignatureHandler.java
+END
+DeltaStoreBasedWaveletState.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/waveserver/DeltaStoreBasedWaveletState.java
+END

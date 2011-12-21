@@ -1,0 +1,2 @@
+function Hwb(){var a,b,c,d,e;b=new A1b(4,4);d=b.i;c=b.g;for(e=0;e<d;++e){for(a=0;a<c;++a){Q0b(b,e,a,new ZPb((Yab(),Mab)))}}I0b(b,'cwGrid');return b}
+_=Lwb.prototype;_.bc=function Pwb(){J8(this.b,Hwb())};Jzc(tj)(38);

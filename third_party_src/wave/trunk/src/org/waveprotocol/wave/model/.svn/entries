@@ -1,0 +1,147 @@
+10
+
+dir
+1187362
+https://svn.apache.org/repos/asf/incubator/wave/trunk/src/org/waveprotocol/wave/model
+https://svn.apache.org/repos/asf
+
+
+
+2011-10-11T04:48:31.372598Z
+1181624
+michael
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13f79535-47bb-0310-9956-ffa450edef68
+
+version
+dir
+
+richtext
+dir
+
+gadget
+dir
+
+supplement
+dir
+
+id
+dir
+
+account
+dir
+
+experimental
+dir
+
+build.xml
+file
+
+
+
+
+2011-11-20T10:25:14.821933Z
+33f91359cc89b5ac5789a66aebbbc34e
+2011-10-11T04:48:31.372598Z
+1181624
+michael
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+277
+
+waveref
+dir
+
+Model.gwt.xml
+file
+
+
+
+
+2011-11-20T10:25:14.821933Z
+d22014ccb3b4a5e7c7e3423b7fca3de6
+2011-10-11T04:48:31.372598Z
+1181624
+michael
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1242
+
+schema
+dir
+
+operation
+dir
+
+wave
+dir
+
+undo
+dir
+
+adt
+dir
+
+conversation
+dir
+
+util
+dir
+
+testing
+dir
+
+document
+dir
+

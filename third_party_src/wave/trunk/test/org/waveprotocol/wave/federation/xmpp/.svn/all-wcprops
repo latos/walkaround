@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp
+END
+XmppFederationRemoteTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp/XmppFederationRemoteTest.java
+END
+XmppFederationHostForDomainTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp/XmppFederationHostForDomainTest.java
+END
+RoundTripTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp/RoundTripTest.java
+END
+XmppDiscoTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp/XmppDiscoTest.java
+END
+MockOutgoingPacketTransport.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp/MockOutgoingPacketTransport.java
+END
+MockDisco.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp/MockDisco.java
+END
+RemoteDiscoTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/federation/xmpp/RemoteDiscoTest.java
+END

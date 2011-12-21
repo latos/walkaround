@@ -1,0 +1,2 @@
+function AOb(){var a,b,c,d,e;b=new vjc(4,4);d=b.i;c=b.g;for(e=0;e<d;++e){for(a=0;a<c;++a){Jic(b,e,a,new T5b((Rsb(),Fsb)))}}Bic(b,'cwGrid');return b}
+_=EOb.prototype;_.fc=function IOb(){Cqb(this.b,AOb())};XRc(Hj)(38);

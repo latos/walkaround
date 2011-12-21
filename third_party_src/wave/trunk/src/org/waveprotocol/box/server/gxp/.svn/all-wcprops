@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/gxp
+END
+UserRegistrationPage.gxp
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/gxp/UserRegistrationPage.gxp
+END
+TopBar.gxp
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/gxp/TopBar.gxp
+END
+OAuthAuthorizeTokenPage.gxp
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/gxp/OAuthAuthorizeTokenPage.gxp
+END
+AuthenticationPage.gxp
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/gxp/AuthenticationPage.gxp
+END
+WaveClientPage.gxp
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/gxp/WaveClientPage.gxp
+END

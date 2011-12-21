@@ -1,0 +1,10 @@
+function unb(){}
+function sob(){}
+function wob(){}
+function xob(a){this.b=a}
+function wnb(){this.b=new Hxc}
+function tob(a,b){this.b=a;this.c=b}
+function oob(b){var a,c,d;d=Xpc(am(b.b.R,xGc));if(Kpc(d,YAc)){H7b(b.d,'<entrer un nom de m\xE9thode, s\u2019il vous pla\xEEt>')}else{try{c=vnb(b.c,d);H7b(b.d,c)}catch(a){a=Q5(a);if(SP(a,150)){H7b(b.d,'<Pas de r\xE9sultats trouv\xE9s>')}else throw a}}}
+function nob(a){var b,c,d,e,f;a.c=new wnb;c=new P1b;b=QP(c.k,90);c.p[SEc]=5;f=f9(zW);d=new DVb(f);Xe(d,new tob(a,f),(Lq(),Lq(),Kq));e=new V3b;e.f[SEc]=3;S3b(e,new W$b(xHc));S3b(e,d);I1b(c,0,0,e);Z1b(b,0)[dHc]=2;a.b=new T7b;H7b(a.b,bHc);Fe(a.b,iHc);F1b(c,1,0,'<b>Nom de la m\xE9thode:<\/b>');I1b(c,1,1,a.b);a.d=new T7b;sVb(a.d,false);Fe(a.d,iHc);F1b(c,2,0,'<b>R\xE9sultats du Lookup:<\/b>');I1b(c,2,1,a.d);Xe(a.b,new xob(a),(Fr(),Fr(),Er));oob(a);return c}
+function vnb(a,b){var c;c=QP(a.b.be(b),1);if(c!=null){return c}if(Kpc(b,aHc)){a.b.de(aHc,tHc);return tHc}if(Kpc(b,nHc)){a.b.de(nHc,vHc);return vHc}if(Kpc(b,kHc)){a.b.de(kHc,qHc);return qHc}if(Kpc(b,lHc)){a.b.de(lHc,rHc);return rHc}if(Kpc(b,oHc)){a.b.de(oHc,wHc);return wHc}if(Kpc(b,mHc)){a.b.de(mHc,uHc);return uHc}if(Kpc(b,bHc)){a.b.de(bHc,pHc);return pHc}if(Kpc(b,cHc)){a.b.de(cHc,sHc);return sHc}throw new Pyc("Cannot find constant '"+b+"'; expecting a method name")}
+_=wnb.prototype=unb.prototype=new Y;_.gC=function xnb(){return yW};_=tob.prototype=sob.prototype=new Y;_.gC=function uob(){return JW};_.wc=function vob(a){Z8(this.b,this.c+hHc)};_.cM={22:1,44:1};_.b=null;_.c=null;_=xob.prototype=wob.prototype=new Y;_.gC=function yob(){return KW};_.yc=function zob(a){oob(this.b)};_.cM={27:1,44:1};_.b=null;_=Aob.prototype;_.fc=function Eob(){B9(this.c,nob(this.b))};var yW=Doc(WFc,'ColorConstants_fr'),zW=Foc(WFc,'ColorConstants'),JW=Doc(WFc,'CwConstantsWithLookupExample$1'),KW=Doc(WFc,'CwConstantsWithLookupExample$2');WAc(Hj)(11);

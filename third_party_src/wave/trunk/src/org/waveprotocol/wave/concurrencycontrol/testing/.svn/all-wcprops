@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing
+END
+FakeOperationChannel.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing/FakeOperationChannel.java
+END
+FakeClock.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing/FakeClock.java
+END
+MockOperationChannel.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing/MockOperationChannel.java
+END
+CcTestingUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing/CcTestingUtils.java
+END
+FakeWaveViewServiceUpdate.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing/FakeWaveViewServiceUpdate.java
+END
+MockWaveViewService.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing/MockWaveViewService.java
+END
+FakeOperationChannelMultiplexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/testing/FakeOperationChannelMultiplexer.java
+END

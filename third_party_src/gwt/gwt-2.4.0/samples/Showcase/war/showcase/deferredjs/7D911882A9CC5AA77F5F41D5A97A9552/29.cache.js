@@ -1,0 +1,18 @@
+function r0b(){}
+function N0b(){}
+function M0b(){}
+function P0b(){}
+function T0b(){}
+function S0b(){}
+function F0b(a,b){a.b=b}
+function G0b(a){if(a==v0b){return true}xz();return a==y0b}
+function H0b(a){if(a==u0b){return true}xz();return a==t0b}
+function Q0b(a){this.b=(N2b(),I2b).a;this.d=(W2b(),V2b).a;this.a=a}
+function I0b(){z0b();VVb.call(this);this.b=(N2b(),I2b);this.c=(W2b(),V2b);this.e[mEc]=0;this.e[nEc]=0}
+function D0b(a,b){var c;c=tP(a.O,88);c.b=b.a;!!c.c&&(c.c[kEc]=b.a,undefined)}
+function E0b(a,b){var c;c=tP(a.O,88);c.d=b.a;!!c.c&&pSb(c.c,lEc,b.a)}
+function z0b(){z0b=gAc;s0b=new N0b;v0b=new N0b;u0b=new N0b;t0b=new N0b;w0b=new N0b;x0b=new N0b;y0b=new N0b}
+function A0b(a,b,c){var d;if(c==s0b){if(b==a.a){return}else if(a.a){throw new woc('Only one CENTER widget may be added')}}Pe(b);kgc(a.j,b);c==s0b&&(a.a=b);d=new Q0b(c);b.O=d;D0b(b,a.b);E0b(b,a.c);C0b(a);Re(b,a)}
+function B0b(a,b){var c,d,e,f,g,i,j;Dfc(a.Q,AAc,b);i=new jxc;j=new vgc(a.j);while(j.a<j.b.c-1){c=ugc(j);g=tP(c.O,88).a;e=tP(i.Vd(g),132);d=!e?1:e.a;f=g==w0b?'north'+d:g==x0b?'south'+d:g==y0b?'west'+d:g==t0b?'east'+d:g==v0b?'linestart'+d:g==u0b?'lineend'+d:dEc;Dfc(Fl(c.Q),b,f);i.Xd(g,Ooc(d+1))}}
+function C0b(a){var b,c,d,e,f,g,i,j,k,n,o,p,q,r,s,t;b=a.d;while(b.children.length>0){nl(b,b.children[0])}q=1;e=1;for(i=new vgc(a.j);i.a<i.b.c-1;){d=ugc(i);f=tP(d.O,88).a;f==w0b||f==x0b?++q:(f==t0b||f==y0b||f==v0b||f==u0b)&&++e}r=iP(V4,{124:1,135:1},89,q,0);for(g=0;g<q;++g){r[g]=new T0b;r[g].b=Kl($doc,iEc);jl(b,l8b(r[g].b))}k=0;n=e-1;o=0;s=q-1;c=null;for(i=new vgc(a.j);i.a<i.b.c-1;){d=ugc(i);j=tP(d.O,88);t=Kl($doc,jEc);j.c=t;j.c[kEc]=j.b;pSb(j.c,lEc,j.d);j.c[DAc]=AAc;j.c[BAc]=AAc;if(j.a==w0b){iSb(r[o].b,t,r[o].a);jl(t,l8b(d.Q));t[DGc]=n-k+1;++o}else if(j.a==x0b){iSb(r[s].b,t,r[s].a);jl(t,l8b(d.Q));t[DGc]=n-k+1;--s}else if(j.a==s0b){c=t}else if(G0b(j.a)){p=r[o];iSb(p.b,t,p.a++);jl(t,l8b(d.Q));t[HJc]=s-o+1;++k}else if(H0b(j.a)){p=r[o];iSb(p.b,t,p.a);jl(t,l8b(d.Q));t[HJc]=s-o+1;--n}}if(a.a){p=r[o];iSb(p.b,c,p.a);jl(c,l8b(a.a.Q))}}
+_=Uub.prototype;_.ac=function Yub(){var a,b,c;d9(this.a,(b=new I0b,b.Q[CAc]='cw-DockPanel',b.e[mEc]=4,F0b(b,(N2b(),H2b)),A0b(b,new I$b(AJc),(z0b(),w0b)),A0b(b,new I$b(BJc),x0b),A0b(b,new I$b(CJc),t0b),A0b(b,new I$b(DJc),y0b),A0b(b,new I$b(EJc),w0b),A0b(b,new I$b(FJc),x0b),a=new I$b("Voici un <code>panneau de d\xE9filement<\/code> situ\xE9 au centre d'un <code>panneau d'ancrage<\/code>. Si des contenus relativement volumineux sont ins\xE9r\xE9s au milieu de ce panneau \xE0 d\xE9filement et si sa taille est d\xE9finie, il prend la forme d'une zone dot\xE9e d'une fonction de d\xE9filement \xE0 l'int\xE9rieur de la page, sans l'utilisation d'un IFRAME.<br><br>Voici un texte encore plus obscur qui va surtout servir \xE0 faire d\xE9filer cet \xE9l\xE9ment jusqu'en bas de sa zone visible. Sinon, il vous faudra r\xE9duire ce panneau \xE0 une taille minuscule pour pouvoir afficher ces formidables barres de d\xE9filement!"),c=new fXb(a),c.Q.style[DAc]=lIc,c.Q.style[BAc]=GJc,A0b(b,c,s0b),B0b(b,'cwDockPanel'),b))};_=I0b.prototype=r0b.prototype=new SVb;_.gC=function J0b(){return C_};_.tb=function K0b(a){B0b(this,a)};_.Lb=function L0b(a){var b;b=zUb(this,a);if(b){a==this.a&&(this.a=null);C0b(this)}return b};_.cM={40:1,46:1,84:1,91:1,92:1,95:1,110:1,112:1};_.a=null;var s0b,t0b,u0b,v0b,w0b,x0b,y0b;_=N0b.prototype=M0b.prototype=new Y;_.gC=function O0b(){return z_};_=Q0b.prototype=P0b.prototype=new Y;_.gC=function R0b(){return A_};_.cM={88:1};_.a=null;_.c=null;_=T0b.prototype=S0b.prototype=new Y;_.gC=function U0b(){return B_};_.cM={89:1};_.a=0;_.b=null;var C_=foc(WEc,'DockPanel'),B_=foc(WEc,'DockPanel$TmpRow'),V4=eoc(EFc,'DockPanel$TmpRow;',B_),z_=foc(WEc,'DockPanel$DockLayoutConstant'),A_=foc(WEc,'DockPanel$LayoutData');yAc(sj)(29);

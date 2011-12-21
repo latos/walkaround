@@ -1,0 +1,2 @@
+function cOb(){var a,b,c,d,e;b=new fjc(4,4);d=b.g;c=b.f;for(e=0;e<d;++e){for(a=0;a<c;++a){vic(b,e,a,new L5b((tsb(),hsb)))}}nic(b,'cwGrid');return b}
+_=gOb.prototype;_.ac=function kOb(){eqb(this.a,cOb())};zRc(sj)(38);

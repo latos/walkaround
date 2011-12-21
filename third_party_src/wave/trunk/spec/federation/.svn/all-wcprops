@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation
+END
+wavespec.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/wavespec.html
+END
+waveschema.rnc
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/waveschema.rnc
+END
+wavespec.rst
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/wavespec.rst
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/Makefile
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/common/communication/callback
+END
+StreamingRemoteCallback.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/common/communication/callback/StreamingRemoteCallback.java
+END
+SimpleCallback.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/common/communication/callback/SimpleCallback.java
+END
+StreamingCallback.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/common/communication/callback/StreamingCallback.java
+END
+RemoteCallback.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/common/communication/callback/RemoteCallback.java
+END

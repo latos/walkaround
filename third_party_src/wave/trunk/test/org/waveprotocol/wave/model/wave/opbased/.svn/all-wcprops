@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased
+END
+BlipDataWithBlipDataImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased/BlipDataWithBlipDataImplTest.java
+END
+OpBasedWaveletTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased/OpBasedWaveletTestBase.java
+END
+WaveletDataWithWaveletDataImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased/WaveletDataWithWaveletDataImplTest.java
+END
+OpBasedWaveletWithWaveletDataImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased/OpBasedWaveletWithWaveletDataImplTest.java
+END
+ObservableWaveletDataWithWaveletDataImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased/ObservableWaveletDataWithWaveletDataImplTest.java
+END
+OpBasedWaveletWaveletTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased/OpBasedWaveletWaveletTest.java
+END
+ObservableWaveletWithOpBasedWaveletTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/wave/opbased/ObservableWaveletWithOpBasedWaveletTest.java
+END

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full
+END
+CollapsibleBuilderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full/CollapsibleBuilderTest.java
+END
+FlowConversationViewBuilderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full/FlowConversationViewBuilderTest.java
+END
+UiBuilderTestHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full/UiBuilderTestHelper.java
+END
+BlipViewBuilderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full/BlipViewBuilderTest.java
+END
+ReplyBoxBuilderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full/ReplyBoxBuilderTest.java
+END
+FixedConversationViewBuilderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full/FixedConversationViewBuilderTest.java
+END
+RootThreadViewBuilderTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/wavepanel/view/dom/full/RootThreadViewBuilderTest.java
+END

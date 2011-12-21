@@ -1,0 +1,8 @@
+function g9(){}
+function k9(){}
+function l9(a){this.b=a}
+function h9(a,b){this.b=a;this.c=b}
+function zA(a,b){var c;c=VA((QA(),b));return AA(a,c,b,false)}
+function c9(a){var b,c,d;b=ebc(ul(a.b.R,Brc));c=ebc(ul(a.c.R,Brc));d=ebc(ul(a.d.R,Brc));iMb(a.g,osc+b+psc+c+qsc+d+Knc);oMb(a.e,osc+zA(a.f,b)+psc+ZV(c)+qsc+zA(a.f,d)+Knc)}
+function b9(a){var b,c,d,e,f,g;d=new rPb;b=$B(d.k,89);d.p[Vpc]=5;g=JW(cI);e=new _Gb(g);Je(e,new h9(a,g),(_p(),_p(),$p));f=new vRb;f.f[Vpc]=3;sRb(f,new sMb(isc));sRb(f,e);kPb(d,0,0,f);BPb(b,0)[jsc]=2;hPb(d,1,0,ksc);hPb(d,1,1,"User {0} ({1} posts) added a comment on '{2}'");a.b=new sVb;gVb(a.b,(Jx(),'\u05EA\u05D5\u05DE\u05E8 \u05D2\u05E8\u05D9\u05DF'));hPb(d,2,0,lsc);kPb(d,2,1,a.b);a.c=new sVb;gVb(a.c,'16');hPb(d,3,0,msc);kPb(d,3,1,a.c);a.d=new sVb;gVb(a.d,'\u05DB\u05DE\u05D4 \u05D7\u05D5\u05DC \u05D9\u05E9 \u05D1\u05D7\u05D5\u05E3?');hPb(d,4,0,nsc);kPb(d,4,1,a.d);a.g=new qMb;hPb(d,5,0,'<b>Message formatted without BidiFormatter:<\/b>');kPb(d,5,1,a.g);GPb(b,5,0,(MQb(),LQb));a.e=new qMb;hPb(d,6,0,'<b>Message formatted with BidiFormatter:<\/b>');kPb(d,6,1,a.e);GPb(b,6,0,LQb);c=new l9(a);Je(a.b,c,(Vq(),Vq(),Uq));Je(a.c,c,Uq);Je(a.d,c,Uq);c9(a);return d}
+var qsc=" posts) added a comment on '",osc='User ';_=h9.prototype=g9.prototype=new Y;_.gC=function i9(){return fI};_.oc=function j9(a){BW(this.b,this.c+rsc)};_.cM={22:1,44:1};_.b=null;_.c=null;_=l9.prototype=k9.prototype=new Y;_.gC=function m9(){return gI};_.qc=function n9(a){c9(this.b)};_.cM={27:1,44:1};_.b=null;_=o9.prototype;_.bc=function s9(){dX(this.c,b9(this.b))};var cI=O9b($qc,'BlogMessages'),fI=M9b($qc,'CwBidiFormatting$1'),gI=M9b($qc,'CwBidiFormatting$2');dmc(tj)(8);

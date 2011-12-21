@@ -1,0 +1,19 @@
+function Crb(){}
+function g8b(){}
+function w7b(){x7b.call(this,false)}
+function b8b(a,b){d8b.call(this,a,false);this.b=b}
+function c8b(a,b){d8b.call(this,a,false);_7b(this,b)}
+function a8b(a){d8b.call(this,U8c,true);_7b(this,a)}
+function Drb(a){this.c=a;this.b=Abb(this.c.a)}
+function a7b(a,b){return h7b(a,b,a.a.b)}
+function h8b(){var a;ke(this,Kl($doc,BQc));this.Q[hDc]=V8c;a=Kl($doc,tDc);jl(this.Q,vac(a));a[hDc]=W8c}
+function h7b(a,b,c){if(c<0||c>a.a.b){throw new bqc}a.o&&(b.Q[c5c]=2,undefined);_6b(a,c,b.Q);fxc(a.a,c,b);return b}
+function _7b(a,b){a.d=b;!!a.c&&v7b(a.c,a);if(b){b.Q.tabIndex=-1;a.Q.setAttribute(T8c,qNc)}else{a.Q.setAttribute(T8c,rRc)}}
+function xbb(a){var b,c;b=CP(a.a.Xd(v8c),139);if(b==null){c=sP(v5,{125:1,136:1,139:1},1,[w8c,x8c,y8c]);a.a.Zd(v8c,c);return c}else{return b}}
+function zbb(a){var b,c;b=CP(a.a.Xd(D8c),139);if(b==null){c=sP(v5,{125:1,136:1,139:1},1,[E8c,F8c,G8c]);a.a.Zd(D8c,c);return c}else{return b}}
+function ybb(a){var b,c;b=CP(a.a.Xd(z8c),139);if(b==null){c=sP(v5,{125:1,136:1,139:1},1,[A8c,B8c,zKc,C8c]);a.a.Zd(z8c,c);return c}else{return b}}
+function vbb(a){var b,c;b=CP(a.a.Xd(j8c),139);if(b==null){c=sP(v5,{125:1,136:1,139:1},1,[k8c,l8c,m8c,n8c,o8c]);a.a.Zd(j8c,c);return c}else{return b}}
+function wbb(a){var b,c;b=CP(a.a.Xd(p8c),139);if(b==null){c=sP(v5,{125:1,136:1,139:1},1,[q8c,r8c,s8c,t8c,u8c]);a.a.Zd(p8c,c);return c}else{return b}}
+function Abb(a){var b,c;b=CP(a.a.Xd(H8c),139);if(b==null){c=sP(v5,{125:1,136:1,139:1},1,[I8c,J8c,K8c,L8c,M8c,N8c]);a.a.Zd(H8c,c);return c}else{return b}}
+function yrb(a){var b,c,d,e,f,g,i,j,k,n,o,p,q;o=new Drb(a);n=new w7b;n.b=true;n.Q.style[iDc]=O8c;n.e=true;q=new x7b(true);p=xbb(a.a);for(k=0;k<p.length;++k){$6b(q,new b8b(p[k],o))}d=new x7b(true);d.e=true;$6b(n,new c8b(P8c,d));e=wbb(a.a);for(k=0;k<e.length;++k){if(k==3){a7b(d,new h8b);$6b(d,new c8b(e[3],q));a7b(d,new h8b)}else{$6b(d,new b8b(e[k],o))}}b=new x7b(true);$6b(n,new c8b(Q8c,b));c=vbb(a.a);for(k=0;k<c.length;++k){$6b(b,new b8b(c[k],o))}f=new x7b(true);$6b(n,new a8b(f));g=ybb(a.a);for(k=0;k<g.length;++k){$6b(f,new b8b(g[k],o))}i=new x7b(true);a7b(n,new h8b);$6b(n,new c8b(R8c,i));j=zbb(a.a);for(k=0;k<j.length;++k){$6b(i,new b8b(j[k],o))}Vhc(n.Q,fDc,S8c);u7b(n,S8c);return n}
+var O8c='500px',R8c='Aide',F8c='Biscuit de fortune',o8c='Coller',x8c='Comment apprivoiser un perroquet sauvage',E8c='Contenu',n8c='Copier',m8c='Couper',X8c='CwMenuBar$1',L8c="Essayez quelque chose d'autre",B8c='Exemples',P8c='Fichier',U8c='GWT',C8c='GWiTtez avec le programme',y8c="L'\xE9levage des \xE9meus pour les nuls",Y8c='MenuItemSeparator',I8c="Merci d'avoir s\xE9lectionn\xE9 une option de menu",K8c="N'avez-vous rien de mieux \xE0 faire que de s\xE9lectionner des options de menu?",q8c='Nouveau',r8c='Ouvrir',w8c='P\xEAcher dans le d\xE9sert.txt',u8c='Quitter',t8c='R\xE9cent',l8c='R\xE9tablir',A8c='T\xE9l\xE9charger',N8c='Un autre clic gaspill\xE9',J8c='Une s\xE9lection vraiment pertinente',T8c='aria-haspopup',M8c="ceci n'est qu'un menu!",S8c='cwMenuBar',j8c='cwMenuBarEditOptions',p8c='cwMenuBarFileOptions',v8c='cwMenuBarFileRecents',z8c='cwMenuBarGWTOptions',D8c='cwMenuBarHelpOptions',H8c='cwMenuBarPrompts',V8c='gwt-MenuItemSeparator',W8c='menuSeparatorInner',G8c='\xC0 propos de GWT',Q8c='\xC9dition';_=Drb.prototype=Crb.prototype=new Y;_.dc=function Erb(){TUb(this.b[this.a]);this.a=(this.a+1)%this.b.length};_.gC=function Frb(){return XW};_.cM={83:1};_.a=0;_.c=null;_=Grb.prototype;_.bc=function Krb(){X9(this.b,yrb(this.a))};_=w7b.prototype=Z6b.prototype;_=c8b.prototype=b8b.prototype=a8b.prototype=X7b.prototype;_=h8b.prototype=g8b.prototype=new fe;_.gC=function i8b(){return D0};_.cM={92:1,98:1,111:1};var XW=Kqc(QWc,X8c),D0=Kqc(CSc,Y8c);bDc(sj)(18);

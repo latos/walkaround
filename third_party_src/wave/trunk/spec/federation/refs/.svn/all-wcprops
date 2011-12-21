@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/refs
+END
+OT.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/refs/OT.xml
+END
+XEP0060.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/refs/XEP0060.xml
+END
+RFC2119.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/refs/RFC2119.xml
+END
+RFC3920.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/refs/RFC3920.xml
+END
+VERFED.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/spec/federation/refs/VERFED.xml
+END

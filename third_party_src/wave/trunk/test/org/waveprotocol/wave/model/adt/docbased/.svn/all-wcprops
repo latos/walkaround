@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased
+END
+DocumentBasedStructuredValueTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedStructuredValueTest.java
+END
+DocumentBasedMonotonicValueTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedMonotonicValueTest.java
+END
+DocumentBasedMonotonicMapTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedMonotonicMapTest.java
+END
+DocumentBasedElementListTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedElementListTest.java
+END
+InitializerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/InitializerTest.java
+END
+ObservableSingletonWithDocumentBasedSingletonTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/ObservableSingletonWithDocumentBasedSingletonTest.java
+END
+CompoundInitializerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/CompoundInitializerTest.java
+END
+ObservableBasicSetWithDocumentBasedBasicSetTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/ObservableBasicSetWithDocumentBasedBasicSetTest.java
+END
+DocumentBasedBasicSetTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedBasicSetTest.java
+END
+DocumentBasedBasicValueTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedBasicValueTest.java
+END
+DocumentBasedBasicMapTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedBasicMapTest.java
+END
+DocumentBasedBooleanTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/DocumentBasedBooleanTest.java
+END
+TestUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/TestUtil.java
+END
+ObservableBasicMapWithDocumentBasedBasicMapTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/docbased/ObservableBasicMapWithDocumentBasedBasicMapTest.java
+END

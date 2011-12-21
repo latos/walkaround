@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar
+END
+ToolbarButtonViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/ToolbarButtonViewBuilder.java
+END
+Toolbar.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/Toolbar.gwt.xml
+END
+ToplevelToolbarWidget.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/ToplevelToolbarWidget.java
+END
+toolbar_more_button.png
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/toolbar_more_button.png
+END
+button_fill.png
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/button_fill.png
+END
+SubmenuToolbarWidget.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/SubmenuToolbarWidget.java
+END
+ToplevelToolbarWidget.css
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/ToplevelToolbarWidget.css
+END
+SubmenuToolbarView.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/SubmenuToolbarView.java
+END
+SubmenuToolbarWidget.css
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/SubmenuToolbarWidget.css
+END
+ToplevelToolbarWidget.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/ToplevelToolbarWidget.ui.xml
+END
+GroupingToolbar.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/GroupingToolbar.java
+END
+SubmenuItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/SubmenuItem.java
+END
+ToolbarView.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/widget/toolbar/ToolbarView.java
+END

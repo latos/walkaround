@@ -1,0 +1,269 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api
+END
+ParticipantProfile.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/ParticipantProfile.java
+END
+Markup.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Markup.java
+END
+SearchResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/SearchResult.java
+END
+OperationQueue.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/OperationQueue.java
+END
+Restriction.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Restriction.java
+END
+FetchProfilesRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/FetchProfilesRequest.java
+END
+ProtocolVersion.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/ProtocolVersion.java
+END
+Wavelet.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Wavelet.java
+END
+Plaintext.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Plaintext.java
+END
+OperationRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/OperationRequest.java
+END
+Annotation.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Annotation.java
+END
+FormElement.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/FormElement.java
+END
+InvalidRequestException.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/InvalidRequestException.java
+END
+BlipThread.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/BlipThread.java
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/build.xml
+END
+BlipData.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/BlipData.java
+END
+BlipContent.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/BlipContent.java
+END
+Image.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Image.java
+END
+Blip.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Blip.java
+END
+Line.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Line.java
+END
+Attachment.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Attachment.java
+END
+Gadget.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Gadget.java
+END
+DataDocuments.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/DataDocuments.java
+END
+ElementType.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/ElementType.java
+END
+FetchProfilesResult.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/FetchProfilesResult.java
+END
+Range.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Range.java
+END
+JsonRpcResponse.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/JsonRpcResponse.java
+END
+Installer.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Installer.java
+END
+Tags.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Tags.java
+END
+BlipIterator.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/BlipIterator.java
+END
+Participants.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Participants.java
+END
+BlipContentRefs.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/BlipContentRefs.java
+END
+OperationType.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/OperationType.java
+END
+AbstractRobot.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/AbstractRobot.java
+END
+NonJsonSerializable.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/NonJsonSerializable.java
+END
+Util.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Util.java
+END
+RobotSerializer.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/RobotSerializer.java
+END
+ApiIdSerializer.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/ApiIdSerializer.java
+END
+WaveService.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/WaveService.java
+END
+Context.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Context.java
+END
+Function.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Function.java
+END
+JsonRpcConstant.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/JsonRpcConstant.java
+END
+Element.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Element.java
+END
+Annotations.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/Annotations.java
+END

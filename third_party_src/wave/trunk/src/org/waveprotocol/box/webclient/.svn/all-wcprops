@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient
+END
+WebClientDemo.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/WebClientDemo.gwt.xml
+END
+WebClientProd.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/WebClientProd.gwt.xml
+END
+WebClientDev.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/WebClientDev.gwt.xml
+END
+WebClient.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/WebClient.gwt.xml
+END

@@ -1,0 +1,2 @@
+function Y$b(){var a,b,c,d,e;b=new Rvc(4,4);d=b.i;c=b.g;for(e=0;e<d;++e){for(a=0;a<c;++a){fvc(b,e,a,new oic((nFb(),bFb)))}}Zuc(b,'cwGrid');return b}
+_=a_b.prototype;_.bc=function e_b(){$Cb(this.b,Y$b())};$1c(tj)(38);

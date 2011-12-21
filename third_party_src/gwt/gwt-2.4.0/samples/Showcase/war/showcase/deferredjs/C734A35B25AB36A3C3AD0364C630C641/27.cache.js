@@ -1,0 +1,1 @@
+_=ZLb.prototype;_.fc=function bMb(){var a,b,c;Cqb(this.b,(c=new Qic,c.p[bWc]=6,a=d4(c.k,90),Gic(c,0,0,d_c),$ic(a,0)[oYc]=2,bjc(a,0,(ckc(),Yjc)),Gic(c,1,0,e_c),Jic(c,1,1,new Uoc),Gic(c,2,0,f_c),Jic(c,2,1,new Uoc),b=new bfc,zf(b,c),b))};XRc(Hj)(27);

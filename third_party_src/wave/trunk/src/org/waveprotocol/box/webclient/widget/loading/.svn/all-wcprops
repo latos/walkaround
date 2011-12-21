@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/widget/loading
+END
+loading.gif
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/widget/loading/loading.gif
+END
+Loading.css
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/widget/loading/Loading.css
+END
+LoadingIndicator.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/widget/loading/LoadingIndicator.ui.xml
+END
+LoadingIndicator.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/widget/loading/LoadingIndicator.java
+END
+Loading.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/webclient/widget/loading/Loading.gwt.xml
+END

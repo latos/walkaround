@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement
+END
+PrimitiveSupplementTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/PrimitiveSupplementTestBase.java
+END
+SimpleWantedEvaluationSetTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/SimpleWantedEvaluationSetTest.java
+END
+tests.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/tests.gwt.xml
+END
+WaveletBasedSupplementTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/WaveletBasedSupplementTest.java
+END
+PrimitiveSupplementWithWaveletBasedSupplementTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/PrimitiveSupplementWithWaveletBasedSupplementTest.java
+END
+GadgetStateCollectionTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/GadgetStateCollectionTest.java
+END
+PrimitiveSupplementWithPrimitiveSupplementImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 148
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/PrimitiveSupplementWithPrimitiveSupplementImplTest.java
+END
+LiveSupplementedWaveImplAbuseTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/LiveSupplementedWaveImplAbuseTest.java
+END
+SupplementedWaveImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/supplement/SupplementedWaveImplTest.java
+END

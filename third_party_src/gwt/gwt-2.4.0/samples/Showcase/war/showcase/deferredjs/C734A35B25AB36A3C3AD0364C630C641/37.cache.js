@@ -1,0 +1,8 @@
+function mOb(){}
+function qOb(){}
+function nOb(a){this.b=a}
+function rOb(a){this.b=a}
+function gjc(a,b){(a.b.Mg(0,1),a.b.j.rows[0].cells[1])[t_c]=b}
+function iOb(a){var b;b=a.j.rows.length;if(b>1){Dic(a,b-1);gjc(d4(a.k,90),b-1)}}
+function hOb(a){var b;b=a.j.rows.length;Jic(a,b,0,new T5b((Rsb(),Fsb)));Jic(a,b,1,new T5b(Fsb));gjc(d4(a.k,90),b+1)}
+_=nOb.prototype=mOb.prototype=new Y;_.gC=function oOb(){return rdb};_.wc=function pOb(a){hOb(this.b)};_.cM={22:1,44:1};_.b=null;_=rOb.prototype=qOb.prototype=new Y;_.gC=function sOb(){return sdb};_.wc=function tOb(a){iOb(this.b)};_.cM={22:1,44:1};_.b=null;_=uOb.prototype;_.fc=function yOb(){var a,b,c,d,e;Cqb(this.b,(d=new Qic,c=d4(d.k,90),Qe(d.R,'cw-FlexTable',true),d.R.style[aSc]='32em',d.p[bWc]=5,d.p[cWc]=3,bjc(c,1,(ckc(),$jc)),Gic(d,0,0,'\u0647\u0630\u0627 \u0647\u0648 \u062C\u062F\u0648\u0644 \u0641\u0644\u0643\u0633 \u0648\u0627\u0644\u0630\u064A \u064A\u062F\u0639\u0645 <b>colspan<\/b> \u0648 <b>rowspans<\/b>. \u064A\u0645\u0643\u0646\u0643 \u062A\u0646\u0633\u064A\u0642 \u0627\u0644\u0635\u0641\u062D\u0629 \u0627\u0644\u062E\u0627\u0635\u0629 \u0628\u0643 \u0643\u062C\u062F\u0648\u0644 \u0645\u0646 \u0646\u0648\u0639 \u062E\u0627\u0635'),$ic(c,0)[oYc]=2,a=new dbc('\u0627\u0636\u0627\u0641\u0629 \u0635\u0641',new nOb(d)),Qe(a.R,_$c,true),e=new dbc('\u0627\u062D\u0630\u0641 \u0635\u0641',new rOb(d)),Qe(e.R,_$c,true),b=new vxc,b.R[_Rc]='cw-FlexTable-buttonPanel',sxc(b,a),sxc(b,e),Jic(d,0,1,b),djc(c,0,1,(lkc(),kkc)),hOb(d),hOb(d),Bic(d,'cwFlexTable'),d))};var rdb=EFc(kXc,'CwFlexTable$1'),sdb=EFc(kXc,'CwFlexTable$2');XRc(Hj)(37);

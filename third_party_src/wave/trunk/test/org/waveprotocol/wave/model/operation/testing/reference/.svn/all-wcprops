@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference
+END
+AnnotationTamenessChecker.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/AnnotationTamenessChecker.java
+END
+InsertionPreservationTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/InsertionPreservationTransformer.java
+END
+ValueUpdate.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/ValueUpdate.java
+END
+Decomposer.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/Decomposer.java
+END
+RelativePosition.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/RelativePosition.java
+END
+InsertionDeletionTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/InsertionDeletionTransformer.java
+END
+ReferenceTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/ReferenceTransformer.java
+END
+PreservationPreservationTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/PreservationPreservationTransformer.java
+END
+InsertionInsertionTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/InsertionInsertionTransformer.java
+END
+PreservationDeletionTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 146
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/PreservationDeletionTransformer.java
+END
+DeletionDeletionTransformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/operation/testing/reference/DeletionDeletionTransformer.java
+END

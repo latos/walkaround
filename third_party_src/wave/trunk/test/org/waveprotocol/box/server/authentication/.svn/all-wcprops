@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/authentication
+END
+AuthTestUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/authentication/AuthTestUtil.java
+END
+HttpRequestBasedCallbackHandlerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/authentication/HttpRequestBasedCallbackHandlerTest.java
+END
+PasswordDigestTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/authentication/PasswordDigestTest.java
+END
+AccountStoreLoginModuleTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/authentication/AccountStoreLoginModuleTest.java
+END
+SessionManagerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/authentication/SessionManagerTest.java
+END

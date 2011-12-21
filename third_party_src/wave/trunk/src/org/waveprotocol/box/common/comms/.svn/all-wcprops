@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/common/comms
+END
+WaveClientRpc.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/common/comms/WaveClientRpc.gwt.xml
+END
+waveclient-rpc.proto
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/common/comms/waveclient-rpc.proto
+END

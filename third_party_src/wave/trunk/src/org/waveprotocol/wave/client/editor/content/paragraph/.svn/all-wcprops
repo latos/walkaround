@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph
+END
+LineContainerParagraphiser.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/LineContainerParagraphiser.java
+END
+ParagraphHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphHelper.java
+END
+ParagraphEventHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphEventHandler.java
+END
+Paragraph.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/Paragraph.java
+END
+OrderedListRenumberer.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/OrderedListRenumberer.java
+END
+IeNodeletHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/IeNodeletHelper.java
+END
+ParagraphHelperAlwaysBr.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphHelperAlwaysBr.java
+END
+ParagraphBehaviour.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphBehaviour.java
+END
+ParagraphHelperWebkit.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphHelperWebkit.java
+END
+ParagraphHelperEmptyLineBr.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphHelperEmptyLineBr.java
+END
+LocalParagraphEventHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/LocalParagraphEventHandler.java
+END
+ParagraphNiceHtmlRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphNiceHtmlRenderer.java
+END
+ParagraphHtmlRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphHtmlRenderer.java
+END
+ParagraphHelperIE.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphHelperIE.java
+END
+LineRendering.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/LineRendering.java
+END
+DefaultParagraphHtmlRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/DefaultParagraphHtmlRenderer.java
+END
+Line.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/Line.java
+END
+ParagraphHelperBr.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphHelperBr.java
+END
+ParagraphRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/editor/content/paragraph/ParagraphRenderer.java
+END

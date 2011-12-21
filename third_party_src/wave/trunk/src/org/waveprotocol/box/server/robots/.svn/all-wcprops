@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots
+END
+RobotCapabilities.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/RobotCapabilities.java
+END
+OperationResults.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/OperationResults.java
+END
+OperationContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/OperationContext.java
+END
+RobotApiModule.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/RobotApiModule.java
+END
+RobotRegistrationServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/RobotRegistrationServlet.java
+END
+RobotSerializerModule.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/RobotSerializerModule.java
+END
+RobotWaveletData.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/RobotWaveletData.java
+END
+OperationContextImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/OperationContextImpl.java
+END
+OperationServiceRegistry.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/OperationServiceRegistry.java
+END
+AbstractOperationServiceRegistry.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/box/server/robots/AbstractOperationServiceRegistry.java
+END

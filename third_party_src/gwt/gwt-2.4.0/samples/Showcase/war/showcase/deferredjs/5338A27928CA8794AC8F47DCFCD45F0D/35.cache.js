@@ -1,0 +1,9 @@
+function mxb(){}
+function qxb(){}
+function uxb(){}
+function nxb(a){this.a=a}
+function rxb(a){this.a=a}
+function vxb(a){this.a=a}
+function i_b(){j_b.call(this,true,false,lgd)}
+function ucb(){ucb=LCc;jcb();gcb=new f8((c9(),new V8(bcb)),0,0,120,87)}
+var egd='150px',kgd="<br><br><br><b>Cliquez sur une image pour l'afficher \xE0 sa taille maximale:<\/b>",ggd='Afficher la fen\xEAtre pop-up basique',fgd='Cliquez en dehors de cette fen\xEAtre pop-up pour la faire dispara\xEEtre.',mgd='CwBasicPopup$1',ngd='CwBasicPopup$2',ogd='CwBasicPopup$3',jgd='cw-BasicPopup-thumb',hgd='cwBasicPopup-imagePopup',dgd='cwBasicPopup-simplePopup',igd='cwBasicPopup-thumb',lgd='popup';var gcb=null;_=nxb.prototype=mxb.prototype=new Y;_.gC=function oxb(){return SX};_.qc=function pxb(a){var b,c,d;c=CP(a.i,113);b=$l(c.Q)+10;d=_l(c.Q)+10;Ff(this.a,b,d);this.a.Tb()};_.cM={22:1,44:1};_.a=null;_=rxb.prototype=qxb.prototype=new Y;_.gC=function sxb(){return TX};_.qc=function txb(a){this.a.Rb()};_.cM={22:1,44:1};_.a=null;_=vxb.prototype=uxb.prototype=new Y;_.gC=function wxb(){return UX};_.qc=function xxb(a){vf(this.a)};_.cM={22:1,44:1};_.a=null;_=yxb.prototype;_.bc=function Cxb(){var a,b,c,d,e,f;X9(this.a,(e=new i_b,e.ub(dgd),Jf(e,egd),h_b(e,new M0b(fgd)),d=new UXb(ggd,new nxb(e)),b=new wSb((Vab(),tcb(),jcb(),fcb)),a=new Nf(true),a.v=true,a.ub(hgd),a.Qb(b),Je(b,new rxb(a),(xq(),xq(),wq)),c=new wSb((ucb(),gcb)),Vhc(c.Q,fDc,igd),Be(c.Q,jgd,true),Je(c,new vxb(a),wq),f=new xic,f.e[EQc]=5,uic(f,d),uic(f,new M0b(kgd)),uic(f,c),f))};_=i_b.prototype=g_b.prototype;var SX=Kqc(AXc,mgd),TX=Kqc(AXc,ngd),UX=Kqc(AXc,ogd);bDc(sj)(35);

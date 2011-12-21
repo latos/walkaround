@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/test/emma
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/test/emma/COPYING
+END
+README.google
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/test/emma/README.google
+END
+emma.jar
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/test/emma/emma.jar
+END
+emma_ant.jar
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/test/emma/emma_ant.jar
+END

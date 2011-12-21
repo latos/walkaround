@@ -1,0 +1,2 @@
+function $ub(){var a,b,c;b=new Y1b;Dfc(b.Q,AAc,'cwFlowPanel');for(c=0;c<30;++c){a=new _Vb(fJc+c);Be(a.Q,'cw-FlowPanel-checkBox',true);rUb(b,a,b.Q)}return b}
+_=cvb.prototype;_.ac=function gvb(){d9(this.a,$ub())};yAc(sj)(30);

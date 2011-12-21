@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl
+END
+JsonRpcResponseGsonAdaptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/JsonRpcResponseGsonAdaptor.java
+END
+EventMessageBundle.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/EventMessageBundle.java
+END
+WaveletData.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/WaveletData.java
+END
+EventMessageBundleGsonAdaptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/EventMessageBundleGsonAdaptor.java
+END
+DocumentModifyAction.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/DocumentModifyAction.java
+END
+Tuple.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/Tuple.java
+END
+ElementGsonAdaptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/ElementGsonAdaptor.java
+END
+OperationRequestGsonAdaptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/OperationRequestGsonAdaptor.java
+END
+DocumentModifyQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/DocumentModifyQuery.java
+END
+GsonFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/impl/GsonFactory.java
+END

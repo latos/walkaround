@@ -1,0 +1,2 @@
+function $gb(){var a,b,c;b=new OPb;r1b(b.R,fmc,'cwFlowPanel');for(c=0;c<30;++c){a=new LHb(Muc+c);Ce(a.R,'cw-FlowPanel-checkBox',true);bGb(b,a,b.R)}return b}
+_=chb.prototype;_.bc=function ghb(){dX(this.b,$gb())};dmc(tj)(30);

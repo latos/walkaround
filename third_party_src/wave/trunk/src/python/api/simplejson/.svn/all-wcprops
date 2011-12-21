@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson
+END
+scanner.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/scanner.py
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/LICENSE
+END
+tool.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/tool.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/__init__.py
+END
+encoder.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/encoder.py
+END
+jsonfilter.py
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/jsonfilter.py
+END
+decoder.py
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/decoder.py
+END
+ordered_dict.py
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/python/api/simplejson/ordered_dict.py
+END

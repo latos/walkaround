@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar
+END
+EditToolbar.css
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/EditToolbar.css
+END
+Toolbar.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/Toolbar.gwt.xml
+END
+EditorToolbarResources.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/EditorToolbarResources.java
+END
+EditToolbar.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/EditToolbar.java
+END
+ToolbarSwitcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/ToolbarSwitcher.java
+END
+ViewToolbar.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/impl/toolbar/ViewToolbar.java
+END

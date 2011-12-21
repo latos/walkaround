@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation
+END
+PojoAnnotationPainterRandomLargeTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation/PojoAnnotationPainterRandomLargeTest.java
+END
+Tests.gwt.xml
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation/Tests.gwt.xml
+END
+AnnotationPainterTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation/AnnotationPainterTestBase.java
+END
+AnnotationPainterRandomTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation/AnnotationPainterRandomTestBase.java
+END
+AnnotationHelperTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation/AnnotationHelperTest.java
+END
+CaretAnnotationsTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation/CaretAnnotationsTest.java
+END
+AnnotationPainterTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/client/editor/annotation/AnnotationPainterTest.java
+END

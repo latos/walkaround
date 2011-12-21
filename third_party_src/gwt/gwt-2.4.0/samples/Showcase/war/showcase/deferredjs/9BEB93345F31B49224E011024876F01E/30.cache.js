@@ -1,0 +1,2 @@
+function Eub(){var a,b,c;b=new s1b;Xec(b.R,Lzc,'cwFlowPanel');for(c=0;c<30;++c){a=new pVb(sIc+c);Ce(a.R,'cw-FlowPanel-checkBox',true);HTb(b,a,b.R)}return b}
+_=Iub.prototype;_.bc=function Mub(){J8(this.b,Eub())};Jzc(tj)(30);

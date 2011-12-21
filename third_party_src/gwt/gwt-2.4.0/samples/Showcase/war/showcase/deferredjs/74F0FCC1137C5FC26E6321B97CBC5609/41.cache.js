@@ -1,0 +1,3 @@
+function B1b(){}
+function A1b(){}
+_=B1b.prototype=A1b.prototype=new Y;_.gC=function C1b(){return Vqb};_.wc=function D1b(a){Blc('Stop poking me!')};_.cM={22:1,44:1};_=E1b.prototype;_.fc=function I1b(){var a,b,c;SDb(this.b,(b=new kyc,b.f[E7c]=10,c=new toc('Normal Button',new B1b),hKc(c.R,n3c,'cwBasicButton-normal'),hyc(b,c),a=new soc('Disabled Button'),hKc(a.R,n3c,'cwBasicButton-disabled'),a.R[bdd]=true,hyc(b,a),b))};var Vqb=USc(Q8c,'CwBasicButton$1');l3c(Hj)(41);

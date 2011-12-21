@@ -1,0 +1,2 @@
+function Swb(){var a,b,c,d,e;b=new O1b(4,4);d=b.g;c=b.f;for(e=0;e<d;++e){for(a=0;a<c;++a){c1b(b,e,a,new lQb((hbb(),Xab)))}}W0b(b,'cwGrid');return b}
+_=Wwb.prototype;_.ac=function $wb(){U8(this.a,Swb())};eAc(tj)(38);

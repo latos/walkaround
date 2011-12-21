@@ -1,0 +1,1 @@
+_=rhb.prototype;_.fc=function vhb(){var a,b,c;XX(this.b,(c=new lQb,c.p[crc]=6,a=KC(c.k,90),bQb(c,0,0,'\u8F93\u5165\u641C\u7D22\u6761\u4EF6'),vQb(a,0)[qtc]=2,yQb(a,0,(xRb(),rRb)),bQb(c,1,0,'\u540D:'),eQb(c,1,1,new mWb),bQb(c,2,0,Zvc),eQb(c,2,1,new mWb),b=new yMb,yf(b,c),b))};jnc(Hj)(27);

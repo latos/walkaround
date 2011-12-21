@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt
+END
+ObservableBasicMapTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/ObservableBasicMapTestBase.java
+END
+ObservableSingletonTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/ObservableSingletonTestBase.java
+END
+ObservableBasicSetWithObservableBasicSetImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/ObservableBasicSetWithObservableBasicSetImplTest.java
+END
+ObservableBasicMapWithObservableBasicMapImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/ObservableBasicMapWithObservableBasicMapImplTest.java
+END
+ObservableBasicSetTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/ObservableBasicSetTestBase.java
+END
+ObservableSingletonWithObservableSingletonImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/wave/model/adt/ObservableSingletonWithObservableSingletonImplTest.java
+END

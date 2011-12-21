@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel
+END
+SubmitCallback.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/SubmitCallback.java
+END
+WaveletChannel.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/WaveletChannel.java
+END
+ViewChannel.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/ViewChannel.java
+END
+OperationChannelMultiplexer.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/OperationChannelMultiplexer.java
+END
+ViewChannelImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/ViewChannelImpl.java
+END
+InternalOperationChannel.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/InternalOperationChannel.java
+END
+OperationChannelMultiplexerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/OperationChannelMultiplexerImpl.java
+END
+Accessibility.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/Accessibility.java
+END
+OperationChannel.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/OperationChannel.java
+END
+WaveletDeltaChannel.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/WaveletDeltaChannel.java
+END
+OperationChannelImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/OperationChannelImpl.java
+END
+ViewChannelFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/ViewChannelFactory.java
+END
+WaveletDeltaChannelImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/WaveletDeltaChannelImpl.java
+END
+WaveViewService.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/concurrencycontrol/channel/WaveViewService.java
+END

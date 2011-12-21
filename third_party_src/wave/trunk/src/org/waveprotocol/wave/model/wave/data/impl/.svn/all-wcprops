@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl
+END
+UnmodifiableBlipData.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/UnmodifiableBlipData.java
+END
+WaveletDataListenerManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/WaveletDataListenerManager.java
+END
+BlipDataImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/BlipDataImpl.java
+END
+StubDocumentFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/StubDocumentFactory.java
+END
+ForwardingReadableWaveletData.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/ForwardingReadableWaveletData.java
+END
+AbstractBlipData.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/AbstractBlipData.java
+END
+EmptyWaveletSnapshot.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/EmptyWaveletSnapshot.java
+END
+DataUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/DataUtil.java
+END
+WaveViewDataImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/WaveViewDataImpl.java
+END
+PluggableMutableDocument.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/PluggableMutableDocument.java
+END
+UnmodifiableWaveletData.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/UnmodifiableWaveletData.java
+END
+ObservablePluggableMutableDocument.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/ObservablePluggableMutableDocument.java
+END
+WaveletDataImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/WaveletDataImpl.java
+END
+ForwardingReadableBlipData.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/ForwardingReadableBlipData.java
+END
+AbstractWaveletData.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/AbstractWaveletData.java
+END
+WaveletDataListenerImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/model/wave/data/impl/WaveletDataListenerImpl.java
+END

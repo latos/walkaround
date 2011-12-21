@@ -1,0 +1,1 @@
+_=Ngb.prototype;_.bc=function Rgb(){var a,b,c;rX(this.b,(c=new EPb,c.p[eqc]=6,a=hC(c.k,90),uPb(c,0,0,'\u8F93\u5165\u641C\u7D22\u6761\u4EF6'),OPb(a,0)[ssc]=2,RPb(a,0,(QQb(),KQb)),uPb(c,1,0,'\u540D:'),xPb(c,1,1,new FVb),uPb(c,2,0,_uc),xPb(c,2,1,new FVb),b=new LLb,lf(b,c),b))};qmc(tj)(27);

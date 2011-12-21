@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/data/converter
+END
+EventDataConverter.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/data/converter/EventDataConverter.java
+END
+ContextResolver.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/data/converter/ContextResolver.java
+END
+EventDataConverterModule.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/data/converter/EventDataConverterModule.java
+END
+EventDataConverterManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/com/google/wave/api/data/converter/EventDataConverterManager.java
+END

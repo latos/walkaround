@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst
+END
+PstException.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/PstException.java
+END
+PstFileDescriptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/PstFileDescriptor.java
+END
+Pst.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/Pst.java
+END
+PstMain.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/PstMain.java
+END
+PstCommandLine.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/pst/PstCommandLine.java
+END

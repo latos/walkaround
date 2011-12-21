@@ -1,0 +1,293 @@
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full
+END
+TopConversationViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/TopConversationViewBuilder.java
+END
+BlipMetaViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/BlipMetaViewBuilder.java
+END
+Collapsible.css
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/Collapsible.css
+END
+ViewFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ViewFactory.java
+END
+ParticipantsViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ParticipantsViewBuilder.java
+END
+arrow_unread_expanded.png
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/arrow_unread_expanded.png
+END
+ContinuationIndicatorViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ContinuationIndicatorViewBuilder.java
+END
+ReplyBox.css
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ReplyBox.css
+END
+FocusFrameIE.css
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/FocusFrameIE.css
+END
+ParticipantNameViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ParticipantNameViewBuilder.java
+END
+Conversation.css
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/Conversation.css
+END
+WavePanelResourceLoader.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/WavePanelResourceLoader.java
+END
+RootThread.css
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/RootThread.css
+END
+add_button.png
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/add_button.png
+END
+BlipViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/BlipViewBuilder.java
+END
+FixedConversationViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/FixedConversationViewBuilder.java
+END
+TypeCodes.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/TypeCodes.java
+END
+CollapsibleBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/CollapsibleBuilder.java
+END
+arrow_read_expanded.png
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/arrow_read_expanded.png
+END
+collapse_button.png
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/collapse_button.png
+END
+FocusFrame.css
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/FocusFrame.css
+END
+FocusFrameIE.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/FocusFrameIE.ui.xml
+END
+BlipLinkPopupWidget.css
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/BlipLinkPopupWidget.css
+END
+FlowConversationViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/FlowConversationViewBuilder.java
+END
+ReplyBoxViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ReplyBoxViewBuilder.java
+END
+DomRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/DomRenderer.java
+END
+callout.png
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/callout.png
+END
+Participants.css
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/Participants.css
+END
+InlineThreadViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/InlineThreadViewBuilder.java
+END
+collapsed.png
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/collapsed.png
+END
+ViewFactories.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ViewFactories.java
+END
+InlineConversationViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/InlineConversationViewBuilder.java
+END
+AnchorViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/AnchorViewBuilder.java
+END
+RootThreadViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/RootThreadViewBuilder.java
+END
+expand_button.png
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/expand_button.png
+END
+ContinuationIndicator.css
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ContinuationIndicator.css
+END
+arrow_read_collapsed.png
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/arrow_read_collapsed.png
+END
+ParticipantAvatarViewBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/ParticipantAvatarViewBuilder.java
+END
+arrow_unread_collapsed.png
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/arrow_unread_collapsed.png
+END
+BlipQueueRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/BlipQueueRenderer.java
+END
+toolbar_empty.png
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/toolbar_empty.png
+END
+FocusFrame.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/FocusFrame.ui.xml
+END
+continuation_icon.png
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/continuation_icon.png
+END
+BlipLinkPopupWidget.ui.xml
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/BlipLinkPopupWidget.ui.xml
+END
+FocusFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/FocusFrame.java
+END
+expanded.png
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/expanded.png
+END
+BlipLinkPopupWidget.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/BlipLinkPopupWidget.java
+END
+Blip.css
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/wavepanel/view/dom/full/Blip.css
+END

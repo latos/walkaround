@@ -1,0 +1,8 @@
+function _xb(){}
+function dyb(){}
+function ayb(a){this.a=a}
+function eyb(a){this.a=a}
+function $3b(a,b){(a.a.Mg(0,1),a.a.i.rows[0].cells[1])[ufd]=b}
+function Xxb(a){var b;b=a.i.rows.length;if(b>1){v3b(a,b-1);$3b(CP(a.j,91),b-1)}}
+function Wxb(a){var b;b=a.i.rows.length;B3b(a,b,0,new wSb((Vab(),rcb(),jcb(),dcb)));B3b(a,b,1,new wSb(dcb));$3b(CP(a.j,91),b+1)}
+var Kgd='32em',Mgd='Ajouter une ligne',Lgd="Ceci est un tableau flexible qui prend en charge les <B>plages de colonne<\/B> et les <B>plages de ligne<\/B>. Vous pouvez l'utiliser pour mettre en forme votre page ou en tant que tableau r\xE9serv\xE9 \xE0 un but pr\xE9cis.",Qgd='CwFlexTable$1',Rgd='CwFlexTable$2',Ngd='Supprimer une ligne',Jgd='cw-FlexTable',Ogd='cw-FlexTable-buttonPanel',Pgd='cwFlexTable';_=ayb.prototype=_xb.prototype=new Y;_.gC=function byb(){return _X};_.qc=function cyb(a){Wxb(this.a)};_.cM={22:1,44:1};_.a=null;_=eyb.prototype=dyb.prototype=new Y;_.gC=function fyb(){return aY};_.qc=function gyb(a){Xxb(this.a)};_.cM={22:1,44:1};_.a=null;_=hyb.prototype;_.bc=function lyb(){var a,b,c,d,e;X9(this.a,(d=new I3b,c=CP(d.j,91),Be(d.Q,Jgd,true),d.Q.style[iDc]=Kgd,d.o[EQc]=5,d.o[FQc]=3,V3b(c,1,(U4b(),Q4b)),y3b(d,0,0,Lgd),S3b(c,0)[c5c]=2,a=new UXb(Mgd,new ayb(d)),Be(a.Q,Vdd,true),e=new UXb(Ngd,new eyb(d)),Be(e.Q,Vdd,true),b=new xic,b.Q[hDc]=Ogd,uic(b,a),uic(b,e),B3b(d,0,1,b),X3b(c,0,1,(b5b(),a5b)),Wxb(d),Wxb(d),t3b(d,Pgd),d))};var _X=Kqc(FXc,Qgd),aY=Kqc(FXc,Rgd);bDc(sj)(37);

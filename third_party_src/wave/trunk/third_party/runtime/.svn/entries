@@ -1,0 +1,118 @@
+10
+
+dir
+1187362
+https://svn.apache.org/repos/asf/incubator/wave/trunk/third_party/runtime
+https://svn.apache.org/repos/asf
+
+
+
+2011-10-18T18:45:31.199292Z
+1185789
+yurize
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13f79535-47bb-0310-9956-ffa450edef68
+
+oauth
+dir
+
+socketio
+dir
+
+commons_logging
+dir
+
+jsr305
+dir
+
+websocket
+dir
+
+jackson
+dir
+
+jdom
+dir
+
+xpp3
+dir
+
+bouncycastle
+dir
+
+joda_time
+dir
+
+guice
+dir
+
+whack
+dir
+
+gxp
+dir
+
+jetty
+dir
+
+protobuf
+dir
+
+jline
+dir
+
+libidn
+dir
+
+commons_configuration
+dir
+
+commons_cli
+dir
+
+guava
+dir
+
+protobuf-format-java
+dir
+
+gson
+dir
+
+commons_codec
+dir
+
+aopalliance
+dir
+
+mongo-driver
+dir
+
+commons_httpclient
+dir
+
+commons_collections
+dir
+
+jdo
+dir
+
+commons_lang
+dir
+
+dom4j
+dir
+

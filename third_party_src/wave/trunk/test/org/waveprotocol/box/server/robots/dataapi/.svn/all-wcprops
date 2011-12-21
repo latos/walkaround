@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/dataapi
+END
+DataApiTokenContainerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/dataapi/DataApiTokenContainerTest.java
+END
+DataApiServletTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/dataapi/DataApiServletTest.java
+END
+DataApiOAuthServletTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/dataapi/DataApiOAuthServletTest.java
+END

@@ -1,0 +1,1 @@
+_=Ygb.prototype;_.ac=function ahb(){var a,b,c;CX(this.a,(c=new SPb,c.o[xqc]=6,a=lC(c.j,90),IPb(c,0,0,'\u8F93\u5165\u641C\u7D22\u6761\u4EF6'),aQb(a,0)[Nsc]=2,dQb(a,0,(cRb(),YQb)),IPb(c,1,0,'\u540D:'),LPb(c,1,1,new TVb),IPb(c,2,0,uvc),LPb(c,2,1,new TVb),b=new dMb,lf(b,c),b))};Nmc(tj)(27);

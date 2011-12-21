@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate
+END
+SessionPartIdFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/SessionPartIdFactory.java
+END
+HtmlTemplate.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/HtmlTemplate.java
+END
+TemplateNodeMutationHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/TemplateNodeMutationHandler.java
+END
+secureStyles.css
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/secureStyles.css
+END
+CajolerFacade.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/CajolerFacade.java
+END
+PluginContext.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/PluginContext.java
+END
+supporting_js.jslib
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/supporting_js.jslib
+END
+JsonpRouter.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/JsonpRouter.java
+END
+taming.js
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/taming.js
+END
+PartIdFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/PartIdFactory.java
+END
+Callback.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/Callback.java
+END
+CajoleService.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/CajoleService.java
+END
+HttpCajoleService.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/HttpCajoleService.java
+END
+NameValuePairNodeMutationHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 152
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/src/org/waveprotocol/wave/client/doodad/experimental/htmltemplate/NameValuePairNodeMutationHandler.java
+END

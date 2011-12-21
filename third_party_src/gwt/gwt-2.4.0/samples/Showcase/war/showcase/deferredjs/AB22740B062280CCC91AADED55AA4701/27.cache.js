@@ -1,0 +1,1 @@
+_=Fhb.prototype;_.fc=function Jhb(){var a,b,c;jY(this.b,(c=new wQb,c.p[urc]=6,a=TC(c.k,90),mQb(c,0,0,'\u8F93\u5165\u641C\u7D22\u6761\u4EF6'),GQb(a,0)[Htc]=2,JQb(a,0,(KRb(),ERb)),mQb(c,1,0,'\u540D:'),pQb(c,1,1,new AWb),mQb(c,2,0,owc),pQb(c,2,1,new AWb),b=new JMb,zf(b,c),b))};Dnc(Hj)(27);

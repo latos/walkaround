@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/passive
+END
+RobotConnectorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/passive/RobotConnectorTest.java
+END
+RobotOperationApplicatorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/passive/RobotOperationApplicatorTest.java
+END
+RobotTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/passive/RobotTest.java
+END
+WaveletAndDeltasTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/passive/WaveletAndDeltasTest.java
+END
+EventGeneratorTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/passive/EventGeneratorTest.java
+END
+RobotsGatewayTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/robots/passive/RobotsGatewayTest.java
+END

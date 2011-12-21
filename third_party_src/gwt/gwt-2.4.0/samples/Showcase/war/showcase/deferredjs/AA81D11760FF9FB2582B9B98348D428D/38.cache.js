@@ -1,0 +1,2 @@
+function TNb(){var a,b,c,d,e;b=new Pic(4,4);d=b.g;c=b.f;for(e=0;e<d;++e){for(a=0;a<c;++a){dic(b,e,a,new m5b((isb(),Yrb)))}}Xhc(b,'cwGrid');return b}
+_=XNb.prototype;_.ac=function _Nb(){Vpb(this.a,TNb())};fRc(tj)(38);

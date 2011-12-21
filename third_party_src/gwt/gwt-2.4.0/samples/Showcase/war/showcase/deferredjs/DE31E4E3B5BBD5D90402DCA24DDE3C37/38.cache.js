@@ -1,0 +1,2 @@
+function INb(){var a,b,c,d,e;b=new Bic(4,4);d=b.i;c=b.g;for(e=0;e<d;++e){for(a=0;a<c;++a){Rhc(b,e,a,new $4b((Zrb(),Nrb)))}}Jhc(b,'cwGrid');return b}
+_=MNb.prototype;_.bc=function QNb(){Kpb(this.b,INb())};KQc(tj)(38);

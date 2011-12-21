@@ -1,0 +1,2 @@
+function h_b(){var a,b,c,d,e;b=new dwc(4,4);d=b.g;c=b.f;for(e=0;e<d;++e){for(a=0;a<c;++a){tvc(b,e,a,new Cic((yFb(),mFb)))}}lvc(b,'cwGrid');return b}
+_=l_b.prototype;_.ac=function p_b(){jDb(this.a,h_b())};v2c(tj)(38);

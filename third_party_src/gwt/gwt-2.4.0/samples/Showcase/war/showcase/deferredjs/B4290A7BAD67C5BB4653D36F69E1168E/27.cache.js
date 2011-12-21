@@ -1,0 +1,1 @@
+var j1c='\u540D:',i1c='\u8F93\u5165\u641C\u7D22\u6761\u4EF6';_=tib.prototype;_.bc=function xib(){var a,b,c;FY(this.a,(c=new pSb,c.o[lDc]=6,a=FC(c.j,91),fSb(c,0,0,i1c),zSb(a,0)[LTc]=2,CSb(a,0,(BTb(),vTb)),fSb(c,1,0,j1c),iSb(c,1,1,new tYb),fSb(c,2,0,k1c),iSb(c,2,1,new tYb),b=new zOb,kf(b,c),b))};Kpc(sj)(27);

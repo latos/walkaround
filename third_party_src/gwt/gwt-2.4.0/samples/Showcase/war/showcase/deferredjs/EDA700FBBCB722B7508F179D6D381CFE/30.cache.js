@@ -1,0 +1,2 @@
+function eZb(){var a,b,c;b=new Xvc;CJc(b.Q,x2c,'cwFlowPanel');for(c=0;c<30;++c){a=new $nc(Fbd+c);Ce(a.Q,'cw-FlowPanel-checkBox',true);qmc(b,a,b.Q)}return b}
+_=iZb.prototype;_.ac=function mZb(){jDb(this.a,eZb())};v2c(tj)(30);

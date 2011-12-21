@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/platforms/ubuntu
+END
+server-wrapper.sh
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/platforms/ubuntu/server-wrapper.sh
+END
+daemon-script.sh
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/platforms/ubuntu/daemon-script.sh
+END

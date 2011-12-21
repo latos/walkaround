@@ -1,0 +1,7 @@
+function Wab(){}
+function $ab(){}
+function _ab(a){this.b=a}
+function Xab(a,b){this.b=a;this.c=b}
+function Sab(a){var b,c,d;b=ebc(ul(a.b.R,Brc));c=ebc(ul(a.c.R,Brc));d=ebc(ul(a.d.R,Brc));iMb(a.e,"User '"+b+"' has security clearance '"+c+"' and cannot access '"+d+Knc)}
+function Rab(a){var b,c,d,e,f,g;d=new rPb;b=$B(d.k,89);d.p[Vpc]=5;g=JW(MI);e=new _Gb(g);Je(e,new Xab(a,g),(_p(),_p(),$p));f=new vRb;f.f[Vpc]=3;sRb(f,new sMb(isc));sRb(f,e);kPb(d,0,0,f);BPb(b,0)[jsc]=2;hPb(d,1,0,ksc);hPb(d,1,1,"User '{0}' has security clearance '{1}' and cannot access '{2}'");a.b=new sVb;gVb(a.b,'amelie');hPb(d,2,0,lsc);kPb(d,2,1,a.b);a.c=new sVb;gVb(a.c,'guest');hPb(d,3,0,msc);kPb(d,3,1,a.c);a.d=new sVb;gVb(a.d,'/secure/blueprints.xml');hPb(d,4,0,nsc);kPb(d,4,1,a.d);a.e=new qMb;hPb(d,5,0,Rsc);kPb(d,5,1,a.e);GPb(b,5,0,(MQb(),LQb));c=new _ab(a);Je(a.b,c,(Vq(),Vq(),Uq));Je(a.c,c,Uq);Je(a.d,c,Uq);Sab(a);return d}
+_=Xab.prototype=Wab.prototype=new Y;_.gC=function Yab(){return zI};_.oc=function Zab(a){BW(this.b,this.c+rsc)};_.cM={22:1,44:1};_.b=null;_.c=null;_=_ab.prototype=$ab.prototype=new Y;_.gC=function abb(){return AI};_.qc=function bbb(a){Sab(this.b)};_.cM={27:1,44:1};_.b=null;_=cbb.prototype;_.bc=function gbb(){dX(this.c,Rab(this.b))};var MI=O9b($qc,'ErrorMessages'),zI=M9b($qc,'CwMessagesExample$1'),AI=M9b($qc,'CwMessagesExample$2');dmc(tj)(14);

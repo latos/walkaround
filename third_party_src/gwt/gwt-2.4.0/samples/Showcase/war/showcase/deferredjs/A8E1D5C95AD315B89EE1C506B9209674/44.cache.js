@@ -1,0 +1,5 @@
+function Klb(){}
+function ZOb(){}
+function Llb(a){this.a=a}
+function $Ob(){ke(this,Cl($doc,'file'));this.Q[Emc]='gwt-FileUpload'}
+_=Llb.prototype=Klb.prototype=new Y;_.gC=function Mlb(){return vK};_.oc=function Nlb(a){var b;b=this.a.Q.value;b.length==0?$Eb('You must select a file to upload'):$Eb('File uploaded!')};_.cM={22:1,44:1};_.a=null;_=Olb.prototype;_.ac=function Slb(){var a,b,c;oX(this.a,(c=new j2b,g2b(c,new MMb('<b>Select a file:<\/b>')),a=new $Ob,H1b(a.Q,Cmc,'cwFileUpload'),g2b(c,a),b=new THb('Upload File'),Je(b,new Llb(a),(dq(),dq(),cq)),g2b(c,new MMb('<br>')),g2b(c,b),c))};_=$Ob.prototype=ZOb.prototype=new ee;_.gC=function _Ob(){return ON};_.Fb=function aPb(a){Oe(this,a)};_.cM={40:1,46:1,83:1,90:1,94:1,109:1,111:1};var vK=hac(yrc,'CwFileUpload$1'),ON=hac(Wqc,'FileUpload');Amc(tj)(44);

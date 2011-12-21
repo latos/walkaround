@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth
+END
+oauth-common.jar
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/oauth-common.jar
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/LICENSE
+END
+oauth-provider.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/oauth-provider.jar
+END
+oauth-consumer.jar
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/oauth-consumer.jar
+END
+oauth-common-src.jar
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/oauth-common-src.jar
+END
+README.google
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/README.google
+END
+oauth-provider-src.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/oauth-provider-src.jar
+END
+oauth-consumer-src.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/third_party/runtime/oauth/oauth-consumer-src.jar
+END

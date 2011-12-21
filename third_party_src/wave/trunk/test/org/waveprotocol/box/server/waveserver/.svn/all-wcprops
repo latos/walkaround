@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver
+END
+CertificateManagerImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/CertificateManagerImplTest.java
+END
+WaveMapTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/WaveMapTest.java
+END
+Ticker.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/Ticker.java
+END
+WaveletStateTestBase.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/WaveletStateTestBase.java
+END
+LocalWaveletContainerImplTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/LocalWaveletContainerImplTest.java
+END
+WaveServerTestUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/WaveServerTestUtil.java
+END
+WaveServerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/WaveServerTest.java
+END
+WaveletContainerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/WaveletContainerTest.java
+END
+DeltaStoreBasedWaveletStateTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/asf/!svn/ver/1181624/incubator/wave/trunk/test/org/waveprotocol/box/server/waveserver/DeltaStoreBasedWaveletStateTest.java
+END
