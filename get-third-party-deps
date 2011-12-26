@@ -27,7 +27,7 @@ get() {
   echo "fetching $urlbase$filename"
   wget -nv -O "$filename" "$urlbase$filename"
   ${algorithm}sum "$filename"
-  ${algorithm}sum --quiet -c <<EOF
+  ${algorithm}sum -c - <<EOF
 $checksum  $filename
 EOF
 }
@@ -67,12 +67,7 @@ dir third_party_src
   dir wave
   [[ -d trunk ]] || (
     set -x
-    # Version 1187363 introduced a reverse dependency from
-    # org.waveprotocol.wave to org.waveprotocol.box that is still
-    # present (as of this writing).  This reverse dependency adds an
-    # entry point that tries to initialize socket.io, which breaks
-    # walkaround.
-    svn co -r 1187362 -q https://svn.apache.org/repos/asf/incubator/wave/trunk
+    svn co -r 1213039 -q https://svn.apache.org/repos/asf/incubator/wave/trunk
   )
   cd trunk
   (

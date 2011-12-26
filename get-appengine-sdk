@@ -22,12 +22,17 @@ get() {
   echo "fetching $urlbase$filename"
   curl -s -o $filename $urlbase$filename
   ${algorithm}sum $filename
-  ${algorithm}sum -c <<EOF
+  ${algorithm}sum -c - <<EOF
 $checksum  $filename
 EOF
 }
 
+# When updating this, also update the version number in build.properties
+# and on http://code.google.com/p/walkaround/wiki/RunningTheCode .
+version=1.6.1
+checksum=8c2a88b05bddcba7bca51e272f7e10363039f48e
+
 mkdir -p appengine-sdk
 cd appengine-sdk
-get http://googleappengine.googlecode.com/files/ appengine-java-sdk-1.5.5.zip sha1 8bf3aecd400ee57679417a03a68c4409c05e953c
-unzip -q appengine-java-sdk-1.5.5.zip
+get http://googleappengine.googlecode.com/files/ appengine-java-sdk-$version.zip sha1 $checksum
+unzip -q appengine-java-sdk-$version.zip
