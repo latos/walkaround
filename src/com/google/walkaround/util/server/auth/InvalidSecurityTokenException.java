@@ -22,6 +22,7 @@ package com.google.walkaround.util.server.auth;
  * @author ohler@google.com (Christian Ohler)
  */
 public class InvalidSecurityTokenException extends Exception {
+  private static final long serialVersionUID = 392668853965055966L;
 
   public InvalidSecurityTokenException() {
   }

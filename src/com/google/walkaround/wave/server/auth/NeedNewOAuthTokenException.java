@@ -23,6 +23,7 @@ package com.google.walkaround.wave.server.auth;
  * @author ohler@google.com (Christian Ohler)
  */
 public class NeedNewOAuthTokenException extends RuntimeException {
+  private static final long serialVersionUID = 162274534253085532L;
 
   public NeedNewOAuthTokenException() {
   }

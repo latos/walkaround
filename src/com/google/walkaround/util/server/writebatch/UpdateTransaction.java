@@ -31,6 +31,8 @@ import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 public interface UpdateTransaction<U, R extends UpdateResult> {
 
   class BatchTooLargeException extends Exception {
+    private static final long serialVersionUID = 312635177505224710L;
+
     public BatchTooLargeException() {
     }
 

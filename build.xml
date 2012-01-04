@@ -240,6 +240,10 @@
   <target name="compile-proto" depends="init, compile-proto-dep"
       unless="skip.compile-proto" description="Compiles protocol buffers">
     <javac destdir="${build.proto}">
+      <compilerarg value="-Xlint:all"/>
+      <compilerarg value="-Xlint:-processing"/>
+      <!-- TODO(ohler): fix all the [path] warnings -->
+      <compilerarg value="-Xlint:-path"/>
       <src path="${proto_src}"/>
       <classpath>
         <path refid="server.classpath"/>
@@ -272,6 +276,10 @@
   </target>
   <target name="compile" depends="init,gen-messages,gen-gxp,compile-dep" unless="skip.compile">
     <javac sourcepath="" destdir="${build.server}" debug="on" fork="true" memoryMaximumSize="512m">
+      <compilerarg value="-Xlint:all"/>
+      <compilerarg value="-Xlint:-processing"/>
+      <!-- TODO(ohler): fix all the [path] warnings -->
+      <compilerarg value="-Xlint:-path"/>
       <src path="${src}"/>
       <src path="${gen.gxp}"/>
       <src path="${gen.messages}"/>
@@ -342,6 +350,10 @@
   <target name="compile-tests" depends="war">
     <javac destdir="${build.test.dir}"
            excludes="**/proto/jso/**,**/wave/client/**">
+      <compilerarg value="-Xlint:all"/>
+      <compilerarg value="-Xlint:-processing"/>
+      <!-- TODO(ohler): fix all the [path] warnings -->
+      <compilerarg value="-Xlint:-path"/>
       <src path="${test}"/>
       <!-- Compile everything again to include slob/client files.  We
            should find a better way. -->

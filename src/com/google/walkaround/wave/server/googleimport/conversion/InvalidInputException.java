@@ -27,6 +27,7 @@ package com.google.walkaround.wave.server.googleimport.conversion;
  * @author ohler@google.com (Christian Ohler)
  */
 public class InvalidInputException extends RuntimeException {
+  private static final long serialVersionUID = 168128706679979507L;
 
   public InvalidInputException() {
   }

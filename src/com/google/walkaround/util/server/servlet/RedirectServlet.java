@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author ohler@google.com (Christian Ohler)
  */
 public class RedirectServlet extends HttpServlet {
+  private static final long serialVersionUID = 930597932186069542L;
+
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(RedirectServlet.class.getName());
 

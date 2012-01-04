@@ -27,6 +27,7 @@ import java.io.Serializable;
  * @author ohler@google.com (Christian Ohler)
  */
 public final class ClientId implements Serializable {
+  private static final long serialVersionUID = 897917221735180820L;
 
   private final String id;
 

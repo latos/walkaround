@@ -38,6 +38,8 @@ public class XsrfHelper {
   private static final Logger log = Logger.getLogger(XsrfHelper.class.getName());
 
   public static class XsrfTokenExpiredException extends Exception {
+    private static final long serialVersionUID = 467064784131563198L;
+
     public XsrfTokenExpiredException() {
     }
 

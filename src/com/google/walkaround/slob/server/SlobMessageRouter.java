@@ -63,6 +63,8 @@ public class SlobMessageRouter {
   public @interface SlobChannelExpirationSeconds {}
 
   public static class TooManyListenersException extends Exception {
+    private static final long serialVersionUID = 455819249880278222L;
+
     public TooManyListenersException(String message, Throwable cause) {
       super(message, cause);
     }
@@ -77,6 +79,8 @@ public class SlobMessageRouter {
   }
 
   private static class ListenerAlreadyPresent extends Exception {
+    private static final long serialVersionUID = 144800949601544909L;
+
     private final ListenerKey key;
     private final ClientId clientId;
     private ListenerAlreadyPresent(ListenerKey key, ClientId clientId) {
@@ -87,6 +91,8 @@ public class SlobMessageRouter {
   }
 
   private static class ListenerKey implements Serializable {
+    private static final long serialVersionUID = 601407287266649008L;
+
     private final SlobId id;
     private final int listenerNum;
 

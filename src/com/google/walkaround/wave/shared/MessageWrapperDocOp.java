@@ -69,6 +69,8 @@ class MessageWrapperDocOp implements DocOp {
    * exceptions, this is a RuntimeException.
    */
   public static class DelayedInvalidInputException extends RuntimeException {
+    private static final long serialVersionUID = 370273955957838556L;
+
     public DelayedInvalidInputException(String message) {
       super(message);
     }

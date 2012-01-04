@@ -28,6 +28,7 @@ import java.io.Serializable;
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public final class SlobId implements Serializable {
+  private static final long serialVersionUID = 178314993219268135L;
 
   private final String id;
 

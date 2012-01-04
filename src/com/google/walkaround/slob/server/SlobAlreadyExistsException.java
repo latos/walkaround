@@ -20,6 +20,7 @@ package com.google.walkaround.slob.server;
  * @author ohler@google.com (Christian Ohler)
  */
 public class SlobAlreadyExistsException extends Exception {
+  private static final long serialVersionUID = 234235844730282653L;
 
   public SlobAlreadyExistsException() {
   }

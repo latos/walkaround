@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author ohler@google.com (Christian Ohler)
  */
 public class PermissionDeniedException extends HttpException {
+  private static final long serialVersionUID = 372093839240056814L;
 
   public PermissionDeniedException() {
   }

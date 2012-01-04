@@ -34,6 +34,8 @@ import java.io.Serializable;
 // Same goes for "ImageMetadata"
 // TODO(danilatos) Consider using a proto-based implementation?
 public class AttachmentMetadata implements Serializable {
+  private static final long serialVersionUID = 562560590763783822L;
+
   public interface ImageMetadata {
     public int getWidth();
     public int getHeight();

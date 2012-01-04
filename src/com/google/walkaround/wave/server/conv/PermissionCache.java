@@ -53,6 +53,8 @@ public class PermissionCache {
   }
 
   public static final class Permissions implements Serializable {
+    private static final long serialVersionUID = 701252070396813298L;
+
     // Really, canWrite > canRead, but yeah.
     private final boolean canRead;
     private final boolean canWrite;
@@ -80,6 +82,8 @@ public class PermissionCache {
   }
 
   private static class AccessKey implements Serializable {
+    private static final long serialVersionUID = 876732924768066692L;
+
     private final StableUserId userId;
     private final SlobId slobId;
 

@@ -29,6 +29,8 @@ import java.io.Serializable;
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class WaveletMapping implements Serializable {
+  private static final long serialVersionUID = 328650053195007979L;
+
   private final SlobId objectId;
 
   public WaveletMapping(SlobId objectId) {

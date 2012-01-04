@@ -61,6 +61,8 @@ public class WaveletDirectory {
    * @author ohler@google.com (Christian Ohler)
    */
   public class ObjectIdAlreadyKnown extends Exception {
+    private static final long serialVersionUID = 800996175494608917L;
+
     private final WaveletMapping existingMapping;
 
     public ObjectIdAlreadyKnown(WaveletMapping existingMapping) {
@@ -89,6 +91,8 @@ public class WaveletDirectory {
 
   @VisibleForTesting
   static class CacheEntry implements Serializable {
+    private static final long serialVersionUID = 310319261711079447L;
+
     @Nullable private final WaveletMapping cached;
 
     public CacheEntry(@Nullable WaveletMapping cached) {

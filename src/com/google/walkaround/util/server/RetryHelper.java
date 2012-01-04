@@ -34,6 +34,8 @@ public class RetryHelper {
   private static final Logger log = Logger.getLogger(RetryHelper.class.getName());
 
   public static class PermanentFailure extends Exception {
+    private static final long serialVersionUID = 593754888234966439L;
+
     public PermanentFailure() {
     }
 
@@ -51,6 +53,8 @@ public class RetryHelper {
   }
 
   public static class RetryableFailure extends Exception {
+    private static final long serialVersionUID = 881520674168876801L;
+
     public RetryableFailure() {
     }
 

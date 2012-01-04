@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Singleton
 public class HandlerServlet extends HttpServlet {
+  private static final long serialVersionUID = 878017407495028316L;
 
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(HandlerServlet.class.getName());

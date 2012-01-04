@@ -25,6 +25,7 @@ package com.google.walkaround.slob.shared;
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class ChangeRejected extends Exception {
+  private static final long serialVersionUID = 866300980861599406L;
 
   public ChangeRejected() {
     super();

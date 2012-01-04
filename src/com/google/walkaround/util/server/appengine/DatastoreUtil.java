@@ -32,6 +32,7 @@ public class DatastoreUtil {
    * Thrown by methods that parse entities if properties are invalid or missing.
    */
   public static class InvalidPropertyException extends RuntimeException {
+    private static final long serialVersionUID = 211006788308217422L;
 
     public InvalidPropertyException(Entity entity, String propertyName) {
       this(entity, propertyName, null, null);

@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author ohler@google.com (Christian Ohler)
  */
 public class TryAgainLaterException extends HttpException {
+  private static final long serialVersionUID = 423954225618154001L;
 
   public TryAgainLaterException() {
   }

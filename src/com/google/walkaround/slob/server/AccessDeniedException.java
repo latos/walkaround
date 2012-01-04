@@ -22,6 +22,7 @@ package com.google.walkaround.slob.server;
  * @author ohler@google.com (Christian Ohler)
  */
 public class AccessDeniedException extends Exception {
+  private static final long serialVersionUID = 381349724431770197L;
 
   public AccessDeniedException() {
   }

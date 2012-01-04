@@ -25,6 +25,8 @@ import com.google.walkaround.slob.shared.SlobId;
  */
 // TODO(danilatos): Require object id in all constructors.
 public class SlobNotFoundException extends Exception {
+  private static final long serialVersionUID = 605087702497587099L;
+
   public SlobNotFoundException(SlobId id) {
     super("Not found: " + id);
   }

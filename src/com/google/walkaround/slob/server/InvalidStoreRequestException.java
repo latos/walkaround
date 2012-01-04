@@ -23,6 +23,7 @@ package com.google.walkaround.slob.server;
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class InvalidStoreRequestException extends RuntimeException {
+  private static final long serialVersionUID = 568034814018982501L;
 
   public InvalidStoreRequestException() {
   }

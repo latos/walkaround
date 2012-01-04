@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author ohler@google.com (Christian Ohler)
  */
 public class BadRequestException extends HttpException {
+  private static final long serialVersionUID = 219334514559267522L;
+
   public static BadRequestException withInternalMessage(String message) {
     return new BadRequestException(new Exception(message));
   }

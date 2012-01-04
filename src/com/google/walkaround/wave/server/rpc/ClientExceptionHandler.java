@@ -41,6 +41,8 @@ public class ClientExceptionHandler extends AbstractHandler {
    * Represents an exception from the client.
    */
   private static class ClientException extends Exception {
+    private static final long serialVersionUID = 276392586606896983L;
+
     private ClientException(String className, String message, StackTraceElement[] st,
         ClientException cause) {
       super("(" + className + ") " + message, cause);

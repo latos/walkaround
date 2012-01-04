@@ -25,9 +25,10 @@ import javax.servlet.http.HttpServletResponse;
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class NotFoundException extends HttpException {
+  private static final long serialVersionUID = 272829532791826633L;
+
   private static final String NOT_FOUND_MESSAGE = "We're sorry, this page either does not exist "
       + "or you do not have access to it.";
-
 
   public static NotFoundException withInternalMessage(String message) {
     return new NotFoundException(new Exception(message));

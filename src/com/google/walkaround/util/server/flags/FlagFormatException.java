@@ -20,6 +20,8 @@ package com.google.walkaround.util.server.flags;
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class FlagFormatException extends Exception {
+  private static final long serialVersionUID = 324142638512478969L;
+
   public FlagFormatException() {
   }
 

@@ -23,6 +23,7 @@ package com.google.walkaround.slob.shared;
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class InvalidSnapshot extends Exception {
+  private static final long serialVersionUID = 925894689433745706L;
 
   public InvalidSnapshot() {
     super();
