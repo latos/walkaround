@@ -3,4 +3,4 @@
 set -e
 
 ./runant war
-appengine-sdk/sdk/bin/appcfg.sh update build/war
+third_party/appengine-sdk/sdk/bin/appcfg.sh update build/war
