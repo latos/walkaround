@@ -16,6 +16,8 @@
 
 package com.google.walkaround.wave.server.attachment;
 
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.memcache.Expiration;
@@ -101,15 +103,19 @@ public class AttachmentService {
    */
   public void serveDownload(String id,
       HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
     if (maybeCached(req, resp, "download, id=" + id)) {
       return;
     }
-
     BlobKey key = new BlobKey(id);
-
-    // TODO(danilatos): Verify that the blobstoreService fills in all the appropriate
-    // headers including file name.
+    BlobInfo info = new BlobInfoFactory().loadBlobInfo(key);
+    String disposition = "attachment; filename=\""
+        // TODO(ohler): Investigate what escaping we need here, and whether the
+        // blobstore service has already done some escaping that we need to undo
+        // (it seems to do percent-encoding on " characters).
+        + info.getFilename().replace("\"", "\\\"").replace("\\", "\\\\")
+        + "\"";
+    log.info("Serving " + info + " with Content-Disposition: " + disposition);
+    resp.setHeader("Content-Disposition", disposition);
     blobstore.serve(key, resp);
   }
 

@@ -18,10 +18,12 @@ package com.google.walkaround.wave.server.attachment;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -52,16 +54,10 @@ public class AttachmentUploadHandler extends AbstractHandler {
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
-    BlobKey blobKey = blobs.get(ATTACHMENT_UPLOAD_PARAM);
-
-    if (blobKey != null) {
-      log.info("Uploaded with blob id " + blobKey.getKeyString());
-    } else {
-      log.warning("Null blobKey after upload");
-    }
-
-    String idParam = blobKey != null ? "?attachmentId=" + blobKey.getKeyString() : "";
-    resp.sendRedirect("/uploadresult" + idParam);
+    Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+    List<BlobKey> blobKeys = blobs.get(ATTACHMENT_UPLOAD_PARAM);
+    log.info("blobKeys: " + blobKeys);
+    resp.sendRedirect("/uploadresult?attachmentId="
+        + Iterables.getOnlyElement(blobKeys).getKeyString());
   }
 }
