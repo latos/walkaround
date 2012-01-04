@@ -16,11 +16,11 @@
 
 package com.google.walkaround.util.server.gwt;
 
-import com.google.common.base.Function;
 import com.google.common.base.Splitter;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.MapMaker;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -60,12 +60,11 @@ public class StackTraceDeobfuscator {
 
   private SymbolMapsDirectory symbolMapsDirectory;
 
-  private final Map<String, Map<String, String>> symbolMaps =
-    new MapMaker()
-        .maximumSize(100)
-        .makeComputingMap(
-            new Function<String, Map<String, String>>() {
-              @Override public Map<String, String> apply(String strongName) {
+  private final Map<String, Map<String, String>> symbolMaps = CacheBuilder.newBuilder()
+      .maximumSize(100)
+      .<String, Map<String, String>>build(
+            new CacheLoader<String, Map<String, String>>() {
+              @Override public Map<String, String> load(String strongName) {
                 try {
                   // Can't use ImmutableMap.Builder since we may have duplicate keys like $clinit.
                   Map<String, String> out = new HashMap<String, String>();
@@ -91,7 +90,8 @@ public class StackTraceDeobfuscator {
                   return ImmutableMap.of();
                 }
               }
-            });
+            })
+      .asMap();
 
   /**
    * Constructor, which takes a <code>symbolMaps</code> directory as its
