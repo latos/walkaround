@@ -48,6 +48,9 @@ import java.util.Map;
  */
 public class WaveletHistoryConverter {
 
+  // See commit ebb4736368b6d371a1bf5005541d96b88dcac504 for my failed attempt
+  // at using CacheBuilder.  TODO(ohler): Figure out the right solution to this.
+  @SuppressWarnings("deprecation")
   private final Map<String, DocumentHistoryConverter> docConverters =
       new MapMaker().makeComputingMap(
           new Function<String, DocumentHistoryConverter>() {
