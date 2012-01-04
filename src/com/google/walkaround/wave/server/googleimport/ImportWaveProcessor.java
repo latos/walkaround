@@ -23,6 +23,7 @@ import com.google.inject.Inject;
 import com.google.walkaround.proto.GoogleImport.GoogleDocument;
 import com.google.walkaround.proto.GoogleImport.GoogleWavelet;
 import com.google.walkaround.proto.ImportWaveTask;
+import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.wave.server.WaveletCreator;
 import com.google.walkaround.wave.server.googleimport.conversion.HistorySynthesizer;
@@ -53,6 +54,8 @@ public class ImportWaveProcessor {
 
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(ImportWaveProcessor.class.getName());
+
+  private static final boolean EXCESSIVE_LOGGING = false;
 
   private final RobotApi.Factory robotApiFactory;
   private final SourceInstance.Factory sourceInstanceFactory;
@@ -135,7 +138,9 @@ public class ImportWaveProcessor {
       List<WaveletOperation> history;
       try {
         history = new HistorySynthesizer().synthesizeHistory(wavelet, documents);
-        log.info("Synthesized history: " + history);
+        if (EXCESSIVE_LOGGING) {
+          log.info("Synthesized history: " + history);
+        }
         history = convertConvHistory(history);
         if (!wavelet.getParticipantList().contains(importingUser.getAddress())) {
           log.info(
@@ -144,8 +149,11 @@ public class ImportWaveProcessor {
               HistorySynthesizer.newAddParticipant(importingUser.getAddress(),
                   wavelet.getLastModifiedTimeMillis(), importingUser.getAddress()));
         }
-        log.info("Converted synthesized history: " + history);
-        log.info("" + waveletCreator.newConvWithGeneratedId(history));
+        if (EXCESSIVE_LOGGING) {
+          log.info("Converted synthesized history: " + history);
+        }
+        SlobId newId = waveletCreator.newConvWithGeneratedId(history);
+        log.info("Imported wave id: " + newId);
       } catch (InvalidInputException e) {
         throw new RuntimeException(
             "Remote wavelet invalid: " + wavelet.getWaveId() + " " + wavelet.getWaveletId(), e);

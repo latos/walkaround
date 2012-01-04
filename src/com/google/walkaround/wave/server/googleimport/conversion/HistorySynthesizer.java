@@ -215,13 +215,10 @@ public class HistorySynthesizer {
 
   private void checkParticipantsNormalized(GoogleWavelet w, List<GoogleDocument> docs) {
     checkParticipantNormalized(w.getCreator());
-    log.info("Checking participant list " + w.getParticipantList());
     for (String p : w.getParticipantList()) {
       checkParticipantNormalized(p);
     }
     for (GoogleDocument doc : docs) {
-      log.info("Checking doc " + doc.getDocumentId()
-          + ": " + doc.getAuthor() + ", " + doc.getContributorList());
       checkParticipantNormalized(doc.getAuthor());
       for (String p : doc.getContributorList()) {
         checkParticipantNormalized(p);
