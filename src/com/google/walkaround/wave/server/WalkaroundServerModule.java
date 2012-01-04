@@ -23,7 +23,10 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
+import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.memcache.MemcacheService;
@@ -47,7 +50,13 @@ import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendN
 import com.google.walkaround.slob.server.MutationLog;
 import com.google.walkaround.slob.server.SlobManager;
 import com.google.walkaround.slob.server.SlobMessageRouter.SlobChannelExpirationSeconds;
+import com.google.walkaround.util.server.RetryHelper;
+import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
+import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.Util;
+import com.google.walkaround.util.server.appengine.CheckedDatastore;
+import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+import com.google.walkaround.util.server.appengine.DatastoreUtil;
 import com.google.walkaround.util.server.auth.DigestUtils2.Secret;
 import com.google.walkaround.util.server.flags.FlagDeclaration;
 import com.google.walkaround.util.server.flags.FlagFormatException;
@@ -84,6 +93,11 @@ public class WalkaroundServerModule extends AbstractModule {
 
   private static final String CONTACTS_SCOPE = "https://www.google.com/m8/feeds/";
   private static final String WAVE_SCOPE = "http://wave.googleusercontent.com/api/rpc";
+
+  private static final String SECRET_ENTITY_KIND = "Secret";
+  private static final com.google.appengine.api.datastore.Key SECRET_KEY =
+      KeyFactory.createKey(SECRET_ENTITY_KIND, "secret");
+  private static final String SECRET_PROPERTY = "secret";
 
   private <T> void bindToFlag(Class<T> type, Class<? extends Annotation> annotation,
       FlagName flagName) {
@@ -126,11 +140,39 @@ public class WalkaroundServerModule extends AbstractModule {
   }
 
   @Provides
-  // Constructing a secret does some string copying, only use one for
-  // efficiency.  (Not benchmarked.)
+  // The secret is read from the datastore; @Singleton to cache it for
+  // efficiency.  If an admin deletes the secret entity, a new secret will be
+  // generated, but existing instances will continue to use the old one.
+  // Re-deploying should fix this since it restarts all instances.
   @Singleton
-  Secret provideSecret(@Flag(FlagName.SECRET) String secretString) {
-    return Secret.of(secretString);
+  Secret provideSecret(final CheckedDatastore datastore, final Random random)
+      throws PermanentFailure {
+    return new RetryHelper().run(
+        new RetryHelper.Body<Secret>() {
+          @Override public Secret run() throws RetryableFailure, PermanentFailure {
+            CheckedTransaction tx = datastore.beginTransaction();
+            try {
+              {
+                Entity e = tx.get(SECRET_KEY);
+                if (e != null) {
+                  log.info("Using stored secret");
+                  return Secret.of(
+                      DatastoreUtil.getExistingProperty(e, SECRET_PROPERTY, Blob.class).getBytes());
+                }
+              }
+              Secret newSecret = Secret.generate(random);
+              Entity e = new Entity(SECRET_KEY);
+              DatastoreUtil.setNonNullUnindexedProperty(e, SECRET_PROPERTY,
+                  new Blob(newSecret.getBytes()));
+              tx.put(e);
+              tx.commit();
+              log.info("Generated new secret");
+              return newSecret;
+            } finally {
+              tx.close();
+            }
+          }
+        });
   }
 
   @Provides

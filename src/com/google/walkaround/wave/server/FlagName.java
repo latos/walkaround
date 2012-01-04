@@ -42,7 +42,6 @@ public enum FlagName implements FlagDeclaration {
   NUM_STORE_SERVERS(Integer.class),
   ANNOUNCEMENT_HTML(String.class),
   ANALYTICS_ACCOUNT(String.class),
-  SECRET(String.class),
   ;
 
   // Stolen from com.google.inject.name.NamedImpl.

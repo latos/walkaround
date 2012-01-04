@@ -21,6 +21,7 @@ import org.apache.commons.codec.binary.Hex;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Random;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -41,12 +42,14 @@ public class DigestUtils2 {
    */
   public static final class Secret {
 
-    public static Secret of(String secret) {
-      return new Secret(secret.getBytes());
-    }
-
     public static Secret of(byte[] secret) {
       return new Secret(Arrays.copyOf(secret, secret.length));
+    }
+
+    public static Secret generate(Random random) {
+      byte[] bytes = new byte[SHA1_BLOCK_SIZE];
+      random.nextBytes(bytes);
+      return new Secret(bytes);
     }
 
     private final byte[] data;
@@ -67,6 +70,11 @@ public class DigestUtils2 {
 
     public String getHexData() {
       return asHex;
+    }
+
+    public byte[] getBytes() {
+      // Copy to avoid exposing the mutable array.
+      return Arrays.copyOf(data, data.length);
     }
 
     @Override

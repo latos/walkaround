@@ -379,7 +379,6 @@
     <fail unless="app-version">Required property missing; see runant.sample.</fail>
     <fail unless="oauth-client-id">Required property missing; see runant.sample.</fail>
     <fail unless="oauth-client-secret">Required property missing; see runant.sample.</fail>
-    <fail unless="secret">Required property missing; see runant.sample.</fail>
   </target>
 
   <target name="war-step-1"
