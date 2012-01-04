@@ -373,6 +373,9 @@ public class LocalMutationProcessor {
   private final CheckedDatastore datastore;
   private final MonitoringVars monitoring;
   private final PreCommitHook preCommitHook;
+  // See commit ebb4736368b6d371a1bf5005541d96b88dcac504 for my failed attempt
+  // at using CacheBuilder.  TODO(ohler): Figure out the right solution to this.
+  @SuppressWarnings("deprecation")
   private final Map<SlobId, Processor> processors = new MapMaker()
       .weakValues()
       .makeComputingMap(new Function<SlobId, Processor>() {

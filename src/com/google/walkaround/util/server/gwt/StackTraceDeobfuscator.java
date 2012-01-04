@@ -60,6 +60,9 @@ public class StackTraceDeobfuscator {
 
   private SymbolMapsDirectory symbolMapsDirectory;
 
+  // See commit ebb4736368b6d371a1bf5005541d96b88dcac504 for my failed attempt
+  // at using CacheBuilder.  TODO(ohler): Figure out the right solution to this.
+  @SuppressWarnings("deprecation")
   private final Map<String, Map<String, String>> symbolMaps =
     new MapMaker()
         .maximumSize(100)
