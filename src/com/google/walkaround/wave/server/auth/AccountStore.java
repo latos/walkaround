@@ -33,9 +33,12 @@ import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedPreparedQuery;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.util.server.appengine.DatastoreUtil;
+import com.google.walkaround.util.server.appengine.MemcacheTable;
+import com.google.walkaround.util.server.appengine.MemcacheTable.IdentifiableValue;
 
 import org.waveprotocol.wave.model.wave.ParticipantId;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
@@ -54,7 +57,9 @@ public class AccountStore {
   /**
    * Information about a user stored in {@link AccountStore}.
    */
-  public static final class Record {
+  public static final class Record implements Serializable {
+    private static final long serialVersionUID = 759933263092669762L;
+
     private final StableUserId userId;
     private final ParticipantId participantId;
     @Nullable private final OAuthCredentials oAuthCredentials;
@@ -106,11 +111,15 @@ public class AccountStore {
   private static final String REFRESH_TOKEN_PROPERTY = "RefreshToken";
   private static final String ACCESS_TOKEN_PROPERTY = "AccessToken";
 
+  private static final String MEMCACHE_TAG = "AccountStore";
+
   private final CheckedDatastore datastore;
+  private final MemcacheTable<StableUserId, Record> memcache;
 
   @Inject
-  public AccountStore(CheckedDatastore datastore) {
+  public AccountStore(CheckedDatastore datastore, MemcacheTable.Factory memcacheFactory) {
     this.datastore = datastore;
+    this.memcache = memcacheFactory.create(MEMCACHE_TAG);
   }
 
   private static Key makeKey(StableUserId userId) {
@@ -121,7 +130,7 @@ public class AccountStore {
     Preconditions.checkNotNull(record, "Null record");
     log.info("Putting record " + record);
 
-    StableUserId userId = record.getUserId();
+    final StableUserId userId = record.getUserId();
     ParticipantId participantId = record.getParticipantId();
     OAuthCredentials credentials = record.getOAuthCredentials();
     String refreshToken = credentials == null ? null : credentials.getRefreshToken();
@@ -139,13 +148,15 @@ public class AccountStore {
           CheckedTransaction tx = datastore.beginTransaction();
           log.info("About to put " + entity);
           tx.put(entity);
+          memcache.enqueueDeletion(tx, userId);
           tx.commit();
           log.info("Committed " + tx);
         }
       });
+    memcache.delete(userId);
   }
 
-  public void delete(StableUserId userId) throws PermanentFailure {
+  public void delete(final StableUserId userId) throws PermanentFailure {
     Preconditions.checkNotNull(userId, "Null userId");
     log.info("Deleting record for user " + userId);
     final Key key = makeKey(userId);
@@ -154,10 +165,12 @@ public class AccountStore {
           CheckedTransaction tx = datastore.beginTransaction();
           log.info("About to delete " + key);
           tx.delete(key);
+          memcache.enqueueDeletion(tx, userId);
           tx.commit();
           log.info("Committed " + tx);
         }
       });
+    memcache.delete(userId);
   }
 
   @Nullable private Record convertEntity(@Nullable Entity e) {
@@ -184,8 +197,12 @@ public class AccountStore {
 
   @Nullable public Record get(final StableUserId userId) throws PermanentFailure {
     Preconditions.checkNotNull(userId, "Null userId");
+    IdentifiableValue<Record> cached = memcache.getIdentifiable(userId);
+    if (cached != null) {
+      log.info("Account record found in cache: " + cached);
+      return cached.getValue();
+    }
     log.info("Fetching user credentials for user " + userId);
-    // TODO(danilatos): Use memcache as well.
     Entity e = new RetryHelper().run(
         new RetryHelper.Body<Entity>() {
           @Override public Entity run() throws RetryableFailure, PermanentFailure {
@@ -199,7 +216,9 @@ public class AccountStore {
             }
           }
         });
-    return convertEntity(e);
+    Record read = convertEntity(e);
+    memcache.putIfUntouched(userId, cached, read);
+    return read;
   }
 
   /**

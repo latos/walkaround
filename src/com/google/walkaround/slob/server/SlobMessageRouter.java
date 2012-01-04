@@ -132,11 +132,10 @@ public class SlobMessageRouter {
   private final int expirationSeconds;
 
   @Inject
-  public SlobMessageRouter(MemcacheService memcache, ChannelService channelService,
+  public SlobMessageRouter(MemcacheTable.Factory memcacheFactory, ChannelService channelService,
       @SlobChannelExpirationSeconds int expirationSeconds) {
-    this.objectListeners = new MemcacheTable<ListenerKey, ClientId>(
-        memcache, LISTENER_MEMCACHE_TAG);
-    this.clientTokens = new MemcacheTable<ClientId, String>(memcache, CLIENTS_MEMCACHE_TAG);
+    this.objectListeners = memcacheFactory.create(LISTENER_MEMCACHE_TAG);
+    this.clientTokens = memcacheFactory.create(CLIENTS_MEMCACHE_TAG);
     this.channelService = channelService;
     this.expirationSeconds = expirationSeconds;
   }

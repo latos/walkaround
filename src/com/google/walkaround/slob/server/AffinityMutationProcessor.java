@@ -200,7 +200,7 @@ public class AffinityMutationProcessor {
       URLFetchService fetchService,
       BackendService backends,
       LocalMutationProcessor localProcessor,
-      MemcacheService memcache,
+      MemcacheTable.Factory memcacheFactory,
       Secret secret,
       @StoreBackendInstanceCount int numStoreServers,
       @StoreBackendName String storeServer,
@@ -210,7 +210,7 @@ public class AffinityMutationProcessor {
     this.fetchService = fetchService;
     this.backends = backends;
     this.localProcessor = localProcessor;
-    this.objectServerMappings = MemcacheTable.of(memcache, MEMCACHE_TAG);
+    this.objectServerMappings = memcacheFactory.create(MEMCACHE_TAG);
     this.secret = secret;
     this.numStoreServers = numStoreServers;
     this.storeServerName = storeServer;

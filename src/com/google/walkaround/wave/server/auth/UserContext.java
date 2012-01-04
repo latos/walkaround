@@ -63,9 +63,9 @@ public class UserContext {
   // At some point, we might want to refactor this to allow the auth filters to
   // perform retrieval of the OAuth credentials lazily -- many servlets don't
   // need credentials (or need them only in some cases), and the redundant
-  // datastore read is undesirable.  However, once we cache credentials in
-  // memcache, we will merely be doing a redundant memcache lookup, which is
-  // less of a problem.  So implementing this laziness is not urgent.
+  // datastore read is undesirable.  However, since we cache credentials in
+  // memcache, we typically merely do a redundant memcache lookup, which is not
+  // a big problem.  So implementing this laziness is not urgent.
 
   @Nullable private StableUserId userId = null;
   @Nullable private ParticipantId participantId = null;

@@ -30,6 +30,7 @@ import java.io.Serializable;
  * @author ohler@google.com (Christian Ohler)
  */
 public class StableUserId implements Serializable {
+  private static final long serialVersionUID = 496823047858055085L;
 
   private final String id;
 

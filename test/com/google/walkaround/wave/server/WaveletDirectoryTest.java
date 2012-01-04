@@ -21,6 +21,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -29,6 +30,7 @@ import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+import com.google.walkaround.util.server.appengine.MemcacheTable;
 
 import junit.framework.TestCase;
 
@@ -60,9 +62,19 @@ public class WaveletDirectoryTest extends TestCase {
     super.tearDown();
   }
 
+  private WaveletDirectory newDirectory(CheckedDatastore datastore, MemcacheService memcache) {
+    return new WaveletDirectory(datastore,
+        new MemcacheTable.FactoryImpl(memcache,
+            QueueFactory.getQueue("testqueue")));
+  }
+
+  private static CheckedDatastore newDatastore() {
+    return new CheckedDatastore(DatastoreServiceFactory.getDatastoreService());
+  }
+
   public void testRegisterWritesToStorage() throws Exception {
     CheckedDatastore datastore = newDatastore();
-    WaveletDirectory directory = new WaveletDirectory(datastore,
+    WaveletDirectory directory = newDirectory(datastore,
         MemcacheServiceFactory.getMemcacheService());
 
     if (get(datastore, directory.directory.makeKey(OBJECT_ID)) != null) {
@@ -76,7 +88,7 @@ public class WaveletDirectoryTest extends TestCase {
   }
 
   public void testRegisterAddsToCache() throws Exception {
-    WaveletDirectory directory = new WaveletDirectory(newDatastore(),
+    WaveletDirectory directory = newDirectory(newDatastore(),
         MemcacheServiceFactory.getMemcacheService());
 
     assertNull(directory.cache.get(OBJECT_ID));
@@ -85,7 +97,7 @@ public class WaveletDirectoryTest extends TestCase {
   }
 
   public void testRegisterOverridesNegativeCache() throws Exception {
-    WaveletDirectory directory = new WaveletDirectory(newDatastore(),
+    WaveletDirectory directory = newDirectory(newDatastore(),
         MemcacheServiceFactory.getMemcacheService());
 
     assertNull(directory.cache.get(OBJECT_ID));
@@ -97,7 +109,7 @@ public class WaveletDirectoryTest extends TestCase {
 
   public void testSuccessfulLookup() throws Exception {
     MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
-    WaveletDirectory directory = new WaveletDirectory(newDatastore(), memcache);
+    WaveletDirectory directory = newDirectory(newDatastore(), memcache);
 
     directory.register(MAPPING);
     memcache.clearAll();
@@ -107,7 +119,7 @@ public class WaveletDirectoryTest extends TestCase {
   }
 
   public void testFailedLookup() throws Exception {
-    WaveletDirectory directory = new WaveletDirectory(newDatastore(),
+    WaveletDirectory directory = newDirectory(newDatastore(),
         MemcacheServiceFactory.getMemcacheService());
     assertNull(directory.cache.get(OBJECT_ID));
     assertEquals(null, directory.lookup(OBJECT_ID));
@@ -116,16 +128,12 @@ public class WaveletDirectoryTest extends TestCase {
 
   public void testLookupUsesCache() throws Exception {
     MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
-    WaveletDirectory directory = new WaveletDirectory(newDatastore(), memcache);
+    WaveletDirectory directory = newDirectory(newDatastore(), memcache);
 
     directory.cache.put(OBJECT_ID, new WaveletDirectory.CacheEntry(MAPPING));
     assertEquals(OBJECT_ID, directory.lookup(OBJECT_ID).getObjectId());
     directory.cache.put(OBJECT_ID, new WaveletDirectory.CacheEntry(null));
     assertEquals(null, directory.lookup(OBJECT_ID));
-  }
-
-  private static CheckedDatastore newDatastore() {
-    return new CheckedDatastore(DatastoreServiceFactory.getDatastoreService());
   }
 
   private static Entity get(CheckedDatastore store, Key key)

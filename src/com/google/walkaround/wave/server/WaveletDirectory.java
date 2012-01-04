@@ -135,9 +135,9 @@ public class WaveletDirectory {
   final MemcacheTable<SlobId, CacheEntry> cache;
 
   @Inject
-  public WaveletDirectory(CheckedDatastore datastore, MemcacheService memcache) {
+  public WaveletDirectory(CheckedDatastore datastore, MemcacheTable.Factory memcacheFactory) {
     this.directory = new Directory(datastore);
-    this.cache = new MemcacheTable<SlobId, CacheEntry>(memcache, MEMCACHE_TAG);
+    this.cache = memcacheFactory.create(MEMCACHE_TAG);
   }
 
   /**

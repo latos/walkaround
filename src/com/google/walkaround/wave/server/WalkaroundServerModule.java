@@ -16,6 +16,7 @@
 
 package com.google.walkaround.wave.server;
 
+import com.google.walkaround.slob.server.StoreModuleHelper;
 import com.google.appengine.api.backends.BackendService;
 import com.google.appengine.api.backends.BackendServiceFactory;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
@@ -57,6 +58,8 @@ import com.google.walkaround.util.server.Util;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.util.server.appengine.DatastoreUtil;
+import com.google.walkaround.util.server.appengine.MemcacheDeletionQueue;
+import com.google.walkaround.util.server.appengine.MemcacheTable;
 import com.google.walkaround.util.server.auth.DigestUtils2.Secret;
 import com.google.walkaround.util.server.flags.FlagDeclaration;
 import com.google.walkaround.util.server.flags.FlagFormatException;
@@ -116,12 +119,16 @@ public class WalkaroundServerModule extends AbstractModule {
     bind(Random.class).to(SecureRandom.class);
     bind(RandomProvider.class).to(RandomProviderAdapter.class);
 
+    bind(MemcacheTable.Factory.class).to(MemcacheTable.FactoryImpl.class);
+
     bind(SystemProperty.Environment.Value.class).toInstance(SystemProperty.environment.value());
 
     bind(Key.get(String.class, Scopes.class)).toInstance(
         Joiner.on(" ").join(CONTACTS_SCOPE, WAVE_SCOPE));
 
     bind(Key.get(Queue.class, ImportTaskQueue.class)).toInstance(QueueFactory.getQueue("import"));
+    bind(Key.get(Queue.class, MemcacheDeletionQueue.class)).toInstance(
+        QueueFactory.getQueue("memcache-deletion"));
 
     bind(MessageSerializer.class).to(ServerMessageSerializer.class);
     bind(SlobManager.class).to(WaveManager.class);

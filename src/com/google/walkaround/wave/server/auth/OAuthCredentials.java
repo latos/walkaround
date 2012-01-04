@@ -16,15 +16,20 @@
 
 package com.google.walkaround.wave.server.auth;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 
 /**
  * OAuth2 credentials for a given user.
  *
  * @author ohler@google.com (Christian Ohler)
  */
-public class OAuthCredentials {
+public class OAuthCredentials implements Serializable {
+  private static final long serialVersionUID = 394301039547092998L;
 
   private final String refreshToken;
   private final String accessToken;

@@ -76,6 +76,7 @@
   <security-constraint>
     <web-resource-collection>
       <url-pattern>/taskqueue/*</url-pattern>
+      <url-pattern>/_ah/queue/__deferred__</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>admin</role-name>

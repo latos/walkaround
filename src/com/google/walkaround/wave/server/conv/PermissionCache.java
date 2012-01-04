@@ -129,12 +129,12 @@ public class PermissionCache {
   private final StableUserId userId;
 
   @Inject
-  public PermissionCache(MemcacheService memcacheService,
+  public PermissionCache(MemcacheTable.Factory memcacheFactory,
       Random random,
       PermissionSource source,
       @PermissionCacheExpirationSeconds int expirationSeconds,
       StableUserId userId) {
-    this.memcache = new MemcacheTable<AccessKey, Permissions>(memcacheService, MEMCACHE_TAG);
+    this.memcache = memcacheFactory.create(MEMCACHE_TAG);
     this.expirationSeconds = expirationSeconds;
     this.source = source;
     this.random = random;

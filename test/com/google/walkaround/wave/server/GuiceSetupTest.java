@@ -23,6 +23,22 @@ import com.google.inject.Stage;
 import com.google.inject.util.Modules;
 import com.google.walkaround.wave.server.GuiceSetup;
 
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.memcache.MemcacheService;
+import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.walkaround.slob.shared.SlobId;
+import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
+import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
+import com.google.walkaround.util.server.appengine.CheckedDatastore;
+import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+import com.google.walkaround.util.server.appengine.MemcacheTable;
+
 import junit.framework.TestCase;
 
 /**
@@ -31,6 +47,21 @@ import junit.framework.TestCase;
 public class GuiceSetupTest extends TestCase {
 
   private static final String WEB_INF_DIR = "build/war/WEB-INF";
+
+  private final LocalServiceTestHelper helper =
+      new LocalServiceTestHelper(
+          new LocalMemcacheServiceTestConfig(),
+          new LocalDatastoreServiceTestConfig());
+
+  @Override protected void setUp() throws Exception {
+    super.setUp();
+    helper.setUp();
+  }
+
+  @Override protected void tearDown() throws Exception {
+    helper.tearDown();
+    super.tearDown();
+  }
 
   public void testBindingsForServlets() {
     SystemProperty.environment.set(SystemProperty.Environment.Value.Development);

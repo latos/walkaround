@@ -65,12 +65,12 @@ public class AttachmentService {
 
   @Inject
   public AttachmentService(RawAttachmentService rawService, BlobstoreService blobStore,
-      CheckedDatastore datastore, MemcacheService memcache,
+      CheckedDatastore datastore, MemcacheTable.Factory memcacheFactory,
       @Flag(FlagName.MAX_THUMBNAIL_SAVED_SIZE_BYTES) int maxThumbnailSavedSizeBytes) {
     this.rawService = rawService;
     this.blobstore = blobStore;
     this.metadataDirectory = new MetadataDirectory(datastore);
-    this.metadataCache = new MemcacheTable<BlobKey, AttachmentMetadata>(memcache, MEMCACHE_TAG);
+    this.metadataCache = memcacheFactory.create(MEMCACHE_TAG);
     this.thumbnailDirectory = new ThumbnailDirectory(datastore);
     this.maxThumbnailSavedSizeBytes = maxThumbnailSavedSizeBytes;
   }

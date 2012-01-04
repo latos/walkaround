@@ -63,7 +63,7 @@ import java.util.logging.Logger;
 public class RobotApi {
 
   public interface Factory {
-    RobotApi create(@Assisted String baseUrl);
+    RobotApi create(String baseUrl);
   }
 
   @SuppressWarnings("unused")
