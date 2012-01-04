@@ -16,11 +16,11 @@
 
 package com.google.walkaround.slob.server;
 
+import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.MapMaker;
 import com.google.common.primitives.Ints;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -373,10 +373,10 @@ public class LocalMutationProcessor {
   private final CheckedDatastore datastore;
   private final MonitoringVars monitoring;
   private final PreCommitHook preCommitHook;
-  private final Map<SlobId, Processor> processors = CacheBuilder.newBuilder()
+  private final Map<SlobId, Processor> processors = new MapMaker()
       .weakValues()
-      .<SlobId, Processor>build(new CacheLoader<SlobId, Processor>() {
-        @Override public Processor load(final SlobId id) {
+      .makeComputingMap(new Function<SlobId, Processor>() {
+        @Override public Processor apply(final SlobId id) {
           log.info("Creating new Processor for " + id);
           return new Processor(
               new TransactionFactory<UpResult, Tx>() {
@@ -385,8 +385,7 @@ public class LocalMutationProcessor {
                 }
               }, new RetryHelper());
         }
-      })
-      .asMap();
+      });
 
   @Inject
   public LocalMutationProcessor(SlobModel model,

@@ -20,8 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
+import com.google.common.collect.MapMaker;
 import com.google.walkaround.util.shared.Assert;
 
 import org.waveprotocol.wave.model.document.operation.DocOp;
@@ -49,14 +48,13 @@ import java.util.Map;
  */
 public class WaveletHistoryConverter {
 
-  private final Map<String, DocumentHistoryConverter> docConverters = CacheBuilder.newBuilder()
-      .<String, DocumentHistoryConverter>build(
-          new CacheLoader<String, DocumentHistoryConverter>() {
-            @Override public DocumentHistoryConverter load(String documentId) {
+  private final Map<String, DocumentHistoryConverter> docConverters =
+      new MapMaker().makeComputingMap(
+          new Function<String, DocumentHistoryConverter>() {
+            @Override public DocumentHistoryConverter apply(String documentId) {
               return new DocumentHistoryConverter(nindoConverter);
             }
-          })
-      .asMap();
+          });
   private final Function<Nindo, Nindo> nindoConverter;
 
   public WaveletHistoryConverter(Function<Nindo, Nindo> nindoConverter) {
