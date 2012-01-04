@@ -197,3 +197,12 @@ dir third_party_src
   mkdir -p $out/junit
   cp junit4.10/junit-4.10.jar $out/junit
 )
+
+[[ -f $out/appengine-sdk/sdk/bin/appcfg.sh ]] || (
+  dir $out/appengine-sdk
+  version=1.6.1
+  checksum=8c2a88b05bddcba7bca51e272f7e10363039f48e
+  get http://googleappengine.googlecode.com/files/ appengine-java-sdk-$version.zip sha1 $checksum
+  unzip -o -q appengine-java-sdk-$version.zip
+  ln -sf appengine-java-sdk-$version sdk
+)
