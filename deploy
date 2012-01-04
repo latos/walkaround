@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+./runant war
+appengine-sdk/sdk/bin/appcfg.sh update build/war
