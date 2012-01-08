@@ -1,4 +1,10 @@
-/appengine-sdk
-/build
+# Created by get-third-party-deps script.
 /third_party
 /third_party_src
+
+# Ant build output.
+/build
+
+# Eclipse build output.
+/bin
+/test-classes
