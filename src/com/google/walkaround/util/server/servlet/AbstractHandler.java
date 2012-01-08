@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.walkaround.wave.server.util;
-
-
-import com.google.walkaround.util.server.servlet.BadRequestException;
+package com.google.walkaround.util.server.servlet;
 
 import java.io.IOException;
 import java.util.Map;

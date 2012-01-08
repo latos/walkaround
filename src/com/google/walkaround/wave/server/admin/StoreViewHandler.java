@@ -27,6 +27,7 @@ import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
@@ -34,7 +35,6 @@ import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.StoreType;
 import com.google.walkaround.wave.server.gxp.Admin;
 import com.google.walkaround.wave.server.gxp.StoreViewFragment;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import org.waveprotocol.wave.model.util.Pair;
 

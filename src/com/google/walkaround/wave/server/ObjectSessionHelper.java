@@ -28,10 +28,10 @@ import com.google.walkaround.slob.shared.ClientId;
 import com.google.walkaround.slob.shared.MessageException;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.auth.InvalidSecurityTokenException;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.auth.XsrfHelper;
 import com.google.walkaround.wave.server.auth.XsrfHelper.XsrfTokenExpiredException;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 import com.google.walkaround.wave.shared.SharedConstants.Params;
 
 import java.util.logging.Logger;

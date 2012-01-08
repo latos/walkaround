@@ -21,6 +21,7 @@ import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.common.base.Preconditions;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

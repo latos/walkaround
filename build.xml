@@ -152,6 +152,7 @@
       <include name="guice/aopalliance.jar"/>
       <include name="guice/guice-3.0.jar"/>
       <include name="guice/guice-assistedinject-3.0.jar"/>
+      <include name="guice/guice-multibindings-3.0.jar"/>
       <include name="guice/guice-servlet-3.0.jar"/>
       <include name="guice/javax.inject.jar"/>
       <include name="gson/gson-1.7.1.jar"/>

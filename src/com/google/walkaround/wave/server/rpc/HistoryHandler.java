@@ -24,11 +24,11 @@ import com.google.walkaround.slob.server.SlobStore;
 import com.google.walkaround.slob.server.SlobStore.HistoryResult;
 import com.google.walkaround.slob.shared.ChangeData;
 import com.google.walkaround.slob.shared.SlobId;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
 import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.servlet.ServletUtil;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 import com.google.walkaround.wave.shared.SharedConstants.Params;
 
 import org.json.JSONArray;

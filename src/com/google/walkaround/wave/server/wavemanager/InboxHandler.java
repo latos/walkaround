@@ -27,6 +27,7 @@ import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.auth.InvalidSecurityTokenException;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
@@ -37,7 +38,6 @@ import com.google.walkaround.wave.server.gxp.InboxDisplayRecord;
 import com.google.walkaround.wave.server.gxp.InboxFragment;
 import com.google.walkaround.wave.server.gxp.Welcome;
 import com.google.walkaround.wave.server.servlet.PageSkinWriter;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 import com.google.walkaround.wave.server.wavemanager.WaveIndex.IndexEntry;
 
 import org.joda.time.Instant;

@@ -18,8 +18,8 @@ package com.google.walkaround.wave.server.attachment;
 
 import com.google.common.net.UriEscapers;
 import com.google.inject.Inject;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.wave.server.servlet.ServletUtil;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;

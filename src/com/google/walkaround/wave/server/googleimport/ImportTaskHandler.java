@@ -24,13 +24,13 @@ import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.util.server.servlet.TryAgainLaterException;
 import com.google.walkaround.wave.server.auth.AccountStore;
 import com.google.walkaround.wave.server.auth.ServletAuthHelper;
 import com.google.walkaround.wave.server.auth.StableUserId;
 import com.google.walkaround.wave.server.auth.UserContext;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import java.io.IOException;
 import java.util.logging.Logger;

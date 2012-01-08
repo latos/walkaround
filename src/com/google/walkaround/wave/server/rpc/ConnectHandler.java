@@ -22,12 +22,12 @@ import com.google.walkaround.slob.server.AccessDeniedException;
 import com.google.walkaround.slob.server.GsonProto;
 import com.google.walkaround.slob.server.SlobNotFoundException;
 import com.google.walkaround.slob.server.SlobStore.ConnectResult;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
 import com.google.walkaround.wave.server.ObjectSessionHelper;
 import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.servlet.ServletUtil;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import java.io.IOException;
 import java.util.logging.Logger;

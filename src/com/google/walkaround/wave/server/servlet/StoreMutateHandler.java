@@ -23,11 +23,11 @@ import com.google.walkaround.proto.gson.ServerMutateRequestGsonImpl;
 import com.google.walkaround.slob.server.GsonProto;
 import com.google.walkaround.slob.server.StoreAccessChecker;
 import com.google.walkaround.slob.shared.MessageException;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
 import com.google.walkaround.wave.server.ObjectSessionHelper;
 import com.google.walkaround.wave.server.ObjectStoreSelector;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import org.waveprotocol.wave.communication.gson.GsonSerializable;
 

@@ -17,7 +17,7 @@
 package com.google.walkaround.wave.server.attachment;
 
 import com.google.inject.Inject;
-import com.google.walkaround.wave.server.util.AbstractHandler;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 
 import java.io.IOException;
 

@@ -33,6 +33,7 @@ import com.google.walkaround.slob.server.SlobNotFoundException;
 import com.google.walkaround.slob.shared.ClientId;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.Util;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.shared.RandomBase64Generator;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
@@ -43,7 +44,6 @@ import com.google.walkaround.wave.server.WaveLoader;
 import com.google.walkaround.wave.server.WaveLoader.LoadedWave;
 import com.google.walkaround.wave.server.gxp.Client;
 import com.google.walkaround.wave.server.auth.UserContext;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;

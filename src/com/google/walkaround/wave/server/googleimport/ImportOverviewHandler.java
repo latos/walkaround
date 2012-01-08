@@ -32,6 +32,7 @@ import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.util.server.auth.InvalidSecurityTokenException;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.util.shared.Assert;
 import com.google.walkaround.wave.server.auth.NeedNewOAuthTokenException;
@@ -43,7 +44,6 @@ import com.google.walkaround.wave.server.gxp.ImportOverviewFragment;
 import com.google.walkaround.wave.server.gxp.ImportWaveDisplayRecord;
 import com.google.walkaround.wave.server.gxp.SourceInstance;
 import com.google.walkaround.wave.server.servlet.PageSkinWriter;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;

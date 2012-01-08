@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.walkaround.wave.server.util;
+package com.google.walkaround.util.server.servlet;
 
 import com.google.inject.Inject;
+
 import com.google.inject.Injector;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
-import com.google.walkaround.wave.server.WalkaroundServletModule;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -30,9 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A servlet that looks up a handler class from the handler maps in
- * {@link WalkaroundServletModule} for every request, instantiates
- * it with Guice, and dispatches to it.
+ * A servlet that dispatches to {@link AbstractHandler} handlers bound through Guice.
  *
  * Also provides some default behavior like a default character encoding
  *
@@ -45,39 +45,38 @@ public class HandlerServlet extends HttpServlet {
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(HandlerServlet.class.getName());
 
-  // Instead of using an Injector, we could probably have a map of Providers or
-  // one Provider that looks at annotations; but for now, this works.
-  private final Injector injector;
+  private final Map<String, Provider<AbstractHandler>> exactPathHandlers;
+  private final Map<String, Provider<AbstractHandler>> prefixPathHandlers;
 
   @Inject
-  public HandlerServlet(Injector injector) {
-    this.injector = injector;
+  public HandlerServlet(@ExactPathHandlers Map<String, Provider<AbstractHandler>> exactPathHandlers,
+      @PrefixPathHandlers Map<String, Provider<AbstractHandler>> prefixPathHandlers) {
+    this.exactPathHandlers = exactPathHandlers;
+    this.prefixPathHandlers = prefixPathHandlers;
   }
 
   private AbstractHandler getHandler(HttpServletRequest req) {
     String requestUri = req.getRequestURI();
-    Class<? extends AbstractHandler> handlerClass = getHandlerClass(requestUri);
-    AbstractHandler handler = injector.getInstance(handlerClass);
+    AbstractHandler handler = getHandlerProvider(requestUri).get();
     log.info("getHandler(" + requestUri + ") = " + handler);
     return handler;
   }
 
-  private Class<? extends AbstractHandler> getHandlerClass(String requestUri) {
+  private Provider<AbstractHandler> getHandlerProvider(String requestUri) {
     // Try exact match.
-    if (WalkaroundServletModule.EXACT_PATH_HANDLERS.containsKey(requestUri)) {
-      return WalkaroundServletModule.EXACT_PATH_HANDLERS.get(requestUri);
-    }
-
-    // Try prefix match.
-    for (String prefix : WalkaroundServletModule.PREFIX_PATH_HANDLERS.keySet()) {
-      if (requestUri.startsWith(prefix)) {
-        return WalkaroundServletModule.PREFIX_PATH_HANDLERS.get(prefix);
+    {
+      Provider<AbstractHandler> handler = exactPathHandlers.get(requestUri);
+      if (handler != null) {
+        return handler;
       }
     }
-
-    // This shouldn't happen since HandlerServlet should only be bound to paths
-    // in the handler maps.
-   throw new RuntimeException("No handler found for: " + requestUri);
+    // Try prefix match.
+    for (Map.Entry<String, Provider<AbstractHandler>> entry : prefixPathHandlers.entrySet()) {
+      if (requestUri.startsWith(entry.getKey())) {
+        return entry.getValue();
+      }
+    }
+    throw new RuntimeException("No handler found for: " + requestUri);
   }
 
   @Override

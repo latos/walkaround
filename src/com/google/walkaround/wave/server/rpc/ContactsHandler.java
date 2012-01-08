@@ -28,9 +28,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.auth.UserContext;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 import com.google.walkaround.wave.shared.SharedConstants;
 
 import org.waveprotocol.wave.model.util.Pair;

@@ -20,7 +20,7 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
-import com.google.walkaround.wave.server.util.AbstractHandler;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 
 import java.io.IOException;
 import java.util.List;

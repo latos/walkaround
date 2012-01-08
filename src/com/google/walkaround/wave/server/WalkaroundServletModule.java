@@ -36,13 +36,18 @@ import com.google.gdata.util.ServiceException;
 import com.google.inject.Provides;
 import com.google.inject.ProvisionException;
 import com.google.inject.Singleton;
+import com.google.inject.multibindings.MapBinder;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.google.walkaround.slob.server.StoreModuleHelper;
 import com.google.walkaround.util.server.auth.InvalidSecurityTokenException;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
+import com.google.walkaround.util.server.servlet.ExactPathHandlers;
+import com.google.walkaround.util.server.servlet.HandlerServlet;
+import com.google.walkaround.util.server.servlet.PrefixPathHandlers;
 import com.google.walkaround.util.server.servlet.RedirectServlet;
 import com.google.walkaround.util.server.servlet.RequestStatsFilter;
 import com.google.walkaround.wave.server.admin.AdminHandler;
@@ -83,8 +88,6 @@ import com.google.walkaround.wave.server.servlet.LogoutHandler.SelfClosingPageHa
 import com.google.walkaround.wave.server.servlet.ServerExceptionFilter;
 import com.google.walkaround.wave.server.servlet.StoreMutateHandler;
 import com.google.walkaround.wave.server.servlet.UndercurrentHandler;
-import com.google.walkaround.wave.server.util.AbstractHandler;
-import com.google.walkaround.wave.server.util.HandlerServlet;
 import com.google.walkaround.wave.server.wavemanager.InboxHandler;
 import com.google.walkaround.wave.shared.SharedConstants.Services;
 
@@ -118,7 +121,7 @@ public class WalkaroundServletModule extends ServletModule {
   public static final String IMPORT_TASK_PATH = "/taskqueue/import";
 
   /** Path bindings for handlers that serve exact paths only. */
-  public static final ImmutableMap<String, Class<? extends AbstractHandler>> EXACT_PATH_HANDLERS =
+  private static final ImmutableMap<String, Class<? extends AbstractHandler>> EXACT_PATH_HANDLERS =
       new ImmutableMap.Builder<String, Class<? extends AbstractHandler>>()
           // Pages that browsers will navigate to.
           .put("/inbox", InboxHandler.class)
@@ -163,7 +166,7 @@ public class WalkaroundServletModule extends ServletModule {
           .build();
 
   /** Path bindings for handlers that serve all paths under some prefix. */
-  public static final ImmutableMap<String, Class<? extends AbstractHandler>> PREFIX_PATH_HANDLERS =
+  private static final ImmutableMap<String, Class<? extends AbstractHandler>> PREFIX_PATH_HANDLERS =
     new ImmutableMap.Builder<String, Class<? extends AbstractHandler>>()
           .put("/gadgets", GadgetsHandler.class)
         .build();
@@ -226,14 +229,25 @@ public class WalkaroundServletModule extends ServletModule {
     install(StoreModuleHelper.factoryModule(RobotApi.Factory.class, RobotApi.class));
 
     // All of the exact paths in EXACT_PATH_HANDLERS, and all the path prefixes
-    // from PREFIX_PATH_HANDLERS, are served with HandlerServlet, which then
-    // reads those maps again to figure out which handler to dispatch to.
+    // from PREFIX_PATH_HANDLERS, are served with HandlerServlet.
     validatePaths();
-    for (Map.Entry<String, Class<? extends AbstractHandler>> e : EXACT_PATH_HANDLERS.entrySet()) {
-      serve(e.getKey()).with(HandlerServlet.class);
+    {
+      MapBinder<String, AbstractHandler> exactPathBinder =
+          MapBinder.newMapBinder(binder(), 
+              String.class, AbstractHandler.class, ExactPathHandlers.class);
+      for (Map.Entry<String, Class<? extends AbstractHandler>> e : EXACT_PATH_HANDLERS.entrySet()) {
+        serve(e.getKey()).with(HandlerServlet.class);
+        exactPathBinder.addBinding(e.getKey()).to(e.getValue());
+      }
     }
-    for (Map.Entry<String, Class<? extends AbstractHandler>> e : PREFIX_PATH_HANDLERS.entrySet()) {
-      serve(e.getKey() + "/*").with(HandlerServlet.class);
+    {
+      MapBinder<String, AbstractHandler> prefixPathBinder =
+          MapBinder.newMapBinder(binder(), 
+              String.class, AbstractHandler.class, PrefixPathHandlers.class);
+      for (Map.Entry<String, Class<? extends AbstractHandler>> e : PREFIX_PATH_HANDLERS.entrySet()) {
+        serve(e.getKey() + "/*").with(HandlerServlet.class);
+        prefixPathBinder.addBinding(e.getKey()).to(e.getValue());
+      }
     }
 
     bind(AppstatsFilter.class).in(Singleton.class);

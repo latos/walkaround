@@ -26,11 +26,11 @@ import com.google.common.net.UriEscapers;
 import com.google.gxp.base.GxpContext;
 import com.google.inject.Inject;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
 import com.google.walkaround.wave.server.auth.OAuthInterstitialHandler.CallbackPath;
 import com.google.walkaround.wave.server.gxp.AuthPopup;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import org.waveprotocol.wave.model.wave.ParticipantId;
 

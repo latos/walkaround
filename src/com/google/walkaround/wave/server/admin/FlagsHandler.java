@@ -21,13 +21,13 @@ import com.google.gxp.base.GxpContext;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.walkaround.util.server.flags.FlagDeclaration;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagConfiguration;
 import com.google.walkaround.wave.server.FlagName;
 import com.google.walkaround.wave.server.gxp.Admin;
 import com.google.walkaround.wave.server.gxp.FlagDisplayRecord;
 import com.google.walkaround.wave.server.gxp.FlagsFragment;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import java.io.IOException;
 import java.util.Collections;

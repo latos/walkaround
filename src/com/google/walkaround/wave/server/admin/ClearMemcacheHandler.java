@@ -19,7 +19,7 @@ package com.google.walkaround.wave.server.admin;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.users.User;
 import com.google.inject.Inject;
-import com.google.walkaround.wave.server.util.AbstractHandler;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 
 import java.io.IOException;
 import java.util.logging.Logger;

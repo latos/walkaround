@@ -19,10 +19,10 @@ package com.google.walkaround.wave.server.servlet;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gxp.base.GxpContext;
 import com.google.inject.Inject;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
 import com.google.walkaround.wave.server.gxp.AuthPopup;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import java.io.IOException;
 import java.util.logging.Logger;

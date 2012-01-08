@@ -19,7 +19,7 @@ package com.google.walkaround.wave.server.rpc;
 import com.google.inject.Inject;
 import com.google.walkaround.util.server.Util;
 import com.google.walkaround.util.server.gwt.StackTraceDeobfuscator;
-import com.google.walkaround.wave.server.util.AbstractHandler;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;

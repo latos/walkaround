@@ -25,11 +25,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAuthorizationRequestUrl;
 import com.google.inject.BindingAnnotation;
 import com.google.inject.Inject;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
 import com.google.walkaround.wave.server.gxp.Auth;
 import com.google.walkaround.wave.server.servlet.PageSkinWriter;
-import com.google.walkaround.wave.server.util.AbstractHandler;
 
 import java.io.IOException;
 import java.lang.annotation.Retention;

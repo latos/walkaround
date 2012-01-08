@@ -18,7 +18,7 @@ package com.google.walkaround.wave.server.auth;
 
 import com.google.inject.Inject;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
-import com.google.walkaround.wave.server.util.AbstractHandler;
+import com.google.walkaround.util.server.servlet.AbstractHandler;
 
 import java.io.IOException;
 import java.util.logging.Logger;
