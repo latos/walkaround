@@ -88,6 +88,7 @@
 	<classpathentry kind="lib" path="third_party/gwt/validation-api-1.0.0.GA.jar"/>
 	<classpathentry kind="lib" path="third_party/gwt/validation-api-1.0.0.GA-sources.jar"/>
 	<classpathentry kind="lib" path="third_party/appengine-sdk/sdk/lib/user/appengine-api-1.0-sdk-1.6.1.jar"/>
+	<classpathentry kind="lib" path="third_party/appengine-sdk/sdk/lib/impl/appengine-api-labs.jar"/>
 	<classpathentry kind="lib" path="third_party/appengine-sdk/sdk/lib/testing/appengine-testing.jar"/>
 	<classpathentry kind="lib" path="third_party/appengine-mapreduce/appengine-mapper.jar"/>
 	<classpathentry kind="output" path="bin"/>
