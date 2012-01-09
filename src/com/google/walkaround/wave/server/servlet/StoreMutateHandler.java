@@ -21,13 +21,13 @@ import com.google.walkaround.proto.ServerMutateRequest;
 import com.google.walkaround.proto.ServerMutateResponse;
 import com.google.walkaround.proto.gson.ServerMutateRequestGsonImpl;
 import com.google.walkaround.slob.server.GsonProto;
+import com.google.walkaround.slob.server.SlobStoreSelector;
 import com.google.walkaround.slob.server.StoreAccessChecker;
 import com.google.walkaround.slob.shared.MessageException;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
 import com.google.walkaround.wave.server.ObjectSessionHelper;
-import com.google.walkaround.wave.server.ObjectStoreSelector;
 
 import org.waveprotocol.wave.communication.gson.GsonSerializable;
 
@@ -48,7 +48,7 @@ public class StoreMutateHandler extends AbstractHandler {
   private static final Logger log = Logger.getLogger(StoreMutateHandler.class.getName());
 
   @Inject StoreAccessChecker accessChecker;
-  @Inject ObjectStoreSelector storeSelector;
+  @Inject SlobStoreSelector storeSelector;
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -63,7 +63,8 @@ public class StoreMutateHandler extends AbstractHandler {
     }
     ObjectSession session = ObjectSessionHelper.objectSessionFromProto(mutateRequest.getSession());
     ServerMutateResponse result =
-        storeSelector.getLocalProcessor(session.getStoreType()).mutateObject(mutateRequest);
+        storeSelector.get(session.getStoreType()).getLocalMutationProcessor()
+        .mutateObject(mutateRequest);
     log.info("Success @" + result.getResultingVersion());
 
     resp.setStatus(200);

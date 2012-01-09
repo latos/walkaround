@@ -16,7 +16,6 @@
 
 package com.google.walkaround.wave.server;
 
-import com.google.walkaround.slob.server.StoreModuleHelper;
 import com.google.appengine.api.backends.BackendService;
 import com.google.appengine.api.backends.BackendServiceFactory;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
@@ -45,10 +44,12 @@ import com.google.inject.Key;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
+import com.google.inject.multibindings.MapBinder;
 import com.google.inject.name.Named;
 import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendInstanceCount;
 import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendName;
 import com.google.walkaround.slob.server.MutationLog;
+import com.google.walkaround.slob.server.SlobFacilities;
 import com.google.walkaround.slob.server.SlobManager;
 import com.google.walkaround.slob.server.SlobMessageRouter.SlobChannelExpirationSeconds;
 import com.google.walkaround.util.server.RetryHelper;
@@ -69,6 +70,7 @@ import com.google.walkaround.util.server.gwt.ZipSymbolMapsDirectory;
 import com.google.walkaround.util.shared.RandomBase64Generator.RandomProvider;
 import com.google.walkaround.util.shared.RandomProviderAdapter;
 import com.google.walkaround.wave.server.auth.OAuthInterstitialHandler.Scopes;
+import com.google.walkaround.wave.server.conv.ConvStoreModule;
 import com.google.walkaround.wave.server.conv.PermissionCache.PermissionCacheExpirationSeconds;
 import com.google.walkaround.wave.server.googleimport.ImportTaskQueue;
 import com.google.walkaround.wave.server.model.LegacyDeltaEntityConverter;

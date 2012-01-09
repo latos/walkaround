@@ -19,6 +19,7 @@ package com.google.walkaround.wave.server.rpc;
 import com.google.inject.Inject;
 import com.google.walkaround.slob.server.AccessDeniedException;
 import com.google.walkaround.slob.server.ChangeDataSerializer;
+import com.google.walkaround.slob.server.SlobStoreSelector;
 import com.google.walkaround.slob.server.SlobNotFoundException;
 import com.google.walkaround.slob.server.SlobStore;
 import com.google.walkaround.slob.server.SlobStore.HistoryResult;
@@ -27,7 +28,6 @@ import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
-import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.servlet.ServletUtil;
 import com.google.walkaround.wave.shared.SharedConstants.Params;
 
@@ -51,7 +51,7 @@ public class HistoryHandler extends AbstractHandler {
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(HistoryHandler.class.getName());
 
-  @Inject ObjectStoreSelector storeSelector;
+  @Inject SlobStoreSelector storeSelector;
   @Inject ObjectSession session;
 
   @Override
@@ -84,7 +84,7 @@ public class HistoryHandler extends AbstractHandler {
     }
 
     SlobId objectId = session.getObjectId();
-    SlobStore store = storeSelector.get(session.getStoreType());
+    SlobStore store = storeSelector.get(session.getStoreType()).getSlobStore();
     JSONObject result = new JSONObject();
     HistoryResult history = store.loadHistory(objectId, startVersion, endVersion);
     result.put("history", serializeHistory(startVersion, history.getData()));

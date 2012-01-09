@@ -37,9 +37,11 @@ public class UdwStoreModule extends PrivateModule {
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(UdwStoreModule.class.getName());
 
+  public static String ROOT_ENTITY_KIND = "Udw";
+
   @Override protected void configure() {
     StoreModuleHelper.makeBasicBindingsAndExposures(binder(), UdwStore.class);
-    StoreModuleHelper.bindEntityKinds(binder(), "Udw");
+    StoreModuleHelper.bindEntityKinds(binder(), ROOT_ENTITY_KIND);
 
     bind(SlobModel.class).to(WaveObjectStoreModel.class);
     bind(AccessChecker.class).toInstance(

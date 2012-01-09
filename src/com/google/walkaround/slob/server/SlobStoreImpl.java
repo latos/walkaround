@@ -64,6 +64,7 @@ public class SlobStoreImpl implements SlobStore {
   private final AccessChecker accessChecker;
   private final PostMutateHook postMutateHook;
   private final PreCommitHook preCommitHook;
+  private final String rootEntityKind;
 
   @Inject
   public SlobStoreImpl(CheckedDatastore datastore,
@@ -74,7 +75,8 @@ public class SlobStoreImpl implements SlobStore {
       LocalMutationProcessor localProcessor,
       AccessChecker accessChecker,
       PostMutateHook postMutateHook,
-      PreCommitHook preCommitHook) {
+      PreCommitHook preCommitHook,
+      @SlobRootEntityKind String rootEntityKind) {
     this.datastore = datastore;
     this.mutationLogFactory = mutationLogFactory;
     this.messageRouter = messageRouter;
@@ -82,6 +84,7 @@ public class SlobStoreImpl implements SlobStore {
     this.accessChecker = accessChecker;
     this.postMutateHook = postMutateHook;
     this.preCommitHook = preCommitHook;
+    this.rootEntityKind = rootEntityKind;
   }
 
   @Override
@@ -115,7 +118,8 @@ public class SlobStoreImpl implements SlobStore {
           snapshot = null;
         }
         if (version == 0) {
-          throw new SlobNotFoundException("Object " + objectId + " not found");
+          throw new SlobNotFoundException(
+              "Object " + objectId + " (" + rootEntityKind + ") not found");
         }
       } finally {
         tx.rollback();

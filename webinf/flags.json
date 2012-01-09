@@ -24,8 +24,8 @@ attachment_header_bytes_upper_bound: 4096,
    In practice, they should be around 2-3KB each. */
 max_thumbnail_saved_size_bytes: 50000,
 
-/* Client version bumped to 6 because the ChangeData format changed. */
-client_version: 6,
+/* Client version bumped to 7 because store type strings changed. */
+client_version: 7,
 
 /*
   2 weeks = 3600 * 24 * 14

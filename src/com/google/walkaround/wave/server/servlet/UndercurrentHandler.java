@@ -29,7 +29,9 @@ import com.google.walkaround.proto.gson.ClientVarsGsonImpl.SuccessVarsGsonImpl;
 import com.google.walkaround.proto.gson.ClientVarsGsonImpl.UdwLoadDataGsonImpl;
 import com.google.walkaround.slob.server.AccessDeniedException;
 import com.google.walkaround.slob.server.GsonProto;
+import com.google.walkaround.slob.server.SlobFacilities;
 import com.google.walkaround.slob.server.SlobNotFoundException;
+import com.google.walkaround.slob.server.SlobRootEntityKind;
 import com.google.walkaround.slob.shared.ClientId;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.Util;
@@ -39,11 +41,12 @@ import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
 import com.google.walkaround.wave.server.ObjectSession;
 import com.google.walkaround.wave.server.ObjectSessionHelper;
-import com.google.walkaround.wave.server.StoreType;
 import com.google.walkaround.wave.server.WaveLoader;
 import com.google.walkaround.wave.server.WaveLoader.LoadedWave;
-import com.google.walkaround.wave.server.gxp.Client;
 import com.google.walkaround.wave.server.auth.UserContext;
+import com.google.walkaround.wave.server.conv.ConvStore;
+import com.google.walkaround.wave.server.gxp.Client;
+import com.google.walkaround.wave.server.udw.UdwStore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,6 +82,8 @@ public class UndercurrentHandler extends AbstractHandler {
   @Inject ObjectSessionHelper sessionHelper;
   @Inject @Flag(FlagName.ANALYTICS_ACCOUNT) String analyticsAccount;
   @Inject UserContext userContext;
+  @Inject @UdwStore SlobFacilities udwStore;
+  @Inject @ConvStore SlobFacilities convStore;
 
   private void setResponseHeaders(HttpServletResponse resp) {
     // TODO(ohler): It seems that the browser caches the response if we don't do this.
@@ -129,14 +134,15 @@ public class UndercurrentHandler extends AbstractHandler {
     successVars.setHaveOauthToken(userContext.hasOAuthCredentials());
     successVars.setConvConnectResponse(
         sessionHelper.createConnectResponse(
-            new ObjectSession(wave.getConvObjectId(), clientId, StoreType.CONV),
+            new ObjectSession(wave.getConvObjectId(), clientId, convStore.getRootEntityKind()),
             wave.getConvConnectResult()));
     successVars.setConvSnapshot(wave.getConvSnapshotWithDiffs());
     if (wave.getUdw() != null) {
       UdwLoadDataGsonImpl udwLoadData = new UdwLoadDataGsonImpl();
       udwLoadData.setConnectResponse(
           sessionHelper.createConnectResponse(
-              new ObjectSession(wave.getUdw().getObjectId(), clientId, StoreType.UDW),
+              new ObjectSession(wave.getUdw().getObjectId(), clientId,
+                  udwStore.getRootEntityKind()),
               wave.getUdw().getConnectResult()));
       udwLoadData.setSnapshot(wave.getUdw().getSnapshot());
       successVars.setUdw(udwLoadData);

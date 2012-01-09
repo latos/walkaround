@@ -17,8 +17,6 @@
 package com.google.walkaround.util.server.servlet;
 
 import com.google.inject.Inject;
-
-import com.google.inject.Injector;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 

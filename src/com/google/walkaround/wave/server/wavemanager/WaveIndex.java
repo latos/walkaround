@@ -28,7 +28,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Sets;
 import com.google.inject.Inject;
-import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
+import com.google.walkaround.slob.server.SlobFacilities;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
@@ -152,30 +152,28 @@ public class WaveIndex {
   public static final int MAX_TITLE_CHARS = 300;
   public static final int MAX_SNIPPET_CHARS = 300;
 
-  private final MutationLogFactory mutationLogFactory;
   private final CheckedDatastore datastore;
+  private final SlobFacilities facilities;
 
-  @Inject public WaveIndex(@ConvStore MutationLogFactory mutationLogFactory,
-      CheckedDatastore datastore) {
-    this.mutationLogFactory = mutationLogFactory;
+  @Inject public WaveIndex(CheckedDatastore datastore,
+      @ConvStore SlobFacilities facilities) {
     this.datastore = datastore;
+    this.facilities = facilities;
   }
 
-  private Key makeKey(CheckedTransaction tx, SlobId objectId) {
-    // HACK(ohler): We shouldn't need to plumb the transaction through here just
-    // to make a MutationLog just to make the root entity key.
-    return KeyFactory.createKey(mutationLogFactory.create(tx, objectId).makeRootEntityKey(objectId),
+  private Key makeKey(SlobId objectId) {
+    return KeyFactory.createKey(facilities.makeRootEntityKey(objectId),
         INDEX_ENTITY_KIND, INDEX_KEY);
   }
 
-  private Entity makeEntity(CheckedTransaction tx, IndexEntry entry) {
+  private Entity makeEntity(IndexEntry entry) {
     // Can't truncate the strings in this function since that would mean
     // parseEntity() is no longer its inverse.
     Preconditions.checkArgument(entry.getTitle().length() <= MAX_TITLE_CHARS,
         "Title too long: " + entry);
     Preconditions.checkArgument(entry.getSnippet().length() <= MAX_SNIPPET_CHARS,
         "Snippet too long: " + entry);
-    Entity entity = new Entity(makeKey(tx, entry.getObjectId()));
+    Entity entity = new Entity(makeKey(entry.getObjectId()));
     ImmutableList.Builder<String> b = ImmutableList.builder();
     for (ParticipantId user : entry.getAcl()) {
       b.add(user.getAddress());
@@ -194,7 +192,7 @@ public class WaveIndex {
   private IndexEntry parseEntity(Entity entity) {
     SlobId objectId = new SlobId(entity.getKey().getParent().getName());
     @SuppressWarnings("unchecked") // We only put in List<String>
-    Collection<String> rawIds = (Collection) entity.getProperty(ACL_PROPERTY);
+    Collection<String> rawIds = (Collection<String>) entity.getProperty(ACL_PROPERTY);
     Set<ParticipantId> acl;
     if (rawIds == null) {
       acl = Collections.emptySet();
@@ -221,7 +219,7 @@ public class WaveIndex {
   private void update(CheckedTransaction tx, SlobId objectId, IndexEntry entry)
       throws RetryableFailure, PermanentFailure {
     log.info("Updating index for " + objectId + ": " + entry);
-    tx.put(makeEntity(tx, entry));
+    tx.put(makeEntity(entry));
     // TODO(ohler): Make the ACL cache consistent with the datastore.
   }
 
@@ -237,7 +235,7 @@ public class WaveIndex {
 
   @Nullable public IndexEntry getEntry(CheckedTransaction tx, SlobId objectId)
       throws RetryableFailure, PermanentFailure {
-    Entity entity = tx.get(makeKey(tx, objectId));
+    Entity entity = tx.get(makeKey(objectId));
     IndexEntry result = entity == null ? null : parseEntity(entity);
     log.info("Index entry for " + objectId + ": " + result);
     return result;

@@ -16,11 +16,16 @@
 
 package com.google.walkaround.slob.server;
 
+import com.google.appengine.api.datastore.Key;
+import com.google.inject.Inject;
 import com.google.inject.Module;
 import com.google.inject.PrivateBinder;
 import com.google.inject.PrivateModule;
+import com.google.inject.Provider;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
+import com.google.inject.multibindings.MapBinder;
 import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
+import com.google.walkaround.slob.shared.SlobId;
 
 import java.lang.annotation.Annotation;
 import java.util.logging.Logger;
@@ -42,18 +47,58 @@ public class StoreModuleHelper {
         .build(factoryClass);
   }
 
+  private static class FacilitiesImpl implements SlobFacilities {
+    // These are providers since many users will only need one.
+    @Inject Provider<SlobStore> slobStore;
+    @Inject Provider<LocalMutationProcessor> localMutationProcessor;
+    @Inject Provider<MutationLogFactory> mutationLogFactory;
+    @Inject @SlobRootEntityKind String rootEntityKind;
+
+    @Override public String toString() {
+      return "SlobFacilities(" + rootEntityKind + ")";
+    }
+
+    @Override public SlobStore getSlobStore() {
+      return slobStore.get();
+    }
+
+    @Override public LocalMutationProcessor getLocalMutationProcessor() {
+      return localMutationProcessor.get();
+    }
+
+    @Override public MutationLogFactory getMutationLogFactory() {
+      return mutationLogFactory.get();
+    }
+
+    @Override public String getRootEntityKind() {
+      return rootEntityKind;
+    }
+
+    @Override public Key makeRootEntityKey(SlobId slobId) {
+      return MutationLog.makeRootEntityKey(rootEntityKind, slobId);
+    }
+
+    @Override public SlobId parseRootEntityKey(Key key) {
+      return MutationLog.parseRootEntityKey(rootEntityKind, key);
+    }
+  }
+
   public static void makeBasicBindingsAndExposures(PrivateBinder binder,
       Class<? extends Annotation> annotation) {
     binder.bind(SlobStore.class).to(SlobStoreImpl.class);
+    binder.bind(SlobFacilities.class).to(FacilitiesImpl.class);
     binder.install(factoryModule(MutationLogFactory.class, MutationLog.class));
 
     binder.bind(MutationLogFactory.class).annotatedWith(annotation).to(MutationLogFactory.class);
     binder.bind(SlobStore.class).annotatedWith(annotation).to(SlobStore.class);
     binder.bind(LocalMutationProcessor.class).annotatedWith(annotation)
         .to(LocalMutationProcessor.class);
+    binder.bind(SlobFacilities.class).annotatedWith(annotation).to(FacilitiesImpl.class);
+
     binder.expose(MutationLogFactory.class).annotatedWith(annotation);
     binder.expose(SlobStore.class).annotatedWith(annotation);
     binder.expose(LocalMutationProcessor.class).annotatedWith(annotation);
+    binder.expose(SlobFacilities.class).annotatedWith(annotation);
   }
 
   public static void bindEntityKinds(PrivateBinder binder, String prefix) {

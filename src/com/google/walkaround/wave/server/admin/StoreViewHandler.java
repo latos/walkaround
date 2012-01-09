@@ -21,6 +21,7 @@ import com.google.gxp.base.GxpContext;
 import com.google.gxp.html.HtmlClosure;
 import com.google.inject.Inject;
 import com.google.walkaround.slob.server.MutationLog;
+import com.google.walkaround.slob.server.SlobStoreSelector;
 import com.google.walkaround.slob.server.MutationLog.DeltaIterator;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
@@ -31,7 +32,6 @@ import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
-import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.StoreType;
 import com.google.walkaround.wave.server.gxp.Admin;
 import com.google.walkaround.wave.server.gxp.StoreViewFragment;
@@ -56,7 +56,7 @@ public class StoreViewHandler extends AbstractHandler {
   private static final Logger log = Logger.getLogger(StoreViewHandler.class.getName());
 
   @Inject CheckedDatastore datastore;
-  @Inject ObjectStoreSelector storeSelector;
+  @Inject SlobStoreSelector storeSelector;
   @Inject @Flag(FlagName.ANALYTICS_ACCOUNT) String analyticsAccount;
 
   @Override
@@ -76,7 +76,7 @@ public class StoreViewHandler extends AbstractHandler {
         SlobId objectId = new SlobId(id);
         CheckedTransaction tx = datastore.beginTransaction();
         try {
-          MutationLog mutationLog = storeSelector.getMutationLogFactory(StoreType.parse(storeType))
+          MutationLog mutationLog = storeSelector.get(storeType).getMutationLogFactory()
               .create(tx, objectId);
           objectVersion = mutationLog.getVersion();
           if (!historyStart.isEmpty()) {

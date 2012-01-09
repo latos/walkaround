@@ -20,13 +20,13 @@ import com.google.inject.Inject;
 import com.google.walkaround.proto.gson.ConnectResponseGsonImpl;
 import com.google.walkaround.slob.server.AccessDeniedException;
 import com.google.walkaround.slob.server.GsonProto;
+import com.google.walkaround.slob.server.SlobStoreSelector;
 import com.google.walkaround.slob.server.SlobNotFoundException;
 import com.google.walkaround.slob.server.SlobStore.ConnectResult;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
 import com.google.walkaround.wave.server.ObjectSessionHelper;
-import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.servlet.ServletUtil;
 
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class ConnectHandler extends AbstractHandler {
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(ConnectHandler.class.getName());
 
-  @Inject ObjectStoreSelector storeSelector;
+  @Inject SlobStoreSelector storeSelector;
   @Inject ObjectSession session;
   @Inject ObjectSessionHelper sessionHelper;
 
@@ -56,7 +56,7 @@ public class ConnectHandler extends AbstractHandler {
 
     ConnectResult result;
     try {
-      result = storeSelector.get(session.getStoreType())
+      result = storeSelector.get(session.getStoreType()).getSlobStore()
           .reconnect(session.getObjectId(), session.getClientId());
     } catch (SlobNotFoundException e) {
       throw new BadRequestException("Object not found or access denied", e);

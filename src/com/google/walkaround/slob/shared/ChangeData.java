@@ -65,7 +65,7 @@ public final class ChangeData<T> {
   @Override public final boolean equals(Object o) {
     if (o == this) { return true; }
     if (!(o instanceof ChangeData)) { return false; }
-    ChangeData other = (ChangeData) o;
+    ChangeData<?> other = (ChangeData<?>) o;
     return Objects.equal(clientId, other.clientId)
         && Objects.equal(payload, other.payload);
   }

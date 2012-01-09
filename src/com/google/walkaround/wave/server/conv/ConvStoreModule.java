@@ -50,11 +50,13 @@ public class ConvStoreModule extends PrivateModule {
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(ConvStoreModule.class.getName());
 
+  // Perhaps a better name would be "Conv", but we can't change it, for
+  // compatibility with existing data.
+  public static String ROOT_ENTITY_KIND = "Wavelet";
+
   @Override protected void configure() {
     StoreModuleHelper.makeBasicBindingsAndExposures(binder(), ConvStore.class);
-    // Perhaps a better name would be "Conv", but we can't change it, for
-    // compatibility with existing data.
-    StoreModuleHelper.bindEntityKinds(binder(), "Wavelet");
+    StoreModuleHelper.bindEntityKinds(binder(), ROOT_ENTITY_KIND);
 
     bind(SlobModel.class).to(WaveObjectStoreModel.class);
     bind(AccessChecker.class).to(ConvAccessChecker.class);

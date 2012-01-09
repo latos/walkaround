@@ -17,23 +17,32 @@
 package com.google.walkaround.wave.server;
 
 import com.google.appengine.api.users.User;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Key;
 import com.google.inject.Module;
 import com.google.inject.Provider;
 import com.google.inject.Stage;
+import com.google.inject.multibindings.MapBinder;
 import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
 import com.google.inject.util.Modules;
+import com.google.walkaround.slob.server.SlobFacilities;
 import com.google.walkaround.wave.server.auth.StableUserId;
+import com.google.walkaround.wave.server.conv.ConvStore;
 import com.google.walkaround.wave.server.conv.ConvStoreModule;
+import com.google.walkaround.wave.server.udw.UdwStore;
 import com.google.walkaround.wave.server.udw.UdwStoreModule;
 
 import org.waveprotocol.wave.model.wave.ParticipantId;
 
+import java.lang.annotation.Annotation;
 import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import javax.servlet.Filter;
@@ -78,6 +87,19 @@ public class GuiceSetup {
         new AbstractModule() {
           @Override public void configure() {
             bind(String.class).annotatedWith(Names.named("webinf root")).toInstance(webinfRoot);
+
+            // TODO(ohler): Find a way to create these bindings in StoreModuleHelper; but note that
+            // http://code.google.com/p/google-guice/wiki/Multibindings says something about
+            // private modules not interacting well with multibindings.  I don't know if that
+            // refers to our situation here.
+            MapBinder<String, SlobFacilities> mapBinder =
+                MapBinder.newMapBinder(binder(), String.class, SlobFacilities.class);
+            for (Entry<String, Class<? extends Annotation>> entry 
+                : ImmutableMap.of(ConvStoreModule.ROOT_ENTITY_KIND, ConvStore.class,
+                    UdwStoreModule.ROOT_ENTITY_KIND, UdwStore.class).entrySet()) {
+              mapBinder.addBinding(entry.getKey())
+                  .to(Key.get(SlobFacilities.class, entry.getValue()));
+            }
           }
         });
   }

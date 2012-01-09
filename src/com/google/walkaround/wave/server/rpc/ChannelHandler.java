@@ -18,6 +18,7 @@ package com.google.walkaround.wave.server.rpc;
 
 import com.google.inject.Inject;
 import com.google.walkaround.slob.server.AccessDeniedException;
+import com.google.walkaround.slob.server.SlobStoreSelector;
 import com.google.walkaround.slob.server.SlobNotFoundException;
 import com.google.walkaround.slob.server.SlobStore;
 import com.google.walkaround.slob.server.SlobStore.ConnectResult;
@@ -25,7 +26,6 @@ import com.google.walkaround.slob.server.SlobStore.HistoryResult;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
-import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.servlet.ServletUtil;
 import com.google.walkaround.wave.shared.SharedConstants.Params;
 
@@ -49,7 +49,7 @@ public class ChannelHandler extends AbstractHandler {
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(ChannelHandler.class.getName());
 
-  @Inject ObjectStoreSelector storeSelector;
+  @Inject SlobStoreSelector storeSelector;
   @Inject ObjectSession session;
 
   @Override
@@ -64,7 +64,7 @@ public class ChannelHandler extends AbstractHandler {
   private void inner(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, JSONException {
     JSONObject result = new JSONObject();
-    SlobStore store = storeSelector.get(session.getStoreType());
+    SlobStore store = storeSelector.get(session.getStoreType()).getSlobStore();
     try {
       int revision = Integer.parseInt(requireParameter(req, Params.REVISION));
       ConnectResult r = store.reconnect(session.getObjectId(), session.getClientId());

@@ -23,10 +23,10 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.google.appengine.api.memcache.Expiration;
-import com.google.appengine.api.memcache.MemcacheService;
 import com.google.common.base.Objects;
 import com.google.inject.BindingAnnotation;
 import com.google.inject.Inject;
+import com.google.walkaround.slob.server.SlobRootEntityKind;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.appengine.MemcacheTable;
 import com.google.walkaround.util.shared.Assert;
@@ -93,14 +93,6 @@ public class PermissionCache {
       this.slobId = checkNotNull(slobId, "Null slobId");
     }
 
-    public StableUserId getUserId() {
-      return userId;
-    }
-
-    public SlobId getSlobId() {
-      return slobId;
-    }
-
     @Override public String toString() {
       return "AccessKey(" + userId + ", " + slobId + ")";
     }
@@ -124,7 +116,7 @@ public class PermissionCache {
   @BindingAnnotation @Target({ FIELD, PARAMETER, METHOD }) @Retention(RUNTIME)
   public @interface PermissionCacheExpirationSeconds {}
 
-  private static final String MEMCACHE_TAG = "UAC";
+  private static final String MEMCACHE_TAG_PREFIX = "UAC-";
 
   private final MemcacheTable<AccessKey, Permissions> memcache;
   private final Random random;
@@ -134,11 +126,14 @@ public class PermissionCache {
 
   @Inject
   public PermissionCache(MemcacheTable.Factory memcacheFactory,
+      @SlobRootEntityKind String rootEntityKind,
       Random random,
       PermissionSource source,
       @PermissionCacheExpirationSeconds int expirationSeconds,
       StableUserId userId) {
-    this.memcache = memcacheFactory.create(MEMCACHE_TAG);
+    // As long as we only use the access cache for conv wavelets, we don't need the rootEntityKind
+    // suffix; but this is safer if we ever reuse this code elsewhere.
+    this.memcache = memcacheFactory.create(MEMCACHE_TAG_PREFIX + rootEntityKind);
     this.expirationSeconds = expirationSeconds;
     this.source = source;
     this.random = random;

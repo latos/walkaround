@@ -24,7 +24,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.google.appengine.api.backends.BackendService;
 import com.google.appengine.api.memcache.Expiration;
-import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheService.SetPolicy;
 import com.google.appengine.api.urlfetch.FetchOptions;
 import com.google.appengine.api.urlfetch.HTTPHeader;

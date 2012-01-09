@@ -30,9 +30,9 @@ public class ObjectSession {
 
   private final SlobId objectId;
   private final ClientId clientId;
-  private final StoreType storeType;
+  private final String storeType;
 
-  public ObjectSession(SlobId objectId, ClientId clientId, StoreType storeType) {
+  public ObjectSession(SlobId objectId, ClientId clientId, String storeType) {
     Preconditions.checkNotNull(objectId, "Null objectId");
     Preconditions.checkNotNull(clientId, "Null clientId");
     Preconditions.checkNotNull(storeType, "Null storeType");
@@ -49,7 +49,7 @@ public class ObjectSession {
     return clientId;
   }
 
-  public StoreType getStoreType() {
+  public String getStoreType() {
     return storeType;
   }
 

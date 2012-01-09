@@ -24,7 +24,7 @@ import com.google.walkaround.proto.WaveletMetadata;
 import com.google.walkaround.proto.gson.WaveletMetadataGsonImpl;
 import com.google.walkaround.slob.server.GsonProto;
 import com.google.walkaround.slob.server.MutationLog;
-import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
+import com.google.walkaround.slob.server.SlobFacilities;
 import com.google.walkaround.slob.shared.MessageException;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.slob.shared.StateAndVersion;
@@ -55,7 +55,7 @@ public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, Nu
 
   private static class Handler {
     @Inject CheckedDatastore datastore;
-    @Inject @ConvStore MutationLogFactory mutationLogFactory;
+    @Inject @ConvStore SlobFacilities facilities;
     @Inject WaveIndex index;
 
     void process(Context context, final Key key) throws PermanentFailure {
@@ -63,11 +63,8 @@ public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, Nu
           @Override public void run() throws PermanentFailure, RetryableFailure {
             CheckedTransaction tx = datastore.beginTransaction();
             try {
-              // HACK(ohler): We shouldn't need to make dummy a MutationLog here just to parse
-              // the root entity key.
-              SlobId objectId = mutationLogFactory.create(tx, new SlobId(""))
-                  .parseRootEntityKey(key);
-              MutationLog mutationLog = mutationLogFactory.create(tx, objectId);
+              SlobId objectId = facilities.parseRootEntityKey(key);
+              MutationLog mutationLog = facilities.getMutationLogFactory().create(tx, objectId);
               try {
                 WaveletMetadata metadata = GsonProto.fromGson(
                     new WaveletMetadataGsonImpl(), mutationLog.getMetadata());

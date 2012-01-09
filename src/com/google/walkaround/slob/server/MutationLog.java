@@ -127,16 +127,21 @@ public class MutationLog {
     }
   }
 
-  public Key makeRootEntityKey(SlobId objectId) {
+  static Key makeRootEntityKey(String entityGroupKind, SlobId objectId) {
     Key key = KeyFactory.createKey(entityGroupKind, objectId.getId());
-    Assert.check(parseRootEntityKey(key).equals(objectId), "Mismatch: %s, %s", objectId, key);
+    Assert.check(parseRootEntityKey(entityGroupKind, key).equals(objectId),
+        "Mismatch: %s, %s", objectId, key);
     return key;
   }
 
-  public SlobId parseRootEntityKey(Key key) {
+  static SlobId parseRootEntityKey(String entityGroupKind, Key key) {
     Preconditions.checkArgument(entityGroupKind.equals(key.getKind()),
         "Key doesn't have kind %s: %s", entityGroupKind, key);
     return new SlobId(key.getName());
+  }
+  
+  private Key makeRootEntityKey(SlobId slobId) {
+    return makeRootEntityKey(entityGroupKind, slobId);
   }
 
   private Key makeDeltaKey(SlobId objectId, long version) {

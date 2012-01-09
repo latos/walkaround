@@ -21,13 +21,13 @@ import com.google.walkaround.proto.ServerMutateRequest;
 import com.google.walkaround.proto.gson.ServerMutateRequestGsonImpl;
 import com.google.walkaround.slob.server.AccessDeniedException;
 import com.google.walkaround.slob.server.MutateResult;
+import com.google.walkaround.slob.server.SlobStoreSelector;
 import com.google.walkaround.slob.server.SlobNotFoundException;
 import com.google.walkaround.slob.shared.MessageException;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.wave.server.ObjectSession;
 import com.google.walkaround.wave.server.ObjectSessionHelper;
-import com.google.walkaround.wave.server.ObjectStoreSelector;
 import com.google.walkaround.wave.server.model.ServerMessageSerializer;
 import com.google.walkaround.wave.server.servlet.ServletUtil;
 import com.google.walkaround.wave.shared.WaveSerializer;
@@ -55,7 +55,7 @@ public class SubmitDeltaHandler extends AbstractHandler {
   private static final WaveSerializer SERIALIZER =
       new WaveSerializer(new ServerMessageSerializer());
 
-  @Inject ObjectStoreSelector storeSelector;
+  @Inject SlobStoreSelector storeSelector;
   @Inject ObjectSession session;
   @Inject ParticipantId participantId;
 
@@ -89,7 +89,7 @@ public class SubmitDeltaHandler extends AbstractHandler {
 
     MutateResult res;
     try {
-      res = storeSelector.get(session.getStoreType()).mutateObject(mutateRequest);
+      res = storeSelector.get(session.getStoreType()).getSlobStore().mutateObject(mutateRequest);
     } catch (SlobNotFoundException e) {
       throw new BadRequestException("Object not found or access denied", e);
     } catch (AccessDeniedException e) {

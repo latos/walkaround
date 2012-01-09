@@ -88,14 +88,14 @@ public class ObjectSessionHelper {
   public static ObjectSession objectSessionFromProto(ObjectSessionProto proto) {
     return new ObjectSession(new SlobId(proto.getObjectId()),
         new ClientId(proto.getClientId()),
-        StoreType.parse(proto.getStoreType()));
+        proto.getStoreType());
   }
 
   public static ObjectSessionProto protoFromObjectSession(ObjectSession session) {
     ObjectSessionProto proto = new ObjectSessionProtoGsonImpl();
     proto.setObjectId(session.getObjectId().getId());
     proto.setClientId(session.getClientId().getId());
-    proto.setStoreType(session.getStoreType().serialize());
+    proto.setStoreType(session.getStoreType());
     return proto;
   }
 
