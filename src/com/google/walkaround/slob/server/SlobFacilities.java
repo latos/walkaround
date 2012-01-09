@@ -16,10 +16,12 @@ public interface SlobFacilities {
   SlobStore getSlobStore();
   MutationLogFactory getMutationLogFactory();
   LocalMutationProcessor getLocalMutationProcessor();
-  
+
   String getRootEntityKind();
 
   Key makeRootEntityKey(SlobId slobId);
   SlobId parseRootEntityKey(Key key);
+
+  PostCommitActionScheduler getPostCommitActionScheduler();
 
 }

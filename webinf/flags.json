@@ -34,6 +34,8 @@ client_version: 7,
  */
 xsrf_token_expiry_seconds: 1209600,
 
+post_commit_action_interval_millis: 10000,
+
 announcement_html: '${announcement-html}'
 
 }

@@ -44,12 +44,12 @@ import com.google.inject.Key;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
-import com.google.inject.multibindings.MapBinder;
 import com.google.inject.name.Named;
 import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendInstanceCount;
 import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendName;
 import com.google.walkaround.slob.server.MutationLog;
-import com.google.walkaround.slob.server.SlobFacilities;
+import com.google.walkaround.slob.server.PostCommitActionIntervalMillis;
+import com.google.walkaround.slob.server.PostCommitTaskUrl;
 import com.google.walkaround.slob.server.SlobManager;
 import com.google.walkaround.slob.server.SlobMessageRouter.SlobChannelExpirationSeconds;
 import com.google.walkaround.util.server.RetryHelper;
@@ -70,7 +70,6 @@ import com.google.walkaround.util.server.gwt.ZipSymbolMapsDirectory;
 import com.google.walkaround.util.shared.RandomBase64Generator.RandomProvider;
 import com.google.walkaround.util.shared.RandomProviderAdapter;
 import com.google.walkaround.wave.server.auth.OAuthInterstitialHandler.Scopes;
-import com.google.walkaround.wave.server.conv.ConvStoreModule;
 import com.google.walkaround.wave.server.conv.PermissionCache.PermissionCacheExpirationSeconds;
 import com.google.walkaround.wave.server.googleimport.ImportTaskQueue;
 import com.google.walkaround.wave.server.model.LegacyDeltaEntityConverter;
@@ -132,6 +131,9 @@ public class WalkaroundServerModule extends AbstractModule {
     bind(Key.get(Queue.class, MemcacheDeletionQueue.class)).toInstance(
         QueueFactory.getQueue("memcache-deletion"));
 
+    bind(String.class).annotatedWith(PostCommitTaskUrl.class).toInstance(
+        WalkaroundServletModule.POST_COMMIT_TASK_PATH);
+
     bind(MessageSerializer.class).to(ServerMessageSerializer.class);
     bind(SlobManager.class).to(WaveManager.class);
     bind(MutationLog.DeltaEntityConverter.class).to(LegacyDeltaEntityConverter.class);
@@ -146,6 +148,8 @@ public class WalkaroundServerModule extends AbstractModule {
     bindToFlag(Integer.class, StoreBackendInstanceCount.class, FlagName.NUM_STORE_SERVERS);
     bindToFlag(Integer.class, SlobChannelExpirationSeconds.class,
         FlagName.OBJECT_CHANNEL_EXPIRATION_SECONDS);
+    bindToFlag(Integer.class, PostCommitActionIntervalMillis.class,
+        FlagName.POST_COMMIT_ACTION_INTERVAL_MILLIS);
   }
 
   @Provides

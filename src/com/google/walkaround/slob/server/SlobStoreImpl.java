@@ -16,6 +16,7 @@
 
 package com.google.walkaround.slob.server;
 
+import com.google.appengine.api.memcache.Expiration;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.ImmutableList;
@@ -29,12 +30,15 @@ import com.google.walkaround.slob.shared.ChangeData;
 import com.google.walkaround.slob.shared.ChangeRejected;
 import com.google.walkaround.slob.shared.ClientId;
 import com.google.walkaround.slob.shared.SlobId;
+import com.google.walkaround.slob.shared.SlobModel.ReadableSlob;
 import com.google.walkaround.slob.shared.StateAndVersion;
 import com.google.walkaround.util.server.RetryHelper;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+import com.google.walkaround.util.server.appengine.MemcacheTable;
+import com.google.walkaround.util.server.appengine.MemcacheTable.IdentifiableValue;
 import com.google.walkaround.util.shared.RandomBase64Generator;
 
 import org.waveprotocol.wave.model.util.Pair;
@@ -42,6 +46,7 @@ import org.waveprotocol.wave.model.util.Pair;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
@@ -57,14 +62,49 @@ public class SlobStoreImpl implements SlobStore {
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(SlobStoreImpl.class.getName());
 
+  // Split out because InternalPostCommitAction can't depend on the full
+  // SlobStoreImpl, which needs an AccessChecker and thus a UserContext, which
+  // task queue tasks don't have.
+  static class Cache {
+    private final MemcacheTable<SlobId, Long> currentVersions;
+
+    @Inject Cache(MemcacheTable.Factory memcacheFactory,
+        @SlobRootEntityKind String rootEntityKind) {
+      this.currentVersions = memcacheFactory.create(MEMCACHE_TAG_PREFIX + rootEntityKind);
+    }
+  }
+
+  static class InternalPostCommitAction implements PostCommitAction {
+    @Inject Cache cache;
+
+    @Override public void unreliableImmediatePostCommit(SlobId slobId, long resultingVersion,
+        ReadableSlob resultingState) {
+      // We have to put null rather than deleting since what we do here must
+      // interfere with a concurrent getIdentifiable/putIfUntouched sequence,
+      // and MemcacheService's Javadoc does not specify that putIfUntouched will
+      // abort if the value was absent during the lookup and delete has been
+      // called between the lookup and putIfUntouched.
+      cache.currentVersions.put(slobId, null);
+    }
+
+    @Override public void reliableDelayedPostCommit(SlobId slobId) {
+      cache.currentVersions.put(slobId, null);
+    }
+  }
+
+  private static final String MEMCACHE_TAG_PREFIX = "slobversion-";
+  private static final int VERSION_NUMBER_CACHE_EXPIRATION_MILLIS = 24 * 60 * 60 * 1000;
+
   private final CheckedDatastore datastore;
   private final MutationLogFactory mutationLogFactory;
   private final SlobMessageRouter messageRouter;
   private final AffinityMutationProcessor defaultProcessor;
   private final AccessChecker accessChecker;
   private final PostMutateHook postMutateHook;
-  private final PreCommitHook preCommitHook;
   private final String rootEntityKind;
+  private final Set<PreCommitAction> preCommitActions;
+  private final PostCommitActionScheduler postCommitActionScheduler;
+  private final Cache cache;
 
   @Inject
   public SlobStoreImpl(CheckedDatastore datastore,
@@ -75,65 +115,80 @@ public class SlobStoreImpl implements SlobStore {
       LocalMutationProcessor localProcessor,
       AccessChecker accessChecker,
       PostMutateHook postMutateHook,
-      PreCommitHook preCommitHook,
-      @SlobRootEntityKind String rootEntityKind) {
+      @SlobRootEntityKind String rootEntityKind,
+      Set<PreCommitAction> preCommitActions,
+      PostCommitActionScheduler postCommitActionScheduler,
+      Cache cache) {
     this.datastore = datastore;
     this.mutationLogFactory = mutationLogFactory;
     this.messageRouter = messageRouter;
     this.defaultProcessor = defaultProcessor;
     this.accessChecker = accessChecker;
     this.postMutateHook = postMutateHook;
-    this.preCommitHook = preCommitHook;
     this.rootEntityKind = rootEntityKind;
+    this.preCommitActions = preCommitActions;
+    this.postCommitActionScheduler = postCommitActionScheduler;
+    this.cache = cache;
   }
 
   @Override
-  public Pair<ConnectResult, String> connect(SlobId objectId, ClientId clientId)
+  public Pair<ConnectResult, String> connect(SlobId slobId, ClientId clientId)
       throws SlobNotFoundException, IOException, AccessDeniedException {
-    return connectOrReconnect(objectId, clientId, true);
+    return connectOrReconnect(slobId, clientId, true);
   }
 
   @Override
-  public ConnectResult reconnect(SlobId objectId, ClientId clientId)
+  public ConnectResult reconnect(SlobId slobId, ClientId clientId)
       throws SlobNotFoundException, IOException, AccessDeniedException {
-    return connectOrReconnect(objectId, clientId, false).getFirst();
+    return connectOrReconnect(slobId, clientId, false).getFirst();
   }
 
   private Pair<ConnectResult, String> connectOrReconnect(
-      SlobId objectId, ClientId clientId, boolean withSnapshot)
+      SlobId slobId, ClientId clientId, boolean withSnapshot)
       throws SlobNotFoundException, IOException, AccessDeniedException {
-    accessChecker.checkCanRead(objectId);
+    accessChecker.checkCanRead(slobId);
     String snapshot;
     long version;
-    try {
-      CheckedTransaction tx = datastore.beginTransaction();
+    IdentifiableValue<Long> cachedVersion = cache.currentVersions.getIdentifiable(slobId);
+    if (!withSnapshot && cachedVersion != null && cachedVersion.getValue() != null) {
+      version = cachedVersion.getValue();
+      log.info("Version number from cache: " + version);
+      snapshot = null;
+    } else {
       try {
-        MutationLog mutationLog = mutationLogFactory.create(tx, objectId);
-        if (withSnapshot) {
-          StateAndVersion x = mutationLog.reconstruct(null);
-          version = x.getVersion();
-          snapshot = x.getState().snapshot();
-        } else {
-          version = mutationLog.getVersion();
-          snapshot = null;
+        CheckedTransaction tx = datastore.beginTransaction();
+        try {
+          MutationLog mutationLog = mutationLogFactory.create(tx, slobId);
+          if (withSnapshot) {
+            StateAndVersion x = mutationLog.reconstruct(null);
+            version = x.getVersion();
+            snapshot = x.getState().snapshot();
+          } else {
+            version = mutationLog.getVersion();
+            snapshot = null;
+          }
+          if (version == 0) {
+            throw new SlobNotFoundException(
+                "Slob " + slobId + " (" + rootEntityKind + ") not found");
+          }
+        } finally {
+          tx.rollback();
         }
-        if (version == 0) {
-          throw new SlobNotFoundException(
-              "Object " + objectId + " (" + rootEntityKind + ") not found");
-        }
-      } finally {
-        tx.rollback();
+      } catch (PermanentFailure e) {
+        throw new IOException(e);
+      } catch (RetryableFailure e) {
+        throw new IOException(e);
       }
-    } catch (PermanentFailure e) {
-      throw new IOException(e);
-    } catch (RetryableFailure e) {
-      throw new IOException(e);
+      cache.currentVersions.putIfUntouched(slobId, cachedVersion, version,
+          // Since the cache is invalidated by a task queue task, we only need this expiration to
+          // protect from admins deleting tasks and similar situations.
+          Expiration.byDeltaMillis(VERSION_NUMBER_CACHE_EXPIRATION_MILLIS));
     }
 
     String channelToken;
     if (clientId != null) {
       try {
-        channelToken = messageRouter.connectListener(objectId, clientId);
+        channelToken = messageRouter.connectListener(slobId, clientId);
       } catch (TooManyListenersException e) {
         channelToken = null;
       }
@@ -144,13 +199,13 @@ public class SlobStoreImpl implements SlobStore {
   }
 
   @Override
-  public String loadAtVersion(SlobId objectId, long version)
+  public String loadAtVersion(SlobId slobId, @Nullable Long version)
       throws IOException, AccessDeniedException {
-    accessChecker.checkCanRead(objectId);
+    accessChecker.checkCanRead(slobId);
     try {
       CheckedTransaction tx = datastore.beginTransaction();
       try {
-        MutationLog l = mutationLogFactory.create(tx, objectId);
+        MutationLog l = mutationLogFactory.create(tx, slobId);
         return l.reconstruct(version).getState().snapshot();
       } finally {
         tx.rollback();
@@ -163,15 +218,23 @@ public class SlobStoreImpl implements SlobStore {
   }
 
   @Override
-  public HistoryResult loadHistory(SlobId objectId, long startVersion, @Nullable Long endVersion)
+  public HistoryResult loadHistory(SlobId slobId, long startVersion, @Nullable Long endVersion)
       throws SlobNotFoundException, IOException, AccessDeniedException {
-    accessChecker.checkCanRead(objectId);
-    log.info("loadHistory(" + objectId + ", " + startVersion + " - " + endVersion + ")");
+    accessChecker.checkCanRead(slobId);
+    IdentifiableValue<Long> cachedVersion = cache.currentVersions.getIdentifiable(slobId);
+    log.info("loadHistory(" + slobId + ", " + startVersion + " - " + endVersion + "); cached: "
+        + cachedVersion);
+    if (cachedVersion != null && cachedVersion.getValue() != null
+        && startVersion >= cachedVersion.getValue()
+        && endVersion == null) {
+      return new HistoryResult(ImmutableList.<ChangeData<String>>of(), false);
+    }
     final int MAX_MILLIS = 3 * 1000;
     try {
       CheckedTransaction tx = datastore.beginTransaction();
       try {
-        DeltaIterator result = mutationLogFactory.create(tx, objectId).forwardHistory(
+        // TODO(ohler): put current version into cache
+        DeltaIterator result = mutationLogFactory.create(tx, slobId).forwardHistory(
             startVersion, endVersion);
         if (!result.hasNext()) {
           return new HistoryResult(ImmutableList.<ChangeData<String>>of(), false);
@@ -216,23 +279,23 @@ public class SlobStoreImpl implements SlobStore {
   }
 
   @Override
-  public void newObject(final SlobId objectId, final String metadata,
+  public void newObject(final SlobId slobId, final String metadata,
       final List<ChangeData<String>> initialHistory)
       throws SlobAlreadyExistsException, IOException, AccessDeniedException {
-    Preconditions.checkNotNull(objectId, "Null objectId");
+    Preconditions.checkNotNull(slobId, "Null slobId");
     Preconditions.checkNotNull(metadata, "Null metadata");
     Preconditions.checkNotNull(initialHistory, "Null initialHistory");
-    accessChecker.checkCanCreate(objectId);
+    accessChecker.checkCanCreate(slobId);
     try {
       boolean alreadyExists = new RetryHelper().run(new RetryHelper.Body<Boolean>() {
         @Override public Boolean run() throws RetryableFailure, PermanentFailure {
           CheckedTransaction tx = datastore.beginTransaction();
           try {
-            MutationLog l = mutationLogFactory.create(tx, objectId);
+            MutationLog l = mutationLogFactory.create(tx, slobId);
 
             String existingMetadata = l.getMetadata();
             if (existingMetadata != null) {
-              log.info("Object " + objectId + " already exists: found metadata: "
+              log.info("Slob " + slobId + " already exists: found metadata: "
                   + existingMetadata);
               return true;
             }
@@ -240,7 +303,7 @@ public class SlobStoreImpl implements SlobStore {
             // wavelets have no metadata entity.
             long version = l.getVersion();
             if (version != 0) {
-              log.info("Object " + objectId + " already exists at version " + version);
+              log.info("Slob " + slobId + " already exists at version " + version);
               return true;
             }
 
@@ -255,8 +318,15 @@ public class SlobStoreImpl implements SlobStore {
             }
             appender.flush();
             l.putMetadata(metadata);
-            preCommitHook.run(tx, objectId, appender.getStagedVersion(), appender.getStagedState());
+            // TODO: share code with LocalMutationProcessor
+            for (PreCommitAction action : preCommitActions) {
+              action.run(tx, slobId, appender.getStagedVersion(), appender.getStagedState());
+            }
+            postCommitActionScheduler.preCommit(tx, slobId);
             tx.commit();
+            // TODO: share code with LocalMutationProcessor
+            postCommitActionScheduler.postCommit(slobId, appender.getStagedVersion(),
+                appender.getStagedState());
             return false;
           } finally {
             tx.close();
@@ -264,7 +334,7 @@ public class SlobStoreImpl implements SlobStore {
         }
       });
       if (alreadyExists) {
-        throw new SlobAlreadyExistsException(objectId + " already exists");
+        throw new SlobAlreadyExistsException(slobId + " already exists");
       }
     } catch (PermanentFailure e) {
       throw new IOException(e);

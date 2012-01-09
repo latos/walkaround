@@ -41,17 +41,17 @@ public interface SlobStore {
    * Provides a connection for dealing with an object, along with a snapshot of
    * the object state.
    */
-  Pair<ConnectResult, String> connect(SlobId objectId, ClientId clientId)
+  Pair<ConnectResult, String> connect(SlobId slobId, ClientId clientId)
       throws SlobNotFoundException, IOException, AccessDeniedException;
 
   /**
    * Connects without returning a snapshot.
    */
-  ConnectResult reconnect(SlobId objectId, ClientId clientId)
+  ConnectResult reconnect(SlobId slobId, ClientId clientId)
       throws SlobNotFoundException, IOException, AccessDeniedException;
 
   // Returns a snapshot.  TODO(ohler): make snapshot type a generic parameter or something
-  String loadAtVersion(SlobId objectId, long version)
+  String loadAtVersion(SlobId slobId, @Nullable Long version)
       throws SlobNotFoundException, IOException, AccessDeniedException;
 
   /**
@@ -67,7 +67,7 @@ public interface SlobStore {
    * @return the historical mutations, as many as could be retrieved in one go.
    * @throws SlobNotFoundException if the object is not found
    */
-  HistoryResult loadHistory(SlobId objectid, long startVersion, @Nullable Long endVersion)
+  HistoryResult loadHistory(SlobId slobId, long startVersion, @Nullable Long endVersion)
       throws SlobNotFoundException, IOException, AccessDeniedException;
 
   /**
@@ -79,7 +79,7 @@ public interface SlobStore {
   /**
    * Creates a new object.
    */
-  void newObject(SlobId objectId, String metadata, List<ChangeData<String>> initialHistory)
+  void newObject(SlobId slobId, String metadata, List<ChangeData<String>> initialHistory)
       throws SlobAlreadyExistsException, IOException, AccessDeniedException;
 
   /** Result of a history fetch. */

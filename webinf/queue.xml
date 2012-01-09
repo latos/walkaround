@@ -27,9 +27,13 @@
   <queue>
     <name>memcache-deletion</name>
     <rate>100/s</rate>
-    <bucket-size>100</bucket-size>
-    <retry-parameters>
-      <task-age-limit>3d</task-age-limit>
-    </retry-parameters>
+  </queue>
+  <queue>
+    <name>post-commit-conv</name>
+    <rate>100/s</rate>
+  </queue>
+  <queue>
+    <name>post-commit-udw</name>
+    <rate>100/s</rate>
   </queue>
 </queue-entries>

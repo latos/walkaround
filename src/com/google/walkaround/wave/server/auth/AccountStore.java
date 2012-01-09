@@ -148,7 +148,7 @@ public class AccountStore {
           CheckedTransaction tx = datastore.beginTransaction();
           log.info("About to put " + entity);
           tx.put(entity);
-          memcache.enqueueDeletion(tx, userId);
+          memcache.enqueuePutNull(tx, userId);
           tx.commit();
           log.info("Committed " + tx);
         }
@@ -165,7 +165,7 @@ public class AccountStore {
           CheckedTransaction tx = datastore.beginTransaction();
           log.info("About to delete " + key);
           tx.delete(key);
-          memcache.enqueueDeletion(tx, userId);
+          memcache.enqueuePutNull(tx, userId);
           tx.commit();
           log.info("Committed " + tx);
         }
@@ -198,7 +198,7 @@ public class AccountStore {
   @Nullable public Record get(final StableUserId userId) throws PermanentFailure {
     Preconditions.checkNotNull(userId, "Null userId");
     IdentifiableValue<Record> cached = memcache.getIdentifiable(userId);
-    if (cached != null) {
+    if (cached != null && cached.getValue() != null) {
       log.info("Account record found in cache: " + cached);
       return cached.getValue();
     }

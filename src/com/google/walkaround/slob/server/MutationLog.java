@@ -139,7 +139,7 @@ public class MutationLog {
         "Key doesn't have kind %s: %s", entityGroupKind, key);
     return new SlobId(key.getName());
   }
-  
+
   private Key makeRootEntityKey(SlobId slobId) {
     return makeRootEntityKey(entityGroupKind, slobId);
   }

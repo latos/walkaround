@@ -42,6 +42,7 @@ import com.google.inject.name.Names;
 import com.google.inject.servlet.RequestScoped;
 import com.google.inject.servlet.ServletModule;
 import com.google.walkaround.slob.server.StoreModuleHelper;
+import com.google.walkaround.slob.server.handler.PostCommitTaskHandler;
 import com.google.walkaround.util.server.auth.InvalidSecurityTokenException;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
@@ -119,6 +120,7 @@ public class WalkaroundServletModule extends ServletModule {
   private static final String OAUTH2_CALLBACK_PATH = "authenticate";
 
   public static final String IMPORT_TASK_PATH = "/taskqueue/import";
+  static final String POST_COMMIT_TASK_PATH = "/taskqueue/postcommit";
 
   /** Path bindings for handlers that serve exact paths only. */
   private static final ImmutableMap<String, Class<? extends AbstractHandler>> EXACT_PATH_HANDLERS =
@@ -158,6 +160,9 @@ public class WalkaroundServletModule extends ServletModule {
 
           // Backend servers. Could potentially use a separate Guice module.
           .put("/store/mutate", StoreMutateHandler.class)
+
+          // Slob task queue stuff.
+          .put(POST_COMMIT_TASK_PATH, PostCommitTaskHandler.class)
 
           // Import stuff.  Should probably also be in a separate Guice module.
           .put("/import", ImportOverviewHandler.class)
@@ -233,7 +238,7 @@ public class WalkaroundServletModule extends ServletModule {
     validatePaths();
     {
       MapBinder<String, AbstractHandler> exactPathBinder =
-          MapBinder.newMapBinder(binder(), 
+          MapBinder.newMapBinder(binder(),
               String.class, AbstractHandler.class, ExactPathHandlers.class);
       for (Map.Entry<String, Class<? extends AbstractHandler>> e : EXACT_PATH_HANDLERS.entrySet()) {
         serve(e.getKey()).with(HandlerServlet.class);
@@ -242,9 +247,10 @@ public class WalkaroundServletModule extends ServletModule {
     }
     {
       MapBinder<String, AbstractHandler> prefixPathBinder =
-          MapBinder.newMapBinder(binder(), 
+          MapBinder.newMapBinder(binder(),
               String.class, AbstractHandler.class, PrefixPathHandlers.class);
-      for (Map.Entry<String, Class<? extends AbstractHandler>> e : PREFIX_PATH_HANDLERS.entrySet()) {
+      for (Map.Entry<String, Class<? extends AbstractHandler>> e
+               : PREFIX_PATH_HANDLERS.entrySet()) {
         serve(e.getKey() + "/*").with(HandlerServlet.class);
         prefixPathBinder.addBinding(e.getKey()).to(e.getValue());
       }

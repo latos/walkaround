@@ -55,6 +55,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -329,8 +330,12 @@ public class LocalMutationProcessor {
         return;
       }
       appender.flush();
-      log.info("Calling pre-commit hook");
-      preCommitHook.run(tx, objectId, appender.getStagedVersion(), appender.getStagedState());
+      // TODO: share code with SlobStoreImpl.newObject().
+      for (PreCommitAction action : preCommitActions) {
+        log.info("Calling pre-commit action " + action);
+        action.run(tx, objectId, appender.getStagedVersion(), appender.getStagedState());
+      }
+      postCommitActionScheduler.preCommit(tx, objectId);
       log.info("Committing...");
       try {
         tx.commit();
@@ -344,6 +349,9 @@ public class LocalMutationProcessor {
         throw e;
       }
       log.info("Commit successful");
+      // TODO: share code with SlobStoreImpl.newObject().
+      postCommitActionScheduler.postCommit(objectId, appender.getStagedVersion(),
+          appender.getStagedState());
 
       if (lastResult != null) {
         List<ChangeData<String>> deltasToBroadcast = deltaCache.getNewDeltas();
@@ -372,7 +380,8 @@ public class LocalMutationProcessor {
   private final MutationLogFactory mutationLogFactory;
   private final CheckedDatastore datastore;
   private final MonitoringVars monitoring;
-  private final PreCommitHook preCommitHook;
+  private final Set<PreCommitAction> preCommitActions;
+  private final PostCommitActionScheduler postCommitActionScheduler;
   // See commit ebb4736368b6d371a1bf5005541d96b88dcac504 for my failed attempt
   // at using CacheBuilder.  TODO(ohler): Figure out the right solution to this.
   @SuppressWarnings("deprecation")
@@ -394,12 +403,14 @@ public class LocalMutationProcessor {
   public LocalMutationProcessor(SlobModel model,
       MutationLogFactory mutationLogFactory, CheckedDatastore datastore,
       MonitoringVars monitoring,
-      PreCommitHook preCommitHook) {
+      Set<PreCommitAction> preCommitActions,
+      PostCommitActionScheduler postCommitActionScheduler) {
     this.model = model;
     this.mutationLogFactory = mutationLogFactory;
     this.datastore = datastore;
     this.monitoring = monitoring;
-    this.preCommitHook = preCommitHook;
+    this.preCommitActions = preCommitActions;
+    this.postCommitActionScheduler = postCommitActionScheduler;
   }
 
   private String jsonBroadcastData(SlobId objectId, JSONArray broadcastData) {

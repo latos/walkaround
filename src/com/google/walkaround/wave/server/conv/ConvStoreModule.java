@@ -16,12 +16,16 @@
 
 package com.google.walkaround.wave.server.conv;
 
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.inject.PrivateModule;
 import com.google.inject.Provider;
+import com.google.inject.multibindings.Multibinder;
 import com.google.walkaround.slob.server.AccessChecker;
 import com.google.walkaround.slob.server.MutateResult;
+import com.google.walkaround.slob.server.PostCommitActionQueue;
 import com.google.walkaround.slob.server.PostMutateHook;
-import com.google.walkaround.slob.server.PreCommitHook;
+import com.google.walkaround.slob.server.PreCommitAction;
 import com.google.walkaround.slob.server.SlobManager;
 import com.google.walkaround.slob.server.SlobManager.SlobIndexUpdate;
 import com.google.walkaround.slob.server.StoreModuleHelper;
@@ -61,9 +65,12 @@ public class ConvStoreModule extends PrivateModule {
     bind(SlobModel.class).to(WaveObjectStoreModel.class);
     bind(AccessChecker.class).to(ConvAccessChecker.class);
     bind(PermissionSource.class).to(WaveManager.class);
+
     final Provider<WaveIndex> index = getProvider(WaveIndex.class);
-    bind(PreCommitHook.class).toInstance(
-        new PreCommitHook() {
+    Multibinder<PreCommitAction> preCommitActions =
+        Multibinder.newSetBinder(binder(), PreCommitAction.class);
+    preCommitActions.addBinding().toInstance(
+        new PreCommitAction() {
           @Override public void run(CheckedTransaction tx, SlobId objectId,
               long resultingVersion, ReadableSlob resultingState)
               throws RetryableFailure, PermanentFailure {
@@ -71,6 +78,7 @@ public class ConvStoreModule extends PrivateModule {
             index.get().update(tx, objectId, (ReadableWaveletObject) resultingState);
           }
         });
+
     final Provider<SlobManager> manager = getProvider(SlobManager.class);
     bind(PostMutateHook.class).toInstance(
         new PostMutateHook() {
@@ -89,6 +97,9 @@ public class ConvStoreModule extends PrivateModule {
             }
           }
         });
+
+    bind(Queue.class).annotatedWith(PostCommitActionQueue.class).toInstance(
+        QueueFactory.getQueue("post-commit-conv"));
   }
 
 }

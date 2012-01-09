@@ -154,24 +154,29 @@ public class MemcacheTable<K extends Serializable, V extends Serializable> {
     this.tag = tag;
   }
 
-  private static class DeletionTask implements DeferredTask {
+  private static class PutNullTask implements DeferredTask {
     private static final long serialVersionUID = 483212086178559149L;
 
-    private final TaggedKey keyToDelete;
+    private final TaggedKey<?> key;
 
-    DeletionTask(TaggedKey keyToDelete) {
-      this.keyToDelete = checkNotNull(keyToDelete, "Null keyToDelete");
+    PutNullTask(TaggedKey<?> key) {
+      this.key = checkNotNull(key, "Null key");
     }
 
     @Override public void run() {
-      log.info("Deferred deletion for memcache key " + keyToDelete);
-      MemcacheServiceFactory.getMemcacheService().delete(keyToDelete);
+      log.info("Deferred overwrite for memcache key " + key);
+      // We have to put null rather than deleting since what we do here must
+      // interfere with a concurrent getIdentifiable/putIfUntouched sequence,
+      // and MemcacheService's Javadoc does not specify that putIfUntouched will
+      // abort if the value was absent during the lookup and delete has been
+      // called between the lookup and putIfUntouched.
+      MemcacheServiceFactory.getMemcacheService().put(key, null);
     }
   }
 
-  public void enqueueDeletion(CheckedTransaction tx, @Nullable K key)
+  public void enqueuePutNull(CheckedTransaction tx, @Nullable K key)
       throws RetryableFailure, PermanentFailure {
-    tx.enqueueTask(deletionQueue, TaskOptions.Builder.withPayload(new DeletionTask(tagKey(key))));
+    tx.enqueueTask(deletionQueue, TaskOptions.Builder.withPayload(new PutNullTask(tagKey(key))));
   }
 
   // Cast is safe under the assumption that tag is not re-used for a different

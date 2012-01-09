@@ -23,20 +23,17 @@ import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 
 /**
- * Called in {@link SlobStore#mutateObject} before committing a sequence of
- * changes to an object.
+ * Reliably called some time after {@link SlobStore#mutateObject} commits a
+ * sequence of changes to an object.  Should be idempotent.
  *
  * @author ohler@google.com (Christian Ohler)
  */
-public interface PreCommitHook {
+public interface PostCommitAction {
 
-  final PreCommitHook NO_OP = new PreCommitHook() {
-    @Override public void run(CheckedTransaction tx, SlobId objectId,
-        long resultingVersion, ReadableSlob resultingState) {}
-  };
+  /** Run immediately after commit, with high likelihood, only once. */
+  void unreliableImmediatePostCommit(SlobId slobId, long resultingVersion, ReadableSlob resultingState);
 
-  void run(CheckedTransaction tx, SlobId objectId,
-      long resultingVersion, ReadableSlob resultingState)
-      throws RetryableFailure, PermanentFailure;
+  /** Run some time after the commit, guaranteed, possibly multiple times. */
+  void reliableDelayedPostCommit(SlobId slobId);
 
 }

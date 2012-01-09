@@ -92,7 +92,7 @@ public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, Nu
     context.getCounter(getClass().getSimpleName(), "entities-seen").increment(1);
     log.info("Re-indexing " + key);
     try {
-      GuiceSetup.getInjectorForMapreduce().getInstance(Handler.class).process(context, key);
+      GuiceSetup.getInjectorForTaskQueueTask().getInstance(Handler.class).process(context, key);
     } catch (PermanentFailure e) {
       throw new IOException("PermanentFailure re-indexing key " + key, e);
     }

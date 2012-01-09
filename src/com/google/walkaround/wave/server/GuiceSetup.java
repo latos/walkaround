@@ -18,6 +18,7 @@ package com.google.walkaround.wave.server;
 
 import com.google.appengine.api.users.User;
 import com.google.common.collect.ImmutableMap;
+
 import com.google.common.collect.Sets;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -94,7 +95,7 @@ public class GuiceSetup {
             // refers to our situation here.
             MapBinder<String, SlobFacilities> mapBinder =
                 MapBinder.newMapBinder(binder(), String.class, SlobFacilities.class);
-            for (Entry<String, Class<? extends Annotation>> entry 
+            for (Entry<String, Class<? extends Annotation>> entry
                 : ImmutableMap.of(ConvStoreModule.ROOT_ENTITY_KIND, ConvStore.class,
                     UdwStoreModule.ROOT_ENTITY_KIND, UdwStore.class).entrySet()) {
               mapBinder.addBinding(entry.getKey())
@@ -121,7 +122,7 @@ public class GuiceSetup {
     };
   }
 
-  public static Module getMapreduceModule() {
+  public static Module getTaskQueueTaskModule() {
     return new AbstractModule() {
           @Override public void configure() {
             bind(User.class).toProvider(getThrowingProvider(User.class));
@@ -131,14 +132,14 @@ public class GuiceSetup {
         };
   }
 
-  public static Injector getInjectorForMapreduce() {
+  public static Injector getInjectorForTaskQueueTask() {
     return Guice.createInjector(
         // Stage.DEVELOPMENT here because this is meant to be called from
         // mappers, possibly for each invocation, and the mappers probably won't
         // need all singletons.
         Stage.DEVELOPMENT,
         getRootModule(),
-        getMapreduceModule());
+        getTaskQueueTaskModule());
   }
 
 }

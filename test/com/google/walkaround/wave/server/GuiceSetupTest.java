@@ -63,13 +63,13 @@ public class GuiceSetupTest extends TestCase {
     //}
   }
 
-  public void testBindingsForMapreduce() {
+  public void testBindingsForTaskQueueTask() {
     SystemProperty.environment.set(SystemProperty.Environment.Value.Development);
     // The test is that none of this throws any exceptions.
     Injector injector = Guice.createInjector(Stage.PRODUCTION,
         Modules.combine(
             GuiceSetup.getRootModule(WEB_INF_DIR),
-            GuiceSetup.getMapreduceModule(),
+            GuiceSetup.getTaskQueueTaskModule(),
             new DefaultModule()));
   }
 

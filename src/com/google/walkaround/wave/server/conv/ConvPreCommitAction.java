@@ -17,7 +17,7 @@
 package com.google.walkaround.wave.server.conv;
 
 import com.google.inject.Inject;
-import com.google.walkaround.slob.server.PreCommitHook;
+import com.google.walkaround.slob.server.PreCommitAction;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.slob.shared.SlobModel.ReadableSlob;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
@@ -27,15 +27,15 @@ import com.google.walkaround.wave.server.model.WaveObjectStoreModel.ReadableWave
 import com.google.walkaround.wave.server.wavemanager.WaveIndex;
 
 /**
- * {@link PreCommitHook} for the conversation wavelet store.
+ * {@link PreCommitAction} for the conversation wavelet store.
  *
  * @author ohler@google.com (Christian Ohler)
  */
-public class ConvPreCommitHook implements PreCommitHook {
+public class ConvPreCommitAction implements PreCommitAction {
 
   private final WaveIndex index;
 
-  @Inject public ConvPreCommitHook(WaveIndex index) {
+  @Inject public ConvPreCommitAction(WaveIndex index) {
     this.index = index;
   }
 

@@ -27,6 +27,7 @@ import com.google.inject.multibindings.MapBinder;
 import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
 import com.google.walkaround.slob.shared.SlobId;
 
+import com.google.inject.multibindings.Multibinder;
 import java.lang.annotation.Annotation;
 import java.util.logging.Logger;
 
@@ -53,6 +54,7 @@ public class StoreModuleHelper {
     @Inject Provider<LocalMutationProcessor> localMutationProcessor;
     @Inject Provider<MutationLogFactory> mutationLogFactory;
     @Inject @SlobRootEntityKind String rootEntityKind;
+    @Inject Provider<PostCommitActionScheduler> postCommitActionScheduler;
 
     @Override public String toString() {
       return "SlobFacilities(" + rootEntityKind + ")";
@@ -81,12 +83,16 @@ public class StoreModuleHelper {
     @Override public SlobId parseRootEntityKey(Key key) {
       return MutationLog.parseRootEntityKey(rootEntityKind, key);
     }
+
+    @Override public PostCommitActionScheduler getPostCommitActionScheduler() {
+      return postCommitActionScheduler.get();
+    }
   }
 
   public static void makeBasicBindingsAndExposures(PrivateBinder binder,
       Class<? extends Annotation> annotation) {
-    binder.bind(SlobStore.class).to(SlobStoreImpl.class);
     binder.bind(SlobFacilities.class).to(FacilitiesImpl.class);
+    binder.bind(SlobStore.class).to(SlobStoreImpl.class);
     binder.install(factoryModule(MutationLogFactory.class, MutationLog.class));
 
     binder.bind(MutationLogFactory.class).annotatedWith(annotation).to(MutationLogFactory.class);
@@ -99,6 +105,11 @@ public class StoreModuleHelper {
     binder.expose(SlobStore.class).annotatedWith(annotation);
     binder.expose(LocalMutationProcessor.class).annotatedWith(annotation);
     binder.expose(SlobFacilities.class).annotatedWith(annotation);
+
+    // Make sure a binding for the Set exists.
+    Multibinder.newSetBinder(binder, PreCommitAction.class);
+    // Make sure a binding for the Set exists.
+    Multibinder.newSetBinder(binder, PostCommitAction.class);
   }
 
   public static void bindEntityKinds(PrivateBinder binder, String prefix) {
