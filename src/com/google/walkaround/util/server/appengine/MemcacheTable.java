@@ -110,7 +110,7 @@ public class MemcacheTable<K extends Serializable, V extends Serializable> {
     @Override public final boolean equals(Object o) {
       if (o == this) { return true; }
       if (!(o instanceof TaggedKey)) { return false; }
-      TaggedKey other = (TaggedKey) o;
+      TaggedKey<?> other = (TaggedKey<?>) o;
       return Objects.equal(tag, other.tag)
           && Objects.equal(key, other.key);
     }

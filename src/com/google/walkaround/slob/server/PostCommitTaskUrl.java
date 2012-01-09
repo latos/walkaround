@@ -8,13 +8,14 @@ import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import com.google.inject.BindingAnnotation;
+import com.google.walkaround.slob.server.handler.PostCommitTaskHandler;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
  * Guice annotation for a String that contains the URL served by
- * {@link PostCommitActionTaskHandler}.
+ * {@link PostCommitTaskHandler}.
  *
  * @author ohler@google.com (Christian Ohler)
  */

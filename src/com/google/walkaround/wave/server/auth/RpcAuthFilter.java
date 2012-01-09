@@ -16,6 +16,7 @@
 
 package com.google.walkaround.wave.server.auth;
 
+import com.google.appengine.api.users.UserService;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -36,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Filter that initializes {@link UserContext} from App Engine's
- * {@link UserService}.  Leaves {@link UserContext.oAuthCredentials} null if no
+ * {@link UserService}.  Leaves the OAuth credentials in {@link UserContext} null if no
  * OAuth token is stored for the user.
  *
  * @author ohler@google.com (Christian Ohler)

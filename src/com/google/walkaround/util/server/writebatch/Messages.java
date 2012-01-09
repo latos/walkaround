@@ -131,7 +131,7 @@ class Messages {
       if (o == null) return false;
       if (o == this) return true;
       if (!(o.getClass() == ResultMessage.class)) return false;
-      ResultMessage other = (ResultMessage) o;
+      ResultMessage<?> other = (ResultMessage<?>) o;
       return result.equals(other.result);
     }
 
@@ -179,7 +179,7 @@ class Messages {
       if (o == null) return false;
       if (o == this) return true;
       if (!(o.getClass() == PermanentFailureMessage.class)) return false;
-      PermanentFailureMessage other = (PermanentFailureMessage) o;
+      PermanentFailureMessage<?> other = (PermanentFailureMessage<?>) o;
       return failure.equals(other.failure);
     }
 

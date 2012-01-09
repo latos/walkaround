@@ -16,14 +16,14 @@
 
 package com.google.walkaround.wave.server.auth;
 
-import org.waveprotocol.wave.model.wave.ParticipantId;
-import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.common.net.UriEscapers;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
+
+import org.waveprotocol.wave.model.wave.ParticipantId;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -153,7 +153,7 @@ public class ServletAuthHelper {
   }
 
   /**
-   * Body for {@link #serve()}.
+   * Body for {@link #serve}.
    */
   public interface ServletBody {
     public void run() throws ServletException, IOException;
@@ -198,7 +198,7 @@ public class ServletAuthHelper {
   }
 
   /**
-   * Like {@link #serve()}, but invokes {@code filterChain}.
+   * Like {@link #serve}, but invokes {@code filterChain}.
    */
   public void filter(final ServletRequest req, final ServletResponse resp,
       final FilterChain filterChain, AccountLookup lookup, NeedNewOAuthTokenHandler handler)
