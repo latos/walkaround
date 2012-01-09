@@ -324,6 +324,7 @@ public class SlobStoreImpl implements SlobStore {
             }
             postCommitActionScheduler.preCommit(tx, slobId);
             tx.commit();
+            appender.postCommit();
             // TODO: share code with LocalMutationProcessor
             postCommitActionScheduler.postCommit(slobId, appender.getStagedVersion(),
                 appender.getStagedState());

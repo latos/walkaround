@@ -50,6 +50,7 @@ import com.google.walkaround.slob.server.AffinityMutationProcessor.StoreBackendN
 import com.google.walkaround.slob.server.MutationLog;
 import com.google.walkaround.slob.server.PostCommitActionIntervalMillis;
 import com.google.walkaround.slob.server.PostCommitTaskUrl;
+import com.google.walkaround.slob.server.SlobLocalCacheExpirationMillis;
 import com.google.walkaround.slob.server.SlobManager;
 import com.google.walkaround.slob.server.SlobMessageRouter.SlobChannelExpirationSeconds;
 import com.google.walkaround.util.server.RetryHelper;
@@ -150,6 +151,8 @@ public class WalkaroundServerModule extends AbstractModule {
         FlagName.OBJECT_CHANNEL_EXPIRATION_SECONDS);
     bindToFlag(Integer.class, PostCommitActionIntervalMillis.class,
         FlagName.POST_COMMIT_ACTION_INTERVAL_MILLIS);
+    bindToFlag(Integer.class, SlobLocalCacheExpirationMillis.class,
+        FlagName.SLOB_LOCAL_CACHE_EXPIRATION_MILLIS);
   }
 
   @Provides

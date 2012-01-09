@@ -16,6 +16,8 @@
 
 package com.google.walkaround.slob.server;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
@@ -28,6 +30,9 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.common.collect.MapMaker;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 import com.google.walkaround.slob.shared.ChangeData;
@@ -45,7 +50,11 @@ import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTrans
 import com.google.walkaround.util.server.appengine.DatastoreUtil;
 import com.google.walkaround.util.shared.Assert;
 
+import org.waveprotocol.wave.model.util.Pair;
+
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
@@ -72,6 +81,67 @@ public class MutationLog {
     MutationLog create(CheckedTransaction tx, SlobId objectId);
   }
 
+  private static class CacheEntry {
+    private final long version;
+    private final String snapshot;
+    private final long mostRecentSnapshotBytes;
+    private final long totalDeltaBytesSinceSnapshot;
+
+    public CacheEntry(long version,
+        String snapshot,
+        long mostRecentSnapshotBytes,
+        long totalDeltaBytesSinceSnapshot) {
+      this.version = version;
+      this.snapshot = checkNotNull(snapshot, "Null snapshot");
+      this.mostRecentSnapshotBytes = mostRecentSnapshotBytes;
+      this.totalDeltaBytesSinceSnapshot = totalDeltaBytesSinceSnapshot;
+    }
+
+    public long getVersion() {
+      return version;
+    }
+
+    public String getSnapshot() {
+      return snapshot;
+    }
+
+    public long getMostRecentSnapshotBytes() {
+      return mostRecentSnapshotBytes;
+    }
+
+    public long getTotalDeltaBytesSinceSnapshot() {
+      return totalDeltaBytesSinceSnapshot;
+    }
+
+    @Override public String toString() {
+      return "CacheEntry("
+          + version + ", "
+          + snapshot + ", "
+          + mostRecentSnapshotBytes + ", "
+          + totalDeltaBytesSinceSnapshot
+          + ")";
+    }
+  }
+
+  // Singleton so that we have a per-process cache.  TODO(ohler): Verify how this interacts with
+  // scoping of the private store modules.
+  @Singleton
+  static class StateCache {
+    // Key is a pair of root entity kind (= store type) and slob id.
+    private final Map<Pair<String, SlobId>, CacheEntry> currentStates;
+
+    @Inject StateCache(@SlobLocalCacheExpirationMillis int expirationMillis) {
+      // See commit ebb4736368b6d371a1bf5005541d96b88dcac504 for my failed attempt
+      // at using CacheBuilder.  TODO(ohler): Figure out the right solution to this.
+      @SuppressWarnings("deprecation")
+      Map<Pair<String, SlobId>, CacheEntry> currentStates = new MapMaker()
+          .softValues()
+          .expireAfterAccess(expirationMillis, TimeUnit.MILLISECONDS)
+          .makeMap();
+      this.currentStates = currentStates;
+    }
+  }
+
   private static final Logger log = Logger.getLogger(MutationLog.class.getName());
 
   @VisibleForTesting static final String DELTA_OP_PROPERTY = "op";
@@ -89,7 +159,7 @@ public class MutationLog {
     return version + 1;
   }
 
-  private static final class DeltaEntry {
+  private static class DeltaEntry {
     private final SlobId objectId;
     private final long version;
     private final ChangeData<String> data;
@@ -110,7 +180,7 @@ public class MutationLog {
     }
   }
 
-  private static final class SnapshotEntry {
+  private static class SnapshotEntry {
     private final SlobId objectId;
     private final long version;
     private final String snapshot;
@@ -381,10 +451,6 @@ public class MutationLog {
       return state.getVersion();
     }
 
-    // If having ReadableSlob in addition to Slob adds too much complexity to
-    // SlobModel implementations, we could replace flush() with
-    // closeAndGetStagedState(), which would hand over ownership of the mutable
-    // Slob to the caller.
     public ReadableSlob getStagedState() {
       return state.getState();
     }
@@ -415,6 +481,15 @@ public class MutationLog {
       stagedSnapshotEntries.clear();
       estimatedBytesStaged = 0;
     }
+
+    /**
+     * Invoke after successful commit to update in-memory cache.
+     */
+    public void postCommit() {
+      stateCache.currentStates.put(Pair.of(entityGroupKind, objectId),
+          new CacheEntry(state.getVersion(), state.getState().snapshot(),
+              mostRecentSnapshotBytes, totalDeltaBytesSinceSnapshot));
+    }
   }
 
   private final String entityGroupKind;
@@ -426,13 +501,16 @@ public class MutationLog {
   private final SlobId objectId;
   private final SlobModel model;
 
+  private final StateCache stateCache;
+
   @AssistedInject
   public MutationLog(@SlobRootEntityKind String entityGroupKind,
       @SlobDeltaEntityKind String deltaEntityKind,
       @SlobSnapshotEntityKind String snapshotEntityKind,
       DeltaEntityConverter deltaEntityConverter,
       @Assisted CheckedTransaction tx, @Assisted SlobId objectId,
-      SlobModel model) {
+      SlobModel model,
+      StateCache stateCache) {
     this.entityGroupKind = entityGroupKind;
     this.deltaEntityKind = deltaEntityKind;
     this.snapshotEntityKind = snapshotEntityKind;
@@ -440,6 +518,7 @@ public class MutationLog {
     this.tx = Preconditions.checkNotNull(tx, "Null tx");
     this.objectId = Preconditions.checkNotNull(objectId, "Null objectId");
     this.model = Preconditions.checkNotNull(model, "Null model");
+    this.stateCache = stateCache;
   }
 
   /** @see #forwardHistory(long, Long, FetchOptions) */
@@ -452,8 +531,7 @@ public class MutationLog {
    * Returns an iterator over the specified version range of the mutation log,
    * in a forwards direction.
    *
-   * @param maxVersion null to end with the final delta in the mutation log
-   *        (inclusive).
+   * @param maxVersion null to end with the final delta in the mutation log.
    */
   public DeltaIterator forwardHistory(long minVersion, @Nullable Long maxVersion,
       FetchOptions fetchOptions) throws PermanentFailure, RetryableFailure {
@@ -488,23 +566,36 @@ public class MutationLog {
     return it.nextEntry().getResultingVersion();
   }
 
+  static interface DeltaIteratorProvider {
+    DeltaIterator get() throws PermanentFailure, RetryableFailure;
+  }
+
+  private static DeltaIteratorProvider makeProvider(final DeltaIterator x) {
+    checkNotNull(x, "Null x");
+    return new DeltaIteratorProvider() {
+      @Override public DeltaIterator get() {
+        return x;
+      }
+    };
+  }
+
   /**
    * Tuple of values returned by {@link #prepareAppender()}.
    */
   public static class AppenderAndCachedDeltas {
     private final Appender appender;
     private final List<ChangeData<String>> reverseDeltasRead;
-    private final DeltaIterator reverseDeltaIterator;
+    private final DeltaIteratorProvider reverseDeltaIteratorProvider;
 
     public AppenderAndCachedDeltas(Appender appender,
         List<ChangeData<String>> reverseDeltasRead,
-        DeltaIterator reverseDeltaIterator) {
+        DeltaIteratorProvider reverseDeltaIteratorProvider) {
       Preconditions.checkNotNull(appender, "Null appender");
       Preconditions.checkNotNull(reverseDeltasRead, "Null reverseDeltasRead");
-      Preconditions.checkNotNull(reverseDeltaIterator, "Null reverseDeltaIterator");
+      Preconditions.checkNotNull(reverseDeltaIteratorProvider, "Null reverseDeltaIteratorProvider");
       this.appender = appender;
       this.reverseDeltasRead = reverseDeltasRead;
-      this.reverseDeltaIterator = reverseDeltaIterator;
+      this.reverseDeltaIteratorProvider = reverseDeltaIteratorProvider;
     }
 
     public Appender getAppender() {
@@ -515,15 +606,16 @@ public class MutationLog {
       return reverseDeltasRead;
     }
 
-    public DeltaIterator getReverseDeltaIterator() {
-      return reverseDeltaIterator;
+    public DeltaIteratorProvider getReverseDeltaIteratorProvider() 
+        throws PermanentFailure, RetryableFailure {
+      return reverseDeltaIteratorProvider;
     }
 
     @Override public String toString() {
       return "AppenderAndCachedDeltas("
           + appender + ", "
           + reverseDeltasRead + ", "
-          + reverseDeltaIterator
+          + reverseDeltaIteratorProvider
           + ")";
     }
   }
@@ -542,9 +634,83 @@ public class MutationLog {
    * Creates an {@link Appender} for this mutation log and returns it together
    * with some by-products.  The by-products can be useful to callers who need
    * data from the datastore that overlaps with what was needed to create the
-   * {@code Appender}, to avoid redudant datastore reads.
+   * {@code Appender}, to avoid redundant datastore reads.
    */
   public AppenderAndCachedDeltas prepareAppender() throws PermanentFailure, RetryableFailure {
+    Pair<String, SlobId> cacheKey = Pair.of(entityGroupKind, objectId);
+    CacheEntry cached = stateCache.currentStates.get(cacheKey);
+    if (cached != null) {
+      long cachedVersion = cached.getVersion();
+      // We need to check if a delta with version cachedVersion is present; that
+      // would indicate that our cache is out of date.  Since we're paranoid, we
+      // additionally check that cachedVersion-1 is present (it always has to
+      // be).
+      //
+      // After writing the code to use a key-only query here, I found
+      // http://code.google.com/appengine/docs/billing.html#Billable_Resource_Unit_Cost
+      // which implies that the cost of this is
+      //
+      // 1 "Read" + 1 "Small" + (no transform needed ? 0 : 1 "Read" + # reverse
+      // deltas needed * 1 "Read")
+      //
+      // while the cost of using a reverse delta iterator (not key-only, so that
+      // we can reuse it and pass it into AppenderAndCachedDeltas below) and
+      // always reading the first delta entity would be
+      //
+      // 2 "Read" + (no transform needed ? 0 : (# reverse deltas needed - 1) * 1 "Read")
+      //
+      // where a "Read" has a cost of 7 units, a "Small" has a cost of 1 unit.
+      //
+      // Essentially, the variant implemented here saves 6 units when no deltas
+      // are needed for transform, but pays an extra 8 otherwise.
+      //
+      // When cached != null but another writer interfered, we also pay an extra
+      // 8 units compared to sharing the same iterator.
+      //
+      // It's not clear which of these situation is going to be common and which
+      // is not, and whether the cost is worth worrying aboung.  I happened to
+      // implement it this way first and only found that billing page later, so
+      // I'll leave it for now, even though the code is very slighly more
+      // complicated.  If we ever introduce a delta cache, that would make the
+      // case of having no deltas to read for transform more common, and would
+      // (presumably) make sharing the iterator harder, so this code would be a
+      // better starting point for that.
+      CheckedIterator deltaKeys = getDeltaEntityIterator(cachedVersion - 1, cachedVersion + 1,
+          FetchOptions.Builder.withChunkSize(2).limit(2).prefetchSize(2), true, true);
+      if (!deltaKeys.hasNext()) {
+        throw new RuntimeException("Missing data: Delta " + cachedVersion
+            + " not found: " + deltaKeys);
+      }
+      deltaKeys.next();
+      if (!deltaKeys.hasNext()) {
+        log.info("MutationLog cache: Constructing appender based on cached slob version "
+            + cachedVersion);
+        return new AppenderAndCachedDeltas(
+            new Appender(createObject(cached.getVersion(), cached.getSnapshot()),
+                cached.getMostRecentSnapshotBytes(), cached.getTotalDeltaBytesSinceSnapshot()),
+            ImmutableList.<ChangeData<String>>of(),
+            new DeltaIteratorProvider() {
+              DeltaIterator i = null;
+              @Override public DeltaIterator get() throws PermanentFailure, RetryableFailure {
+                if (i == null) {
+                  i = getDeltaIterator(0, null, FetchOptions.Builder.withDefaults(), false);
+                }
+                return i;
+              }
+            });
+      } else {
+        log.info("MutationLog cache: Another writer interfered (cached slob version was "
+            + cachedVersion + ")");
+        stateCache.currentStates.remove(cacheKey);
+      }
+    } else {
+      log.info("MutationLog cache: No slob version cached");
+    }
+    return prepareAppenderSlowCase();
+  }
+
+  private AppenderAndCachedDeltas prepareAppenderSlowCase()
+      throws PermanentFailure, RetryableFailure {
     DeltaIterator deltaIterator = getDeltaIterator(
         0, null, FetchOptions.Builder.withDefaults(), false);
     if (!deltaIterator.hasNext()) {
@@ -552,7 +718,7 @@ public class MutationLog {
       checkDeltaDoesNotExist(0);
       return new AppenderAndCachedDeltas(
           new Appender(createObject(null), 0, 0),
-          ImmutableList.<ChangeData<String>>of(), deltaIterator);
+          ImmutableList.<ChangeData<String>>of(), makeProvider(deltaIterator));
     } else {
       SnapshotEntry snapshotEntry = getSnapshotEntryAtOrBefore(null);
       StateAndVersion state = createObject(snapshotEntry);
@@ -573,9 +739,9 @@ public class MutationLog {
         checkDeltaDoesNotExist(snapshotVersion);
         return new AppenderAndCachedDeltas(
             new Appender(state, snapshotBytes, 0),
-            ImmutableList.of(finalDelta.data), deltaIterator);
+            ImmutableList.of(finalDelta.data), makeProvider(deltaIterator));
       } else {
-        // We need to apply the delta, and perhaps others.  Collect them.
+        // We need to apply the delta and perhaps others.  Collect them.
         ImmutableList.Builder<ChangeData<String>> deltaAccu = ImmutableList.builder();
         deltaAccu.add(finalDelta.data);
         long totalDeltaBytesSinceSnapshot = estimateSizeBytes(finalDelta);
@@ -602,33 +768,40 @@ public class MutationLog {
         checkDeltaDoesNotExist(state.getVersion());
         return new AppenderAndCachedDeltas(
             new Appender(state, snapshotBytes, totalDeltaBytesSinceSnapshot),
-            reverseDeltas, deltaIterator);
+            reverseDeltas, makeProvider(deltaIterator));
       }
     }
   }
 
-  private DeltaIterator getDeltaIterator(long startVersion, @Nullable Long endVersion,
-      FetchOptions fetchOptions, boolean forward) throws PermanentFailure, RetryableFailure {
+  private CheckedIterator getDeltaEntityIterator(long startVersion, @Nullable Long endVersion,
+      FetchOptions fetchOptions, boolean forward, boolean keysOnly)
+      throws PermanentFailure, RetryableFailure {
     checkRange(startVersion, endVersion);
-
     if (endVersion != null && startVersion == endVersion) {
-      return new DeltaIterator(CheckedIterator.EMPTY, forward);
+      return CheckedIterator.EMPTY;
     }
-
     Query q = new Query(deltaEntityKind)
         .setAncestor(makeRootEntityKey(objectId))
         .addFilter(Entity.KEY_RESERVED_PROPERTY,
             FilterOperator.GREATER_THAN_OR_EQUAL, makeDeltaKey(objectId, startVersion))
         .addSort(Entity.KEY_RESERVED_PROPERTY,
             forward ? SortDirection.ASCENDING : SortDirection.DESCENDING);
-
     if (endVersion != null) {
       q.addFilter(Entity.KEY_RESERVED_PROPERTY,
           FilterOperator.LESS_THAN, makeDeltaKey(objectId, endVersion));
     }
+    if (keysOnly) {
+      q.setKeysOnly();
+    }
+    return tx.prepare(q).asIterator(fetchOptions);
+  }
 
-    CheckedIterator result = tx.prepare(q).asIterator(fetchOptions);
-    return new DeltaIterator(result, forward);
+  private DeltaIterator getDeltaIterator(long startVersion, @Nullable Long endVersion,
+      FetchOptions fetchOptions, boolean forward)
+      throws PermanentFailure, RetryableFailure {
+    return new DeltaIterator(
+        getDeltaEntityIterator(startVersion, endVersion, fetchOptions, forward, false),
+        forward);
   }
 
   /**
@@ -687,7 +860,7 @@ public class MutationLog {
 
   private SnapshotEntry getSnapshotEntryAtOrBefore(@Nullable Long atOrBeforeVersion)
       throws RetryableFailure, PermanentFailure {
-   Query q = new Query(snapshotEntityKind)
+    Query q = new Query(snapshotEntityKind)
         .setAncestor(makeRootEntityKey(objectId))
         .addSort(Entity.KEY_RESERVED_PROPERTY, SortDirection.DESCENDING);
     if (atOrBeforeVersion != null) {
@@ -699,14 +872,20 @@ public class MutationLog {
     return e == null ? null : parseSnapshot(e);
   }
 
-  private StateAndVersion createObject(@Nullable SnapshotEntry entry) {
-    String snapshot = entry == null ? null : entry.snapshot;
-    long version = entry == null ? 0 : entry.version;
+  private StateAndVersion createObject(long version, @Nullable String snapshot) {
     try {
       return new StateAndVersion(model.create(snapshot), version);
     } catch (InvalidSnapshot e) {
       throw new RuntimeException("Could not create model from snapshot at version " + version
           + ": " + snapshot, e);
+    }
+  }
+
+  private StateAndVersion createObject(@Nullable SnapshotEntry entry) {
+    if (entry == null) {
+      return createObject(0, null);
+    } else {
+      return createObject(entry.version, entry.snapshot);
     }
   }
 

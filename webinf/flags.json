@@ -36,6 +36,19 @@ xsrf_token_expiry_seconds: 1209600,
 
 post_commit_action_interval_millis: 10000,
 
+/* Affinity only lasts for short periods, after which the object will likely
+   move, making the cache counter-productive.  However, it is possible that the
+   object will be re-assigned to the same instance (especially with very small
+   installations that might only have one instance), so we use a long timeout by
+   default.
+
+   When >1 backends are in use, a much smaller value (around
+   AFFINITY_MAX_EXPIRATION_SECONDS + .5 * AFFINITY_MIN_EXPIRATION_SECONDS) is
+   probably better, but I haven't analyzed this. */
+/* 2 days = (* 2 24 60 60 1000)
+   -- note that frontend clones will probably not live that long anyway */
+slob_local_cache_expiration_millis: 172800000,
+
 announcement_html: '${announcement-html}'
 
 }

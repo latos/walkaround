@@ -207,7 +207,7 @@ public class MutationLogTest extends TestCase {
     MutationLog mutationLog =
         new MutationLog(ROOT_ENTITY_KIND, DELTA_ENTITY_KIND, SNAPSHOT_ENTITY_KIND,
             new MutationLog.DefaultDeltaEntityConverter(),
-            tx, objectId, new TestModel());
+            tx, objectId, new TestModel(), new MutationLog.StateCache(1));
     MutationLog.Appender appender = mutationLog.prepareAppender().getAppender();
 
     assertEquals(0, appender.estimatedBytesStaged());

@@ -28,6 +28,7 @@ import com.google.walkaround.proto.ServerMutateRequest;
 import com.google.walkaround.proto.ServerMutateResponse;
 import com.google.walkaround.proto.gson.ServerMutateResponseGsonImpl;
 import com.google.walkaround.slob.server.MutationLog.DeltaIterator;
+import com.google.walkaround.slob.server.MutationLog.DeltaIteratorProvider;
 import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
 import com.google.walkaround.slob.shared.ChangeData;
 import com.google.walkaround.slob.shared.ChangeRejected;
@@ -172,7 +173,7 @@ public class LocalMutationProcessor {
    * A subsequence of the delta history that can be extended in both directions.
    */
   private class TransformDeltaCache {
-    private final DeltaIterator reverseDeltaIterator;
+    private final DeltaIteratorProvider reverseDeltaIterator;
     // Too bad ArrayDeque does not expose get(int) or perhaps even an
     // unmodifiable subList(); we could use that rather than doing all this.
     private final List<ChangeData<String>> onDiskDeltasReverse = Lists.newArrayList();
@@ -189,7 +190,7 @@ public class LocalMutationProcessor {
     /** @param reverseTailDeltas must start at onDiskVersion (and then go back). */
     TransformDeltaCache(long onDiskVersion,
         List<ChangeData<String>> reverseTailDeltas,
-        DeltaIterator reverseDeltaIterator) {
+        DeltaIteratorProvider reverseDeltaIterator) {
       this.onDiskVersion = onDiskVersion;
       onDiskDeltasReverse.addAll(reverseTailDeltas);
       this.reverseDeltaIterator = reverseDeltaIterator;
@@ -209,7 +210,7 @@ public class LocalMutationProcessor {
 
     private void ensureDeltasLoadedFrom(long version) throws PermanentFailure, RetryableFailure {
       while (version < minVersion()) {
-        onDiskDeltasReverse.add(reverseDeltaIterator.next());
+        onDiskDeltasReverse.add(reverseDeltaIterator.get().next());
       }
     }
 
@@ -241,7 +242,7 @@ public class LocalMutationProcessor {
       onDiskVersion = appender.getStagedVersion();
       deltaCache = new TransformDeltaCache(onDiskVersion,
           prepared.getReverseDeltasRead(),
-          prepared.getReverseDeltaIterator());
+          prepared.getReverseDeltaIteratorProvider());
     }
 
     @Override
@@ -349,6 +350,7 @@ public class LocalMutationProcessor {
         throw e;
       }
       log.info("Commit successful");
+      appender.postCommit();
       // TODO: share code with SlobStoreImpl.newObject().
       postCommitActionScheduler.postCommit(objectId, appender.getStagedVersion(),
           appender.getStagedState());
