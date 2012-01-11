@@ -23,11 +23,10 @@ import com.google.inject.PrivateBinder;
 import com.google.inject.PrivateModule;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
-import com.google.inject.multibindings.MapBinder;
+import com.google.inject.multibindings.Multibinder;
 import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
 import com.google.walkaround.slob.shared.SlobId;
 
-import com.google.inject.multibindings.Multibinder;
 import java.lang.annotation.Annotation;
 import java.util.logging.Logger;
 
@@ -118,6 +117,8 @@ public class StoreModuleHelper {
         .toInstance(prefix + "Delta");
     binder.bind(String.class).annotatedWith(SlobSnapshotEntityKind.class)
         .toInstance(prefix + "Snapshot");
+    binder.bind(String.class).annotatedWith(SlobSynchronizationEntityKind.class)
+        .toInstance(prefix + "Sync");
   }
 
 }

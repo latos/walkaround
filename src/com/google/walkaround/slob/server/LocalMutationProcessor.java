@@ -27,7 +27,6 @@ import com.google.inject.Singleton;
 import com.google.walkaround.proto.ServerMutateRequest;
 import com.google.walkaround.proto.ServerMutateResponse;
 import com.google.walkaround.proto.gson.ServerMutateResponseGsonImpl;
-import com.google.walkaround.slob.server.MutationLog.DeltaIterator;
 import com.google.walkaround.slob.server.MutationLog.DeltaIteratorProvider;
 import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
 import com.google.walkaround.slob.shared.ChangeData;
@@ -330,31 +329,7 @@ public class LocalMutationProcessor {
         tx.rollback();
         return;
       }
-      appender.flush();
-      // TODO: share code with SlobStoreImpl.newObject().
-      for (PreCommitAction action : preCommitActions) {
-        log.info("Calling pre-commit action " + action);
-        action.run(tx, objectId, appender.getStagedVersion(), appender.getStagedState());
-      }
-      postCommitActionScheduler.preCommit(tx, objectId);
-      log.info("Committing...");
-      try {
-        tx.commit();
-      } catch (RetryableFailure e) {
-        log.log(Level.INFO, "RetryableFailure while committing mutation", e);
-        monitoring.incrementCounter("object-update-transaction-retryable-failure");
-        throw e;
-      } catch (PermanentFailure e) {
-        log.log(Level.INFO, "PermanentFailure while committing mutation", e);
-        monitoring.incrementCounter("object-update-transaction-permanent-failure");
-        throw e;
-      }
-      log.info("Commit successful");
-      appender.postCommit();
-      // TODO: share code with SlobStoreImpl.newObject().
-      postCommitActionScheduler.postCommit(objectId, appender.getStagedVersion(),
-          appender.getStagedState());
-
+      completeTransaction(tx, objectId, appender);
       if (lastResult != null) {
         List<ChangeData<String>> deltasToBroadcast = deltaCache.getNewDeltas();
         JSONArray messages = new JSONArray();
@@ -376,6 +351,35 @@ public class LocalMutationProcessor {
     public void rollback() {
       tx.rollback();
     }
+  }
+
+  void completeTransaction(CheckedTransaction tx, SlobId slobId,
+      MutationLog.Appender appender) throws PermanentFailure, RetryableFailure {
+    appender.flush();
+    // TODO: share code with SlobStoreImpl.newObject().
+    for (PreCommitAction action : preCommitActions) {
+      log.info("Calling pre-commit action " + action);
+      action.run(tx, slobId, appender.getStagedVersion(), appender.getStagedState());
+    }
+    Runnable postCommitRunnable =
+        postCommitActionScheduler.prepareCommitAndGetPostCommitRunnable(
+        tx, slobId, appender.getStagedVersion(), appender.getStagedState());
+    log.info("Committing...");
+    try {
+      tx.commit();
+    } catch (RetryableFailure e) {
+      log.log(Level.INFO, "RetryableFailure while committing mutation", e);
+      monitoring.incrementCounter("object-update-transaction-retryable-failure");
+      throw e;
+    } catch (PermanentFailure e) {
+      log.log(Level.INFO, "PermanentFailure while committing mutation", e);
+      monitoring.incrementCounter("object-update-transaction-permanent-failure");
+      throw e;
+    }
+    log.info("Commit successful");
+    // TODO: share code with SlobStoreImpl.newObject().
+    appender.postCommit();
+    postCommitRunnable.run();
   }
 
   private final SlobModel model;

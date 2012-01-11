@@ -46,7 +46,6 @@ import org.waveprotocol.wave.model.util.Pair;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
@@ -102,9 +101,8 @@ public class SlobStoreImpl implements SlobStore {
   private final AccessChecker accessChecker;
   private final PostMutateHook postMutateHook;
   private final String rootEntityKind;
-  private final Set<PreCommitAction> preCommitActions;
-  private final PostCommitActionScheduler postCommitActionScheduler;
   private final Cache cache;
+  private final LocalMutationProcessor localProcessor;
 
   @Inject
   public SlobStoreImpl(CheckedDatastore datastore,
@@ -116,18 +114,15 @@ public class SlobStoreImpl implements SlobStore {
       AccessChecker accessChecker,
       PostMutateHook postMutateHook,
       @SlobRootEntityKind String rootEntityKind,
-      Set<PreCommitAction> preCommitActions,
-      PostCommitActionScheduler postCommitActionScheduler,
       Cache cache) {
     this.datastore = datastore;
     this.mutationLogFactory = mutationLogFactory;
     this.messageRouter = messageRouter;
     this.defaultProcessor = defaultProcessor;
+    this.localProcessor = localProcessor;
     this.accessChecker = accessChecker;
     this.postMutateHook = postMutateHook;
     this.rootEntityKind = rootEntityKind;
-    this.preCommitActions = preCommitActions;
-    this.postCommitActionScheduler = postCommitActionScheduler;
     this.cache = cache;
   }
 
@@ -316,18 +311,8 @@ public class SlobStoreImpl implements SlobStore {
                     + change + " in history " + initialHistory);
               }
             }
-            appender.flush();
             l.putMetadata(metadata);
-            // TODO: share code with LocalMutationProcessor
-            for (PreCommitAction action : preCommitActions) {
-              action.run(tx, slobId, appender.getStagedVersion(), appender.getStagedState());
-            }
-            postCommitActionScheduler.preCommit(tx, slobId);
-            tx.commit();
-            appender.postCommit();
-            // TODO: share code with LocalMutationProcessor
-            postCommitActionScheduler.postCommit(slobId, appender.getStagedVersion(),
-                appender.getStagedState());
+            localProcessor.completeTransaction(tx, slobId, appender);
             return false;
           } finally {
             tx.close();
