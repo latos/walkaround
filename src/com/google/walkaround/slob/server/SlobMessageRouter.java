@@ -149,8 +149,16 @@ public class SlobMessageRouter {
    * Publishes messages to clients listening on an object.
    */
   public void publishMessages(SlobId object, String jsonString) {
-    log.info("Publishing " + object + " " + jsonString);
-
+    if (jsonString.length() > 8000) {
+      // Channel API has a limit of 32767 UTF-8 bytes.  It's OK for us not to
+      // publish large messages; we can let clients poll.  TODO(ohler): 8000 is
+      // probably overly conservative, make a better estimate.
+      log.warning(object + ": Message too large ("
+          + jsonString.length() + " chars), not publishing: " + jsonString);
+      return;
+    } else {
+      log.info("Publishing " + object + " " + jsonString);
+    }
     Map<?, ClientId> takenMappings = getMappings(object);
     for (ClientId listener : takenMappings.values()) {
       sendData(listener, jsonString);
