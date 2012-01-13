@@ -22,12 +22,18 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.walkaround.proto.GoogleImport.GoogleDocument;
 import com.google.walkaround.proto.GoogleImport.GoogleWavelet;
-import com.google.walkaround.proto.ImportWaveTask;
+import com.google.walkaround.proto.ImportWaveletTask;
+import com.google.walkaround.proto.ImportWaveletTask.ImportSharingMode;
 import com.google.walkaround.slob.shared.SlobId;
+import com.google.walkaround.util.server.RetryHelper;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
+import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
+import com.google.walkaround.util.server.appengine.CheckedDatastore;
+import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.wave.server.WaveletCreator;
+import com.google.walkaround.wave.server.auth.StableUserId;
+import com.google.walkaround.wave.server.googleimport.conversion.PrivateReplyAnchorLegacyIdConverter;
 import com.google.walkaround.wave.server.googleimport.conversion.HistorySynthesizer;
-import com.google.walkaround.wave.server.googleimport.conversion.InvalidInputException;
 import com.google.walkaround.wave.server.googleimport.conversion.StripWColonFilter;
 import com.google.walkaround.wave.server.googleimport.conversion.WaveletHistoryConverter;
 import com.google.walkaround.wave.server.gxp.SourceInstance;
@@ -46,14 +52,14 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Processes {@link ImportWaveTask}s.
+ * Processes {@link ImportWaveletTask}s.
  *
  * @author ohler@google.com (Christian Ohler)
  */
-public class ImportWaveProcessor {
+public class ImportWaveletProcessor {
 
   @SuppressWarnings("unused")
-  private static final Logger log = Logger.getLogger(ImportWaveProcessor.class.getName());
+  private static final Logger log = Logger.getLogger(ImportWaveletProcessor.class.getName());
 
   private static final boolean EXCESSIVE_LOGGING = false;
 
@@ -61,23 +67,35 @@ public class ImportWaveProcessor {
   private final SourceInstance.Factory sourceInstanceFactory;
   private final WaveletCreator waveletCreator;
   private final ParticipantId importingUser;
+  private final StableUserId userId;
+  private final PerUserTable perUserTable;
+  private final CheckedDatastore datastore;
 
   @Inject
-  public ImportWaveProcessor(RobotApi.Factory robotApiFactory,
+  public ImportWaveletProcessor(RobotApi.Factory robotApiFactory,
       SourceInstance.Factory sourceInstanceFactory,
       WaveletCreator waveletCreator,
-      ParticipantId importingUser) {
+      ParticipantId importingUser,
+      StableUserId userId,
+      PerUserTable perUserTable,
+      CheckedDatastore datastore) {
     this.robotApiFactory = robotApiFactory;
     this.sourceInstanceFactory = sourceInstanceFactory;
     this.waveletCreator = waveletCreator;
     this.importingUser = importingUser;
+    this.userId = userId;
+    this.perUserTable = perUserTable;
+    this.datastore = datastore;
   }
 
   /** Nindo converter for conversational wavelets. */
-  private static final Function<Nindo, Nindo> CONV_NINDO_CONVERTER = new Function<Nindo, Nindo>() {
-    @Override public Nindo apply(Nindo in) {
+  private static final Function<Pair<String, Nindo>, Nindo> CONV_NINDO_CONVERTER =
+      new Function<Pair<String, Nindo>, Nindo>() {
+    @Override public Nindo apply(Pair<String, Nindo> in) {
+      String documentId = in.getFirst();
       Nindo.Builder out = new Nindo.Builder();
-      in.apply(new StripWColonFilter(new FixLinkAnnotationsFilter(out)));
+      in.getSecond().apply(new StripWColonFilter(new FixLinkAnnotationsFilter(
+          new PrivateReplyAnchorLegacyIdConverter(documentId, out))));
       return out.build();
     }
   };
@@ -118,30 +136,37 @@ public class ImportWaveProcessor {
     return out;
   }
 
-  public void importWave(ImportWaveTask task) throws IOException, PermanentFailure {
-    SourceInstance instance = sourceInstanceFactory.parseUnchecked(task.getInstance());
-    WaveId waveId = WaveId.deserialise(task.getWaveId());
+  public void importWavelet(ImportWaveletTask task) throws IOException, PermanentFailure {
+    final SourceInstance instance = sourceInstanceFactory.parseUnchecked(task.getInstance());
+    final WaveletName waveletName = WaveletName.of(
+        WaveId.deserialise(task.getWaveId()),
+        WaveletId.deserialise(task.getWaveletId()));
+    ImportSharingMode sharingMode = task.getSharingMode();
     RobotApi api = robotApiFactory.create(instance.getApiUrl());
-    List<WaveletId> waveletIds = api.getWaveView(waveId);
-    log.info("Wave view for " + waveId + ": " + waveletIds);
-    // TODO(ohler): add a check that getWaveView() only returned conv wavelets,
-    // and import UDW separately.
-    for (WaveletId waveletId : waveletIds) {
-      WaveletName waveletName = WaveletName.of(waveId, waveletId);
-      Pair<GoogleWavelet, ImmutableList<GoogleDocument>> snapshot =
-          convertGooglewaveToGmail(api.getSnapshot(waveletName));
-      GoogleWavelet wavelet = snapshot.getFirst();
-      List<GoogleDocument> documents = snapshot.getSecond();
-      log.info("Got snapshot for " + waveletName + ": "
-          + wavelet.getParticipantCount() + " participants, "
-          + documents.size() + " documents");
-      List<WaveletOperation> history;
-      try {
-        history = new HistorySynthesizer().synthesizeHistory(wavelet, documents);
-        if (EXCESSIVE_LOGGING) {
-          log.info("Synthesized history: " + history);
+    Pair<GoogleWavelet, ImmutableList<GoogleDocument>> snapshot =
+        convertGooglewaveToGmail(api.getSnapshot(waveletName));
+    GoogleWavelet wavelet = snapshot.getFirst();
+    List<GoogleDocument> documents = snapshot.getSecond();
+    log.info("Got snapshot for " + waveletName + ": "
+        + wavelet.getParticipantCount() + " participants, "
+        + documents.size() + " documents");
+    List<WaveletOperation> history = new HistorySynthesizer().synthesizeHistory(wavelet, documents);
+    if (EXCESSIVE_LOGGING) {
+      log.info("Synthesized history: " + history);
+    }
+    history = convertConvHistory(history);
+    switch (sharingMode) {
+      case PRIVATE:
+        for (String participant : ImmutableList.copyOf(wavelet.getParticipantList())) {
+          history.add(
+              HistorySynthesizer.newRemoveParticipant(importingUser.getAddress(),
+                  wavelet.getLastModifiedTimeMillis(), participant));
         }
-        history = convertConvHistory(history);
+        history.add(
+            HistorySynthesizer.newAddParticipant(importingUser.getAddress(),
+                wavelet.getLastModifiedTimeMillis(), importingUser.getAddress()));
+        break;
+      case SHARED:
         if (!wavelet.getParticipantList().contains(importingUser.getAddress())) {
           log.info(
               importingUser + " is not a participant, adding: " + wavelet.getParticipantList());
@@ -149,20 +174,32 @@ public class ImportWaveProcessor {
               HistorySynthesizer.newAddParticipant(importingUser.getAddress(),
                   wavelet.getLastModifiedTimeMillis(), importingUser.getAddress()));
         }
-        if (EXCESSIVE_LOGGING) {
-          log.info("Converted synthesized history: " + history);
-        }
-        SlobId newId = waveletCreator.newConvWithGeneratedId(history);
-        log.info("Imported wave id: " + newId);
-      } catch (InvalidInputException e) {
-        throw new RuntimeException(
-            "Remote wavelet invalid: " + wavelet.getWaveId() + " " + wavelet.getWaveletId(), e);
-      }
-      // TODO(ohler): add link to imported wave to import overview
-      // TODO(ohler): import attachments
-      // TODO(ohler): make imported wave links work
-      // TODO(ohler): make imported waves recognizable as imported
+        throw new RuntimeException("not implemented");
+      default:
+        throw new AssertionError("Unexpected ImportSharingMode: " + sharingMode);
     }
+    if (EXCESSIVE_LOGGING) {
+      log.info("Converted synthesized history: " + history);
+    }
+    final SlobId newId = waveletCreator.newConvWithGeneratedId(history);
+    log.info("Imported wavelet " + waveletName + " as local id " + newId);
+    new RetryHelper().run(
+        new RetryHelper.VoidBody() {
+          @Override public void run() throws RetryableFailure, PermanentFailure {
+            CheckedTransaction tx = datastore.beginTransaction();
+            try {
+              RemoteConvWavelet entry = perUserTable.getWavelet(tx, userId, instance, waveletName);
+              entry.setPrivateLocalId(newId);
+              perUserTable.putWavelet(tx, userId, entry);
+              tx.commit();
+            } finally {
+              tx.close();
+            }
+          }
+        });
+
+    // TODO(ohler): import attachments
+    // TODO(ohler): make imported waves recognizable as imported
   }
 
 }

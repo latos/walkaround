@@ -23,8 +23,8 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.TaskOptions;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.walkaround.proto.ImportTaskPayload;
@@ -33,6 +33,7 @@ import com.google.walkaround.proto.gson.ImportTaskPayloadGsonImpl;
 import com.google.walkaround.proto.gson.RobotSearchDigestGsonImpl;
 import com.google.walkaround.slob.server.GsonProto;
 import com.google.walkaround.slob.shared.MessageException;
+import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedIterator;
@@ -44,6 +45,8 @@ import com.google.walkaround.wave.server.auth.StableUserId;
 import com.google.walkaround.wave.server.gxp.SourceInstance;
 
 import org.waveprotocol.wave.model.id.WaveId;
+import org.waveprotocol.wave.model.id.WaveletId;
+import org.waveprotocol.wave.model.id.WaveletName;
 import org.waveprotocol.wave.model.util.Pair;
 import org.waveprotocol.wave.model.util.ValueUtils;
 
@@ -65,11 +68,13 @@ public class PerUserTable {
   private static final Logger log = Logger.getLogger(PerUserTable.class.getName());
 
   private static final String ROOT_ENTITY_KIND = "ImportUser";
-  private static final String WAVE_ENTITY_KIND = "ImportWave";
-  private static final String WAVE_DIGEST_PROPERTY = "digest";
+  private static final String WAVELET_ENTITY_KIND = "ImportWavelet";
+  private static final String WAVELET_DIGEST_PROPERTY = "digest";
   // Last modified time is also stored in the digest but we put it in a separate
   // property as well so that we can have an index on it.
-  private static final String WAVE_LAST_MODIFIED_MILLIS_PROPERTY = "lastModified";
+  private static final String WAVELET_LAST_MODIFIED_MILLIS_PROPERTY = "lastModified";
+  private static final String WAVELET_PRIVATE_LOCAL_ID_PROPERTY = "privateLocalId";
+  private static final String WAVELET_SHARED_LOCAL_ID_PROPERTY = "sharedLocalId";
 
   private static final String TASK_ENTITY_KIND = "ImportTask";
   private static final String TASK_CREATION_TIME_MILLIS_PROPERTY = "created";
@@ -89,58 +94,82 @@ public class PerUserTable {
     return KeyFactory.createKey(ROOT_ENTITY_KIND, userId.getId());
   }
 
-  private String makeWaveKeyString(SourceInstance sourceInstance, WaveId waveId) {
-    Preconditions.checkArgument(!sourceInstance.serialize().contains(" "),
-        "Source instance id contains space: %s", sourceInstance);
+  private Pair<SourceInstance, WaveletName> parseWaveletKeyString(String key) {
+    String[] components = key.split(" ", -1);
+    Assert.check(components.length == 3, "Wrong number of spaces: %s", key);
+    return Pair.of(
+        sourceInstanceFactory.parseUnchecked(components[0]),
+        WaveletName.of(WaveId.deserialise(components[1]),
+            WaveletId.deserialise(components[2])));
+  }
+
+  private String makeWaveletKeyString(SourceInstance sourceInstance, WaveletName waveletName) {
     // By design, wave ids should be unique across all instances, but it's easy
     // not to rely on this, so let's not.
-    return sourceInstance.serialize() + " " + waveId.serialise();
+    String key = sourceInstance.serialize()
+        + " " + waveletName.waveId.serialise() + " " + waveletName.waveletId.serialise();
+    Assert.check(Pair.of(sourceInstance, waveletName).equals(parseWaveletKeyString(key)),
+        "Failed to serialize: %s, %s", sourceInstance, waveletName);
+    return key;
   }
 
-  private Pair<SourceInstance, WaveId> parseWaveKey(Key key) {
-    String s = key.getName();
-    int space = s.indexOf(" ");
-    Assert.check(space >= 0, "No space: %s", key);
-    return Pair.of(sourceInstanceFactory.parseUnchecked(s.substring(0, space)),
-        WaveId.deserialise(s.substring(space + 1)));
+  private Pair<SourceInstance, WaveletName> parseWaveletKey(Key key) {
+    return parseWaveletKeyString(key.getName());
   }
 
-  private Key makeWaveKey(StableUserId userId, SourceInstance sourceInstance, WaveId waveId) {
+  private Key makeWaveletKey(StableUserId userId, SourceInstance sourceInstance,
+      WaveletName waveletName) {
     return KeyFactory.createKey(makeRootKey(userId),
-        WAVE_ENTITY_KIND, makeWaveKeyString(sourceInstance, waveId));
+        WAVELET_ENTITY_KIND, makeWaveletKeyString(sourceInstance, waveletName));
   }
 
   private Key makeTaskKey(StableUserId userId, long taskId) {
     return KeyFactory.createKey(makeRootKey(userId), TASK_ENTITY_KIND, taskId);
   }
 
-  private RemoteWave parseWaveEntity(Entity entity) {
-    Pair<SourceInstance, WaveId> instanceAndWaveId = parseWaveKey(entity.getKey());
+  private RemoteConvWavelet parseWaveletEntity(Entity entity) {
+    Pair<SourceInstance, WaveletName> instanceAndWaveId = parseWaveletKey(entity.getKey());
     try {
       RobotSearchDigest digest = GsonProto.fromGson(new RobotSearchDigestGsonImpl(),
-          DatastoreUtil.getExistingProperty(entity, WAVE_DIGEST_PROPERTY, Text.class).getValue());
-      Assert.check(instanceAndWaveId.getSecond().equals(WaveId.deserialise(digest.getWaveId())),
-          "Wave id mismatch: %s, %s", instanceAndWaveId, entity);
+          DatastoreUtil.getExistingProperty(entity, WAVELET_DIGEST_PROPERTY, Text.class)
+          .getValue());
       Assert.check(
-          DatastoreUtil.getExistingProperty(entity, WAVE_LAST_MODIFIED_MILLIS_PROPERTY, Long.class)
-              .equals(digest.getLastModifiedMillis()),
+          instanceAndWaveId.getSecond().waveId.equals(WaveId.deserialise(digest.getWaveId())),
+          "Wave id mismatch: %s, %s", instanceAndWaveId, entity);
+      Assert.check(DatastoreUtil.getExistingProperty(
+              entity, WAVELET_LAST_MODIFIED_MILLIS_PROPERTY, Long.class)
+          .equals(digest.getLastModifiedMillis()),
           "Mismatched last modified times: %s, %s", digest, entity);
-      return new RemoteWave(instanceAndWaveId.getFirst(), digest);
+      @Nullable String privateLocalId = DatastoreUtil.getOptionalProperty(
+          entity, WAVELET_PRIVATE_LOCAL_ID_PROPERTY, String.class);
+      @Nullable String sharedLocalId = DatastoreUtil.getOptionalProperty(
+          entity, WAVELET_SHARED_LOCAL_ID_PROPERTY, String.class);
+      return new RemoteConvWavelet(instanceAndWaveId.getFirst(), digest,
+          instanceAndWaveId.getSecond().waveletId,
+          privateLocalId == null ? null : new SlobId(privateLocalId),
+          sharedLocalId == null ? null : new SlobId(sharedLocalId));
     } catch (MessageException e) {
       throw new RuntimeException("Failed to parse wave entity: " + entity, e);
     }
   }
 
-  private Entity serializeWave(StableUserId userId, RemoteWave w) {
-    Key key = makeWaveKey(userId, w.getSourceInstance(),
-        WaveId.deserialise(w.getDigest().getWaveId()));
+  private WaveletName getWaveletName(RemoteConvWavelet w) {
+    return WaveletName.of(WaveId.deserialise(w.getDigest().getWaveId()), w.getWaveletId());
+  }
+
+  private Entity serializeWavelet(StableUserId userId, RemoteConvWavelet w) {
+    Key key = makeWaveletKey(userId, w.getSourceInstance(), getWaveletName(w));
     Entity e = new Entity(key);
-    DatastoreUtil.setNonNullUnindexedProperty(e, WAVE_DIGEST_PROPERTY,
+    DatastoreUtil.setNonNullUnindexedProperty(e, WAVELET_DIGEST_PROPERTY,
         new Text(GsonProto.toJson((RobotSearchDigestGsonImpl) w.getDigest())));
-    DatastoreUtil.setNonNullIndexedProperty(e, WAVE_LAST_MODIFIED_MILLIS_PROPERTY,
+    DatastoreUtil.setNonNullIndexedProperty(e, WAVELET_LAST_MODIFIED_MILLIS_PROPERTY,
         w.getDigest().getLastModifiedMillis());
+    DatastoreUtil.setOrRemoveIndexedProperty(e, WAVELET_PRIVATE_LOCAL_ID_PROPERTY,
+        w.getPrivateLocalId() == null ? null : w.getPrivateLocalId().getId());
+    DatastoreUtil.setOrRemoveIndexedProperty(e, WAVELET_SHARED_LOCAL_ID_PROPERTY,
+        w.getSharedLocalId() == null ? null : w.getSharedLocalId().getId());
     // Sanity check.
-    Assert.check(w.equals(parseWaveEntity(e)), "Serialized %s incorrectly: %s", w, e);
+    Assert.check(w.equals(parseWaveletEntity(e)), "Serialized %s incorrectly: %s", w, e);
     return e;
   }
 
@@ -177,51 +206,86 @@ public class PerUserTable {
    * Returns true if any entities were put (i.e., if a commit is needed), false
    * otherwise.
    */
-  public boolean addRemoteWaves(
-      CheckedTransaction tx, StableUserId userId, SourceInstance sourceInstance,
-      List<RobotSearchDigest> digests) throws RetryableFailure, PermanentFailure {
-    log.info("Adding " + digests.size() + " digests");
-    Map<Key, Entity> newEntities = Maps.newHashMap();
-    for (RobotSearchDigest digest : digests) {
-      Entity e = serializeWave(userId, new RemoteWave(sourceInstance, digest));
-      newEntities.put(e.getKey(), e);
+  public boolean addRemoteWavelets(
+      CheckedTransaction tx, StableUserId userId,
+      List<RemoteConvWavelet> convWavelets) throws RetryableFailure, PermanentFailure {
+    log.info("Adding " + convWavelets.size() + " digests");
+    List<Key> keys = Lists.newArrayList();
+    for (RemoteConvWavelet convWavelet : convWavelets) {
+      keys.add(
+          makeWaveletKey(userId, convWavelet.getSourceInstance(), getWaveletName(convWavelet)));
     }
-    // Avoid overwriting existing entities since they may contain nontrivial
-    // import state.  It might be good to update snippet and last modified time
-    // but let's not bother for now.
-    //
-    // Maybe we should get the keys only?  Probably not a big enough win to
-    // justify how much more difficult that is to program (need to use queries).
-    Map<Key, Entity> found = tx.get(newEntities.keySet());
-    if (!found.isEmpty()) {
-      // Not very efficient but we only expect this to be called for 300 or so
-      // digests anyway.
-      newEntities.keySet().removeAll(found.keySet());
-      log.warning("Ignoring " + found.size() + " existing entities; "
-          + newEntities.size() + " remaining");
+    Map<Key, Entity> existingEntities = tx.get(keys);
+    Map<Key, Entity> entitiesToPut = Maps.newHashMapWithExpectedSize(convWavelets.size());
+    for (RemoteConvWavelet convWavelet : convWavelets) {
+      Key key =
+          makeWaveletKey(userId, convWavelet.getSourceInstance(), getWaveletName(convWavelet));
+      Entity existingEntity = existingEntities.get(key);
+      if (existingEntity == null) {
+        log.info("New wavelet: " + key);
+        entitiesToPut.put(key, serializeWavelet(userId, convWavelet));
+      } else {
+        RemoteConvWavelet existing = parseWaveletEntity(existingEntity);
+        Assert.check(convWavelet.getSourceInstance().equals(existing.getSourceInstance())
+            && convWavelet.getWaveletId().equals(existing.getWaveletId()),
+            "%s, %s", convWavelet, existing);
+        RemoteConvWavelet merged = new RemoteConvWavelet(convWavelet.getSourceInstance(),
+            convWavelet.getDigest(),
+            convWavelet.getWaveletId(),
+            existing.getPrivateLocalId(),
+            existing.getSharedLocalId());
+        if (merged.equals(existing)) {
+          log.info("Wavelet unchanged, not putting: " + key + " " + convWavelet + " "
+              + convWavelet.getDigest().getTitle());
+        } else {
+          // TODO(ohler): Fix PST protobuf toString() method to be meaningful.
+          log.info("Updating existing wavelet " + key + ": " + existing
+              + " updated with " + convWavelet + " becomes " + merged);
+          entitiesToPut.put(key, serializeWavelet(userId, merged));
+        }
+      }
     }
-    if (newEntities.isEmpty()) {
+    if (entitiesToPut.isEmpty()) {
       return false;
     }
-    log.info("Putting " + ValueUtils.abbrev("" + newEntities, 500));
-    tx.put(newEntities.values());
+    log.info("Putting " + entitiesToPut.size() + " entities: "
+        + ValueUtils.abbrev("" + entitiesToPut, 500));
+    tx.put(entitiesToPut.values());
     return true;
   }
 
+  @Nullable public RemoteConvWavelet getWavelet(CheckedTransaction tx,
+      StableUserId userId, SourceInstance instance, WaveletName waveletName)
+      throws RetryableFailure, PermanentFailure {
+    log.info("getWavelet(" + userId + ", " + instance + ", " + waveletName + ")");
+    Entity entity = tx.get(makeWaveletKey(userId, instance, waveletName));
+    RemoteConvWavelet wavelet = entity == null ? null : parseWaveletEntity(entity);
+    log.info("Got " + wavelet);
+    return wavelet;
+  }
+
+  @Nullable public void putWavelet(CheckedTransaction tx,
+      StableUserId userId, RemoteConvWavelet wavelet) throws RetryableFailure, PermanentFailure {
+    log.info("putWavelet(" + userId + ", " + wavelet + ")");
+    Entity entity = serializeWavelet(userId, wavelet);
+    log.info("Putting " + wavelet);
+    tx.put(entity);
+  }
+
   // TODO(ohler): make this scalable, e.g. by adding pagination
-  public List<RemoteWave> getAllWaves(CheckedTransaction tx, StableUserId userId)
+  public List<RemoteConvWavelet> getAllWavelets(CheckedTransaction tx, StableUserId userId)
       throws RetryableFailure, PermanentFailure {
     log.info("getAllWaves(" + userId + ")");
-    CheckedIterator i = tx.prepare(new Query(WAVE_ENTITY_KIND)
+    CheckedIterator i = tx.prepare(new Query(WAVELET_ENTITY_KIND)
         .setAncestor(makeRootKey(userId))
-        .addSort(WAVE_LAST_MODIFIED_MILLIS_PROPERTY, Query.SortDirection.DESCENDING))
+        .addSort(WAVELET_LAST_MODIFIED_MILLIS_PROPERTY, Query.SortDirection.DESCENDING))
         .asIterator();
-    ImmutableList.Builder<RemoteWave> b = ImmutableList.builder();
+    ImmutableList.Builder<RemoteConvWavelet> b = ImmutableList.builder();
     while (i.hasNext()) {
-      b.add(parseWaveEntity(i.next()));
+      b.add(parseWaveletEntity(i.next()));
     }
-    List<RemoteWave> out = b.build();
-    log.info("got " + out.size() + " waves");
+    List<RemoteConvWavelet> out = b.build();
+    log.info("Got " + out.size() + " wavelets");
     return out;
   }
 
@@ -244,7 +308,7 @@ public class PerUserTable {
   public boolean deleteAllWaves(CheckedTransaction tx, StableUserId userId)
       throws RetryableFailure, PermanentFailure {
     log.info("deleteAllWaves(" + userId + ")");
-    return deleteAll(tx, new Query(WAVE_ENTITY_KIND).setAncestor(makeRootKey(userId)));
+    return deleteAll(tx, new Query(WAVELET_ENTITY_KIND).setAncestor(makeRootKey(userId)));
   }
 
   /** Returns true if any entities have been deleted (i.e., tx needs to be committed. */
@@ -283,7 +347,7 @@ public class PerUserTable {
       b.add(parseTaskEntity(i.next()));
     }
     List<ImportTask> out = b.build();
-    log.info("got " + out.size() + " tasks");
+    log.info("Got " + out.size() + " tasks");
     return out;
   }
 
@@ -292,7 +356,7 @@ public class PerUserTable {
     log.info("getTask(" + userId + ", " + taskId + ")");
     Entity entity = tx.get(makeTaskKey(userId, taskId));
     ImportTask task = entity == null ? null : parseTaskEntity(entity);
-    log.info("got " + task);
+    log.info("Got " + task);
     return task;
   }
 

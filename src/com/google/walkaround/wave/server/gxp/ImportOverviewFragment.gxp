@@ -22,16 +22,18 @@
   xmlns='http://www.w3.org/1999/xhtml'
   xmlns:expr='http://google.com/2001/gxp/expressions'
   xmlns:gxp='http://google.com/2001/gxp'
+  xmlns:call='http://google.com/2001/gxp/call'
   xmlns:nomsg='http://google.com/2001/gxp/nomsg'>
 
-  <gxp:import class='com.google.walkaround.wave.server.gxp.ImportWaveDisplayRecord'/>
+  <gxp:import class='com.google.walkaround.wave.server.gxp.ImportWaveletDisplayRecord'/>
+  <gxp:import class='org.waveprotocol.wave.model.id.IdUtil'/>
   <gxp:import class='java.util.List'/>
 
   <gxp:param name='userEmail' type='String'/>
   <gxp:param name='token' type='String'/>
   <gxp:param name='instanceSelectionHtml' type='HtmlClosure'/>
   <gxp:param name='tasksInProgress' type='List{String}'/>
-  <gxp:param name='waveRecords' type='List{ImportWaveDisplayRecord}'/>
+  <gxp:param name='waveRecords' type='List{ImportWaveletDisplayRecord}'/>
 
   <style type='text/css'>
     .main {
@@ -116,13 +118,13 @@
             <th><gxp:msg>Creator</gxp:msg></th>
             <th class='titlecolumn'><gxp:msg>Title</gxp:msg></th>
             <th><gxp:msg>Last modified</gxp:msg></th>
-            <th><gxp:msg>Import status</gxp:msg></th>
-            <th><gxp:msg>Link to imported wave</gxp:msg></th>
-            <th><gxp:msg>Action</gxp:msg></th>
+            <th><gxp:msg>Type</gxp:msg></th>
+            <th><gxp:msg>Private import</gxp:msg></th>
+            <th><gxp:msg>Shared import</gxp:msg></th>
           </tr>
         </thead>
         <tbody>
-          <gxp:loop var='record' type='ImportWaveDisplayRecord' iterable='waveRecords'>
+          <gxp:loop var='record' type='ImportWaveletDisplayRecord' iterable='waveRecords'>
             <tr>
               <td>
                 <a expr:href='record.getLinkToOriginal()' target='_blank'>
@@ -132,24 +134,46 @@
               <td><gxp:eval expr='record.getCreator()'/></td>
               <td><gxp:eval expr='record.getTitle()'/></td>
               <td><gxp:eval expr='record.getLastModifiedDate()'/></td>
-              <td><gxp:eval expr='record.getStatus()'/></td>
               <td>
-                <gxp:if cond='record.getLinkToImported() != null'>
-                  <a expr:href='record.getLinkToImported()' target='_blank'>
-                    <gxp:msg>link</gxp:msg>
-                  </a>
+                <gxp:if
+                   cond='IdUtil.isConversationRootWaveletId(record.getWaveletName().waveletId)'>
+                  <gxp:msg>wave</gxp:msg>
+                  <gxp:else/>
+                  <gxp:msg>private reply</gxp:msg>
                 </gxp:if>
               </td>
               <td>
-                <gxp:if cond='record.isImportable()'>
-                  <form method='post' action='import'>
-                    <input type='hidden' name='action' value='importwave'/>
-                    <input type='hidden' name='instance'
-                           expr:value='record.getInstance().serialize()'/>
-                    <input type='hidden' name='waveid' expr:value='record.getWaveId().serialise()'/>
-                    <input type='hidden' name='token' expr:value='token'/>
-                    <input type='submit' value='import'/>
-                  </form>
+                <gxp:if cond='record.isPrivateImportInProgress()'>
+                  <gxp:msg>importing</gxp:msg>
+                  <call:ImportWaveletButtonFragment
+                     label='re-import' sharingMode='private'
+                     expr:token='token' expr:record='record'/>
+                  <gxp:elif cond='record.getPrivateImportedLink() == null'/>
+                  <call:ImportWaveletButtonFragment
+                     label='private import' sharingMode='private'
+                     expr:token='token' expr:record='record'/>
+                  <gxp:else/>
+                  <a expr:href='record.getPrivateImportedLink()' target='_blank'>
+                    <gxp:msg>imported</gxp:msg>
+                  </a>
+                  <call:ImportWaveletButtonFragment
+                     label='re-import' sharingMode='private'
+                     expr:token='token' expr:record='record'/>
+                </gxp:if>
+              </td>
+              <td>
+                <gxp:if cond='record.getSharedImportedLink() == null'>
+                  <gxp:if cond='record.isSharedImportInProgress()'>
+                    <gxp:msg>importing</gxp:msg>
+                    <gxp:else/>
+                    <call:ImportWaveletButtonFragment
+                       label='shared import' sharingMode='shared'
+                       expr:token='token' expr:record='record'/>
+                  </gxp:if>
+                  <gxp:else/>
+                  <a expr:href='record.getSharedImportedLink()' target='_blank'>
+                    <gxp:msg>imported</gxp:msg>
+                  </a>
                 </gxp:if>
               </td>
             </tr>
@@ -176,15 +200,36 @@
 
 
     <br/>
-    <b><gxp:msg>Import wave by ID</gxp:msg></b>
+    <b><gxp:msg>Import wavelet by ID</gxp:msg></b>
     <form method='post' action='import'>
-      <input type='hidden' name='action' value='importwave'/>
+      <input type='hidden' name='action' value='importwavelet'/>
       <input type='hidden' name='token' expr:value='token'/>
       Wave ID: <input name='waveid'/>
+      Wavelet ID: <input name='waveletid'/>
       <br/>
       <gxp:eval expr='instanceSelectionHtml'/>
-      <input type='submit' value='Import wave'/>
+      Sharing of imported wave:
+      <input type='radio' name='sharingmode' value='private'/>private
+      <input type='radio' name='sharingmode' value='shared'/>shared
+      <br/>
+      <input type='submit' value='Import wavelet'/>
     </form>
+
+    <br/>
+    <br/>
+    <gxp:msg>
+      Private import creates a copy of the wave where you are the
+      only participant.
+    </gxp:msg>
+    <br/>
+    <gxp:msg>
+      Shared import creates a copy of the wave that is shared with the
+      original participants, or adds you to such a copy if another
+      user has already done a shared import.  With shared import, you
+      will be added to the participant list of the imported copy even
+      if you were not a participant on the original (and had access
+      through a group or because the wave was public).
+    </gxp:msg>
   </div>
 
 </gxp:template>

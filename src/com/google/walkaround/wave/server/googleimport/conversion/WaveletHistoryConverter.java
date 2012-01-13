@@ -37,6 +37,7 @@ import org.waveprotocol.wave.model.operation.wave.WaveletBlipOperation;
 import org.waveprotocol.wave.model.operation.wave.WaveletOperation;
 import org.waveprotocol.wave.model.operation.wave.WaveletOperationContext;
 import org.waveprotocol.wave.model.operation.wave.WaveletOperationVisitor;
+import org.waveprotocol.wave.model.util.Pair;
 
 import java.util.Map;
 
@@ -55,12 +56,12 @@ public class WaveletHistoryConverter {
       new MapMaker().makeComputingMap(
           new Function<String, DocumentHistoryConverter>() {
             @Override public DocumentHistoryConverter apply(String documentId) {
-              return new DocumentHistoryConverter(nindoConverter);
+              return new DocumentHistoryConverter(documentId, nindoConverter);
             }
           });
-  private final Function<Nindo, Nindo> nindoConverter;
+  private final Function<Pair<String, Nindo>, Nindo> nindoConverter;
 
-  public WaveletHistoryConverter(Function<Nindo, Nindo> nindoConverter) {
+  public WaveletHistoryConverter(Function<Pair<String, Nindo>, Nindo> nindoConverter) {
     this.nindoConverter = checkNotNull(nindoConverter, "Null nindoConverter");
   }
 

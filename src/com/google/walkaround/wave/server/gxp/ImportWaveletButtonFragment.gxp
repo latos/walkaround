@@ -1,0 +1,48 @@
+<?xml version='1.0' ?>
+<!--
+  Copyright (C) 2011 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Author: ohler@google.com (Christian Ohler)
+-->
+<!DOCTYPE gxp:template SYSTEM
+  'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
+<gxp:template name='com.google.walkaround.wave.server.gxp.ImportWaveletButtonFragment'
+  xmlns='http://www.w3.org/1999/xhtml'
+  xmlns:expr='http://google.com/2001/gxp/expressions'
+  xmlns:gxp='http://google.com/2001/gxp'
+  xmlns:nomsg='http://google.com/2001/gxp/nomsg'>
+
+  <gxp:import class='com.google.walkaround.wave.server.gxp.ImportWaveletDisplayRecord'/>
+  <gxp:import class='org.waveprotocol.wave.model.id.WaveletName'/>
+
+  <gxp:param name='label' type='String'/>
+  <gxp:param name='token' type='String'/>
+  <gxp:param name='record' type='ImportWaveletDisplayRecord'/>
+  <gxp:param name='sharingMode' type='String'/>
+
+  <form method='post' action='import'>
+    <input type='hidden' name='action' value='importwavelet'/>
+    <input type='hidden' name='instance'
+           expr:value='record.getInstance().serialize()'/>
+    <input type='hidden' name='waveid'
+           expr:value='record.getWaveletName().waveId.serialise()'/>
+    <input type='hidden' name='waveletid'
+           expr:value='record.getWaveletName().waveletId.serialise()'/>
+    <input type='hidden' name='sharingmode' expr:value='sharingMode'/>
+    <input type='hidden' name='token' expr:value='token'/>
+    <input type='submit' expr:value='label'/>
+  </form>
+
+</gxp:template>

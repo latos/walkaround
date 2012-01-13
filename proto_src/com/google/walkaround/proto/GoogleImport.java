@@ -4399,31 +4399,98 @@ public final class GoogleImport {
     // @@protoc_insertion_point(class_scope:google_import_proto.FindRemoteWavesTask)
   }
   
-  public static final class ImportWaveTask extends
+  public static final class ImportWaveletTask extends
       com.google.protobuf.GeneratedMessage {
-    // Use ImportWaveTask.newBuilder() to construct.
-    private ImportWaveTask() {
+    // Use ImportWaveletTask.newBuilder() to construct.
+    private ImportWaveletTask() {
       initFields();
     }
-    private ImportWaveTask(boolean noInit) {}
+    private ImportWaveletTask(boolean noInit) {}
     
-    private static final ImportWaveTask defaultInstance;
-    public static ImportWaveTask getDefaultInstance() {
+    private static final ImportWaveletTask defaultInstance;
+    public static ImportWaveletTask getDefaultInstance() {
       return defaultInstance;
     }
     
-    public ImportWaveTask getDefaultInstanceForType() {
+    public ImportWaveletTask getDefaultInstanceForType() {
       return defaultInstance;
     }
     
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_ImportWaveTask_descriptor;
+      return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_ImportWaveletTask_descriptor;
     }
     
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_ImportWaveTask_fieldAccessorTable;
+      return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_ImportWaveletTask_fieldAccessorTable;
+    }
+    
+    public enum ImportSharingMode
+        implements com.google.protobuf.ProtocolMessageEnum {
+      PRIVATE(0, 0),
+      SHARED(1, 1),
+      ;
+      
+      
+      public final int getNumber() { return value; }
+      
+      public static ImportSharingMode valueOf(int value) {
+        switch (value) {
+          case 0: return PRIVATE;
+          case 1: return SHARED;
+          default: return null;
+        }
+      }
+      
+      public static com.google.protobuf.Internal.EnumLiteMap<ImportSharingMode>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ImportSharingMode>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ImportSharingMode>() {
+              public ImportSharingMode findValueByNumber(int number) {
+                return ImportSharingMode.valueOf(number)
+      ;        }
+            };
+      
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDescriptor().getEnumTypes().get(0);
+      }
+      
+      private static final ImportSharingMode[] VALUES = {
+        PRIVATE, SHARED, 
+      };
+      public static ImportSharingMode valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+      private final int index;
+      private final int value;
+      private ImportSharingMode(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+      
+      static {
+        com.google.walkaround.proto.GoogleImport.getDescriptor();
+      }
+      
+      // @@protoc_insertion_point(enum_scope:google_import_proto.ImportWaveletTask.ImportSharingMode)
     }
     
     // required string instance = 1;
@@ -4440,11 +4507,28 @@ public final class GoogleImport {
     public boolean hasWaveId() { return hasWaveId; }
     public java.lang.String getWaveId() { return waveId_; }
     
+    // required string wavelet_id = 3;
+    public static final int WAVELET_ID_FIELD_NUMBER = 3;
+    private boolean hasWaveletId;
+    private java.lang.String waveletId_ = "";
+    public boolean hasWaveletId() { return hasWaveletId; }
+    public java.lang.String getWaveletId() { return waveletId_; }
+    
+    // required .google_import_proto.ImportWaveletTask.ImportSharingMode sharing_mode = 4;
+    public static final int SHARING_MODE_FIELD_NUMBER = 4;
+    private boolean hasSharingMode;
+    private com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode sharingMode_;
+    public boolean hasSharingMode() { return hasSharingMode; }
+    public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode getSharingMode() { return sharingMode_; }
+    
     private void initFields() {
+      sharingMode_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode.PRIVATE;
     }
     public final boolean isInitialized() {
       if (!hasInstance) return false;
       if (!hasWaveId) return false;
+      if (!hasWaveletId) return false;
+      if (!hasSharingMode) return false;
       return true;
     }
     
@@ -4456,6 +4540,12 @@ public final class GoogleImport {
       }
       if (hasWaveId()) {
         output.writeString(2, getWaveId());
+      }
+      if (hasWaveletId()) {
+        output.writeString(3, getWaveletId());
+      }
+      if (hasSharingMode()) {
+        output.writeEnum(4, getSharingMode().getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4474,46 +4564,54 @@ public final class GoogleImport {
         size += com.google.protobuf.CodedOutputStream
           .computeStringSize(2, getWaveId());
       }
+      if (hasWaveletId()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeStringSize(3, getWaveletId());
+      }
+      if (hasSharingMode()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(4, getSharingMode().getNumber());
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
       return size;
     }
     
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(byte[] data)
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data).buildParsed();
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return newBuilder().mergeFrom(data, extensionRegistry)
                .buildParsed();
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(java.io.InputStream input)
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input, extensionRegistry)
                .buildParsed();
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseDelimitedFrom(java.io.InputStream input)
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       Builder builder = newBuilder();
       if (builder.mergeDelimitedFrom(input)) {
@@ -4522,7 +4620,7 @@ public final class GoogleImport {
         return null;
       }
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseDelimitedFrom(
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4533,12 +4631,12 @@ public final class GoogleImport {
         return null;
       }
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return newBuilder().mergeFrom(input).buildParsed();
     }
-    public static com.google.walkaround.proto.GoogleImport.ImportWaveTask parseFrom(
+    public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4548,25 +4646,25 @@ public final class GoogleImport {
     
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.google.walkaround.proto.GoogleImport.ImportWaveTask prototype) {
+    public static Builder newBuilder(com.google.walkaround.proto.GoogleImport.ImportWaveletTask prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
     
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> {
-      private com.google.walkaround.proto.GoogleImport.ImportWaveTask result;
+      private com.google.walkaround.proto.GoogleImport.ImportWaveletTask result;
       
-      // Construct using com.google.walkaround.proto.GoogleImport.ImportWaveTask.newBuilder()
+      // Construct using com.google.walkaround.proto.GoogleImport.ImportWaveletTask.newBuilder()
       private Builder() {}
       
       private static Builder create() {
         Builder builder = new Builder();
-        builder.result = new com.google.walkaround.proto.GoogleImport.ImportWaveTask();
+        builder.result = new com.google.walkaround.proto.GoogleImport.ImportWaveletTask();
         return builder;
       }
       
-      protected com.google.walkaround.proto.GoogleImport.ImportWaveTask internalGetResult() {
+      protected com.google.walkaround.proto.GoogleImport.ImportWaveletTask internalGetResult() {
         return result;
       }
       
@@ -4575,7 +4673,7 @@ public final class GoogleImport {
           throw new IllegalStateException(
             "Cannot call clear() after build().");
         }
-        result = new com.google.walkaround.proto.GoogleImport.ImportWaveTask();
+        result = new com.google.walkaround.proto.GoogleImport.ImportWaveletTask();
         return this;
       }
       
@@ -4585,24 +4683,24 @@ public final class GoogleImport {
       
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.google.walkaround.proto.GoogleImport.ImportWaveTask.getDescriptor();
+        return com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDescriptor();
       }
       
-      public com.google.walkaround.proto.GoogleImport.ImportWaveTask getDefaultInstanceForType() {
-        return com.google.walkaround.proto.GoogleImport.ImportWaveTask.getDefaultInstance();
+      public com.google.walkaround.proto.GoogleImport.ImportWaveletTask getDefaultInstanceForType() {
+        return com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance();
       }
       
       public boolean isInitialized() {
         return result.isInitialized();
       }
-      public com.google.walkaround.proto.GoogleImport.ImportWaveTask build() {
+      public com.google.walkaround.proto.GoogleImport.ImportWaveletTask build() {
         if (result != null && !isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return buildPartial();
       }
       
-      private com.google.walkaround.proto.GoogleImport.ImportWaveTask buildParsed()
+      private com.google.walkaround.proto.GoogleImport.ImportWaveletTask buildParsed()
           throws com.google.protobuf.InvalidProtocolBufferException {
         if (!isInitialized()) {
           throw newUninitializedMessageException(
@@ -4611,32 +4709,38 @@ public final class GoogleImport {
         return buildPartial();
       }
       
-      public com.google.walkaround.proto.GoogleImport.ImportWaveTask buildPartial() {
+      public com.google.walkaround.proto.GoogleImport.ImportWaveletTask buildPartial() {
         if (result == null) {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
-        com.google.walkaround.proto.GoogleImport.ImportWaveTask returnMe = result;
+        com.google.walkaround.proto.GoogleImport.ImportWaveletTask returnMe = result;
         result = null;
         return returnMe;
       }
       
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.google.walkaround.proto.GoogleImport.ImportWaveTask) {
-          return mergeFrom((com.google.walkaround.proto.GoogleImport.ImportWaveTask)other);
+        if (other instanceof com.google.walkaround.proto.GoogleImport.ImportWaveletTask) {
+          return mergeFrom((com.google.walkaround.proto.GoogleImport.ImportWaveletTask)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
       
-      public Builder mergeFrom(com.google.walkaround.proto.GoogleImport.ImportWaveTask other) {
-        if (other == com.google.walkaround.proto.GoogleImport.ImportWaveTask.getDefaultInstance()) return this;
+      public Builder mergeFrom(com.google.walkaround.proto.GoogleImport.ImportWaveletTask other) {
+        if (other == com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance()) return this;
         if (other.hasInstance()) {
           setInstance(other.getInstance());
         }
         if (other.hasWaveId()) {
           setWaveId(other.getWaveId());
+        }
+        if (other.hasWaveletId()) {
+          setWaveletId(other.getWaveletId());
+        }
+        if (other.hasSharingMode()) {
+          setSharingMode(other.getSharingMode());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4669,6 +4773,20 @@ public final class GoogleImport {
             }
             case 18: {
               setWaveId(input.readString());
+              break;
+            }
+            case 26: {
+              setWaveletId(input.readString());
+              break;
+            }
+            case 32: {
+              int rawValue = input.readEnum();
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode value = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(4, rawValue);
+              } else {
+                setSharingMode(value);
+              }
               break;
             }
           }
@@ -4718,16 +4836,58 @@ public final class GoogleImport {
         return this;
       }
       
-      // @@protoc_insertion_point(builder_scope:google_import_proto.ImportWaveTask)
+      // required string wavelet_id = 3;
+      public boolean hasWaveletId() {
+        return result.hasWaveletId();
+      }
+      public java.lang.String getWaveletId() {
+        return result.getWaveletId();
+      }
+      public Builder setWaveletId(java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasWaveletId = true;
+        result.waveletId_ = value;
+        return this;
+      }
+      public Builder clearWaveletId() {
+        result.hasWaveletId = false;
+        result.waveletId_ = getDefaultInstance().getWaveletId();
+        return this;
+      }
+      
+      // required .google_import_proto.ImportWaveletTask.ImportSharingMode sharing_mode = 4;
+      public boolean hasSharingMode() {
+        return result.hasSharingMode();
+      }
+      public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode getSharingMode() {
+        return result.getSharingMode();
+      }
+      public Builder setSharingMode(com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasSharingMode = true;
+        result.sharingMode_ = value;
+        return this;
+      }
+      public Builder clearSharingMode() {
+        result.hasSharingMode = false;
+        result.sharingMode_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode.PRIVATE;
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:google_import_proto.ImportWaveletTask)
     }
     
     static {
-      defaultInstance = new ImportWaveTask(true);
+      defaultInstance = new ImportWaveletTask(true);
       com.google.walkaround.proto.GoogleImport.internalForceInit();
       defaultInstance.initFields();
     }
     
-    // @@protoc_insertion_point(class_scope:google_import_proto.ImportWaveTask)
+    // @@protoc_insertion_point(class_scope:google_import_proto.ImportWaveletTask)
   }
   
   public static final class ImportTaskPayload extends
@@ -4764,23 +4924,23 @@ public final class GoogleImport {
     public boolean hasFindWavesTask() { return hasFindWavesTask; }
     public com.google.walkaround.proto.GoogleImport.FindRemoteWavesTask getFindWavesTask() { return findWavesTask_; }
     
-    // optional .google_import_proto.ImportWaveTask import_wave_task = 2;
-    public static final int IMPORT_WAVE_TASK_FIELD_NUMBER = 2;
-    private boolean hasImportWaveTask;
-    private com.google.walkaround.proto.GoogleImport.ImportWaveTask importWaveTask_;
-    public boolean hasImportWaveTask() { return hasImportWaveTask; }
-    public com.google.walkaround.proto.GoogleImport.ImportWaveTask getImportWaveTask() { return importWaveTask_; }
+    // optional .google_import_proto.ImportWaveletTask import_wavelet_task = 2;
+    public static final int IMPORT_WAVELET_TASK_FIELD_NUMBER = 2;
+    private boolean hasImportWaveletTask;
+    private com.google.walkaround.proto.GoogleImport.ImportWaveletTask importWaveletTask_;
+    public boolean hasImportWaveletTask() { return hasImportWaveletTask; }
+    public com.google.walkaround.proto.GoogleImport.ImportWaveletTask getImportWaveletTask() { return importWaveletTask_; }
     
     private void initFields() {
       findWavesTask_ = com.google.walkaround.proto.GoogleImport.FindRemoteWavesTask.getDefaultInstance();
-      importWaveTask_ = com.google.walkaround.proto.GoogleImport.ImportWaveTask.getDefaultInstance();
+      importWaveletTask_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance();
     }
     public final boolean isInitialized() {
       if (hasFindWavesTask()) {
         if (!getFindWavesTask().isInitialized()) return false;
       }
-      if (hasImportWaveTask()) {
-        if (!getImportWaveTask().isInitialized()) return false;
+      if (hasImportWaveletTask()) {
+        if (!getImportWaveletTask().isInitialized()) return false;
       }
       return true;
     }
@@ -4791,8 +4951,8 @@ public final class GoogleImport {
       if (hasFindWavesTask()) {
         output.writeMessage(1, getFindWavesTask());
       }
-      if (hasImportWaveTask()) {
-        output.writeMessage(2, getImportWaveTask());
+      if (hasImportWaveletTask()) {
+        output.writeMessage(2, getImportWaveletTask());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4807,9 +4967,9 @@ public final class GoogleImport {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getFindWavesTask());
       }
-      if (hasImportWaveTask()) {
+      if (hasImportWaveletTask()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getImportWaveTask());
+          .computeMessageSize(2, getImportWaveletTask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4972,8 +5132,8 @@ public final class GoogleImport {
         if (other.hasFindWavesTask()) {
           mergeFindWavesTask(other.getFindWavesTask());
         }
-        if (other.hasImportWaveTask()) {
-          mergeImportWaveTask(other.getImportWaveTask());
+        if (other.hasImportWaveletTask()) {
+          mergeImportWaveletTask(other.getImportWaveletTask());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5010,12 +5170,12 @@ public final class GoogleImport {
               break;
             }
             case 18: {
-              com.google.walkaround.proto.GoogleImport.ImportWaveTask.Builder subBuilder = com.google.walkaround.proto.GoogleImport.ImportWaveTask.newBuilder();
-              if (hasImportWaveTask()) {
-                subBuilder.mergeFrom(getImportWaveTask());
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.Builder subBuilder = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.newBuilder();
+              if (hasImportWaveletTask()) {
+                subBuilder.mergeFrom(getImportWaveletTask());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setImportWaveTask(subBuilder.buildPartial());
+              setImportWaveletTask(subBuilder.buildPartial());
               break;
             }
           }
@@ -5060,40 +5220,40 @@ public final class GoogleImport {
         return this;
       }
       
-      // optional .google_import_proto.ImportWaveTask import_wave_task = 2;
-      public boolean hasImportWaveTask() {
-        return result.hasImportWaveTask();
+      // optional .google_import_proto.ImportWaveletTask import_wavelet_task = 2;
+      public boolean hasImportWaveletTask() {
+        return result.hasImportWaveletTask();
       }
-      public com.google.walkaround.proto.GoogleImport.ImportWaveTask getImportWaveTask() {
-        return result.getImportWaveTask();
+      public com.google.walkaround.proto.GoogleImport.ImportWaveletTask getImportWaveletTask() {
+        return result.getImportWaveletTask();
       }
-      public Builder setImportWaveTask(com.google.walkaround.proto.GoogleImport.ImportWaveTask value) {
+      public Builder setImportWaveletTask(com.google.walkaround.proto.GoogleImport.ImportWaveletTask value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        result.hasImportWaveTask = true;
-        result.importWaveTask_ = value;
+        result.hasImportWaveletTask = true;
+        result.importWaveletTask_ = value;
         return this;
       }
-      public Builder setImportWaveTask(com.google.walkaround.proto.GoogleImport.ImportWaveTask.Builder builderForValue) {
-        result.hasImportWaveTask = true;
-        result.importWaveTask_ = builderForValue.build();
+      public Builder setImportWaveletTask(com.google.walkaround.proto.GoogleImport.ImportWaveletTask.Builder builderForValue) {
+        result.hasImportWaveletTask = true;
+        result.importWaveletTask_ = builderForValue.build();
         return this;
       }
-      public Builder mergeImportWaveTask(com.google.walkaround.proto.GoogleImport.ImportWaveTask value) {
-        if (result.hasImportWaveTask() &&
-            result.importWaveTask_ != com.google.walkaround.proto.GoogleImport.ImportWaveTask.getDefaultInstance()) {
-          result.importWaveTask_ =
-            com.google.walkaround.proto.GoogleImport.ImportWaveTask.newBuilder(result.importWaveTask_).mergeFrom(value).buildPartial();
+      public Builder mergeImportWaveletTask(com.google.walkaround.proto.GoogleImport.ImportWaveletTask value) {
+        if (result.hasImportWaveletTask() &&
+            result.importWaveletTask_ != com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance()) {
+          result.importWaveletTask_ =
+            com.google.walkaround.proto.GoogleImport.ImportWaveletTask.newBuilder(result.importWaveletTask_).mergeFrom(value).buildPartial();
         } else {
-          result.importWaveTask_ = value;
+          result.importWaveletTask_ = value;
         }
-        result.hasImportWaveTask = true;
+        result.hasImportWaveletTask = true;
         return this;
       }
-      public Builder clearImportWaveTask() {
-        result.hasImportWaveTask = false;
-        result.importWaveTask_ = com.google.walkaround.proto.GoogleImport.ImportWaveTask.getDefaultInstance();
+      public Builder clearImportWaveletTask() {
+        result.hasImportWaveletTask = false;
+        result.importWaveletTask_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance();
         return this;
       }
       
@@ -5160,10 +5320,10 @@ public final class GoogleImport {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_google_import_proto_FindRemoteWavesTask_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_google_import_proto_ImportWaveTask_descriptor;
+    internal_static_google_import_proto_ImportWaveletTask_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_google_import_proto_ImportWaveTask_fieldAccessorTable;
+      internal_static_google_import_proto_ImportWaveletTask_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_google_import_proto_ImportTaskPayload_descriptor;
   private static
@@ -5214,14 +5374,17 @@ public final class GoogleImport {
       "ified_millis\030\005 \002(\003\022\022\n\nblip_count\030\006 \002(\005\022\031" +
       "\n\021unread_blip_count\030\007 \002(\005\"V\n\023FindRemoteW" +
       "avesTask\022\020\n\010instance\030\001 \002(\t\022\030\n\020on_or_afte" +
-      "r_days\030\002 \002(\003\022\023\n\013before_days\030\003 \002(\003\"3\n\016Imp" +
-      "ortWaveTask\022\020\n\010instance\030\001 \002(\t\022\017\n\007wave_id" +
-      "\030\002 \002(\t\"\225\001\n\021ImportTaskPayload\022A\n\017find_wav" +
-      "es_task\030\001 \001(\0132(.google_import_proto.Find",
-      "RemoteWavesTask\022=\n\020import_wave_task\030\002 \001(" +
-      "\0132#.google_import_proto.ImportWaveTaskB+" +
-      "\n\033com.google.walkaround.protoB\014GoogleImp" +
-      "ort"
+      "r_days\030\002 \002(\003\022\023\n\013before_days\030\003 \002(\003\"\310\001\n\021Im" +
+      "portWaveletTask\022\020\n\010instance\030\001 \002(\t\022\017\n\007wav" +
+      "e_id\030\002 \002(\t\022\022\n\nwavelet_id\030\003 \002(\t\022N\n\014sharin" +
+      "g_mode\030\004 \002(\01628.google_import_proto.Impor",
+      "tWaveletTask.ImportSharingMode\",\n\021Import" +
+      "SharingMode\022\013\n\007PRIVATE\020\000\022\n\n\006SHARED\020\001\"\233\001\n" +
+      "\021ImportTaskPayload\022A\n\017find_waves_task\030\001 " +
+      "\001(\0132(.google_import_proto.FindRemoteWave" +
+      "sTask\022C\n\023import_wavelet_task\030\002 \001(\0132&.goo" +
+      "gle_import_proto.ImportWaveletTaskB+\n\033co" +
+      "m.google.walkaround.protoB\014GoogleImport"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -5308,20 +5471,20 @@ public final class GoogleImport {
               new java.lang.String[] { "Instance", "OnOrAfterDays", "BeforeDays", },
               com.google.walkaround.proto.GoogleImport.FindRemoteWavesTask.class,
               com.google.walkaround.proto.GoogleImport.FindRemoteWavesTask.Builder.class);
-          internal_static_google_import_proto_ImportWaveTask_descriptor =
+          internal_static_google_import_proto_ImportWaveletTask_descriptor =
             getDescriptor().getMessageTypes().get(5);
-          internal_static_google_import_proto_ImportWaveTask_fieldAccessorTable = new
+          internal_static_google_import_proto_ImportWaveletTask_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_google_import_proto_ImportWaveTask_descriptor,
-              new java.lang.String[] { "Instance", "WaveId", },
-              com.google.walkaround.proto.GoogleImport.ImportWaveTask.class,
-              com.google.walkaround.proto.GoogleImport.ImportWaveTask.Builder.class);
+              internal_static_google_import_proto_ImportWaveletTask_descriptor,
+              new java.lang.String[] { "Instance", "WaveId", "WaveletId", "SharingMode", },
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.class,
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.Builder.class);
           internal_static_google_import_proto_ImportTaskPayload_descriptor =
             getDescriptor().getMessageTypes().get(6);
           internal_static_google_import_proto_ImportTaskPayload_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_google_import_proto_ImportTaskPayload_descriptor,
-              new java.lang.String[] { "FindWavesTask", "ImportWaveTask", },
+              new java.lang.String[] { "FindWavesTask", "ImportWaveletTask", },
               com.google.walkaround.proto.GoogleImport.ImportTaskPayload.class,
               com.google.walkaround.proto.GoogleImport.ImportTaskPayload.Builder.class);
           return null;

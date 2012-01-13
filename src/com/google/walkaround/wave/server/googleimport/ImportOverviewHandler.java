@@ -17,14 +17,18 @@
 package com.google.walkaround.wave.server.googleimport;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
+import com.google.common.net.UriEscapers;
 import com.google.gxp.base.GxpContext;
 import com.google.gxp.html.HtmlClosure;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.walkaround.proto.ImportTaskPayload;
-import com.google.walkaround.proto.ImportWaveTask;
+import com.google.walkaround.proto.ImportWaveletTask;
+import com.google.walkaround.proto.ImportWaveletTask.ImportSharingMode;
 import com.google.walkaround.proto.gson.ImportTaskPayloadGsonImpl;
-import com.google.walkaround.proto.gson.ImportWaveTaskGsonImpl;
+import com.google.walkaround.proto.gson.ImportWaveletTaskGsonImpl;
+import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.HtmlEscaper;
 import com.google.walkaround.util.server.RetryHelper;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
@@ -36,18 +40,20 @@ import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.util.server.servlet.BadRequestException;
 import com.google.walkaround.util.shared.Assert;
 import com.google.walkaround.wave.server.auth.NeedNewOAuthTokenException;
-import com.google.walkaround.wave.server.auth.UserContext;
 import com.google.walkaround.wave.server.auth.StableUserId;
+import com.google.walkaround.wave.server.auth.UserContext;
 import com.google.walkaround.wave.server.auth.XsrfHelper;
 import com.google.walkaround.wave.server.auth.XsrfHelper.XsrfTokenExpiredException;
 import com.google.walkaround.wave.server.gxp.ImportOverviewFragment;
-import com.google.walkaround.wave.server.gxp.ImportWaveDisplayRecord;
+import com.google.walkaround.wave.server.gxp.ImportWaveletDisplayRecord;
 import com.google.walkaround.wave.server.gxp.SourceInstance;
 import com.google.walkaround.wave.server.servlet.PageSkinWriter;
 
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
 import org.waveprotocol.wave.model.id.WaveId;
+import org.waveprotocol.wave.model.id.WaveletId;
+import org.waveprotocol.wave.model.id.WaveletName;
 import org.waveprotocol.wave.model.util.Pair;
 import org.waveprotocol.wave.model.wave.ParticipantId;
 
@@ -84,40 +90,39 @@ public class ImportOverviewHandler extends AbstractHandler {
   @Inject PageSkinWriter pageSkinWriter;
   @Inject UserContext userContext;
 
-  private List<String> getTasksInProgress(CheckedTransaction tx)
-      throws RetryableFailure, PermanentFailure {
-    ImmutableList.Builder<String> out = ImmutableList.builder();
-    List<ImportTask> tasks = perUserTable.get().getAllTasks(tx, userId);
-    for (ImportTask task : tasks) {
-      out.add(taskDispatcher.describeTask(task));
-    }
-    return out.build();
+  private String makeLocalWaveLink(SlobId convSlobId) {
+    return "/wave?id=" + UriEscapers.uriQueryStringEscaper(false).escape(convSlobId.getId());
   }
 
-  private List<ImportWaveDisplayRecord> getWaves(CheckedTransaction tx)
+  private List<ImportWaveletDisplayRecord> getWaves(CheckedTransaction tx,
+      Multimap<Pair<SourceInstance, WaveletName>, ImportSharingMode> importsInProgress)
       throws RetryableFailure, PermanentFailure {
-    ImmutableList.Builder<ImportWaveDisplayRecord> out = ImmutableList.builder();
-    List<RemoteWave> waves = perUserTable.get().getAllWaves(tx, userId);
-    for (RemoteWave wave : waves) {
-      WaveId waveId = WaveId.deserialise(wave.getDigest().getWaveId());
+    ImmutableList.Builder<ImportWaveletDisplayRecord> out = ImmutableList.builder();
+    List<RemoteConvWavelet> wavelets = perUserTable.get().getAllWavelets(tx, userId);
+    for (RemoteConvWavelet wavelet : wavelets) {
+      WaveletName waveletName = WaveletName.of(
+          WaveId.deserialise(wavelet.getDigest().getWaveId()),
+          wavelet.getWaveletId());
       out.add(
-          new ImportWaveDisplayRecord(
-              wave.getSourceInstance(),
-              waveId,
-              wave.getSourceInstance().getWaveLink(waveId),
+          new ImportWaveletDisplayRecord(
+              wavelet.getSourceInstance(),
+              waveletName,
+              wavelet.getSourceInstance().getWaveLink(waveletName.waveId),
               // Let's assume that participant 0 is the creator even if that's not always true.
               // Participant lists can be empty.
-              wave.getDigest().getParticipantSize() == 0
+              wavelet.getDigest().getParticipantSize() == 0
                   ? "<unknown>"
-                  : wave.getDigest().getParticipant(0),
-              wave.getDigest().getTitle(),
-              "" + new LocalDate(new Instant(wave.getDigest().getLastModifiedMillis())),
-              // TODO(ohler): implement this.
-              "?",
-              // The robot API only allows access to waves with ids that start with "w".
-              waveId.getId().startsWith("w+"),
-              // TODO(ohler): implement this.
-              null));
+                  : wavelet.getDigest().getParticipant(0),
+              wavelet.getDigest().getTitle(),
+              "" + new LocalDate(new Instant(wavelet.getDigest().getLastModifiedMillis())),
+              importsInProgress.containsEntry(Pair.of(wavelet.getSourceInstance(), waveletName),
+                  ImportSharingMode.PRIVATE),
+              wavelet.getPrivateLocalId() == null ? null
+                  : makeLocalWaveLink(wavelet.getPrivateLocalId()),
+              importsInProgress.containsEntry(Pair.of(wavelet.getSourceInstance(), waveletName),
+                  ImportSharingMode.SHARED),
+              wavelet.getSharedLocalId() == null ? null
+                  : makeLocalWaveLink(wavelet.getSharedLocalId())));
     }
     return out.build();
   }
@@ -138,20 +143,30 @@ public class ImportOverviewHandler extends AbstractHandler {
     return out.toString();
   }
 
+  private List<String> describeTasks(List<ImportTask> tasks) {
+    ImmutableList.Builder<String> out = ImmutableList.builder();
+    for (ImportTask task : tasks) {
+      out.add(taskDispatcher.describeTask(task));
+    }
+    return out.build();
+  }
+
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     if (!userContext.hasOAuthCredentials()) {
       throw new NeedNewOAuthTokenException("No OAuth credentials: " + userContext);
     }
-    Pair<List<String>, List<ImportWaveDisplayRecord>> pair;
+    Pair<List<String>, List<ImportWaveletDisplayRecord>> pair;
     try {
       pair = new RetryHelper().run(
-          new RetryHelper.Body<Pair<List<String>, List<ImportWaveDisplayRecord>>>() {
-            @Override public Pair<List<String>, List<ImportWaveDisplayRecord>> run()
+          new RetryHelper.Body<Pair<List<String>, List<ImportWaveletDisplayRecord>>>() {
+            @Override public Pair<List<String>, List<ImportWaveletDisplayRecord>> run()
                 throws RetryableFailure, PermanentFailure {
               CheckedTransaction tx = datastore.get().beginTransaction();
               try {
-                return Pair.of(getTasksInProgress(tx), getWaves(tx));
+                List<ImportTask> tasksInProgress = perUserTable.get().getAllTasks(tx, userId);
+                return Pair.of(describeTasks(tasksInProgress),
+                    getWaves(tx, taskDispatcher.waveletImportsInProgress(tasksInProgress)));
               } finally {
                 tx.rollback();
               }
@@ -161,7 +176,7 @@ public class ImportOverviewHandler extends AbstractHandler {
       throw new IOException("PermanentFailure retrieving import records", e);
     }
     List<String> tasksInProgress = pair.getFirst();
-    List<ImportWaveDisplayRecord> waveDisplayRecords = pair.getSecond();
+    List<ImportWaveletDisplayRecord> waveDisplayRecords = pair.getSecond();
     final String instanceSelectionHtml = getInstanceSelectionHtml();
     resp.setContentType("text/html");
     resp.setCharacterEncoding("UTF-8");
@@ -205,16 +220,25 @@ public class ImportOverviewHandler extends AbstractHandler {
       } catch (PermanentFailure e) {
         throw new RuntimeException("PermanentFailure writing initial tasks", e);
       }
-    } else if ("importwave".equals(action)) {
+    } else if ("importwavelet".equals(action)) {
       SourceInstance instance =
           sourceInstanceFactory.parseUnchecked(requireParameter(req, "instance"));
       WaveId waveId = WaveId.deserialise(requireParameter(req, "waveid"));
-      ImportWaveTask task = new ImportWaveTaskGsonImpl();
+      WaveletId waveletId = WaveletId.deserialise(requireParameter(req, "waveletid"));
+      ImportWaveletTask task = new ImportWaveletTaskGsonImpl();
       task.setInstance(instance.serialize());
       task.setWaveId(waveId.serialise());
+      task.setWaveletId(waveletId.serialise());
+      if ("private".equals(requireParameter(req, "sharingmode"))) {
+        task.setSharingMode(ImportWaveletTask.ImportSharingMode.PRIVATE);
+      } else if ("shared".equals(requireParameter(req, "sharingmode"))) {
+        task.setSharingMode(ImportWaveletTask.ImportSharingMode.SHARED);
+      } else {
+        throw new BadRequestException("Unexpected import sharing mode");
+      }
       final ImportTaskPayload payload = new ImportTaskPayloadGsonImpl();
-      payload.setImportWaveTask(task);
-      log.info("Enqueueing task import task for " + waveId);
+      payload.setImportWaveletTask(task);
+      log.info("Enqueueing import task for " + waveId);
       try {
         new RetryHelper().run(new RetryHelper.VoidBody() {
           @Override public void run() throws RetryableFailure, PermanentFailure {

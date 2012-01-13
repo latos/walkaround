@@ -77,7 +77,7 @@ public class HistorySynthesizer {
     return new AddParticipant(getContext(author, timestampMillis), ParticipantId.ofUnsafe(userId));
   }
 
-  private WaveletOperation newRemoveParticipant(
+  public static WaveletOperation newRemoveParticipant(
       String author, long timestampMillis, String userId) {
     return new RemoveParticipant(getContext(author, timestampMillis),
         ParticipantId.ofUnsafe(userId));

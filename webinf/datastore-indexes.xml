@@ -31,7 +31,7 @@
     <property name="p" direction="asc"/>
     <property name="lastModified" direction="desc"/>
   </datastore-index>
-  <datastore-index kind="ImportWave" ancestor="true">
+  <datastore-index kind="ImportWavelet" ancestor="true">
     <property name="lastModified" direction="desc"/>
   </datastore-index>
 </datastore-indexes>

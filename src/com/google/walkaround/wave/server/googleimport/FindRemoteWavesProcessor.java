@@ -18,6 +18,7 @@ package com.google.walkaround.wave.server.googleimport;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
 import com.google.inject.Inject;
@@ -36,6 +37,9 @@ import com.google.walkaround.wave.server.auth.StableUserId;
 import com.google.walkaround.wave.server.gxp.SourceInstance;
 
 import org.joda.time.LocalDate;
+import org.waveprotocol.wave.model.id.IdUtil;
+import org.waveprotocol.wave.model.id.WaveId;
+import org.waveprotocol.wave.model.id.WaveletId;
 import org.waveprotocol.wave.model.util.Pair;
 
 import java.io.IOException;
@@ -205,29 +209,51 @@ public class FindRemoteWavesProcessor {
   }
 
   // Transaction limit is 500 entities but let's stay well below that.
-  private static final int MAX_DIGESTS_PER_TRANSACTION = 300;
+  private static final int MAX_WAVELETS_PER_TRANSACTION = 300;
 
-  private void storeResults(final SourceInstance instance, final List<RobotSearchDigest> results)
-      throws PermanentFailure {
-    if (results.size() > MAX_DIGESTS_PER_TRANSACTION) {
-      storeResults(instance, results.subList(0, MAX_DIGESTS_PER_TRANSACTION));
-      storeResults(instance, results.subList(MAX_DIGESTS_PER_TRANSACTION, results.size()));
-      return;
-    }
-    new RetryHelper().run(
-        new RetryHelper.VoidBody() {
-          @Override public void run() throws RetryableFailure, PermanentFailure {
-            CheckedTransaction tx = datastore.beginTransaction();
-            try {
-              if (perUserTable.addRemoteWaves(tx, userId, instance, results)) {
-                tx.commit();
+  private void storeResults(List<RemoteConvWavelet> results) throws PermanentFailure {
+    for (final List<RemoteConvWavelet> partition
+        : Iterables.partition(results, MAX_WAVELETS_PER_TRANSACTION)) {
+      new RetryHelper().run(
+          new RetryHelper.VoidBody() {
+            @Override public void run() throws RetryableFailure, PermanentFailure {
+              CheckedTransaction tx = datastore.beginTransaction();
+              try {
+                if (perUserTable.addRemoteWavelets(tx, userId, partition)) {
+                  tx.commit();
+                }
+              } finally {
+                tx.close();
               }
-            } finally {
-              tx.close();
             }
-          }
-        });
+          });
+    }
     log.info("Successfully added " + results.size() + " remote waves");
+  }
+
+  private List<RemoteConvWavelet> expandPrivateReplies(SourceInstance instance,
+      List<RobotSearchDigest> digests) throws IOException {
+    RobotApi api = robotApiFactory.create(instance.getApiUrl());
+    ImmutableList.Builder<RemoteConvWavelet> wavelets = ImmutableList.builder();
+    for (RobotSearchDigest digest : digests) {
+      WaveId waveId = WaveId.deserialise(digest.getWaveId());
+      // The robot API only allows access to waves with ids that start with "w".
+      if (!waveId.getId().startsWith(IdUtil.WAVE_PREFIX + "+")) {
+        log.info("Wave " + waveId + " not accessible through Robot API, skipping");
+      } else {
+        log.info("Getting wave view for " + waveId);
+        List<WaveletId> waveletIds = api.getWaveView(waveId);
+        log.info("Wave view for " + waveId + ": " + waveletIds);
+        for (WaveletId waveletId : waveletIds) {
+          if (IdUtil.isConversationalId(waveletId)) {
+            wavelets.add(new RemoteConvWavelet(instance, digest, waveletId, null, null));
+          } else {
+            log.info("Skipping non-conv wavelet " + waveletId);
+          }
+        }
+      }
+    }
+    return wavelets.build();
   }
 
   public void findWaves(FindRemoteWavesTask task) throws IOException, PermanentFailure {
@@ -238,7 +264,7 @@ public class FindRemoteWavesProcessor {
     if (results.isEmpty()) {
       return;
     }
-    storeResults(instance, results);
+    storeResults(expandPrivateReplies(instance, results));
     if (results.size() >= MAX_RESULTS) {
       // Result list is most likely truncated, repeat with smaller intervals.
       log.info("Got " + results.size() + " results between "  + onOrAfterDays + " and " + beforeDays

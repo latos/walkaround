@@ -17,15 +17,24 @@
 package com.google.walkaround.wave.server.googleimport;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableSetMultimap;
+import com.google.common.collect.Multimap;
 import com.google.inject.Inject;
 import com.google.walkaround.proto.FindRemoteWavesTask;
-import com.google.walkaround.proto.ImportWaveTask;
+import com.google.walkaround.proto.ImportWaveletTask;
+import com.google.walkaround.proto.ImportWaveletTask.ImportSharingMode;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.wave.server.gxp.SourceInstance;
+
+import org.waveprotocol.wave.model.id.WaveId;
+import org.waveprotocol.wave.model.id.WaveletId;
+import org.waveprotocol.wave.model.id.WaveletName;
+import org.waveprotocol.wave.model.util.Pair;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -40,12 +49,12 @@ public class TaskDispatcher {
 
   private final SourceInstance.Factory sourceInstanceFactory;
   private final FindRemoteWavesProcessor findWavesProcessor;
-  private final ImportWaveProcessor importWaveProcessor;
+  private final ImportWaveletProcessor importWaveProcessor;
 
   @Inject
   public TaskDispatcher(SourceInstance.Factory sourceInstanceFactory,
       FindRemoteWavesProcessor findWavesProcessor,
-      ImportWaveProcessor importWaveProcessor) {
+      ImportWaveletProcessor importWaveProcessor) {
     this.sourceInstanceFactory = sourceInstanceFactory;
     this.findWavesProcessor = findWavesProcessor;
     this.importWaveProcessor = importWaveProcessor;
@@ -77,14 +86,46 @@ public class TaskDispatcher {
           + sourceInstanceFactory.parseUnchecked(t.getInstance()).getShortName()
           + " between " + DaysSinceEpoch.toLocalDate(t.getOnOrAfterDays())
           + " and " + DaysSinceEpoch.toLocalDate(t.getBeforeDays());
-    } else if (task.getPayload().hasImportWaveTask()) {
-      ImportWaveTask t = task.getPayload().getImportWaveTask();
+    } else if (task.getPayload().hasImportWaveletTask()) {
+      ImportWaveletTask t = task.getPayload().getImportWaveletTask();
+      String sharingMode;
+      switch (t.getSharingMode()) {
+        case PRIVATE:
+          sharingMode = "Private";
+          break;
+        case SHARED:
+          sharingMode = "Shared";
+          break;
+        default:
+          throw new AssertionError("Unexpected SharingMode: " + t.getSharingMode());
+      }
       return taskAgePrefix(task)
-          + "Import wave " + t.getWaveId()
+          + sharingMode + " import of wavelet " + t.getWaveId() + " " + t.getWaveletId()
           + " from " + sourceInstanceFactory.parseUnchecked(t.getInstance()).getShortName();
     } else {
       throw new AssertionError("Unknown task payload type: " + task);
     }
+  }
+
+  public Multimap<Pair<SourceInstance, WaveletName>, ImportSharingMode> waveletImportsInProgress(
+      List<ImportTask> tasksInProgress) {
+    ImmutableSetMultimap.Builder<Pair<SourceInstance, WaveletName>, ImportSharingMode> out =
+        ImmutableSetMultimap.builder();
+    for (ImportTask task : tasksInProgress) {
+      if (task.getPayload().hasFindWavesTask()) {
+        // nothing
+      } else if (task.getPayload().hasImportWaveletTask()) {
+        ImportWaveletTask t = task.getPayload().getImportWaveletTask();
+        out.put(
+            Pair.of(sourceInstanceFactory.parseUnchecked(t.getInstance()),
+                WaveletName.of(WaveId.deserialise(t.getWaveId()),
+                    WaveletId.deserialise(t.getWaveletId()))),
+            t.getSharingMode());
+      } else {
+        throw new AssertionError("Unknown task payload type: " + task);
+      }
+    }
+    return out.build();
   }
 
   private boolean exactlyOneTrue(Boolean... args) {
@@ -94,13 +135,13 @@ public class TaskDispatcher {
   public void processTask(ImportTask task) throws IOException {
     Preconditions.checkArgument(exactlyOneTrue(
             task.getPayload().hasFindWavesTask(),
-            task.getPayload().hasImportWaveTask()),
+            task.getPayload().hasImportWaveletTask()),
         "Need exactly one type of payload: %s", task);
     try {
       if (task.getPayload().hasFindWavesTask()) {
         findWavesProcessor.findWaves(task.getPayload().getFindWavesTask());
-      } else if (task.getPayload().hasImportWaveTask()) {
-        importWaveProcessor.importWave(task.getPayload().getImportWaveTask());
+      } else if (task.getPayload().hasImportWaveletTask()) {
+        importWaveProcessor.importWavelet(task.getPayload().getImportWaveletTask());
       } else {
         throw new AssertionError("Unknown task payload type: " + task);
       }

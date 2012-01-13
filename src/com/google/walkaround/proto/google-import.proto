@@ -135,12 +135,25 @@ message FindRemoteWavesTask {
   required int64 before_days = 3;
 }
 
-// Task to import a wave.
-message ImportWaveTask {
+// Task to import a wavelet.
+message ImportWaveletTask {
+  // Apparently, PST throws NullPointerExceptions on top-level enums,
+  // so this is nested.
+  enum ImportSharingMode {
+    // Importing user will be the only participant on the wavelet.
+    PRIVATE = 0;
+    // Imported wavelet will be shared between all original participants.
+    SHARED = 1;
+  }
+
   // Source instance in serialized form.
   required string instance = 1;
-  // Wave to import (including all private replies).
+  // Wave from which to import a wavelet.
   required string wave_id = 2;
+  // Wavelet to import.  Must be conversational.
+  required string wavelet_id = 3;
+  // Whether to use private or shared import.
+  required ImportSharingMode sharing_mode = 4;
 }
 
 // An import task scheduled for execution through the task queue.  We
@@ -153,5 +166,5 @@ message ImportTaskPayload {
 
   // Exactly one of the following fields must be set.
   optional FindRemoteWavesTask find_waves_task = 1;
-  optional ImportWaveTask import_wave_task = 2;
+  optional ImportWaveletTask import_wavelet_task = 2;
 }

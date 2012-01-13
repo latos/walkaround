@@ -29,21 +29,25 @@ import org.waveprotocol.wave.model.document.raw.impl.Node;
 import org.waveprotocol.wave.model.document.raw.impl.Text;
 import org.waveprotocol.wave.model.document.util.DocProviders;
 import org.waveprotocol.wave.model.operation.OperationException;
+import org.waveprotocol.wave.model.util.Pair;
 
 /**
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class DocumentHistoryConverter {
 
-  private final Function<Nindo, Nindo> nindoConverter;
+  private final String documentId;
+  private final Function<Pair<String, Nindo>, Nindo> nindoConverter;
   private final IndexedDocument<Node, Element, Text> doc = DocProviders.POJO.parse("");
 
-  public DocumentHistoryConverter(Function<Nindo, Nindo> nindoConverter) {
+  public DocumentHistoryConverter(String documentId,
+      Function<Pair<String, Nindo>, Nindo> nindoConverter) {
+    this.documentId = checkNotNull(documentId, "Null documentId");
     this.nindoConverter = checkNotNull(nindoConverter, "Null nindoConverter");
   }
 
   public DocOp convertAndApply(Nindo old) throws OperationException {
-    return doc.consumeAndReturnInvertible(nindoConverter.apply(old));
+    return doc.consumeAndReturnInvertible(nindoConverter.apply(Pair.of(documentId, old)));
   }
 
   public DocOp convertAndApply(DocOp old) throws OperationException {
