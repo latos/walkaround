@@ -61,7 +61,7 @@ public class StoreViewHandler extends AbstractHandler {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    String storeType = optionalParameter(req, "storeType", "CONV");
+    String storeType = optionalParameter(req, "storeType", "Wavelet");
     String id = optionalParameter(req, "id", "");
     String snapshotVersion = optionalParameter(req, "snapshotVersion", "");
     String historyStart = optionalParameter(req, "historyStart", "0");
