@@ -79,7 +79,8 @@ class WalkaroundAttachment implements Attachment {
 
   @Override
   public String getAttachmentUrl() {
-    return data.getString("url");
+    // HACK(ohler): Never return a null URL here, that would trigger bug 45.
+    return data.getString("url") == null ? "/brokenimage" : data.getString("url");
   }
 
   @Override
