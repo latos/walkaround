@@ -22,22 +22,27 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.MemcacheTable;
+import com.google.walkaround.util.server.servlet.NotFoundException;
+import com.google.walkaround.util.shared.Assert;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
 import com.google.walkaround.wave.server.attachment.AttachmentMetadata.ImageMetadata;
 import com.google.walkaround.wave.server.attachment.ThumbnailDirectory.ThumbnailData;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,12 +61,13 @@ public class AttachmentService {
 
   static final int INVALID_ID_CACHE_EXPIRY_SECONDS = 600;
 
-  private static final String MEMCACHE_TAG = "AT";
+  private static final String MEMCACHE_TAG = "AT2";
 
   private final RawAttachmentService rawService;
   private final BlobstoreService blobstore;
   private final MetadataDirectory metadataDirectory;
-  private final MemcacheTable<BlobKey, AttachmentMetadata> metadataCache;
+  // We cache Optional.absent() for invalid attachment ids.
+  private final MemcacheTable<AttachmentId, Optional<AttachmentMetadata>> metadataCache;
   private final ThumbnailDirectory thumbnailDirectory;
   private final int maxThumbnailSavedSizeBytes;
 
@@ -91,7 +97,6 @@ public class AttachmentService {
       resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
       return true;
     }
-
     return false;
   }
 
@@ -99,14 +104,17 @@ public class AttachmentService {
    * Serves the attachment with cache control.
    *
    * @param req Only used to check the If-Modified-Since header.
-   * @throws IOException
    */
-  public void serveDownload(String id,
+  public void serveDownload(AttachmentId id,
       HttpServletRequest req, HttpServletResponse resp) throws IOException {
     if (maybeCached(req, resp, "download, id=" + id)) {
       return;
     }
-    BlobKey key = new BlobKey(id);
+    AttachmentMetadata metadata = getMetadata(id);
+    if (metadata == null) {
+      throw NotFoundException.withInternalMessage("Attachment id unknown: " + id);
+    }
+    BlobKey key = metadata.getBlobKey();
     BlobInfo info = new BlobInfoFactory().loadBlobInfo(key);
     String disposition = "attachment; filename=\""
         // TODO(ohler): Investigate what escaping we need here, and whether the
@@ -119,15 +127,16 @@ public class AttachmentService {
     blobstore.serve(key, resp);
   }
 
-  public Void serveThumbnail(String id,
+  public Void serveThumbnail(AttachmentId id,
       HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
     if (maybeCached(req, resp, "thumbnail, id=" + id)) {
       return null;
     }
-
-    BlobKey key = new BlobKey(id);
-
+    AttachmentMetadata metadata = getMetadata(id);
+    if (metadata == null) {
+      throw NotFoundException.withInternalMessage("Attachment id unknown: " + id);
+    }
+    BlobKey key = metadata.getBlobKey();
     // TODO(danilatos): Factor out some of this code into a separate method so that
     // thumbnails can be eagerly created at upload time.
     ThumbnailData thumbnail = thumbnailDirectory.get(key);
@@ -135,19 +144,11 @@ public class AttachmentService {
     if (thumbnail == null) {
       log.info("Generating and storing thumbnail for " + key);
 
-      AttachmentMetadata metadata;
-      metadata = getMetadata(Arrays.asList(id), -1).get(id);
-      assert metadata != null;
-
-      if (!metadata.isValid()) {
-        return send404(resp, id, "Attachment not found");
-      }
-
       ImageMetadata thumbDimensions = metadata.getThumbnail();
 
       if (thumbDimensions == null) {
         // TODO(danilatos): Provide a default thumbnail
-        return send404(resp, id, "No thumbnail available");
+        throw NotFoundException.withInternalMessage("No thumbnail available for attachment " + id);
       }
 
       byte[] thumbnailBytes = rawService.getResizedImageBytes(key,
@@ -159,7 +160,7 @@ public class AttachmentService {
         log.warning("Thumbnail for " + key + " too large to store " +
             "(" + thumbnailBytes.length + " bytes)");
         // TODO(danilatos): Cache this condition in memcache.
-        return send404(resp, id, "Thumbnail too large");
+        throw NotFoundException.withInternalMessage("Thumbnail too large for attachment " + id);
       }
 
       thumbnailDirectory.getOrAdd(thumbnail);
@@ -174,84 +175,56 @@ public class AttachmentService {
     return null;
   }
 
-  private Void send404(HttpServletResponse resp, String id, String message) throws IOException {
-    log.info("Serving 404 for id " + id + ": " + message);
-    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-    resp.getWriter().println(message);
-    return null;
+  @Nullable public AttachmentMetadata getMetadata(AttachmentId id) throws IOException {
+    Preconditions.checkNotNull(id, "Null id");
+    Map<AttachmentId, Optional<AttachmentMetadata>> result =
+        getMetadata(ImmutableList.of(id), null);
+    return result.get(id).isPresent() ? result.get(id).get() : null;
   }
 
   /**
-   * @param ids attachment ids
    * @param maxTimeMillis Maximum time to take. -1 for indefinite. If the time
    *          runs out, some data may not be returned, so the resulting map may
    *          be missing some of the input ids. Callers may retry to get the
    *          remaining data for the missing ids.
    *
    * @return a map of input id to attachment metadata for each id. invalid ids
-   *         will still map to a metadata object whose
-   *         {@link AttachmentMetadata#isValid()} method returns false. Some ids
-   *         may be missing due to the time limit.
+   *         will map to Optional.absent(). Some ids may be missing due to the time limit.
    *
    *         At least one id is guaranteed to be returned.
-   *
-   * @throws IOException
    */
-  public Map<String, AttachmentMetadata> getMetadata(List<String> ids, int maxTimeMillis)
-      throws IOException {
-
+  public Map<AttachmentId, Optional<AttachmentMetadata>> getMetadata(List<AttachmentId> ids,
+      @Nullable Long maxTimeMillis) throws IOException {
     Stopwatch stopwatch = new Stopwatch().start();
-    Map<String, AttachmentMetadata> result = Maps.newHashMap();
-
-    for (String id : ids) {
+    Map<AttachmentId, Optional<AttachmentMetadata>> result = Maps.newHashMap();
+    for (AttachmentId id : ids) {
       // TODO(danilatos): To optimise, re-arrange the code so that
       //   1. Query all the ids from memcache in one go
       //   2. Those that failed, query all remaining ids from the data store in one go
       //   3. Finally, query all remaining ids from the raw service in one go (the
       //      raw service api should be changed to accept a list, and it needs to
       //      query the __BlobInfo__ entities directly.
-
-      final BlobKey key = new BlobKey(id);
-
-      // First, try memcache
-      AttachmentMetadata metadata = metadataCache.get(key);
-
-      // Next, try the datastore, and save back to memcache if successfull
+      Optional<AttachmentMetadata> metadata = metadataCache.get(id);
       if (metadata == null) {
-        metadata = metadataDirectory.get(key);
-
-        if (metadata != null) {
-          metadataCache.put(key, metadata);
-
+        AttachmentMetadata storedMetadata = metadataDirectory.get(id);
+        if (storedMetadata != null) {
+          metadata = Optional.of(storedMetadata);
+          metadataCache.put(id, metadata);
         } else {
-          // Finally, if all else fails, use the raw data.
-          metadata = rawService.getMetadata(key);
-
-          if (metadata == null) {
-            // This should not normally happen.
-            // Let's cache failure for now for a few minutes, but we never
-            // want to record this in the datastore.
-            metadata = AttachmentMetadata.createInvalid(key);
-            metadataCache.put(key, metadata,
+          metadata = Optional.absent();
+          metadataCache.put(id, metadata,
                 Expiration.byDeltaSeconds(INVALID_ID_CACHE_EXPIRY_SECONDS),
                 MemcacheService.SetPolicy.ADD_ONLY_IF_NOT_PRESENT);
-          } else {
-            metadataCache.put(key, metadata);
-            metadataDirectory.getOrAdd(metadata);
-          }
         }
       }
-
-      assert metadata != null : "Even invalid metadata should not result in null";
+      Assert.check(metadata != null, "Null metadata");
       result.put(id, metadata);
 
-      if (maxTimeMillis != -1 && stopwatch.elapsedMillis() > maxTimeMillis) {
+      if (maxTimeMillis != null && stopwatch.elapsedMillis() > maxTimeMillis) {
         break;
       }
     }
-
-    assert !result.isEmpty() : "Should return at least one id";
-
+    Assert.check(!result.isEmpty(), "Should return at least one id");
     return result;
   }
 }

@@ -60,7 +60,6 @@ import com.google.walkaround.wave.server.attachment.AttachmentDownloadHandler;
 import com.google.walkaround.wave.server.attachment.AttachmentFormHandler;
 import com.google.walkaround.wave.server.attachment.AttachmentMetadataHandler;
 import com.google.walkaround.wave.server.attachment.AttachmentUploadHandler;
-import com.google.walkaround.wave.server.attachment.AttachmentUploadResultHandler;
 import com.google.walkaround.wave.server.auth.DeleteOAuthTokenHandler;
 import com.google.walkaround.wave.server.auth.InteractiveAuthFilter;
 import com.google.walkaround.wave.server.auth.OAuthCallbackHandler;
@@ -146,7 +145,6 @@ public class WalkaroundServletModule extends ServletModule {
 
           // Other stuff.
           .put("/upload", AttachmentUploadHandler.class)
-          .put("/uploadresult", AttachmentUploadResultHandler.class)
           .put("/uploadform", AttachmentFormHandler.class)
           .put("/download", AttachmentDownloadHandler.class)
           .put("/thumbnail", AttachmentDownloadHandler.class)

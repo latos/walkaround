@@ -64,8 +64,8 @@ public class RawAttachmentService {
     this.headerBytesUpperBound = headerBytesUpperBound;
   }
 
-  public AttachmentMetadata getMetadata(BlobKey blobKey) {
-    log.info("Fetching attachment metadata for " + blobKey);
+  public AttachmentMetadata computeMetadata(AttachmentId id, BlobKey blobKey) {
+    log.info("Computing attachment metadata for " + blobKey + " with id " + id);
     try {
       BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);
 
@@ -96,7 +96,7 @@ public class RawAttachmentService {
           log.warning("Unimplemented: Thumbnails for non-images");
         }
 
-        return new AttachmentMetadata(blobKey, data);
+        return new AttachmentMetadata(id, blobKey, data);
       }
 
       return null;

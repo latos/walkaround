@@ -16,6 +16,8 @@
 
 package com.google.walkaround.wave.server.attachment;
 
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.common.net.UriEscapers;
 import com.google.inject.Inject;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
@@ -25,8 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,8 +47,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AttachmentMetadataHandler extends AbstractHandler {
   /** Avoid doing too much work at once so the client can get incremental being loaded */
-  private static final int MAX_REQUEST_TIME_MS = 4 * 1000;
+  private static final long MAX_REQUEST_TIME_MS = 4 * 1000;
 
+  private static final String INVALID_ATTACHMENT_ID_METADATA_STRING = "{}";
 
   private final AttachmentService attachments;
 
@@ -64,19 +68,28 @@ public class AttachmentMetadataHandler extends AbstractHandler {
     doRequest(req, resp);
   }
 
-  private void doRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    Map<String, AttachmentMetadata> result = attachments.getMetadata(
-        Arrays.asList(requireParameter(req, "ids").split(",")), MAX_REQUEST_TIME_MS);
+  private List<AttachmentId> getIds(HttpServletRequest req) {
+    ImmutableList.Builder<AttachmentId> out = ImmutableList.builder();
+    for (String id : requireParameter(req, "ids").split(",", -1)) {
+      out.add(new AttachmentId(id));
+    }
+    return out.build();
+  }
 
+  private void doRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    Map<AttachmentId, Optional<AttachmentMetadata>> result = attachments.getMetadata(
+        getIds(req), MAX_REQUEST_TIME_MS);
     JSONObject json = new JSONObject();
     try {
-      for (Map.Entry<String, AttachmentMetadata> entry : result.entrySet()) {
-        JSONObject metadata = new JSONObject(entry.getValue().getMetadataJsonString());
+      for (Entry<AttachmentId, Optional<AttachmentMetadata>> entry : result.entrySet()) {
+        JSONObject metadata = new JSONObject(
+            entry.getValue().isPresent() ? entry.getValue().get().getMetadataJsonString()
+                : INVALID_ATTACHMENT_ID_METADATA_STRING);
         String queryParams = "attachment=" +
-            UriEscapers.uriQueryStringEscaper(false).escape(entry.getKey());
+            UriEscapers.uriQueryStringEscaper(false).escape(entry.getKey().getId());
         metadata.put("url", "/download?" + queryParams);
         metadata.put("thumbnailUrl", "/thumbnail?" + queryParams);
-        json.put(entry.getKey(), metadata);
+        json.put(entry.getKey().getId(), metadata);
       }
     } catch (JSONException e) {
       throw new Error(e);

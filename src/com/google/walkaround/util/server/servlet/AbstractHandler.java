@@ -16,7 +16,10 @@
 
 package com.google.walkaround.util.server.servlet;
 
+import com.google.common.collect.ImmutableList;
+
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -61,6 +64,11 @@ public abstract class AbstractHandler {
       throw new BadRequestException("Missing parameter: " + key);
     }
     return value;
+  }
+
+  public static List<String> getParameters(HttpServletRequest req, String key) {
+    String[] values = getParameterMap(req).get(key);
+    return values == null ? ImmutableList.<String>of() : ImmutableList.copyOf(values);
   }
 
   public static String optionalParameter(HttpServletRequest req, String key,

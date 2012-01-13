@@ -18,6 +18,7 @@ package com.google.walkaround.wave.server.attachment;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.common.base.Preconditions;
+import com.google.walkaround.util.shared.Assert;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,40 +42,36 @@ public class AttachmentMetadata implements Serializable {
     public int getHeight();
   }
 
-  private final BlobKey id;
+  private final AttachmentId id;
+  private final BlobKey blobKey;
   // String for Serializable
   private final String rawMetadata;
-  // Might be null despite Preconditions checks, thanks to Serializable.
+  // Parsed version of rawMetadata.
   private transient JSONObject maybeMetadata;
-  // We don't want to persist this to the data store, it's just for memcache.
-  private boolean isValid = true;
 
-  /**
-   * @return "Invalid" metadata. Useful as a marker.
-   */
-  public static AttachmentMetadata createInvalid(BlobKey id) {
-    try {
-      AttachmentMetadata m = new AttachmentMetadata(id, new JSONObject("{}"));
-      m.isValid = false;
-      return m;
-    } catch (JSONException e) {
-      throw new Error(e);
-    }
-  }
-
-  public AttachmentMetadata(BlobKey id, JSONObject metadata) {
+  public AttachmentMetadata(AttachmentId id, BlobKey blobKey, JSONObject metadata) {
     this.id = Preconditions.checkNotNull(id, "null id");
+    this.blobKey = Preconditions.checkNotNull(blobKey, "null blobKey");
     this.maybeMetadata = Preconditions.checkNotNull(metadata, "null metadata");
     this.rawMetadata = metadata.toString();
   }
 
-  public BlobKey getId() {
+  @Override
+  public String toString() {
+    return "AttachmentMetadata(" + id + ", " + blobKey + ", " + rawMetadata + ")";
+  }
+
+  public AttachmentId getId() {
     return id;
+  }
+
+  public BlobKey getBlobKey() {
+    return blobKey;
   }
 
   private JSONObject getMetadata() {
     if (maybeMetadata == null) {
-      assert rawMetadata != null;
+      Assert.check(rawMetadata != null, "rawMetadata is null");
       try {
         maybeMetadata = new JSONObject(rawMetadata);
       } catch (JSONException e) {
@@ -86,10 +83,6 @@ public class AttachmentMetadata implements Serializable {
 
   public String getMetadataJsonString() {
     return rawMetadata;
-  }
-
-  public boolean isValid() {
-    return isValid;
   }
 
   public ImageMetadata getImage() {
@@ -130,8 +123,4 @@ public class AttachmentMetadata implements Serializable {
     };
   }
 
-  @Override
-  public String toString() {
-    return "AttachmentMetadata" + (isValid ? rawMetadata : "(invalid)");
-  }
 }

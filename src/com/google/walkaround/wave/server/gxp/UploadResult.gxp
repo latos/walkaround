@@ -31,11 +31,7 @@
     <head>
       <title><gxp:msg>Upload Result</gxp:msg></title>
       <script type='text/javascript'>
-        <gxp:cond>
-          <gxp:clause cond='attachmentId != null'>
-            window._attachmentId = <gxp:eval expr='attachmentId'/>;
-          </gxp:clause>
-        </gxp:cond>
+        window._attachmentId = <gxp:eval expr='attachmentId'/>;
       </script>
       <call:AnalyticsFragment expr:account='analyticsAccount'/>
     </head>

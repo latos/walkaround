@@ -25,25 +25,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Downloads and thumbnails attachments
+ * Serves attachments and thumbnails.
  *
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class AttachmentDownloadHandler extends AbstractHandler {
-  private final AttachmentService attachments;
 
-  @Inject
-  public AttachmentDownloadHandler(AttachmentService attachments) {
-    this.attachments = attachments;
-  }
+  @Inject AttachmentService attachments;
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    String id = requireParameter(req, "attachment");
+    AttachmentId id = new AttachmentId(requireParameter(req, "attachment"));
     if (req.getRequestURI().startsWith("/thumbnail")) {
       attachments.serveThumbnail(id, req, resp);
     } else {
       attachments.serveDownload(id, req, resp);
     }
   }
+
 }
