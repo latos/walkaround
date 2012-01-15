@@ -203,8 +203,8 @@ public class LocalMutationProcessor {
       return Collections.unmodifiableList(newDeltas);
     }
 
-    public void append(ChangeData<String> delta) {
-      newDeltas.add(delta);
+    public void appendAll(List<ChangeData<String>> delta) {
+      newDeltas.addAll(delta);
     }
 
     private void ensureDeltasLoadedFrom(long version) throws PermanentFailure, RetryableFailure {
@@ -301,14 +301,12 @@ public class LocalMutationProcessor {
       }
 
       // Stage payloads for writing.
-      for (ChangeData<String> change : transformedChanges) {
-        try {
-          appender.append(change);
-          deltaCache.append(change);
-        } catch (ChangeRejected e) {
-          return logRejection(new UpResult(-1, e));
-        }
+      try {
+        appender.appendAll(transformedChanges);
+      } catch (ChangeRejected e) {
+        return logRejection(new UpResult(-1, e));
       }
+      deltaCache.appendAll(transformedChanges);
 
       log.info("Ops successfully appended (staged for writing)");
       return lastResult = new UpResult(appender.getStagedVersion(), null);

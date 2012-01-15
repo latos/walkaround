@@ -390,14 +390,31 @@ public class MutationLog {
      * Stages a delta for writing, verifying that it is valid (applies cleanly).
      */
     public void append(ChangeData<String> delta) throws ChangeRejected {
-      long oldVersion = state.getVersion();
-      state.apply(delta);
-      DeltaEntry deltaEntry = new DeltaEntry(objectId, oldVersion,
-          new ChangeData<String>(delta.getClientId(), delta.getPayload()));
-      stagedDeltaEntries.add(deltaEntry);
-      long thisDeltaBytes = estimateSizeBytes(deltaEntry);
-      estimatedBytesStaged += thisDeltaBytes;
-      totalDeltaBytesSinceSnapshot += thisDeltaBytes;
+      appendAll(ImmutableList.of(delta));
+    }
+
+    /**
+     * Stage deltas for writing, verifying that they are valid (apply cleanly).
+     * Will append whatever prefix of {@deltas} is valid before throwing
+     * {@link ChangeRejected}.
+     */
+    public void appendAll(List<ChangeData<String>> deltas) throws ChangeRejected {
+      if (deltas.isEmpty()) {
+        // For now, this is a no-op; if we want this to potentially append a
+        // snapshot, we'll need a justification for that.
+        return;
+      }
+      deltas = ImmutableList.copyOf(deltas);
+      for (ChangeData<String> delta : deltas) {
+        long oldVersion = state.getVersion();
+        state.apply(delta);
+        DeltaEntry deltaEntry = new DeltaEntry(objectId, oldVersion,
+            new ChangeData<String>(delta.getClientId(), delta.getPayload()));
+        stagedDeltaEntries.add(deltaEntry);
+        long thisDeltaBytes = estimateSizeBytes(deltaEntry);
+        estimatedBytesStaged += thisDeltaBytes;
+        totalDeltaBytesSinceSnapshot += thisDeltaBytes;
+      }
 
       // TODO(ohler): Avoid computing the snapshot every time since this is
       // costly.  Add a size estimation to slob instead.  We need this anyway to
@@ -413,6 +430,11 @@ public class MutationLog {
       // deltas D.  To keep the amount of data required for this reconstruction
       // within a constant factor of |S| (the size of S), we write S to disk if
       // k * |S| < |P| + |D|, for some constant k.
+      //
+      // Computing the snapshot size |S| currently takes linear time, so when
+      // appending a sequence of deltas, we only do it once at the end, to avoid
+      // taking quadratic time.  This is not a problem with small batches of
+      // operations from clients, but can make imports time out.
       //
       // TODO(ohler): Provide bound on disk space consumption.
       //
@@ -606,7 +628,7 @@ public class MutationLog {
       return reverseDeltasRead;
     }
 
-    public DeltaIteratorProvider getReverseDeltaIteratorProvider() 
+    public DeltaIteratorProvider getReverseDeltaIteratorProvider()
         throws PermanentFailure, RetryableFailure {
       return reverseDeltaIteratorProvider;
     }

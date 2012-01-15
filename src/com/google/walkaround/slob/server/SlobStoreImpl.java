@@ -303,13 +303,10 @@ public class SlobStoreImpl implements SlobStore {
             }
 
             MutationLog.Appender appender = l.prepareAppender().getAppender();
-            for (ChangeData<String> change : initialHistory) {
-              try {
-                appender.append(change);
-              } catch (ChangeRejected e) {
-                throw new IllegalArgumentException("Invalid initial history with change "
-                    + change + " in history " + initialHistory);
-              }
+            try {
+              appender.appendAll(initialHistory);
+            } catch (ChangeRejected e) {
+              throw new IllegalArgumentException("Invalid initial " + initialHistory);
             }
             l.putMetadata(metadata);
             localProcessor.completeTransaction(tx, slobId, appender);

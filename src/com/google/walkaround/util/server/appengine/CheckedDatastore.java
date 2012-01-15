@@ -335,6 +335,9 @@ public class CheckedDatastore {
         log.log(Level.SEVERE, "Exception during rollback, ignoring", e);
       } catch (RetryableFailure e) {
         log.log(Level.WARNING, "Exception during rollback, ignoring", e);
+      } catch (IllegalArgumentException e) {
+        // Datastore gives us IllegalArgumentException when the transaction has timed out.
+        log.log(Level.WARNING, "IllegalArgumentException during rollback, ignoring", e);
       }
     }
 
