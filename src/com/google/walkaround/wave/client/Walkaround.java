@@ -89,10 +89,18 @@ import org.waveprotocol.wave.client.wave.WaveDocuments;
 import org.waveprotocol.wave.client.wavepanel.render.DocumentRegistries.Builder;
 import org.waveprotocol.wave.client.wavepanel.render.HtmlDomRenderer;
 import org.waveprotocol.wave.client.wavepanel.view.BlipView;
+import org.waveprotocol.wave.client.wavepanel.view.ParticipantView;
+import org.waveprotocol.wave.client.wavepanel.view.dom.FullStructure;
 import org.waveprotocol.wave.client.wavepanel.view.dom.ModelAsViewProvider;
+import org.waveprotocol.wave.client.wavepanel.view.dom.ParticipantAvatarDomImpl;
+import org.waveprotocol.wave.client.wavepanel.view.dom.UpgradeableDomAsViewProvider;
 import org.waveprotocol.wave.client.wavepanel.view.dom.full.BlipQueueRenderer;
 import org.waveprotocol.wave.client.wavepanel.view.dom.full.DomRenderer;
 import org.waveprotocol.wave.client.wavepanel.view.dom.full.ParticipantAvatarViewBuilder;
+import org.waveprotocol.wave.client.wavepanel.view.impl.ParticipantViewImpl;
+import org.waveprotocol.wave.client.widget.popup.AlignedPopupPositioner;
+import org.waveprotocol.wave.client.widget.profile.ProfilePopupView;
+import org.waveprotocol.wave.client.widget.profile.ProfilePopupWidget;
 import org.waveprotocol.wave.concurrencycontrol.channel.WaveViewService;
 import org.waveprotocol.wave.model.conversation.Conversation;
 import org.waveprotocol.wave.model.conversation.ConversationBlip;
@@ -252,7 +260,27 @@ public class Walkaround implements EntryPoint {
 
       @Override
       protected AsyncHolder<StageOne> createStageOneLoader(StageZero zero) {
-        return new StageOne.DefaultProvider(zero);
+        return new StageOne.DefaultProvider(zero) {
+          protected final ParticipantViewImpl.Helper<ParticipantAvatarDomImpl> participantHelper =
+              new ParticipantViewImpl.Helper<ParticipantAvatarDomImpl>() {
+                @Override public void remove(ParticipantAvatarDomImpl impl) {
+                  impl.remove();
+                }
+                @Override public ProfilePopupView showParticipation(ParticipantAvatarDomImpl impl) {
+                  return new ProfilePopupWidget(impl.getElement(),
+                      AlignedPopupPositioner.BELOW_RIGHT);
+                }
+              };
+
+          @Override protected UpgradeableDomAsViewProvider createViewProvider() {
+            return new FullStructure(createCssProvider()) {
+              @Override public ParticipantView asParticipant(Element e) {
+                return e == null ? null : new ParticipantViewImpl<ParticipantAvatarDomImpl>(
+                    participantHelper, ParticipantAvatarDomImpl.of(e));
+              }
+            };
+          }
+        };
       }
 
       @Override
@@ -261,7 +289,7 @@ public class Walkaround implements EntryPoint {
           WaveViewData waveData;
           StringMap<DocOp> diffMap = CollectionUtils.createStringMap();
 
-          protected DomRenderer createRenderer() {
+          @Override protected DomRenderer createRenderer() {
             final BlipQueueRenderer pager = getBlipQueue();
             DocRefRenderer docRenderer = new DocRefRenderer() {
                 @Override

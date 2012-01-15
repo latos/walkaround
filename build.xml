@@ -333,6 +333,7 @@
       </classpath>
       <jvmarg value="-Xmx512M"/>
       <arg line="-style OBFUSCATED"/>
+      <!--<arg line="-style DETAILED"/>-->
       <!-- Do not include class and package names in compiled JS. -->
       <arg line="-XdisableClassMetadata"/>
       <arg line="-XdisableCastChecking"/>

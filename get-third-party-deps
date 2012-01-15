@@ -68,6 +68,45 @@ dir third_party_src
   [[ -d trunk ]] || (
     set -x
     svn co -r 1213039 -q https://svn.apache.org/repos/asf/incubator/wave/trunk
+    cd trunk
+    # TODO(ohler): submit to Apache Wave
+    patch -p0 <<EOF
+Index: src/org/waveprotocol/wave/client/wavepanel/view/dom/ParticipantAvatarDomImpl.java
+===================================================================
+--- src/org/waveprotocol/wave/client/wavepanel/view/dom/ParticipantAvatarDomImpl.java	(revision 1213039)
++++ src/org/waveprotocol/wave/client/wavepanel/view/dom/ParticipantAvatarDomImpl.java	(working copy)
+@@ -32,7 +32,7 @@
+     this.self = self.cast();
+   }
+ 
+-  static ParticipantAvatarDomImpl of(Element e) {
++  public static ParticipantAvatarDomImpl of(Element e) {
+     return new ParticipantAvatarDomImpl(e);
+   }
+ 
+@@ -51,7 +51,7 @@
+   // Structure.
+   //
+ 
+-  void remove() {
++  public void remove() {
+     self.removeFromParent();
+   }
+ 
+Index: src/org/waveprotocol/wave/client/wavepanel/view/dom/FullStructure.java
+===================================================================
+--- src/org/waveprotocol/wave/client/wavepanel/view/dom/FullStructure.java	(revision 1213039)
++++ src/org/waveprotocol/wave/client/wavepanel/view/dom/FullStructure.java	(working copy)
+@@ -80,7 +80,7 @@
+  * Implements structural accessors and mutators for wave-panel views.
+  *
+  */
+-public final class FullStructure implements UpgradeableDomAsViewProvider {
++public class FullStructure implements UpgradeableDomAsViewProvider {
+ 
+   /** Mapping of kinds to types. */
+   private static final ReadableStringSet KNOWN_KINDS;
+EOF
   )
   cd trunk
   (
