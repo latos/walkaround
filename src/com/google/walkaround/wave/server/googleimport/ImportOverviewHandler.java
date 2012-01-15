@@ -209,17 +209,13 @@ public class ImportOverviewHandler extends AbstractHandler {
     if ("findwaves".equals(action)) {
       SourceInstance instance =
           sourceInstanceFactory.parseUnchecked(requireParameter(req, "instance"));
-      try {
-        // Rather than enqueuing just one interval 2008-01-01 to 2013-01-01, we
-        // split that interval into random parts.  See the note on randomization
-        // in FindRemoteWavesProcessor.
-        log.info("Enqueueing find waves tasks");
-        findProcessor.get().enqueueRandomTasksForInterval(instance,
+      // Rather than enqueueing just one interval 2008-01-01 to 2013-01-01, we
+      // split that interval into random parts.  See the note on randomization
+      // in FindRemoteWavesProcessor.
+      log.info("Enqueueing find waves tasks");
+      enqueueTasks(findProcessor.get().makeRandomTasksForInterval(instance,
             DaysSinceEpoch.fromYMD(2008, 1, 1),
-            DaysSinceEpoch.fromYMD(2013, 1, 1));
-      } catch (PermanentFailure e) {
-        throw new RuntimeException("PermanentFailure writing initial tasks", e);
-      }
+            DaysSinceEpoch.fromYMD(2013, 1, 1)));
     } else if ("importwavelet".equals(action)) {
       SourceInstance instance =
           sourceInstanceFactory.parseUnchecked(requireParameter(req, "instance"));
@@ -239,21 +235,7 @@ public class ImportOverviewHandler extends AbstractHandler {
       final ImportTaskPayload payload = new ImportTaskPayloadGsonImpl();
       payload.setImportWaveletTask(task);
       log.info("Enqueueing import task for " + waveId);
-      try {
-        new RetryHelper().run(new RetryHelper.VoidBody() {
-          @Override public void run() throws RetryableFailure, PermanentFailure {
-            CheckedTransaction tx = datastore.get().beginTransaction();
-            try {
-              perUserTable.get().addTask(tx, userId, payload);
-              tx.commit();
-            } finally {
-              tx.close();
-            }
-          }
-        });
-      } catch (PermanentFailure e) {
-        throw new IOException("Failed to enqueue import task", e);
-      }
+      enqueueTasks(ImmutableList.of(payload));
     } else if ("canceltasks".equals(action)) {
       log.info("Cancelling all tasks for " + userId);
       try {
@@ -296,6 +278,26 @@ public class ImportOverviewHandler extends AbstractHandler {
     // TODO(ohler): Send 303, not 302.  See
     // http://en.wikipedia.org/wiki/Post/Redirect/Get .
     resp.sendRedirect(req.getServletPath());
+  }
+
+  private void enqueueTasks(final List<ImportTaskPayload> payloads) throws IOException {
+    try {
+      new RetryHelper().run(new RetryHelper.VoidBody() {
+        @Override public void run() throws RetryableFailure, PermanentFailure {
+          CheckedTransaction tx = datastore.get().beginTransaction();
+          try {
+            for (ImportTaskPayload payload : payloads) {
+              perUserTable.get().addTask(tx, userId, payload);
+            }
+            tx.commit();
+          } finally {
+            tx.close();
+          }
+        }
+      });
+    } catch (PermanentFailure e) {
+      throw new IOException("Failed to enqueue import task", e);
+    }
   }
 
 }

@@ -168,8 +168,8 @@ public class FindRemoteWavesProcessor {
     return out.build();
   }
 
-  private void enqueueTasks(SourceInstance instance, List<Pair<Long, Long>> intervals)
-      throws PermanentFailure {
+  private List<ImportTaskPayload> makeTasks(
+      SourceInstance instance, List<Pair<Long, Long>> intervals) {
     log.info("intervals: " + intervals);
     ImmutableList.Builder<ImportTaskPayload> accu = ImmutableList.builder();
     for (Pair<Long, Long> interval : intervals) {
@@ -181,30 +181,15 @@ public class FindRemoteWavesProcessor {
       payload.setFindWavesTask(task);
       accu.add(payload);
     }
-    final List<ImportTaskPayload> payloads = accu.build();
-    new RetryHelper().run(
-        new RetryHelper.VoidBody() {
-          @Override public void run() throws RetryableFailure, PermanentFailure {
-            CheckedTransaction tx = datastore.beginTransaction();
-            try {
-              for (ImportTaskPayload payload : payloads) {
-                perUserTable.addTask(tx, userId, payload);
-              }
-              tx.commit();
-            } finally {
-              tx.close();
-            }
-          }
-        });
-    log.info("Successfully scheduled " + intervals.size() + " tasks");
+    return accu.build();
   }
 
-  public void enqueueRandomTasksForInterval(SourceInstance instance, long
-      onOrAfterDays, long beforeDays) throws PermanentFailure {
+  public List<ImportTaskPayload> makeRandomTasksForInterval(SourceInstance instance,
+      long onOrAfterDays, long beforeDays) {
     if (onOrAfterDays == beforeDays - 1) {
-      enqueueTasks(instance, ImmutableList.of(Pair.of(onOrAfterDays, beforeDays)));
+      return makeTasks(instance, ImmutableList.of(Pair.of(onOrAfterDays, beforeDays)));
     } else {
-      enqueueTasks(instance, splitInterval(onOrAfterDays, beforeDays));
+      return makeTasks(instance, splitInterval(onOrAfterDays, beforeDays));
     }
   }
 
@@ -256,13 +241,14 @@ public class FindRemoteWavesProcessor {
     return wavelets.build();
   }
 
-  public void findWaves(FindRemoteWavesTask task) throws IOException, PermanentFailure {
+  public List<ImportTaskPayload> findWaves(FindRemoteWavesTask task)
+      throws IOException, PermanentFailure {
     SourceInstance instance = sourceInstanceFactory.parseUnchecked(task.getInstance());
     long onOrAfterDays = task.getOnOrAfterDays();
     long beforeDays = task.getBeforeDays();
     List<RobotSearchDigest> results = searchBetween(instance, onOrAfterDays, beforeDays);
     if (results.isEmpty()) {
-      return;
+      return ImmutableList.of();
     }
     storeResults(expandPrivateReplies(instance, results));
     if (results.size() >= MAX_RESULTS) {
@@ -273,7 +259,9 @@ public class FindRemoteWavesProcessor {
         throw new RuntimeException("Can't split further; too many results (" + results.size()
             + ") between " + onOrAfterDays + " and " + beforeDays);
       }
-      enqueueRandomTasksForInterval(instance, onOrAfterDays, beforeDays);
+      return makeRandomTasksForInterval(instance, onOrAfterDays, beforeDays);
+    } else {
+      return ImmutableList.of();
     }
   }
 

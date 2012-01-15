@@ -20,7 +20,10 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multimap;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.walkaround.proto.FetchAttachmentsAndImportWaveletTask;
 import com.google.walkaround.proto.FindRemoteWavesTask;
+import com.google.walkaround.proto.ImportTaskPayload;
 import com.google.walkaround.proto.ImportWaveletTask;
 import com.google.walkaround.proto.ImportWaveletTask.ImportSharingMode;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
@@ -48,16 +51,20 @@ public class TaskDispatcher {
   private static final Logger log = Logger.getLogger(TaskDispatcher.class.getName());
 
   private final SourceInstance.Factory sourceInstanceFactory;
-  private final FindRemoteWavesProcessor findWavesProcessor;
-  private final ImportWaveletProcessor importWaveProcessor;
+  // Providers because most paths will need only one.
+  private final Provider<FindRemoteWavesProcessor> findWavesProcessor;
+  private final Provider<ImportWaveletProcessor> importWaveProcessor;
+  private final Provider<FetchAttachmentsProcessor> fetchAttachmentsProcessor;
 
   @Inject
   public TaskDispatcher(SourceInstance.Factory sourceInstanceFactory,
-      FindRemoteWavesProcessor findWavesProcessor,
-      ImportWaveletProcessor importWaveProcessor) {
+      Provider<FindRemoteWavesProcessor> findWavesProcessor,
+      Provider<ImportWaveletProcessor> importWaveProcessor,
+      Provider<FetchAttachmentsProcessor> fetchAttachmentsProcessor) {
     this.sourceInstanceFactory = sourceInstanceFactory;
     this.findWavesProcessor = findWavesProcessor;
     this.importWaveProcessor = importWaveProcessor;
+    this.fetchAttachmentsProcessor = fetchAttachmentsProcessor;
   }
 
   private String taskAgePrefix(ImportTask task) {
@@ -102,6 +109,14 @@ public class TaskDispatcher {
       return taskAgePrefix(task)
           + sharingMode + " import of wavelet " + t.getWaveId() + " " + t.getWaveletId()
           + " from " + sourceInstanceFactory.parseUnchecked(t.getInstance()).getShortName();
+    } else if (task.getPayload().hasFetchAttachmentsTask()) {
+      FetchAttachmentsAndImportWaveletTask t = task.getPayload().getFetchAttachmentsTask();
+      return taskAgePrefix(task)
+          + " Fetch attachments for wavelet "
+          + t.getOriginalImportTask().getWaveId() + " " + t.getOriginalImportTask().getWaveletId()
+          + " from " + sourceInstanceFactory.parseUnchecked(
+              t.getOriginalImportTask().getInstance()).getShortName()
+          + " (" + t.getImportedSize() + "/" + (t.getImportedSize() + t.getToImportSize()) + ")";
     } else {
       throw new AssertionError("Unknown task payload type: " + task);
     }
@@ -114,15 +129,20 @@ public class TaskDispatcher {
     for (ImportTask task : tasksInProgress) {
       if (task.getPayload().hasFindWavesTask()) {
         // nothing
-      } else if (task.getPayload().hasImportWaveletTask()) {
-        ImportWaveletTask t = task.getPayload().getImportWaveletTask();
+      } else {
+        ImportWaveletTask t;
+        if (task.getPayload().hasFetchAttachmentsTask()) {
+          t = task.getPayload().getFetchAttachmentsTask().getOriginalImportTask();
+        } else if (task.getPayload().hasImportWaveletTask()) {
+          t = task.getPayload().getImportWaveletTask();
+        } else {
+          throw new AssertionError("Unknown task payload type: " + task);
+        }
         out.put(
             Pair.of(sourceInstanceFactory.parseUnchecked(t.getInstance()),
                 WaveletName.of(WaveId.deserialise(t.getWaveId()),
                     WaveletId.deserialise(t.getWaveletId()))),
             t.getSharingMode());
-      } else {
-        throw new AssertionError("Unknown task payload type: " + task);
       }
     }
     return out.build();
@@ -132,16 +152,20 @@ public class TaskDispatcher {
     return Collections.frequency(Arrays.asList(args), true) == 1;
   }
 
-  public void processTask(ImportTask task) throws IOException {
+  public List<ImportTaskPayload> processTask(ImportTask task) throws IOException {
     Preconditions.checkArgument(exactlyOneTrue(
             task.getPayload().hasFindWavesTask(),
-            task.getPayload().hasImportWaveletTask()),
+            task.getPayload().hasImportWaveletTask(),
+            task.getPayload().hasFetchAttachmentsTask()),
         "Need exactly one type of payload: %s", task);
     try {
       if (task.getPayload().hasFindWavesTask()) {
-        findWavesProcessor.findWaves(task.getPayload().getFindWavesTask());
+        return findWavesProcessor.get().findWaves(task.getPayload().getFindWavesTask());
       } else if (task.getPayload().hasImportWaveletTask()) {
-        importWaveProcessor.importWavelet(task.getPayload().getImportWaveletTask());
+        return importWaveProcessor.get().importWavelet(task.getPayload().getImportWaveletTask());
+      } else if (task.getPayload().hasFetchAttachmentsTask()) {
+        return fetchAttachmentsProcessor.get()
+            .fetchAttachments(task.getPayload().getFetchAttachmentsTask());
       } else {
         throw new AssertionError("Unknown task payload type: " + task);
       }

@@ -20,12 +20,17 @@ import org.waveprotocol.wave.model.document.operation.Attributes;
 import org.waveprotocol.wave.model.document.operation.Nindo.NindoCursor;
 import org.waveprotocol.wave.model.document.operation.NindoCursorDecorator;
 
+import java.util.logging.Logger;
+
 /**
  * Strips the "w:" prefix from elements.
  *
  * @author danilatos@google.com (Daniel Danilatos)
  */
 public class StripWColonFilter extends NindoCursorDecorator {
+
+  @SuppressWarnings("unused")
+  private static final Logger log = Logger.getLogger(StripWColonFilter.class.getName());
 
   public StripWColonFilter(NindoCursor target) {
     super(target);

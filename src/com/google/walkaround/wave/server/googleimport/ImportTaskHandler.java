@@ -19,6 +19,7 @@ package com.google.walkaround.wave.server.googleimport;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.walkaround.proto.ImportTaskPayload;
 import com.google.walkaround.util.server.RetryHelper;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
@@ -33,6 +34,7 @@ import com.google.walkaround.wave.server.auth.StableUserId;
 import com.google.walkaround.wave.server.auth.UserContext;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
@@ -80,34 +82,32 @@ public class ImportTaskHandler extends AbstractHandler {
     }
   }
 
-  private void deleteTask(final StableUserId userId, final long taskId) throws PermanentFailure {
-    log.info("deleteTask(" + userId + ", " + taskId + ")");
-    new RetryHelper().run(
-        new RetryHelper.VoidBody() {
-          @Override public void run() throws RetryableFailure, PermanentFailure {
-            CheckedTransaction tx = datastore.beginTransaction();
-            try {
-              perUserTable.deleteTask(tx, userId, taskId);
-              tx.commit();
-            } finally {
-              tx.close();
-            }
-          }
-        });
-  }
-
-  private void handleTask(StableUserId userId, long taskId) throws IOException {
+  private void handleTask(final StableUserId userId, final long taskId) throws IOException {
     ImportTask taskToProcess = readTask(userId, taskId);
     if (taskToProcess == null) {
       log.info("Task is gone from datastore; either already completed or cancelled");
       return;
     }
     log.info("Task to process: " + taskToProcess);
-    taskDispatcher.get().processTask(taskToProcess);
+    final List<ImportTaskPayload> followupTasks = taskDispatcher.get().processTask(taskToProcess);
     // If the processing returns normally, the task has been completed.  (Other
     // tasks may have been scheduled.)
     try {
-      deleteTask(userId, taskId);
+      new RetryHelper().run(
+          new RetryHelper.VoidBody() {
+            @Override public void run() throws RetryableFailure, PermanentFailure {
+              CheckedTransaction tx = datastore.beginTransaction();
+              try {
+                perUserTable.deleteTask(tx, userId, taskId);
+                for (ImportTaskPayload payload : followupTasks) {
+                  perUserTable.addTask(tx, userId, payload);
+                }
+                tx.commit();
+              } finally {
+                tx.close();
+              }
+            }
+          });
     } catch (PermanentFailure e) {
       // Ugh, all the real work is done but then we failed to delete the task
       // entity.  We'll have to do the task all over again...

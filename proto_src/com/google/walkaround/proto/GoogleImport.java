@@ -4493,6 +4493,336 @@ public final class GoogleImport {
       // @@protoc_insertion_point(enum_scope:google_import_proto.ImportWaveletTask.ImportSharingMode)
     }
     
+    public static final class ImportedAttachment extends
+        com.google.protobuf.GeneratedMessage {
+      // Use ImportedAttachment.newBuilder() to construct.
+      private ImportedAttachment() {
+        initFields();
+      }
+      private ImportedAttachment(boolean noInit) {}
+      
+      private static final ImportedAttachment defaultInstance;
+      public static ImportedAttachment getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public ImportedAttachment getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_ImportWaveletTask_ImportedAttachment_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_ImportWaveletTask_ImportedAttachment_fieldAccessorTable;
+      }
+      
+      // required string remote_id = 1;
+      public static final int REMOTE_ID_FIELD_NUMBER = 1;
+      private boolean hasRemoteId;
+      private java.lang.String remoteId_ = "";
+      public boolean hasRemoteId() { return hasRemoteId; }
+      public java.lang.String getRemoteId() { return remoteId_; }
+      
+      // optional string local_id = 2;
+      public static final int LOCAL_ID_FIELD_NUMBER = 2;
+      private boolean hasLocalId;
+      private java.lang.String localId_ = "";
+      public boolean hasLocalId() { return hasLocalId; }
+      public java.lang.String getLocalId() { return localId_; }
+      
+      private void initFields() {
+      }
+      public final boolean isInitialized() {
+        if (!hasRemoteId) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasRemoteId()) {
+          output.writeString(1, getRemoteId());
+        }
+        if (hasLocalId()) {
+          output.writeString(2, getLocalId());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasRemoteId()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(1, getRemoteId());
+        }
+        if (hasLocalId()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(2, getLocalId());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment result;
+        
+        // Construct using com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment();
+          return builder;
+        }
+        
+        protected com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.getDescriptor();
+        }
+        
+        public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment getDefaultInstanceForType() {
+          return com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment) {
+            return mergeFrom((com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment other) {
+          if (other == com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.getDefaultInstance()) return this;
+          if (other.hasRemoteId()) {
+            setRemoteId(other.getRemoteId());
+          }
+          if (other.hasLocalId()) {
+            setLocalId(other.getLocalId());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                setRemoteId(input.readString());
+                break;
+              }
+              case 18: {
+                setLocalId(input.readString());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required string remote_id = 1;
+        public boolean hasRemoteId() {
+          return result.hasRemoteId();
+        }
+        public java.lang.String getRemoteId() {
+          return result.getRemoteId();
+        }
+        public Builder setRemoteId(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasRemoteId = true;
+          result.remoteId_ = value;
+          return this;
+        }
+        public Builder clearRemoteId() {
+          result.hasRemoteId = false;
+          result.remoteId_ = getDefaultInstance().getRemoteId();
+          return this;
+        }
+        
+        // optional string local_id = 2;
+        public boolean hasLocalId() {
+          return result.hasLocalId();
+        }
+        public java.lang.String getLocalId() {
+          return result.getLocalId();
+        }
+        public Builder setLocalId(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasLocalId = true;
+          result.localId_ = value;
+          return this;
+        }
+        public Builder clearLocalId() {
+          result.hasLocalId = false;
+          result.localId_ = getDefaultInstance().getLocalId();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:google_import_proto.ImportWaveletTask.ImportedAttachment)
+      }
+      
+      static {
+        defaultInstance = new ImportedAttachment(true);
+        com.google.walkaround.proto.GoogleImport.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:google_import_proto.ImportWaveletTask.ImportedAttachment)
+    }
+    
     // required string instance = 1;
     public static final int INSTANCE_FIELD_NUMBER = 1;
     private boolean hasInstance;
@@ -4521,6 +4851,18 @@ public final class GoogleImport {
     public boolean hasSharingMode() { return hasSharingMode; }
     public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode getSharingMode() { return sharingMode_; }
     
+    // repeated .google_import_proto.ImportWaveletTask.ImportedAttachment attachment = 5;
+    public static final int ATTACHMENT_FIELD_NUMBER = 5;
+    private java.util.List<com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment> attachment_ =
+      java.util.Collections.emptyList();
+    public java.util.List<com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment> getAttachmentList() {
+      return attachment_;
+    }
+    public int getAttachmentCount() { return attachment_.size(); }
+    public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment getAttachment(int index) {
+      return attachment_.get(index);
+    }
+    
     private void initFields() {
       sharingMode_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportSharingMode.PRIVATE;
     }
@@ -4529,6 +4871,9 @@ public final class GoogleImport {
       if (!hasWaveId) return false;
       if (!hasWaveletId) return false;
       if (!hasSharingMode) return false;
+      for (com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment element : getAttachmentList()) {
+        if (!element.isInitialized()) return false;
+      }
       return true;
     }
     
@@ -4546,6 +4891,9 @@ public final class GoogleImport {
       }
       if (hasSharingMode()) {
         output.writeEnum(4, getSharingMode().getNumber());
+      }
+      for (com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment element : getAttachmentList()) {
+        output.writeMessage(5, element);
       }
       getUnknownFields().writeTo(output);
     }
@@ -4571,6 +4919,10 @@ public final class GoogleImport {
       if (hasSharingMode()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, getSharingMode().getNumber());
+      }
+      for (com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment element : getAttachmentList()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, element);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4714,6 +5066,10 @@ public final class GoogleImport {
           throw new IllegalStateException(
             "build() has already been called on this Builder.");
         }
+        if (result.attachment_ != java.util.Collections.EMPTY_LIST) {
+          result.attachment_ =
+            java.util.Collections.unmodifiableList(result.attachment_);
+        }
         com.google.walkaround.proto.GoogleImport.ImportWaveletTask returnMe = result;
         result = null;
         return returnMe;
@@ -4741,6 +5097,12 @@ public final class GoogleImport {
         }
         if (other.hasSharingMode()) {
           setSharingMode(other.getSharingMode());
+        }
+        if (!other.attachment_.isEmpty()) {
+          if (result.attachment_.isEmpty()) {
+            result.attachment_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment>();
+          }
+          result.attachment_.addAll(other.attachment_);
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4787,6 +5149,12 @@ public final class GoogleImport {
               } else {
                 setSharingMode(value);
               }
+              break;
+            }
+            case 42: {
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.Builder subBuilder = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addAttachment(subBuilder.buildPartial());
               break;
             }
           }
@@ -4878,6 +5246,57 @@ public final class GoogleImport {
         return this;
       }
       
+      // repeated .google_import_proto.ImportWaveletTask.ImportedAttachment attachment = 5;
+      public java.util.List<com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment> getAttachmentList() {
+        return java.util.Collections.unmodifiableList(result.attachment_);
+      }
+      public int getAttachmentCount() {
+        return result.getAttachmentCount();
+      }
+      public com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment getAttachment(int index) {
+        return result.getAttachment(index);
+      }
+      public Builder setAttachment(int index, com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.attachment_.set(index, value);
+        return this;
+      }
+      public Builder setAttachment(int index, com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.Builder builderForValue) {
+        result.attachment_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addAttachment(com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.attachment_.isEmpty()) {
+          result.attachment_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment>();
+        }
+        result.attachment_.add(value);
+        return this;
+      }
+      public Builder addAttachment(com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.Builder builderForValue) {
+        if (result.attachment_.isEmpty()) {
+          result.attachment_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment>();
+        }
+        result.attachment_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllAttachment(
+          java.lang.Iterable<? extends com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment> values) {
+        if (result.attachment_.isEmpty()) {
+          result.attachment_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment>();
+        }
+        super.addAll(values, result.attachment_);
+        return this;
+      }
+      public Builder clearAttachment() {
+        result.attachment_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:google_import_proto.ImportWaveletTask)
     }
     
@@ -4888,6 +5307,1302 @@ public final class GoogleImport {
     }
     
     // @@protoc_insertion_point(class_scope:google_import_proto.ImportWaveletTask)
+  }
+  
+  public static final class FetchAttachmentsAndImportWaveletTask extends
+      com.google.protobuf.GeneratedMessage {
+    // Use FetchAttachmentsAndImportWaveletTask.newBuilder() to construct.
+    private FetchAttachmentsAndImportWaveletTask() {
+      initFields();
+    }
+    private FetchAttachmentsAndImportWaveletTask(boolean noInit) {}
+    
+    private static final FetchAttachmentsAndImportWaveletTask defaultInstance;
+    public static FetchAttachmentsAndImportWaveletTask getDefaultInstance() {
+      return defaultInstance;
+    }
+    
+    public FetchAttachmentsAndImportWaveletTask getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+    
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_descriptor;
+    }
+    
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_fieldAccessorTable;
+    }
+    
+    public static final class RemoteAttachmentInfo extends
+        com.google.protobuf.GeneratedMessage {
+      // Use RemoteAttachmentInfo.newBuilder() to construct.
+      private RemoteAttachmentInfo() {
+        initFields();
+      }
+      private RemoteAttachmentInfo(boolean noInit) {}
+      
+      private static final RemoteAttachmentInfo defaultInstance;
+      public static RemoteAttachmentInfo getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public RemoteAttachmentInfo getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_RemoteAttachmentInfo_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_RemoteAttachmentInfo_fieldAccessorTable;
+      }
+      
+      // required string remote_id = 1;
+      public static final int REMOTE_ID_FIELD_NUMBER = 1;
+      private boolean hasRemoteId;
+      private java.lang.String remoteId_ = "";
+      public boolean hasRemoteId() { return hasRemoteId; }
+      public java.lang.String getRemoteId() { return remoteId_; }
+      
+      // optional string filename = 2;
+      public static final int FILENAME_FIELD_NUMBER = 2;
+      private boolean hasFilename;
+      private java.lang.String filename_ = "";
+      public boolean hasFilename() { return hasFilename; }
+      public java.lang.String getFilename() { return filename_; }
+      
+      // optional int64 sizeBytes = 3;
+      public static final int SIZEBYTES_FIELD_NUMBER = 3;
+      private boolean hasSizeBytes;
+      private long sizeBytes_ = 0L;
+      public boolean hasSizeBytes() { return hasSizeBytes; }
+      public long getSizeBytes() { return sizeBytes_; }
+      
+      // optional string mime_type = 4;
+      public static final int MIME_TYPE_FIELD_NUMBER = 4;
+      private boolean hasMimeType;
+      private java.lang.String mimeType_ = "";
+      public boolean hasMimeType() { return hasMimeType; }
+      public java.lang.String getMimeType() { return mimeType_; }
+      
+      // required string path = 5;
+      public static final int PATH_FIELD_NUMBER = 5;
+      private boolean hasPath;
+      private java.lang.String path_ = "";
+      public boolean hasPath() { return hasPath; }
+      public java.lang.String getPath() { return path_; }
+      
+      private void initFields() {
+      }
+      public final boolean isInitialized() {
+        if (!hasRemoteId) return false;
+        if (!hasPath) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasRemoteId()) {
+          output.writeString(1, getRemoteId());
+        }
+        if (hasFilename()) {
+          output.writeString(2, getFilename());
+        }
+        if (hasSizeBytes()) {
+          output.writeInt64(3, getSizeBytes());
+        }
+        if (hasMimeType()) {
+          output.writeString(4, getMimeType());
+        }
+        if (hasPath()) {
+          output.writeString(5, getPath());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasRemoteId()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(1, getRemoteId());
+        }
+        if (hasFilename()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(2, getFilename());
+        }
+        if (hasSizeBytes()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt64Size(3, getSizeBytes());
+        }
+        if (hasMimeType()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(4, getMimeType());
+        }
+        if (hasPath()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(5, getPath());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo result;
+        
+        // Construct using com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo();
+          return builder;
+        }
+        
+        protected com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.getDescriptor();
+        }
+        
+        public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo getDefaultInstanceForType() {
+          return com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo) {
+            return mergeFrom((com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo other) {
+          if (other == com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.getDefaultInstance()) return this;
+          if (other.hasRemoteId()) {
+            setRemoteId(other.getRemoteId());
+          }
+          if (other.hasFilename()) {
+            setFilename(other.getFilename());
+          }
+          if (other.hasSizeBytes()) {
+            setSizeBytes(other.getSizeBytes());
+          }
+          if (other.hasMimeType()) {
+            setMimeType(other.getMimeType());
+          }
+          if (other.hasPath()) {
+            setPath(other.getPath());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                setRemoteId(input.readString());
+                break;
+              }
+              case 18: {
+                setFilename(input.readString());
+                break;
+              }
+              case 24: {
+                setSizeBytes(input.readInt64());
+                break;
+              }
+              case 34: {
+                setMimeType(input.readString());
+                break;
+              }
+              case 42: {
+                setPath(input.readString());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required string remote_id = 1;
+        public boolean hasRemoteId() {
+          return result.hasRemoteId();
+        }
+        public java.lang.String getRemoteId() {
+          return result.getRemoteId();
+        }
+        public Builder setRemoteId(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasRemoteId = true;
+          result.remoteId_ = value;
+          return this;
+        }
+        public Builder clearRemoteId() {
+          result.hasRemoteId = false;
+          result.remoteId_ = getDefaultInstance().getRemoteId();
+          return this;
+        }
+        
+        // optional string filename = 2;
+        public boolean hasFilename() {
+          return result.hasFilename();
+        }
+        public java.lang.String getFilename() {
+          return result.getFilename();
+        }
+        public Builder setFilename(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasFilename = true;
+          result.filename_ = value;
+          return this;
+        }
+        public Builder clearFilename() {
+          result.hasFilename = false;
+          result.filename_ = getDefaultInstance().getFilename();
+          return this;
+        }
+        
+        // optional int64 sizeBytes = 3;
+        public boolean hasSizeBytes() {
+          return result.hasSizeBytes();
+        }
+        public long getSizeBytes() {
+          return result.getSizeBytes();
+        }
+        public Builder setSizeBytes(long value) {
+          result.hasSizeBytes = true;
+          result.sizeBytes_ = value;
+          return this;
+        }
+        public Builder clearSizeBytes() {
+          result.hasSizeBytes = false;
+          result.sizeBytes_ = 0L;
+          return this;
+        }
+        
+        // optional string mime_type = 4;
+        public boolean hasMimeType() {
+          return result.hasMimeType();
+        }
+        public java.lang.String getMimeType() {
+          return result.getMimeType();
+        }
+        public Builder setMimeType(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasMimeType = true;
+          result.mimeType_ = value;
+          return this;
+        }
+        public Builder clearMimeType() {
+          result.hasMimeType = false;
+          result.mimeType_ = getDefaultInstance().getMimeType();
+          return this;
+        }
+        
+        // required string path = 5;
+        public boolean hasPath() {
+          return result.hasPath();
+        }
+        public java.lang.String getPath() {
+          return result.getPath();
+        }
+        public Builder setPath(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasPath = true;
+          result.path_ = value;
+          return this;
+        }
+        public Builder clearPath() {
+          result.hasPath = false;
+          result.path_ = getDefaultInstance().getPath();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:google_import_proto.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo)
+      }
+      
+      static {
+        defaultInstance = new RemoteAttachmentInfo(true);
+        com.google.walkaround.proto.GoogleImport.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:google_import_proto.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo)
+    }
+    
+    public static final class ImportedAttachmentInfo extends
+        com.google.protobuf.GeneratedMessage {
+      // Use ImportedAttachmentInfo.newBuilder() to construct.
+      private ImportedAttachmentInfo() {
+        initFields();
+      }
+      private ImportedAttachmentInfo(boolean noInit) {}
+      
+      private static final ImportedAttachmentInfo defaultInstance;
+      public static ImportedAttachmentInfo getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public ImportedAttachmentInfo getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_ImportedAttachmentInfo_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.google.walkaround.proto.GoogleImport.internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_ImportedAttachmentInfo_fieldAccessorTable;
+      }
+      
+      // required .google_import_proto.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo remote_info = 1;
+      public static final int REMOTE_INFO_FIELD_NUMBER = 1;
+      private boolean hasRemoteInfo;
+      private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo remoteInfo_;
+      public boolean hasRemoteInfo() { return hasRemoteInfo; }
+      public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo getRemoteInfo() { return remoteInfo_; }
+      
+      // optional string local_id = 2;
+      public static final int LOCAL_ID_FIELD_NUMBER = 2;
+      private boolean hasLocalId;
+      private java.lang.String localId_ = "";
+      public boolean hasLocalId() { return hasLocalId; }
+      public java.lang.String getLocalId() { return localId_; }
+      
+      private void initFields() {
+        remoteInfo_ = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.getDefaultInstance();
+      }
+      public final boolean isInitialized() {
+        if (!hasRemoteInfo) return false;
+        if (!getRemoteInfo().isInitialized()) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasRemoteInfo()) {
+          output.writeMessage(1, getRemoteInfo());
+        }
+        if (hasLocalId()) {
+          output.writeString(2, getLocalId());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasRemoteInfo()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, getRemoteInfo());
+        }
+        if (hasLocalId()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(2, getLocalId());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo result;
+        
+        // Construct using com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo();
+          return builder;
+        }
+        
+        protected com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.getDescriptor();
+        }
+        
+        public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo getDefaultInstanceForType() {
+          return com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo) {
+            return mergeFrom((com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo other) {
+          if (other == com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.getDefaultInstance()) return this;
+          if (other.hasRemoteInfo()) {
+            mergeRemoteInfo(other.getRemoteInfo());
+          }
+          if (other.hasLocalId()) {
+            setLocalId(other.getLocalId());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 10: {
+                com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.Builder subBuilder = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.newBuilder();
+                if (hasRemoteInfo()) {
+                  subBuilder.mergeFrom(getRemoteInfo());
+                }
+                input.readMessage(subBuilder, extensionRegistry);
+                setRemoteInfo(subBuilder.buildPartial());
+                break;
+              }
+              case 18: {
+                setLocalId(input.readString());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required .google_import_proto.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo remote_info = 1;
+        public boolean hasRemoteInfo() {
+          return result.hasRemoteInfo();
+        }
+        public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo getRemoteInfo() {
+          return result.getRemoteInfo();
+        }
+        public Builder setRemoteInfo(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          result.hasRemoteInfo = true;
+          result.remoteInfo_ = value;
+          return this;
+        }
+        public Builder setRemoteInfo(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.Builder builderForValue) {
+          result.hasRemoteInfo = true;
+          result.remoteInfo_ = builderForValue.build();
+          return this;
+        }
+        public Builder mergeRemoteInfo(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo value) {
+          if (result.hasRemoteInfo() &&
+              result.remoteInfo_ != com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.getDefaultInstance()) {
+            result.remoteInfo_ =
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.newBuilder(result.remoteInfo_).mergeFrom(value).buildPartial();
+          } else {
+            result.remoteInfo_ = value;
+          }
+          result.hasRemoteInfo = true;
+          return this;
+        }
+        public Builder clearRemoteInfo() {
+          result.hasRemoteInfo = false;
+          result.remoteInfo_ = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.getDefaultInstance();
+          return this;
+        }
+        
+        // optional string local_id = 2;
+        public boolean hasLocalId() {
+          return result.hasLocalId();
+        }
+        public java.lang.String getLocalId() {
+          return result.getLocalId();
+        }
+        public Builder setLocalId(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasLocalId = true;
+          result.localId_ = value;
+          return this;
+        }
+        public Builder clearLocalId() {
+          result.hasLocalId = false;
+          result.localId_ = getDefaultInstance().getLocalId();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:google_import_proto.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo)
+      }
+      
+      static {
+        defaultInstance = new ImportedAttachmentInfo(true);
+        com.google.walkaround.proto.GoogleImport.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:google_import_proto.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo)
+    }
+    
+    // required .google_import_proto.ImportWaveletTask original_import_task = 1;
+    public static final int ORIGINAL_IMPORT_TASK_FIELD_NUMBER = 1;
+    private boolean hasOriginalImportTask;
+    private com.google.walkaround.proto.GoogleImport.ImportWaveletTask originalImportTask_;
+    public boolean hasOriginalImportTask() { return hasOriginalImportTask; }
+    public com.google.walkaround.proto.GoogleImport.ImportWaveletTask getOriginalImportTask() { return originalImportTask_; }
+    
+    // repeated .google_import_proto.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo to_import = 2;
+    public static final int TO_IMPORT_FIELD_NUMBER = 2;
+    private java.util.List<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo> toImport_ =
+      java.util.Collections.emptyList();
+    public java.util.List<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo> getToImportList() {
+      return toImport_;
+    }
+    public int getToImportCount() { return toImport_.size(); }
+    public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo getToImport(int index) {
+      return toImport_.get(index);
+    }
+    
+    // repeated .google_import_proto.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo imported = 3;
+    public static final int IMPORTED_FIELD_NUMBER = 3;
+    private java.util.List<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo> imported_ =
+      java.util.Collections.emptyList();
+    public java.util.List<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo> getImportedList() {
+      return imported_;
+    }
+    public int getImportedCount() { return imported_.size(); }
+    public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo getImported(int index) {
+      return imported_.get(index);
+    }
+    
+    private void initFields() {
+      originalImportTask_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance();
+    }
+    public final boolean isInitialized() {
+      if (!hasOriginalImportTask) return false;
+      if (!getOriginalImportTask().isInitialized()) return false;
+      for (com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo element : getToImportList()) {
+        if (!element.isInitialized()) return false;
+      }
+      for (com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo element : getImportedList()) {
+        if (!element.isInitialized()) return false;
+      }
+      return true;
+    }
+    
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (hasOriginalImportTask()) {
+        output.writeMessage(1, getOriginalImportTask());
+      }
+      for (com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo element : getToImportList()) {
+        output.writeMessage(2, element);
+      }
+      for (com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo element : getImportedList()) {
+        output.writeMessage(3, element);
+      }
+      getUnknownFields().writeTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+    
+      size = 0;
+      if (hasOriginalImportTask()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getOriginalImportTask());
+      }
+      for (com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo element : getToImportList()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, element);
+      }
+      for (com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo element : getImportedList()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, element);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+    
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data).buildParsed();
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return newBuilder().mergeFrom(data, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      Builder builder = newBuilder();
+      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+        return builder.buildParsed();
+      } else {
+        return null;
+      }
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input).buildParsed();
+    }
+    public static com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return newBuilder().mergeFrom(input, extensionRegistry)
+               .buildParsed();
+    }
+    
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+    
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> {
+      private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask result;
+      
+      // Construct using com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.newBuilder()
+      private Builder() {}
+      
+      private static Builder create() {
+        Builder builder = new Builder();
+        builder.result = new com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask();
+        return builder;
+      }
+      
+      protected com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask internalGetResult() {
+        return result;
+      }
+      
+      public Builder clear() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "Cannot call clear() after build().");
+        }
+        result = new com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask();
+        return this;
+      }
+      
+      public Builder clone() {
+        return create().mergeFrom(result);
+      }
+      
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.getDescriptor();
+      }
+      
+      public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask getDefaultInstanceForType() {
+        return com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.getDefaultInstance();
+      }
+      
+      public boolean isInitialized() {
+        return result.isInitialized();
+      }
+      public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask build() {
+        if (result != null && !isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return buildPartial();
+      }
+      
+      private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask buildParsed()
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        if (!isInitialized()) {
+          throw newUninitializedMessageException(
+            result).asInvalidProtocolBufferException();
+        }
+        return buildPartial();
+      }
+      
+      public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask buildPartial() {
+        if (result == null) {
+          throw new IllegalStateException(
+            "build() has already been called on this Builder.");
+        }
+        if (result.toImport_ != java.util.Collections.EMPTY_LIST) {
+          result.toImport_ =
+            java.util.Collections.unmodifiableList(result.toImport_);
+        }
+        if (result.imported_ != java.util.Collections.EMPTY_LIST) {
+          result.imported_ =
+            java.util.Collections.unmodifiableList(result.imported_);
+        }
+        com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask returnMe = result;
+        result = null;
+        return returnMe;
+      }
+      
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask) {
+          return mergeFrom((com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+      
+      public Builder mergeFrom(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask other) {
+        if (other == com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.getDefaultInstance()) return this;
+        if (other.hasOriginalImportTask()) {
+          mergeOriginalImportTask(other.getOriginalImportTask());
+        }
+        if (!other.toImport_.isEmpty()) {
+          if (result.toImport_.isEmpty()) {
+            result.toImport_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo>();
+          }
+          result.toImport_.addAll(other.toImport_);
+        }
+        if (!other.imported_.isEmpty()) {
+          if (result.imported_.isEmpty()) {
+            result.imported_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo>();
+          }
+          result.imported_.addAll(other.imported_);
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+      
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder(
+            this.getUnknownFields());
+        while (true) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              this.setUnknownFields(unknownFields.build());
+              return this;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              }
+              break;
+            }
+            case 10: {
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.Builder subBuilder = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.newBuilder();
+              if (hasOriginalImportTask()) {
+                subBuilder.mergeFrom(getOriginalImportTask());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setOriginalImportTask(subBuilder.buildPartial());
+              break;
+            }
+            case 18: {
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.Builder subBuilder = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addToImport(subBuilder.buildPartial());
+              break;
+            }
+            case 26: {
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.Builder subBuilder = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.newBuilder();
+              input.readMessage(subBuilder, extensionRegistry);
+              addImported(subBuilder.buildPartial());
+              break;
+            }
+          }
+        }
+      }
+      
+      
+      // required .google_import_proto.ImportWaveletTask original_import_task = 1;
+      public boolean hasOriginalImportTask() {
+        return result.hasOriginalImportTask();
+      }
+      public com.google.walkaround.proto.GoogleImport.ImportWaveletTask getOriginalImportTask() {
+        return result.getOriginalImportTask();
+      }
+      public Builder setOriginalImportTask(com.google.walkaround.proto.GoogleImport.ImportWaveletTask value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasOriginalImportTask = true;
+        result.originalImportTask_ = value;
+        return this;
+      }
+      public Builder setOriginalImportTask(com.google.walkaround.proto.GoogleImport.ImportWaveletTask.Builder builderForValue) {
+        result.hasOriginalImportTask = true;
+        result.originalImportTask_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeOriginalImportTask(com.google.walkaround.proto.GoogleImport.ImportWaveletTask value) {
+        if (result.hasOriginalImportTask() &&
+            result.originalImportTask_ != com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance()) {
+          result.originalImportTask_ =
+            com.google.walkaround.proto.GoogleImport.ImportWaveletTask.newBuilder(result.originalImportTask_).mergeFrom(value).buildPartial();
+        } else {
+          result.originalImportTask_ = value;
+        }
+        result.hasOriginalImportTask = true;
+        return this;
+      }
+      public Builder clearOriginalImportTask() {
+        result.hasOriginalImportTask = false;
+        result.originalImportTask_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance();
+        return this;
+      }
+      
+      // repeated .google_import_proto.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo to_import = 2;
+      public java.util.List<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo> getToImportList() {
+        return java.util.Collections.unmodifiableList(result.toImport_);
+      }
+      public int getToImportCount() {
+        return result.getToImportCount();
+      }
+      public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo getToImport(int index) {
+        return result.getToImport(index);
+      }
+      public Builder setToImport(int index, com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.toImport_.set(index, value);
+        return this;
+      }
+      public Builder setToImport(int index, com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.Builder builderForValue) {
+        result.toImport_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addToImport(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.toImport_.isEmpty()) {
+          result.toImport_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo>();
+        }
+        result.toImport_.add(value);
+        return this;
+      }
+      public Builder addToImport(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.Builder builderForValue) {
+        if (result.toImport_.isEmpty()) {
+          result.toImport_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo>();
+        }
+        result.toImport_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllToImport(
+          java.lang.Iterable<? extends com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo> values) {
+        if (result.toImport_.isEmpty()) {
+          result.toImport_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo>();
+        }
+        super.addAll(values, result.toImport_);
+        return this;
+      }
+      public Builder clearToImport() {
+        result.toImport_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // repeated .google_import_proto.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo imported = 3;
+      public java.util.List<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo> getImportedList() {
+        return java.util.Collections.unmodifiableList(result.imported_);
+      }
+      public int getImportedCount() {
+        return result.getImportedCount();
+      }
+      public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo getImported(int index) {
+        return result.getImported(index);
+      }
+      public Builder setImported(int index, com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.imported_.set(index, value);
+        return this;
+      }
+      public Builder setImported(int index, com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.Builder builderForValue) {
+        result.imported_.set(index, builderForValue.build());
+        return this;
+      }
+      public Builder addImported(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        if (result.imported_.isEmpty()) {
+          result.imported_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo>();
+        }
+        result.imported_.add(value);
+        return this;
+      }
+      public Builder addImported(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.Builder builderForValue) {
+        if (result.imported_.isEmpty()) {
+          result.imported_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo>();
+        }
+        result.imported_.add(builderForValue.build());
+        return this;
+      }
+      public Builder addAllImported(
+          java.lang.Iterable<? extends com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo> values) {
+        if (result.imported_.isEmpty()) {
+          result.imported_ = new java.util.ArrayList<com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo>();
+        }
+        super.addAll(values, result.imported_);
+        return this;
+      }
+      public Builder clearImported() {
+        result.imported_ = java.util.Collections.emptyList();
+        return this;
+      }
+      
+      // @@protoc_insertion_point(builder_scope:google_import_proto.FetchAttachmentsAndImportWaveletTask)
+    }
+    
+    static {
+      defaultInstance = new FetchAttachmentsAndImportWaveletTask(true);
+      com.google.walkaround.proto.GoogleImport.internalForceInit();
+      defaultInstance.initFields();
+    }
+    
+    // @@protoc_insertion_point(class_scope:google_import_proto.FetchAttachmentsAndImportWaveletTask)
   }
   
   public static final class ImportTaskPayload extends
@@ -4931,9 +6646,17 @@ public final class GoogleImport {
     public boolean hasImportWaveletTask() { return hasImportWaveletTask; }
     public com.google.walkaround.proto.GoogleImport.ImportWaveletTask getImportWaveletTask() { return importWaveletTask_; }
     
+    // optional .google_import_proto.FetchAttachmentsAndImportWaveletTask fetch_attachments_task = 3;
+    public static final int FETCH_ATTACHMENTS_TASK_FIELD_NUMBER = 3;
+    private boolean hasFetchAttachmentsTask;
+    private com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask fetchAttachmentsTask_;
+    public boolean hasFetchAttachmentsTask() { return hasFetchAttachmentsTask; }
+    public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask getFetchAttachmentsTask() { return fetchAttachmentsTask_; }
+    
     private void initFields() {
       findWavesTask_ = com.google.walkaround.proto.GoogleImport.FindRemoteWavesTask.getDefaultInstance();
       importWaveletTask_ = com.google.walkaround.proto.GoogleImport.ImportWaveletTask.getDefaultInstance();
+      fetchAttachmentsTask_ = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.getDefaultInstance();
     }
     public final boolean isInitialized() {
       if (hasFindWavesTask()) {
@@ -4941,6 +6664,9 @@ public final class GoogleImport {
       }
       if (hasImportWaveletTask()) {
         if (!getImportWaveletTask().isInitialized()) return false;
+      }
+      if (hasFetchAttachmentsTask()) {
+        if (!getFetchAttachmentsTask().isInitialized()) return false;
       }
       return true;
     }
@@ -4953,6 +6679,9 @@ public final class GoogleImport {
       }
       if (hasImportWaveletTask()) {
         output.writeMessage(2, getImportWaveletTask());
+      }
+      if (hasFetchAttachmentsTask()) {
+        output.writeMessage(3, getFetchAttachmentsTask());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4970,6 +6699,10 @@ public final class GoogleImport {
       if (hasImportWaveletTask()) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getImportWaveletTask());
+      }
+      if (hasFetchAttachmentsTask()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getFetchAttachmentsTask());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5135,6 +6868,9 @@ public final class GoogleImport {
         if (other.hasImportWaveletTask()) {
           mergeImportWaveletTask(other.getImportWaveletTask());
         }
+        if (other.hasFetchAttachmentsTask()) {
+          mergeFetchAttachmentsTask(other.getFetchAttachmentsTask());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -5176,6 +6912,15 @@ public final class GoogleImport {
               }
               input.readMessage(subBuilder, extensionRegistry);
               setImportWaveletTask(subBuilder.buildPartial());
+              break;
+            }
+            case 26: {
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.Builder subBuilder = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.newBuilder();
+              if (hasFetchAttachmentsTask()) {
+                subBuilder.mergeFrom(getFetchAttachmentsTask());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setFetchAttachmentsTask(subBuilder.buildPartial());
               break;
             }
           }
@@ -5257,6 +7002,43 @@ public final class GoogleImport {
         return this;
       }
       
+      // optional .google_import_proto.FetchAttachmentsAndImportWaveletTask fetch_attachments_task = 3;
+      public boolean hasFetchAttachmentsTask() {
+        return result.hasFetchAttachmentsTask();
+      }
+      public com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask getFetchAttachmentsTask() {
+        return result.getFetchAttachmentsTask();
+      }
+      public Builder setFetchAttachmentsTask(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasFetchAttachmentsTask = true;
+        result.fetchAttachmentsTask_ = value;
+        return this;
+      }
+      public Builder setFetchAttachmentsTask(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.Builder builderForValue) {
+        result.hasFetchAttachmentsTask = true;
+        result.fetchAttachmentsTask_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeFetchAttachmentsTask(com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask value) {
+        if (result.hasFetchAttachmentsTask() &&
+            result.fetchAttachmentsTask_ != com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.getDefaultInstance()) {
+          result.fetchAttachmentsTask_ =
+            com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.newBuilder(result.fetchAttachmentsTask_).mergeFrom(value).buildPartial();
+        } else {
+          result.fetchAttachmentsTask_ = value;
+        }
+        result.hasFetchAttachmentsTask = true;
+        return this;
+      }
+      public Builder clearFetchAttachmentsTask() {
+        result.hasFetchAttachmentsTask = false;
+        result.fetchAttachmentsTask_ = com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.getDefaultInstance();
+        return this;
+      }
+      
       // @@protoc_insertion_point(builder_scope:google_import_proto.ImportTaskPayload)
     }
     
@@ -5325,6 +7107,26 @@ public final class GoogleImport {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_google_import_proto_ImportWaveletTask_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_import_proto_ImportWaveletTask_ImportedAttachment_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_google_import_proto_ImportWaveletTask_ImportedAttachment_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_RemoteAttachmentInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_RemoteAttachmentInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_ImportedAttachmentInfo_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_ImportedAttachmentInfo_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_google_import_proto_ImportTaskPayload_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -5374,17 +7176,37 @@ public final class GoogleImport {
       "ified_millis\030\005 \002(\003\022\022\n\nblip_count\030\006 \002(\005\022\031" +
       "\n\021unread_blip_count\030\007 \002(\005\"V\n\023FindRemoteW" +
       "avesTask\022\020\n\010instance\030\001 \002(\t\022\030\n\020on_or_afte" +
-      "r_days\030\002 \002(\003\022\023\n\013before_days\030\003 \002(\003\"\310\001\n\021Im" +
+      "r_days\030\002 \002(\003\022\023\n\013before_days\030\003 \002(\003\"\322\002\n\021Im" +
       "portWaveletTask\022\020\n\010instance\030\001 \002(\t\022\017\n\007wav" +
       "e_id\030\002 \002(\t\022\022\n\nwavelet_id\030\003 \002(\t\022N\n\014sharin" +
       "g_mode\030\004 \002(\01628.google_import_proto.Impor",
-      "tWaveletTask.ImportSharingMode\",\n\021Import" +
-      "SharingMode\022\013\n\007PRIVATE\020\000\022\n\n\006SHARED\020\001\"\233\001\n" +
-      "\021ImportTaskPayload\022A\n\017find_waves_task\030\001 " +
-      "\001(\0132(.google_import_proto.FindRemoteWave" +
-      "sTask\022C\n\023import_wavelet_task\030\002 \001(\0132&.goo" +
-      "gle_import_proto.ImportWaveletTaskB+\n\033co" +
-      "m.google.walkaround.protoB\014GoogleImport"
+      "tWaveletTask.ImportSharingMode\022M\n\nattach" +
+      "ment\030\005 \003(\01329.google_import_proto.ImportW" +
+      "aveletTask.ImportedAttachment\0329\n\022Importe" +
+      "dAttachment\022\021\n\tremote_id\030\001 \002(\t\022\020\n\010local_" +
+      "id\030\002 \001(\t\",\n\021ImportSharingMode\022\013\n\007PRIVATE" +
+      "\020\000\022\n\n\006SHARED\020\001\"\266\004\n$FetchAttachmentsAndIm" +
+      "portWaveletTask\022D\n\024original_import_task\030" +
+      "\001 \002(\0132&.google_import_proto.ImportWavele" +
+      "tTask\022a\n\tto_import\030\002 \003(\0132N.google_import" +
+      "_proto.FetchAttachmentsAndImportWaveletT",
+      "ask.RemoteAttachmentInfo\022b\n\010imported\030\003 \003" +
+      "(\0132P.google_import_proto.FetchAttachment" +
+      "sAndImportWaveletTask.ImportedAttachment" +
+      "Info\032o\n\024RemoteAttachmentInfo\022\021\n\tremote_i" +
+      "d\030\001 \002(\t\022\020\n\010filename\030\002 \001(\t\022\021\n\tsizeBytes\030\003" +
+      " \001(\003\022\021\n\tmime_type\030\004 \001(\t\022\014\n\004path\030\005 \002(\t\032\217\001" +
+      "\n\026ImportedAttachmentInfo\022c\n\013remote_info\030" +
+      "\001 \002(\0132N.google_import_proto.FetchAttachm" +
+      "entsAndImportWaveletTask.RemoteAttachmen" +
+      "tInfo\022\020\n\010local_id\030\002 \001(\t\"\366\001\n\021ImportTaskPa",
+      "yload\022A\n\017find_waves_task\030\001 \001(\0132(.google_" +
+      "import_proto.FindRemoteWavesTask\022C\n\023impo" +
+      "rt_wavelet_task\030\002 \001(\0132&.google_import_pr" +
+      "oto.ImportWaveletTask\022Y\n\026fetch_attachmen" +
+      "ts_task\030\003 \001(\01329.google_import_proto.Fetc" +
+      "hAttachmentsAndImportWaveletTaskB+\n\033com." +
+      "google.walkaround.protoB\014GoogleImport"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -5476,15 +7298,47 @@ public final class GoogleImport {
           internal_static_google_import_proto_ImportWaveletTask_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_google_import_proto_ImportWaveletTask_descriptor,
-              new java.lang.String[] { "Instance", "WaveId", "WaveletId", "SharingMode", },
+              new java.lang.String[] { "Instance", "WaveId", "WaveletId", "SharingMode", "Attachment", },
               com.google.walkaround.proto.GoogleImport.ImportWaveletTask.class,
               com.google.walkaround.proto.GoogleImport.ImportWaveletTask.Builder.class);
-          internal_static_google_import_proto_ImportTaskPayload_descriptor =
+          internal_static_google_import_proto_ImportWaveletTask_ImportedAttachment_descriptor =
+            internal_static_google_import_proto_ImportWaveletTask_descriptor.getNestedTypes().get(0);
+          internal_static_google_import_proto_ImportWaveletTask_ImportedAttachment_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_google_import_proto_ImportWaveletTask_ImportedAttachment_descriptor,
+              new java.lang.String[] { "RemoteId", "LocalId", },
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.class,
+              com.google.walkaround.proto.GoogleImport.ImportWaveletTask.ImportedAttachment.Builder.class);
+          internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_descriptor =
             getDescriptor().getMessageTypes().get(6);
+          internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_descriptor,
+              new java.lang.String[] { "OriginalImportTask", "ToImport", "Imported", },
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.class,
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.Builder.class);
+          internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_RemoteAttachmentInfo_descriptor =
+            internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_descriptor.getNestedTypes().get(0);
+          internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_RemoteAttachmentInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_RemoteAttachmentInfo_descriptor,
+              new java.lang.String[] { "RemoteId", "Filename", "SizeBytes", "MimeType", "Path", },
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.class,
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.RemoteAttachmentInfo.Builder.class);
+          internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_ImportedAttachmentInfo_descriptor =
+            internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_descriptor.getNestedTypes().get(1);
+          internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_ImportedAttachmentInfo_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_google_import_proto_FetchAttachmentsAndImportWaveletTask_ImportedAttachmentInfo_descriptor,
+              new java.lang.String[] { "RemoteInfo", "LocalId", },
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.class,
+              com.google.walkaround.proto.GoogleImport.FetchAttachmentsAndImportWaveletTask.ImportedAttachmentInfo.Builder.class);
+          internal_static_google_import_proto_ImportTaskPayload_descriptor =
+            getDescriptor().getMessageTypes().get(7);
           internal_static_google_import_proto_ImportTaskPayload_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_google_import_proto_ImportTaskPayload_descriptor,
-              new java.lang.String[] { "FindWavesTask", "ImportWaveletTask", },
+              new java.lang.String[] { "FindWavesTask", "ImportWaveletTask", "FetchAttachmentsTask", },
               com.google.walkaround.proto.GoogleImport.ImportTaskPayload.class,
               com.google.walkaround.proto.GoogleImport.ImportTaskPayload.Builder.class);
           return null;

@@ -46,5 +46,10 @@ public interface SourceInstance {
   String getLongName();
   /** Returns a link to a wave on this instance. */
   String getWaveLink(WaveId waveId);
+  /**
+   * Returns the URL of an attachment on this instance given the attachment path from the attachment
+   * data document.
+   */
+  String getFullAttachmentUrl(String attachmentPath);
 
 }

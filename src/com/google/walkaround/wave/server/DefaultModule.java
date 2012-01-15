@@ -51,6 +51,9 @@ public class DefaultModule extends AbstractModule {
         return "https://wave.google.com/wave/waveref/"
             + JavaWaverefEncoder.encodeToUriPathSegment(WaveRef.of(waveId));
       }
+      @Override public String getFullAttachmentUrl(String attachmentPath) {
+        return "https://wave.googleusercontent.com/wave" + attachmentPath;
+      }
     },
     WAVESANDBOX {
       @Override public String getApiUrl() {
@@ -62,6 +65,11 @@ public class DefaultModule extends AbstractModule {
         // TODO(ohler): test this
         return "https://www.wavesandbox.com/wave/waveref/"
             + JavaWaverefEncoder.encodeToUriPathSegment(WaveRef.of(waveId));
+      }
+      @Override public String getFullAttachmentUrl(String attachmentPath) {
+        throw new RuntimeException(
+            "Attachment import from wavesandbox not implemented"
+                + " -- please file a bug if you need this");
       }
     };
 

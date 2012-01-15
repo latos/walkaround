@@ -154,6 +154,38 @@ message ImportWaveletTask {
   required string wavelet_id = 3;
   // Whether to use private or shared import.
   required ImportSharingMode sharing_mode = 4;
+
+  message ImportedAttachment {
+    required string remote_id = 1;
+    // Absent means attachment could not be imported.
+    optional string local_id = 2;
+  }
+  repeated ImportedAttachment attachment = 5;
+}
+
+message FetchAttachmentsAndImportWaveletTask {
+  message RemoteAttachmentInfo {
+    required string remote_id = 1;
+    // File name to save as when downloading.  Absent if unknown.
+    optional string filename = 2;
+    // Size of the file in bytes.  Absent if unknown.
+    optional int64 sizeBytes = 3;
+    // MIME type.  Absent if unknown.
+    optional string mime_type = 4;
+    // URL path to download.
+    required string path = 5;
+  }
+  message ImportedAttachmentInfo {
+    required RemoteAttachmentInfo remote_info = 1;
+    // Absent if import failed.
+    optional string local_id = 2;
+  }
+  required ImportWaveletTask original_import_task = 1;
+  // Attachments for this wavelet that still need to be imported.
+  repeated RemoteAttachmentInfo to_import = 2;
+  // Attachments for this wavelet that have been processed (either
+  // imported successfully or failed permanently).
+  repeated ImportedAttachmentInfo imported = 3;
 }
 
 // An import task scheduled for execution through the task queue.  We
@@ -167,4 +199,5 @@ message ImportTaskPayload {
   // Exactly one of the following fields must be set.
   optional FindRemoteWavesTask find_waves_task = 1;
   optional ImportWaveletTask import_wavelet_task = 2;
+  optional FetchAttachmentsAndImportWaveletTask fetch_attachments_task = 3;
 }

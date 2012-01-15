@@ -17,6 +17,7 @@
 package com.google.walkaround.wave.server.googleimport.conversion;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import com.google.walkaround.proto.GoogleImport.GoogleDocument;
@@ -46,6 +47,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.Nullable;
@@ -175,6 +177,8 @@ public class HistorySynthesizer {
     return null;
   }
 
+  private static Set<String> KNOWN_INVALID_ADDRESSES = ImmutableSet.of("<nobody>");
+
   // Each string is nullable, the array itself is not.
   private String pickValidParticipantId(@Nullable String... options) {
     for (String s : options) {
@@ -183,7 +187,9 @@ public class HistorySynthesizer {
           ParticipantId.of(s);
           return s;
         } catch (InvalidParticipantAddress e) {
-          log.info("Encountered invalid participant address: " + s);
+          if (!KNOWN_INVALID_ADDRESSES.contains(s)) {
+            log.info("Encountered invalid participant address: " + s);
+          }
         }
       }
     }

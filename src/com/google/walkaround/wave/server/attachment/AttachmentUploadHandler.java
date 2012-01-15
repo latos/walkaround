@@ -19,16 +19,6 @@ package com.google.walkaround.wave.server.attachment;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.common.collect.Iterables;
-import com.google.inject.Inject;
-import com.google.walkaround.util.server.servlet.AbstractHandler;
-import com.google.walkaround.util.shared.Assert;
-import com.google.walkaround.util.shared.RandomBase64Generator;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
-
 import com.google.gxp.base.GxpContext;
 import com.google.inject.Inject;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
@@ -37,9 +27,9 @@ import com.google.walkaround.wave.server.FlagName;
 import com.google.walkaround.wave.server.gxp.UploadResult;
 
 import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,7 +52,6 @@ public class AttachmentUploadHandler extends AbstractHandler {
   @Inject BlobstoreService blobstoreService;
   @Inject MetadataDirectory metadataDirectory;
   @Inject RawAttachmentService rawAttachmentService;
-  @Inject RandomBase64Generator random64;
   @Inject @Flag(FlagName.ANALYTICS_ACCOUNT) String analyticsAccount;
 
   @Override
@@ -71,23 +60,7 @@ public class AttachmentUploadHandler extends AbstractHandler {
     List<BlobKey> blobKeys = blobs.get(ATTACHMENT_UPLOAD_PARAM);
     log.info("blobKeys: " + blobKeys);
     BlobKey blobKey = Iterables.getOnlyElement(blobKeys);
-    AttachmentId newId = new AttachmentId(random64.next(
-        // 115 * 6 random bits which should be unguessable.  (6 bits per random64 char.)
-        115));
-    Assert.check(metadataDirectory.get(newId) == null,
-        "Random attachment id already taken: %s", newId);
-    log.info("Computing metadata for " + newId + " (" + blobKey + ")");
-    AttachmentMetadata metadata = rawAttachmentService.computeMetadata(newId, blobKey);
-    AttachmentMetadata existingMetadata = metadataDirectory.getOrAdd(metadata);
-    if (existingMetadata != null) {
-      // This is expected if, during getOrAdd, a commit times out from our
-      // perspective but succeeded in the datatstore, and we notice the existing
-      // data during a retry.  Still, we log severe until we confirm that this
-      // is indeed harmless.
-      log.severe("Metadata for new attachment " + metadata
-          + " already exists: " + existingMetadata);
-    }
-    log.info("Wrote metadata " + metadata);
+    AttachmentId newId = rawAttachmentService.turnBlobIntoAttachment(blobKey);
     UploadResult.write(resp.getWriter(), new GxpContext(req.getLocale()),
         analyticsAccount, newId.getId());
   }

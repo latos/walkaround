@@ -76,7 +76,7 @@ public class PerUserTable {
   private static final String WAVELET_PRIVATE_LOCAL_ID_PROPERTY = "privateLocalId";
   private static final String WAVELET_SHARED_LOCAL_ID_PROPERTY = "sharedLocalId";
 
-  private static final String TASK_ENTITY_KIND = "ImportTask";
+  private static final String TASK_ENTITY_KIND = "ImportTask2";
   private static final String TASK_CREATION_TIME_MILLIS_PROPERTY = "created";
   private static final String TASK_PAYLOAD_PROPERTY = "payload";
 
