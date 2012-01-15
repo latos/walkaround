@@ -10,46 +10,6 @@
 	<classpathentry kind="lib" path="third_party/gson/gson-1.7.1.jar"/>
 	<classpathentry kind="lib" path="third_party/joda-time/joda-time-2.0.jar"/>
 	<classpathentry kind="lib" path="third_party/antlr/antlr-3.4-complete.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/concurrencycontrol.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/common.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/client-scheduler.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/communication-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/client-scheduler-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/api-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/box-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/gwt-util-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/diff.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/proto-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/crypto-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/migration.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/util-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/model-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/media-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/media.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/pst.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/box.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/extensions.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/client-common-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/crypto.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/client-common.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/proto.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/concurrencycontrol-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/testing.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/api.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/federation.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/proto-msg.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/testing-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/gwt-util.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/diff-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/communication.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/federation-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/client.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/extensions-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/migration-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/client-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/model.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/common-src.jar"/>
-	<classpathentry kind="lib" path="third_party/wave/util.jar"/>
 	<classpathentry kind="lib" path="third_party/protobuf/protobuf.jar"/>
 	<classpathentry kind="lib" path="third_party/commons-cli/commons-cli-1.2.jar"/>
 	<classpathentry kind="lib" path="third_party/guava/guava-gwt-10.0.1.jar"/>
@@ -91,5 +51,6 @@
 	<classpathentry kind="lib" path="third_party/appengine-sdk/sdk/lib/impl/appengine-api-labs.jar"/>
 	<classpathentry kind="lib" path="third_party/appengine-sdk/sdk/lib/testing/appengine-testing.jar"/>
 	<classpathentry kind="lib" path="third_party/appengine-mapreduce/appengine-mapper.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/wave-protocol"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
