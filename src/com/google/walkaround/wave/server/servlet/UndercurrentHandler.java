@@ -17,21 +17,23 @@
 package com.google.walkaround.wave.server.servlet;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import com.google.gxp.base.GxpContext;
 import com.google.gxp.html.HtmlClosure;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.walkaround.proto.ClientVars.ErrorVars;
-import com.google.walkaround.proto.ClientVars.SuccessVars;
+import com.google.walkaround.proto.ClientVars.LiveClientVars;
+import com.google.walkaround.proto.ClientVars.StaticClientVars;
 import com.google.walkaround.proto.gson.ClientVarsGsonImpl;
 import com.google.walkaround.proto.gson.ClientVarsGsonImpl.ErrorVarsGsonImpl;
-import com.google.walkaround.proto.gson.ClientVarsGsonImpl.SuccessVarsGsonImpl;
+import com.google.walkaround.proto.gson.ClientVarsGsonImpl.LiveClientVarsGsonImpl;
+import com.google.walkaround.proto.gson.ClientVarsGsonImpl.StaticClientVarsGsonImpl;
 import com.google.walkaround.proto.gson.ClientVarsGsonImpl.UdwLoadDataGsonImpl;
 import com.google.walkaround.slob.server.AccessDeniedException;
 import com.google.walkaround.slob.server.GsonProto;
 import com.google.walkaround.slob.server.SlobFacilities;
 import com.google.walkaround.slob.server.SlobNotFoundException;
-import com.google.walkaround.slob.server.SlobRootEntityKind;
 import com.google.walkaround.slob.shared.ClientId;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.Util;
@@ -53,6 +55,7 @@ import org.json.JSONObject;
 import org.waveprotocol.wave.model.wave.ParticipantId;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -86,22 +89,41 @@ public class UndercurrentHandler extends AbstractHandler {
   @Inject @ConvStore SlobFacilities convStore;
 
   private void setResponseHeaders(HttpServletResponse resp) {
-    // TODO(ohler): It seems that the browser caches the response if we don't do this.
-    // Do we need this everywhere?
+    // TODO(ohler): Figure out how to make static versions cacheable.  The
+    // problem is that we inline GWT's nocache JS, and having that cached is
+    // very confusing when debugging, and could lead to situations where a
+    // browser caches the nocache JS but not the cacheable JS and expects the
+    // server to still have the cacheable JS -- this won't be true if a new
+    // client binary has been deployed to the server.
+
+    // TODO(ohler): Find a systematic way of setting no-cache headers in all
+    // handlers that need them.
+
+    // http://www.mnot.net/cache_docs/#PRAGMA recommends not to use this;
+    // TODO(ohler): Figure out if it does any good.  Walkaround doesn't work in
+    // old browsers anyway, so we shouldn't need hacks.
     resp.setHeader("Pragma", "No-cache");
-    resp.setHeader("Cache-Control", "no-cache");
-    resp.setDateHeader("Expires", 1);
+    // NOTE(ohler): Using this rather than just "no-cache" seems to fix the
+    // client crash on back/forward due to re-use of client id.
+    resp.setHeader("Cache-Control", "no-store, must-revalidate");
+
     resp.setContentType("text/html");
     resp.setCharacterEncoding("UTF-8");
   }
 
   private JSONObject clientVarString(
-      @Nullable SuccessVars successVars, @Nullable ErrorVars errorVars) {
+      @Nullable LiveClientVars liveClientVars,
+      @Nullable StaticClientVars staticClientVars,
+      @Nullable ErrorVars errorVars) {
+    Preconditions.checkArgument(Collections.frequency(
+            ImmutableList.of(liveClientVars != null, staticClientVars != null, errorVars != null),
+            true) == 1,
+        "%s/%s/%s", liveClientVars, staticClientVars, errorVars);
     ClientVarsGsonImpl clientVars = new ClientVarsGsonImpl();
-    if (successVars != null) {
-      Preconditions.checkArgument(errorVars == null, "Both successVars and errorVars set: %s, %s",
-          successVars, errorVars);
-      clientVars.setSuccessVars(successVars);
+    if (liveClientVars != null) {
+      clientVars.setLiveClientVars(liveClientVars);
+    } else if (staticClientVars != null) {
+      clientVars.setStaticClientVars(staticClientVars);
     } else {
       clientVars.setErrorVars(errorVars);
     }
@@ -122,21 +144,21 @@ public class UndercurrentHandler extends AbstractHandler {
     errorVars.setErrorMessage(errorMessage);
     setResponseHeaders(resp);
     Client.write(resp.getWriter(), new GxpContext(req.getLocale()),
-        analyticsAccount, clientVarString(null, errorVars), inlineNocacheJs(), channelApiUrl);
+        analyticsAccount, clientVarString(null, null, errorVars), inlineNocacheJs(), channelApiUrl);
   }
 
-  private void writeSuccessResponse(HttpServletRequest req, HttpServletResponse resp,
+  private void writeLiveClientResponse(HttpServletRequest req, HttpServletResponse resp,
       ClientId clientId, LoadedWave wave) throws IOException {
-    SuccessVarsGsonImpl successVars = new SuccessVarsGsonImpl();
-    successVars.setClientVersion(clientVersion);
-    successVars.setRandomSeed(random.nextInt());
-    successVars.setUserEmail(participantId.getAddress());
-    successVars.setHaveOauthToken(userContext.hasOAuthCredentials());
-    successVars.setConvConnectResponse(
+    LiveClientVarsGsonImpl vars = new LiveClientVarsGsonImpl();
+    vars.setClientVersion(clientVersion);
+    vars.setRandomSeed(random.nextInt());
+    vars.setUserEmail(participantId.getAddress());
+    vars.setHaveOauthToken(userContext.hasOAuthCredentials());
+    vars.setConvSnapshot(wave.getConvSnapshotWithDiffs());
+    vars.setConvConnectResponse(
         sessionHelper.createConnectResponse(
             new ObjectSession(wave.getConvObjectId(), clientId, convStore.getRootEntityKind()),
             wave.getConvConnectResult()));
-    successVars.setConvSnapshot(wave.getConvSnapshotWithDiffs());
     if (wave.getUdw() != null) {
       UdwLoadDataGsonImpl udwLoadData = new UdwLoadDataGsonImpl();
       udwLoadData.setConnectResponse(
@@ -145,22 +167,42 @@ public class UndercurrentHandler extends AbstractHandler {
                   udwStore.getRootEntityKind()),
               wave.getUdw().getConnectResult()));
       udwLoadData.setSnapshot(wave.getUdw().getSnapshot());
-      successVars.setUdw(udwLoadData);
+      vars.setUdw(udwLoadData);
     }
     setResponseHeaders(resp);
     Client.write(resp.getWriter(), new GxpContext(req.getLocale()),
-        analyticsAccount, clientVarString(successVars, null), inlineNocacheJs(), channelApiUrl);
+        analyticsAccount, clientVarString(vars, null, null), inlineNocacheJs(), channelApiUrl);
+  }
+
+  private void writeStaticClientResponse(HttpServletRequest req, HttpServletResponse resp,
+      LoadedWave wave) throws IOException {
+    StaticClientVarsGsonImpl vars = new StaticClientVarsGsonImpl();
+    vars.setRandomSeed(random.nextInt());
+    vars.setUserEmail(participantId.getAddress());
+    vars.setHaveOauthToken(userContext.hasOAuthCredentials());
+    vars.setConvObjectId(wave.getConvObjectId().getId());
+    vars.setConvSnapshot(wave.getConvSnapshotWithDiffs());
+    setResponseHeaders(resp);
+    Client.write(resp.getWriter(), new GxpContext(req.getLocale()),
+        analyticsAccount, clientVarString(null, vars, null), inlineNocacheJs(), channelApiUrl);
   }
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    ClientId clientId = new ClientId(random64.next(
-        // TODO(ohler): justify this number
-        8));
     SlobId convObjectId = new SlobId(requireParameter(req, "id"));
+    String versionString = optionalParameter(req, "version", null);
+    @Nullable Long version = versionString == null ? null : Long.parseLong(versionString);
+    @Nullable ClientId clientId = version != null ? null
+        : new ClientId(random64.next(
+                // TODO(ohler): justify this number
+                8));
     LoadedWave wave;
     try {
-      wave = loader.load(convObjectId, clientId);
+      if (version == null) {
+        wave = loader.load(convObjectId, clientId);
+      } else {
+        wave = loader.loadStaticAtVersion(convObjectId, version);
+      }
     } catch (AccessDeniedException e) {
       log.log(Level.SEVERE, "Wave not found or access denied", e);
       writeErrorResponse(req, resp, "Wave not found or access denied");
@@ -174,7 +216,11 @@ public class UndercurrentHandler extends AbstractHandler {
       writeErrorResponse(req, resp, "Server error loading wave");
       return;
     }
-    writeSuccessResponse(req, resp, clientId, wave);
+    if (version == null) {
+      writeLiveClientResponse(req, resp, clientId, wave);
+    } else {
+      writeStaticClientResponse(req, resp, wave);
+    }
   }
 
   private HtmlClosure inlineNocacheJs() {

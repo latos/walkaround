@@ -16,6 +16,8 @@
 
 package com.google.walkaround.wave.server;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -101,20 +103,18 @@ public class WaveLoader {
 
   public static class LoadedWave {
     private final SlobId convObjectId;
-    private final ConnectResult convConnectResult;
+    @Nullable private final ConnectResult convConnectResult;
     private final WaveletDiffSnapshot convSnapshotWithDiffs;
     @Nullable private final LoadedUdw udw;
 
     public LoadedWave(SlobId convObjectId,
-        ConnectResult convConnectResult,
+        @Nullable ConnectResult convConnectResult,
         WaveletDiffSnapshot convSnapshotWithDiffs,
         @Nullable LoadedUdw udw) {
-      Preconditions.checkNotNull(convObjectId, "Null convObjectId");
-      Preconditions.checkNotNull(convConnectResult, "Null convConnectResult");
-      Preconditions.checkNotNull(convSnapshotWithDiffs, "Null convSnapshotWithDiffs");
-      this.convObjectId = convObjectId;
+      this.convObjectId = checkNotNull(convObjectId, "Null convObjectId");
       this.convConnectResult = convConnectResult;
-      this.convSnapshotWithDiffs = convSnapshotWithDiffs;
+      this.convSnapshotWithDiffs =
+          checkNotNull(convSnapshotWithDiffs, "Null convSnapshotWithDiffs");
       this.udw = udw;
     }
 
@@ -122,7 +122,7 @@ public class WaveLoader {
       return convObjectId;
     }
 
-    public ConnectResult getConvConnectResult() {
+    @Nullable public ConnectResult getConvConnectResult() {
       return convConnectResult;
     }
 
@@ -135,7 +135,12 @@ public class WaveLoader {
     }
 
     @Override public String toString() {
-      return "LoadedWave(" + convObjectId + ", " + convConnectResult + ", " + udw + ")";
+      return getClass().getSimpleName() + "("
+          + convObjectId + ", "
+          + convConnectResult + ", "
+          + convSnapshotWithDiffs + ", "
+          + udw
+          + ")";
     }
   }
 
@@ -159,11 +164,9 @@ public class WaveLoader {
     this.udwStore = udwStore;
     this.enableUdw = enableUdw;
     this.enableDiffOnOpen = enableDiffOnOpen;
-    serializer = new WaveSerializer(
-        new ServerMessageSerializer(), new DocumentFactory<ObservablePluggableMutableDocument>() {
-
-      @Override
-      public ObservablePluggableMutableDocument create(
+    serializer = new WaveSerializer(new ServerMessageSerializer(),
+        new DocumentFactory<ObservablePluggableMutableDocument>() {
+      @Override public ObservablePluggableMutableDocument create(
           WaveletId waveletId, String docId, DocInitialization content) {
         return new ObservablePluggableMutableDocument(
             DocumentSchema.NO_SCHEMA_CONSTRAINTS, content);
@@ -171,9 +174,20 @@ public class WaveLoader {
     });
   }
 
-  public LoadedWave load(SlobId convObjectId, ClientId clientId) throws IOException,
-      AccessDeniedException, SlobNotFoundException {
+  public LoadedWave loadStaticAtVersion(SlobId convObjectId, @Nullable Long version)
+      throws IOException, AccessDeniedException, SlobNotFoundException {
     Preconditions.checkNotNull(convObjectId, "Null convObjectId");
+    String rawConvSnapshot = convStore.loadAtVersion(convObjectId, version);
+    WaveletName convWaveletName = IdHack.convWaveletNameFromConvObjectId(convObjectId);
+    WaveletDataImpl convWavelet = deserializeWavelet(convWaveletName, rawConvSnapshot);
+    // TODO(ohler): Determine if it's better UX if we load the UDW here as well.
+    return waveWithoutUdw(convObjectId, null, convWavelet);
+  }
+
+  public LoadedWave load(SlobId convObjectId, ClientId clientId)
+      throws IOException, AccessDeniedException, SlobNotFoundException {
+    Preconditions.checkNotNull(convObjectId, "Null convObjectId");
+    Preconditions.checkNotNull(clientId, "Null clientId");
 
     Pair<ConnectResult, String> convPair = convStore.connect(convObjectId, clientId);
     ConnectResult convResult = convPair.getFirst();
@@ -183,13 +197,12 @@ public class WaveLoader {
     WaveletName convWaveletName = IdHack.convWaveletNameFromConvObjectId(convObjectId);
 
     // The most recent version of wavelet to get list of documents from.
-    WaveletDataImpl convWavelet = deserializeWavelet(convWaveletName, convPair.getSecond());
+    WaveletDataImpl convWavelet = deserializeWavelet(convWaveletName, rawConvSnapshot);
 
     long convVersion = convResult.getVersion();
-    if (convVersion != convWavelet.getVersion()) {
-      throw new AssertionError("ConnectResult revision " + convVersion +
-          " does not match wavelet version " + convWavelet.getVersion());
-    }
+    Assert.check(convVersion == convWavelet.getVersion(),
+        "ConnectResult revision %s does not match wavelet version %s",
+        convVersion, convWavelet.getVersion());
 
     if (!enableUdw) {
       return waveWithoutUdw(convObjectId, convResult, convWavelet);

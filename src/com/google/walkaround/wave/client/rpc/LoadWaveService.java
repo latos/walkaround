@@ -40,12 +40,11 @@ import org.waveprotocol.wave.model.wave.data.DocumentFactory;
 import org.waveprotocol.wave.model.wave.data.impl.WaveletDataImpl;
 
 /**
- * Service that loads a wave at the latest version.
+ * Service that checks current version of wave.
  *
  * @author danilatos@google.com (Daniel Danilatos)
  */
-// TODO(ohler): rename to something like WaveletConnectService after moving
-// parseData() into another class.
+// TODO(ohler): rename to something like WaveletConnectService
 public class LoadWaveService {
   private static final Log log = Logs.create("loadwave");
 
@@ -63,47 +62,6 @@ public class LoadWaveService {
 
   public LoadWaveService(Rpc rpc) {
     this.rpc = rpc;
-  }
-
-  private WaveletEntry makeEntry(SlobId objectId,
-      ConnectResponse connectResponse, WaveletDataImpl wavelet) {
-    Preconditions.checkArgument(
-        objectId.getId().equals(connectResponse.getSignedSession().getSession().getObjectId()),
-        "Mismatched object ids: %s, %s", objectId, connectResponse);
-    return new WaveletEntry(objectId,
-        connectResponse.getSignedSessionString(),
-        connectResponse.getSignedSession().getSession(),
-        connectResponse.getChannelToken(), wavelet);
-  }
-
-  public WaveletEntry parseConvWaveletData(SlobId convId, ConnectResponse connectResponse,
-      WaveletDiffSnapshot diffSnapshot, DocumentFactory<?> docFactory, StringMap<DocOp> diffMap) {
-    WaveSerializer waveSerializer = new WaveSerializer(new ClientMessageSerializer(), docFactory);
-    WaveletDataImpl wavelet;
-    try {
-      StringMap<DocOp> diffOps = waveSerializer.deserializeDocumentsDiffs(diffSnapshot);
-      diffMap.putAll(diffOps);
-      wavelet = waveSerializer.createWaveletData(
-          IdHack.convWaveletNameFromConvObjectId(convId), diffSnapshot);
-    } catch (MessageException e) {
-      throw new RuntimeException(e);
-    }
-    return makeEntry(convId, connectResponse, wavelet);
-  }
-
-  public WaveletEntry parseUdwData(SlobId convObjectId, SlobId udwObjectId,
-      ConnectResponse connectResponse, WalkaroundWaveletSnapshot snapshot,
-      DocumentFactory<?> docFactory) {
-    WaveSerializer serializer = new WaveSerializer(new ClientMessageSerializer(), docFactory);
-    WaveletDataImpl wavelet;
-    try {
-      wavelet = serializer.createWaveletData(
-          IdHack.udwWaveletNameFromConvObjectIdAndUdwObjectId(convObjectId, udwObjectId),
-          snapshot);
-    } catch (MessageException e) {
-      throw new RuntimeException(e);
-    }
-    return makeEntry(udwObjectId, connectResponse, wavelet);
   }
 
   // TODO(ohler): rename to connect?

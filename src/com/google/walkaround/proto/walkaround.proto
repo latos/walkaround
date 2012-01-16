@@ -169,7 +169,7 @@ message ClientVars {
     required WalkaroundWaveletSnapshot snapshot = 2;
   }
 
-  message SuccessVars {
+  message LiveClientVars {
     required int32 client_version = 1;
     required int32 random_seed = 2;
     required string user_email = 3;
@@ -182,13 +182,24 @@ message ClientVars {
     optional UdwLoadData udw = 20;
   }
 
+  // If client is static and read-only.
+  message StaticClientVars {
+    required int32 random_seed = 2;
+    required string user_email = 3;
+    required bool have_oauth_token = 4;
+
+    required string conv_object_id = 10;
+    required diff.WaveletDiffSnapshot conv_snapshot = 11;
+  }
+
   message ErrorVars {
     required string error_message = 1;
   }
 
   // Exactly one of these must be present.
-  optional SuccessVars success_vars = 1;
+  optional LiveClientVars live_client_vars = 1;
   optional ErrorVars error_vars = 2;
+  optional StaticClientVars static_client_vars = 3;
 }
 
 // Server-internal representation of a mutation request including the

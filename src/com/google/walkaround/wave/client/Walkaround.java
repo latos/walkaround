@@ -16,6 +16,7 @@
 
 package com.google.walkaround.wave.client;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
@@ -29,8 +30,12 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.UIObject;
-import com.google.walkaround.proto.ClientVars;
+import com.google.walkaround.proto.ClientVars.LiveClientVars;
+import com.google.walkaround.proto.ClientVars.StaticClientVars;
+import com.google.walkaround.proto.ClientVars.UdwLoadData;
 import com.google.walkaround.proto.ConnectResponse;
+import com.google.walkaround.proto.WalkaroundWaveletSnapshot;
+import com.google.walkaround.proto.WaveletDiffSnapshot;
 import com.google.walkaround.proto.jso.ClientVarsJsoImpl;
 import com.google.walkaround.proto.jso.DeltaJsoImpl;
 import com.google.walkaround.slob.client.GenericOperationChannel.ReceiveOpChannel;
@@ -43,6 +48,7 @@ import com.google.walkaround.util.client.log.LogPanel;
 import com.google.walkaround.util.client.log.Logs;
 import com.google.walkaround.util.client.log.Logs.Level;
 import com.google.walkaround.util.client.log.Logs.Log;
+import com.google.walkaround.util.shared.Assert;
 import com.google.walkaround.util.shared.RandomBase64Generator;
 import com.google.walkaround.util.shared.RandomBase64Generator.RandomProvider;
 import com.google.walkaround.wave.client.MyFullDomRenderer.DocRefRenderer;
@@ -128,6 +134,8 @@ import org.waveprotocol.wave.model.wave.data.impl.ObservablePluggableMutableDocu
 import org.waveprotocol.wave.model.wave.data.impl.WaveViewDataImpl;
 import org.waveprotocol.wave.model.wave.data.impl.WaveletDataImpl;
 
+import javax.annotation.Nullable;
+
 /**
  * Walkaround configuration for Undercurrent client
  *
@@ -166,6 +174,51 @@ public class Walkaround implements EntryPoint {
 
   private static boolean loaded;
 
+  private WaveletEntry makeEntry(SlobId objectId,
+      @Nullable ConnectResponse connectResponse, WaveletDataImpl wavelet) {
+    if (connectResponse != null) {
+      Preconditions.checkArgument(
+          objectId.getId().equals(connectResponse.getSignedSession().getSession().getObjectId()),
+          "Mismatched object ids: %s, %s", objectId, connectResponse);
+    }
+    return new WaveletEntry(objectId,
+        connectResponse == null ? null : connectResponse.getSignedSessionString(),
+        connectResponse == null ? null : connectResponse.getSignedSession().getSession(),
+        connectResponse == null ? null : connectResponse.getChannelToken(),
+        wavelet);
+  }
+
+  private WaveletEntry parseConvWaveletData(
+      @Nullable ConnectResponse connectResponse, WaveletDiffSnapshot diffSnapshot,
+      DocumentFactory<?> docFactory, StringMap<DocOp> diffMap) {
+    WaveSerializer waveSerializer = new WaveSerializer(new ClientMessageSerializer(), docFactory);
+    WaveletDataImpl wavelet;
+    try {
+      StringMap<DocOp> diffOps = waveSerializer.deserializeDocumentsDiffs(diffSnapshot);
+      diffMap.putAll(diffOps);
+      wavelet = waveSerializer.createWaveletData(
+          IdHack.convWaveletNameFromConvObjectId(convObjectId), diffSnapshot);
+    } catch (MessageException e) {
+      throw new RuntimeException(e);
+    }
+    return makeEntry(convObjectId, connectResponse, wavelet);
+  }
+
+  private WaveletEntry parseUdwData(
+      @Nullable ConnectResponse connectResponse, WalkaroundWaveletSnapshot snapshot,
+      DocumentFactory<?> docFactory) {
+    WaveSerializer serializer = new WaveSerializer(new ClientMessageSerializer(), docFactory);
+    WaveletDataImpl wavelet;
+    try {
+      wavelet = serializer.createWaveletData(
+          IdHack.udwWaveletNameFromConvObjectIdAndUdwObjectId(convObjectId, udwObjectId),
+          snapshot);
+    } catch (MessageException e) {
+      throw new RuntimeException(e);
+    }
+    return makeEntry(udwObjectId, connectResponse, wavelet);
+  }
+
   /**
    * Runs the harness script.
    */
@@ -192,15 +245,64 @@ public class Walkaround implements EntryPoint {
     }
     logger.log(Level.INFO, "Init");
 
-    final ClientVars.SuccessVars successVars = clientVars.getSuccessVars();
+    final SavedStateIndicator indicator = new SavedStateIndicator(
+        Document.get().getElementById("savedStateContainer"));
+    final AjaxRpc rpc = new AjaxRpc("", indicator);
+
+    final boolean isLive;
+    final boolean useUdw;
+    @Nullable final UdwLoadData udwData;
+    final int randomSeed;
+    final String userIdString;
+    final boolean haveOAuthToken;
+    final String convObjectIdString;
+    final WaveletDiffSnapshot convSnapshot;
+    @Nullable final ConnectResponse convConnectResponse;
+    if (clientVars.hasStaticClientVars()) {
+      isLive = false;
+      StaticClientVars vars = clientVars.getStaticClientVars();
+      randomSeed = vars.getRandomSeed();
+      userIdString = vars.getUserEmail();
+      haveOAuthToken = vars.getHaveOauthToken();
+      convObjectIdString = vars.getConvObjectId();
+      convSnapshot = vars.getConvSnapshot();
+      convConnectResponse = null;
+      useUdw = false;
+      udwData = null;
+    } else {
+      isLive = true;
+      LiveClientVars vars = clientVars.getLiveClientVars();
+      randomSeed = vars.getRandomSeed();
+      userIdString = vars.getUserEmail();
+      haveOAuthToken = vars.getHaveOauthToken();
+      convObjectIdString =
+          vars.getConvConnectResponse().getSignedSession().getSession().getObjectId();
+      convSnapshot = vars.getConvSnapshot();
+      convConnectResponse = vars.getConvConnectResponse();
+      if (!vars.hasUdw()) {
+        useUdw = false;
+        udwData = null;
+      } else {
+        useUdw = true;
+        udwData = vars.getUdw();
+        udwObjectId = new SlobId(vars.getUdw().getConnectResponse()
+            .getSignedSession().getSession().getObjectId());
+      }
+      VersionChecker versionChecker = new VersionChecker(rpc, vars.getClientVersion());
+      // NOTE(danilatos): Use the highest priority timer, since we can't afford to
+      // let it be starved due to some bug with another non-terminating
+      // high-priority task. This task runs infrequently and is very minimal so
+      // the risk of impacting the UI is low.
+      SchedulerInstance.getHighPriorityTimer().scheduleRepeating(versionChecker,
+          VERSION_CHECK_INTERVAL_MS, VERSION_CHECK_INTERVAL_MS);
+    }
     final RandomProviderImpl random =
         // TODO(ohler): Get a stronger RandomProvider.
-        RandomProviderImpl.ofSeed(successVars.getRandomSeed());
+        RandomProviderImpl.ofSeed(randomSeed);
     final RandomBase64Generator random64 = new RandomBase64Generator(new RandomProvider() {
       @Override public int nextInt(int upperBound) {
         return random.nextInt(upperBound);
       }});
-    String userIdString = successVars.getUserEmail();
     final ParticipantId userId;
     try {
       userId = ParticipantId.of(userIdString);
@@ -208,14 +310,7 @@ public class Walkaround implements EntryPoint {
       Window.alert("Invalid user id received from server: " + userIdString);
       return;
     }
-
-    final boolean useUdw = successVars.getUdw() != null;
-    convObjectId = new SlobId(
-        successVars.getConvConnectResponse().getSignedSession().getSession().getObjectId());
-    if (useUdw) {
-      udwObjectId = new SlobId(successVars.getUdw().getConnectResponse()
-          .getSignedSession().getSession().getObjectId());
-    }
+    convObjectId = new SlobId(convObjectIdString);
 
     idGenerator = new IdHack.MinimalIdGenerator(
         IdHack.convWaveletIdFromObjectId(convObjectId),
@@ -225,27 +320,14 @@ public class Walkaround implements EntryPoint {
         : IdHack.DISABLED_UDW_ID,
         random64);
 
-    final SavedStateIndicator indicator = new SavedStateIndicator(
-        Document.get().getElementById("savedStateContainer"));
     // TODO(ohler): Make the server's response to the contacts RPC indicate
     // whether an OAuth token is needed, and enable the button dynamically when
     // appropriate, rather than statically.
     UIObject.setVisible(Document.get().getElementById("enableAvatarsButton"),
-        !successVars.getHaveOauthToken());
-    final AjaxRpc rpc = new AjaxRpc("", indicator);
-    final LoadWaveService loadWaveService = new LoadWaveService(rpc);
-    final ChannelConnectService channelService = new ChannelConnectService(rpc);
-    VersionChecker versionChecker = new VersionChecker(rpc,
-        successVars.getClientVersion());
-
-    /*
-     * NOTE(danilatos): Use the highest priority timer, since we can't afford to
-     * let it be starved due to some bug with another non-terminating
-     * high-priority task. This task runs infrequently and is very minimal so
-     * the risk of impacting the UI is low.
-     */
-    SchedulerInstance.getHighPriorityTimer().scheduleRepeating(versionChecker,
-        VERSION_CHECK_INTERVAL_MS, VERSION_CHECK_INTERVAL_MS);
+        !haveOAuthToken);
+    @Nullable final LoadWaveService loadWaveService = isLive ? new LoadWaveService(rpc) : null;
+    @Nullable final ChannelConnectService channelService =
+        isLive ? new ChannelConnectService(rpc) : null;
 
     new Stages() {
       @Override
@@ -337,17 +419,16 @@ public class Walkaround implements EntryPoint {
           @Override
           protected void fetchWave(final Accessor<WaveViewData> whenReady) {
             wavelets.updateData(
-                loadWaveService.parseConvWaveletData(convObjectId,
-                    successVars.getConvConnectResponse(), successVars.getConvSnapshot(),
+                parseConvWaveletData(
+                    convConnectResponse, convSnapshot,
                     getDocumentRegistry(), diffMap));
             if (useUdw) {
               wavelets.updateData(
-                  loadWaveService.parseUdwData(convObjectId, udwObjectId,
-                      successVars.getUdw().getConnectResponse(),
-                      successVars.getUdw().getSnapshot(),
+                  parseUdwData(
+                      udwData.getConnectResponse(),
+                      udwData.getSnapshot(),
                       getDocumentRegistry()));
             }
-
             Document.get().getElementById(WAVEPANEL_PLACEHOLDER).setInnerText("");
             waveData = createWaveViewData();
             whenReady.use(waveData);
@@ -394,9 +475,13 @@ public class Walkaround implements EntryPoint {
                 WaveletId waveletId = wavelet.getWaveletId();
                 SlobId objectId = IdHack.objectIdFromWaveletId(waveletId);
                 WaveletEntry data = wavelets.get(objectId);
-
-                if (data == null) {
-                  throw new AssertionError("Unknown wavelet " + waveletId);
+                Assert.check(data != null, "Unknown wavelet: %s", waveletId);
+                if (data.getChannelToken() == null) {
+                  // TODO(danilatos): Handle with a nicer message, and maybe try to
+                  // reconnect later.
+                  Window.alert("Could not open a live connection to this wave. "
+                      + "It will be read-only, changes will not be saved!");
+                  return;
                 }
 
                 String debugSuffix;
@@ -408,26 +493,17 @@ public class Walkaround implements EntryPoint {
                   debugSuffix = "-xxx";
                 }
 
-                ReceiveOpChannel<WaveletOperation> storeChannel;
-
-                if (data.getChannelToken() == null) {
-                  // TODO(danilatos): Handle with a nicer message, and maybe try to
-                  // reconnect later.
-                  Window.alert("Could not open a live connection to this wave. "
-                      + "It will be read-only, changes will not be saved!");
-                  return;
-                }
-
-                storeChannel = new GaeReceiveOpChannel<WaveletOperation>(
-                    objectId, data.getSignedSessionString(), data.getChannelToken(),
-                    channelService, Logs.create("gaeroc" + debugSuffix)) {
-                  @Override
-                  protected WaveletOperation parse(ChangeData<JavaScriptObject> message)
-                      throws MessageException {
-                    return serializer.deserializeDelta(
-                        message.getPayload().<DeltaJsoImpl>cast());
-                  }
-                };
+                ReceiveOpChannel<WaveletOperation> storeChannel =
+                    new GaeReceiveOpChannel<WaveletOperation>(
+                        objectId, data.getSignedSessionString(), data.getChannelToken(),
+                        channelService, Logs.create("gaeroc" + debugSuffix)) {
+                      @Override
+                      protected WaveletOperation parse(ChangeData<JavaScriptObject> message)
+                          throws MessageException {
+                        return serializer.deserializeDelta(
+                            message.getPayload().<DeltaJsoImpl>cast());
+                      }
+                    };
 
                 WalkaroundOperationChannel channel = new WalkaroundOperationChannel(
                     Logs.create("channel" + debugSuffix),
@@ -441,16 +517,21 @@ public class Walkaround implements EntryPoint {
 
               @Override
               public void connect(Command onOpened) {
-                WaveletOperationalizer operationalizer = getWavelets();
-                StaticChannelBinder binder = new StaticChannelBinder(
-                    operationalizer, getDocumentRegistry());
-                for (ObservableWaveletData wavelet : operationalizer.getWavelets()) {
-                  if (useUdw || !IdHack.DISABLED_UDW_ID.equals(wavelet.getWaveletId())) {
-                    connectWavelet(binder, wavelet);
+                if (isLive) {
+                  WaveletOperationalizer operationalizer = getWavelets();
+                  StaticChannelBinder binder = new StaticChannelBinder(
+                      operationalizer, getDocumentRegistry());
+                  for (ObservableWaveletData wavelet : operationalizer.getWavelets()) {
+                    if (useUdw || !IdHack.DISABLED_UDW_ID.equals(wavelet.getWaveletId())) {
+                      connectWavelet(binder, wavelet);
+                    }
                   }
-                }
-                if (onOpened != null) {
-                  onOpened.execute();
+                  // HACK(ohler): I haven't tried to understand what the semantics of the callback
+                  // are; perhaps we should invoke it even if the wave is static.  (It seems to be
+                  // null though.)
+                  if (onOpened != null) {
+                    onOpened.execute();
+                  }
                 }
               }
 
@@ -524,6 +605,14 @@ public class Walkaround implements EntryPoint {
       @Override
       protected AsyncHolder<StageThree> createStageThreeLoader(final StageTwo two) {
         return new StageThree.DefaultProvider(two) {
+          @Override
+          protected void install() {
+            // Inhibit if not live; super.install() seems to enable editing in Undercurrent.
+            // Haven't studied this carefully though.
+            if (isLive) {
+              super.install();
+            }
+          }
 
           @Override
           protected void create(final Accessor<StageThree> whenReady) {
@@ -531,9 +620,13 @@ public class Walkaround implements EntryPoint {
             super.create(new Accessor<StageThree>() {
               @Override
               public void use(StageThree three) {
-                maybeNewWaveSetup(two, three);
-                UploadToolbarAction.install(three.getEditSession(), three.getEditToolbar());
-                whenReady.use(three);
+                if (isLive) {
+                  maybeNewWaveSetup(two, three);
+                  UploadToolbarAction.install(three.getEditSession(), three.getEditToolbar());
+                  // HACK(ohler): I haven't tried to understand what the semantics of the callback
+                  // are; perhaps we should invoke it even if the wave is static.
+                  whenReady.use(three);
+                }
               }
             });
           }
@@ -560,7 +653,7 @@ public class Walkaround implements EntryPoint {
     }.load(null);
   }
 
-  public WaveViewDataImpl createWaveViewData() {
+  private WaveViewDataImpl createWaveViewData() {
     final WaveViewDataImpl waveData = WaveViewDataImpl.create(
         IdHack.waveIdFromConvObjectId(convObjectId));
     wavelets.each(new WaveletMap.Proc() {

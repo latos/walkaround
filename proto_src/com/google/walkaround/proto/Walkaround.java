@@ -4194,31 +4194,31 @@ public final class Walkaround {
       // @@protoc_insertion_point(class_scope:proto.ClientVars.UdwLoadData)
     }
     
-    public static final class SuccessVars extends
+    public static final class LiveClientVars extends
         com.google.protobuf.GeneratedMessage {
-      // Use SuccessVars.newBuilder() to construct.
-      private SuccessVars() {
+      // Use LiveClientVars.newBuilder() to construct.
+      private LiveClientVars() {
         initFields();
       }
-      private SuccessVars(boolean noInit) {}
+      private LiveClientVars(boolean noInit) {}
       
-      private static final SuccessVars defaultInstance;
-      public static SuccessVars getDefaultInstance() {
+      private static final LiveClientVars defaultInstance;
+      public static LiveClientVars getDefaultInstance() {
         return defaultInstance;
       }
       
-      public SuccessVars getDefaultInstanceForType() {
+      public LiveClientVars getDefaultInstanceForType() {
         return defaultInstance;
       }
       
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.google.walkaround.proto.Walkaround.internal_static_proto_ClientVars_SuccessVars_descriptor;
+        return com.google.walkaround.proto.Walkaround.internal_static_proto_ClientVars_LiveClientVars_descriptor;
       }
       
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.google.walkaround.proto.Walkaround.internal_static_proto_ClientVars_SuccessVars_fieldAccessorTable;
+        return com.google.walkaround.proto.Walkaround.internal_static_proto_ClientVars_LiveClientVars_fieldAccessorTable;
       }
       
       // required int32 client_version = 1;
@@ -4356,41 +4356,41 @@ public final class Walkaround {
         return size;
       }
       
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(
           com.google.protobuf.ByteString data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data).buildParsed();
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(
           com.google.protobuf.ByteString data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data, extensionRegistry)
                  .buildParsed();
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(byte[] data)
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(byte[] data)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data).buildParsed();
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(
           byte[] data,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         return newBuilder().mergeFrom(data, extensionRegistry)
                  .buildParsed();
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(java.io.InputStream input)
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(java.io.InputStream input)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input).buildParsed();
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input, extensionRegistry)
                  .buildParsed();
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseDelimitedFrom(java.io.InputStream input)
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseDelimitedFrom(java.io.InputStream input)
           throws java.io.IOException {
         Builder builder = newBuilder();
         if (builder.mergeDelimitedFrom(input)) {
@@ -4399,7 +4399,7 @@ public final class Walkaround {
           return null;
         }
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseDelimitedFrom(
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseDelimitedFrom(
           java.io.InputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -4410,12 +4410,12 @@ public final class Walkaround {
           return null;
         }
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(
           com.google.protobuf.CodedInputStream input)
           throws java.io.IOException {
         return newBuilder().mergeFrom(input).buildParsed();
       }
-      public static com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars parseFrom(
+      public static com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars parseFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
@@ -4425,25 +4425,25 @@ public final class Walkaround {
       
       public static Builder newBuilder() { return Builder.create(); }
       public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars prototype) {
+      public static Builder newBuilder(com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars prototype) {
         return newBuilder().mergeFrom(prototype);
       }
       public Builder toBuilder() { return newBuilder(this); }
       
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder> {
-        private com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars result;
+        private com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars result;
         
-        // Construct using com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.newBuilder()
+        // Construct using com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.newBuilder()
         private Builder() {}
         
         private static Builder create() {
           Builder builder = new Builder();
-          builder.result = new com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars();
+          builder.result = new com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars();
           return builder;
         }
         
-        protected com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars internalGetResult() {
+        protected com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars internalGetResult() {
           return result;
         }
         
@@ -4452,7 +4452,7 @@ public final class Walkaround {
             throw new IllegalStateException(
               "Cannot call clear() after build().");
           }
-          result = new com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars();
+          result = new com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars();
           return this;
         }
         
@@ -4462,24 +4462,24 @@ public final class Walkaround {
         
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.getDescriptor();
+          return com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.getDescriptor();
         }
         
-        public com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars getDefaultInstanceForType() {
-          return com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.getDefaultInstance();
+        public com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars getDefaultInstanceForType() {
+          return com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.getDefaultInstance();
         }
         
         public boolean isInitialized() {
           return result.isInitialized();
         }
-        public com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars build() {
+        public com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars build() {
           if (result != null && !isInitialized()) {
             throw newUninitializedMessageException(result);
           }
           return buildPartial();
         }
         
-        private com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars buildParsed()
+        private com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars buildParsed()
             throws com.google.protobuf.InvalidProtocolBufferException {
           if (!isInitialized()) {
             throw newUninitializedMessageException(
@@ -4488,27 +4488,27 @@ public final class Walkaround {
           return buildPartial();
         }
         
-        public com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars buildPartial() {
+        public com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars buildPartial() {
           if (result == null) {
             throw new IllegalStateException(
               "build() has already been called on this Builder.");
           }
-          com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars returnMe = result;
+          com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars returnMe = result;
           result = null;
           return returnMe;
         }
         
         public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars) {
-            return mergeFrom((com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars)other);
+          if (other instanceof com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars) {
+            return mergeFrom((com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars)other);
           } else {
             super.mergeFrom(other);
             return this;
           }
         }
         
-        public Builder mergeFrom(com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars other) {
-          if (other == com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.getDefaultInstance()) return this;
+        public Builder mergeFrom(com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars other) {
+          if (other == com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.getDefaultInstance()) return this;
           if (other.hasClientVersion()) {
             setClientVersion(other.getClientVersion());
           }
@@ -4789,16 +4789,493 @@ public final class Walkaround {
           return this;
         }
         
-        // @@protoc_insertion_point(builder_scope:proto.ClientVars.SuccessVars)
+        // @@protoc_insertion_point(builder_scope:proto.ClientVars.LiveClientVars)
       }
       
       static {
-        defaultInstance = new SuccessVars(true);
+        defaultInstance = new LiveClientVars(true);
         com.google.walkaround.proto.Walkaround.internalForceInit();
         defaultInstance.initFields();
       }
       
-      // @@protoc_insertion_point(class_scope:proto.ClientVars.SuccessVars)
+      // @@protoc_insertion_point(class_scope:proto.ClientVars.LiveClientVars)
+    }
+    
+    public static final class StaticClientVars extends
+        com.google.protobuf.GeneratedMessage {
+      // Use StaticClientVars.newBuilder() to construct.
+      private StaticClientVars() {
+        initFields();
+      }
+      private StaticClientVars(boolean noInit) {}
+      
+      private static final StaticClientVars defaultInstance;
+      public static StaticClientVars getDefaultInstance() {
+        return defaultInstance;
+      }
+      
+      public StaticClientVars getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+      
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.google.walkaround.proto.Walkaround.internal_static_proto_ClientVars_StaticClientVars_descriptor;
+      }
+      
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.google.walkaround.proto.Walkaround.internal_static_proto_ClientVars_StaticClientVars_fieldAccessorTable;
+      }
+      
+      // required int32 random_seed = 2;
+      public static final int RANDOM_SEED_FIELD_NUMBER = 2;
+      private boolean hasRandomSeed;
+      private int randomSeed_ = 0;
+      public boolean hasRandomSeed() { return hasRandomSeed; }
+      public int getRandomSeed() { return randomSeed_; }
+      
+      // required string user_email = 3;
+      public static final int USER_EMAIL_FIELD_NUMBER = 3;
+      private boolean hasUserEmail;
+      private java.lang.String userEmail_ = "";
+      public boolean hasUserEmail() { return hasUserEmail; }
+      public java.lang.String getUserEmail() { return userEmail_; }
+      
+      // required bool have_oauth_token = 4;
+      public static final int HAVE_OAUTH_TOKEN_FIELD_NUMBER = 4;
+      private boolean hasHaveOauthToken;
+      private boolean haveOauthToken_ = false;
+      public boolean hasHaveOauthToken() { return hasHaveOauthToken; }
+      public boolean getHaveOauthToken() { return haveOauthToken_; }
+      
+      // required string conv_object_id = 10;
+      public static final int CONV_OBJECT_ID_FIELD_NUMBER = 10;
+      private boolean hasConvObjectId;
+      private java.lang.String convObjectId_ = "";
+      public boolean hasConvObjectId() { return hasConvObjectId; }
+      public java.lang.String getConvObjectId() { return convObjectId_; }
+      
+      // required .diff.WaveletDiffSnapshot conv_snapshot = 11;
+      public static final int CONV_SNAPSHOT_FIELD_NUMBER = 11;
+      private boolean hasConvSnapshot;
+      private com.google.walkaround.proto.Diff.WaveletDiffSnapshot convSnapshot_;
+      public boolean hasConvSnapshot() { return hasConvSnapshot; }
+      public com.google.walkaround.proto.Diff.WaveletDiffSnapshot getConvSnapshot() { return convSnapshot_; }
+      
+      private void initFields() {
+        convSnapshot_ = com.google.walkaround.proto.Diff.WaveletDiffSnapshot.getDefaultInstance();
+      }
+      public final boolean isInitialized() {
+        if (!hasRandomSeed) return false;
+        if (!hasUserEmail) return false;
+        if (!hasHaveOauthToken) return false;
+        if (!hasConvObjectId) return false;
+        if (!hasConvSnapshot) return false;
+        if (!getConvSnapshot().isInitialized()) return false;
+        return true;
+      }
+      
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (hasRandomSeed()) {
+          output.writeInt32(2, getRandomSeed());
+        }
+        if (hasUserEmail()) {
+          output.writeString(3, getUserEmail());
+        }
+        if (hasHaveOauthToken()) {
+          output.writeBool(4, getHaveOauthToken());
+        }
+        if (hasConvObjectId()) {
+          output.writeString(10, getConvObjectId());
+        }
+        if (hasConvSnapshot()) {
+          output.writeMessage(11, getConvSnapshot());
+        }
+        getUnknownFields().writeTo(output);
+      }
+      
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+      
+        size = 0;
+        if (hasRandomSeed()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(2, getRandomSeed());
+        }
+        if (hasUserEmail()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(3, getUserEmail());
+        }
+        if (hasHaveOauthToken()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(4, getHaveOauthToken());
+        }
+        if (hasConvObjectId()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeStringSize(10, getConvObjectId());
+        }
+        if (hasConvSnapshot()) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(11, getConvSnapshot());
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+      
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data).buildParsed();
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return newBuilder().mergeFrom(data, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        Builder builder = newBuilder();
+        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
+          return builder.buildParsed();
+        } else {
+          return null;
+        }
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input).buildParsed();
+      }
+      public static com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return newBuilder().mergeFrom(input, extensionRegistry)
+                 .buildParsed();
+      }
+      
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+      
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder> {
+        private com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars result;
+        
+        // Construct using com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.newBuilder()
+        private Builder() {}
+        
+        private static Builder create() {
+          Builder builder = new Builder();
+          builder.result = new com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars();
+          return builder;
+        }
+        
+        protected com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars internalGetResult() {
+          return result;
+        }
+        
+        public Builder clear() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "Cannot call clear() after build().");
+          }
+          result = new com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars();
+          return this;
+        }
+        
+        public Builder clone() {
+          return create().mergeFrom(result);
+        }
+        
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.getDescriptor();
+        }
+        
+        public com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars getDefaultInstanceForType() {
+          return com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.getDefaultInstance();
+        }
+        
+        public boolean isInitialized() {
+          return result.isInitialized();
+        }
+        public com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars build() {
+          if (result != null && !isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return buildPartial();
+        }
+        
+        private com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars buildParsed()
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          if (!isInitialized()) {
+            throw newUninitializedMessageException(
+              result).asInvalidProtocolBufferException();
+          }
+          return buildPartial();
+        }
+        
+        public com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars buildPartial() {
+          if (result == null) {
+            throw new IllegalStateException(
+              "build() has already been called on this Builder.");
+          }
+          com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars returnMe = result;
+          result = null;
+          return returnMe;
+        }
+        
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars) {
+            return mergeFrom((com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+        
+        public Builder mergeFrom(com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars other) {
+          if (other == com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.getDefaultInstance()) return this;
+          if (other.hasRandomSeed()) {
+            setRandomSeed(other.getRandomSeed());
+          }
+          if (other.hasUserEmail()) {
+            setUserEmail(other.getUserEmail());
+          }
+          if (other.hasHaveOauthToken()) {
+            setHaveOauthToken(other.getHaveOauthToken());
+          }
+          if (other.hasConvObjectId()) {
+            setConvObjectId(other.getConvObjectId());
+          }
+          if (other.hasConvSnapshot()) {
+            mergeConvSnapshot(other.getConvSnapshot());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+        
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder(
+              this.getUnknownFields());
+          while (true) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                this.setUnknownFields(unknownFields.build());
+                return this;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  this.setUnknownFields(unknownFields.build());
+                  return this;
+                }
+                break;
+              }
+              case 16: {
+                setRandomSeed(input.readInt32());
+                break;
+              }
+              case 26: {
+                setUserEmail(input.readString());
+                break;
+              }
+              case 32: {
+                setHaveOauthToken(input.readBool());
+                break;
+              }
+              case 82: {
+                setConvObjectId(input.readString());
+                break;
+              }
+              case 90: {
+                com.google.walkaround.proto.Diff.WaveletDiffSnapshot.Builder subBuilder = com.google.walkaround.proto.Diff.WaveletDiffSnapshot.newBuilder();
+                if (hasConvSnapshot()) {
+                  subBuilder.mergeFrom(getConvSnapshot());
+                }
+                input.readMessage(subBuilder, extensionRegistry);
+                setConvSnapshot(subBuilder.buildPartial());
+                break;
+              }
+            }
+          }
+        }
+        
+        
+        // required int32 random_seed = 2;
+        public boolean hasRandomSeed() {
+          return result.hasRandomSeed();
+        }
+        public int getRandomSeed() {
+          return result.getRandomSeed();
+        }
+        public Builder setRandomSeed(int value) {
+          result.hasRandomSeed = true;
+          result.randomSeed_ = value;
+          return this;
+        }
+        public Builder clearRandomSeed() {
+          result.hasRandomSeed = false;
+          result.randomSeed_ = 0;
+          return this;
+        }
+        
+        // required string user_email = 3;
+        public boolean hasUserEmail() {
+          return result.hasUserEmail();
+        }
+        public java.lang.String getUserEmail() {
+          return result.getUserEmail();
+        }
+        public Builder setUserEmail(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasUserEmail = true;
+          result.userEmail_ = value;
+          return this;
+        }
+        public Builder clearUserEmail() {
+          result.hasUserEmail = false;
+          result.userEmail_ = getDefaultInstance().getUserEmail();
+          return this;
+        }
+        
+        // required bool have_oauth_token = 4;
+        public boolean hasHaveOauthToken() {
+          return result.hasHaveOauthToken();
+        }
+        public boolean getHaveOauthToken() {
+          return result.getHaveOauthToken();
+        }
+        public Builder setHaveOauthToken(boolean value) {
+          result.hasHaveOauthToken = true;
+          result.haveOauthToken_ = value;
+          return this;
+        }
+        public Builder clearHaveOauthToken() {
+          result.hasHaveOauthToken = false;
+          result.haveOauthToken_ = false;
+          return this;
+        }
+        
+        // required string conv_object_id = 10;
+        public boolean hasConvObjectId() {
+          return result.hasConvObjectId();
+        }
+        public java.lang.String getConvObjectId() {
+          return result.getConvObjectId();
+        }
+        public Builder setConvObjectId(java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  result.hasConvObjectId = true;
+          result.convObjectId_ = value;
+          return this;
+        }
+        public Builder clearConvObjectId() {
+          result.hasConvObjectId = false;
+          result.convObjectId_ = getDefaultInstance().getConvObjectId();
+          return this;
+        }
+        
+        // required .diff.WaveletDiffSnapshot conv_snapshot = 11;
+        public boolean hasConvSnapshot() {
+          return result.hasConvSnapshot();
+        }
+        public com.google.walkaround.proto.Diff.WaveletDiffSnapshot getConvSnapshot() {
+          return result.getConvSnapshot();
+        }
+        public Builder setConvSnapshot(com.google.walkaround.proto.Diff.WaveletDiffSnapshot value) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          result.hasConvSnapshot = true;
+          result.convSnapshot_ = value;
+          return this;
+        }
+        public Builder setConvSnapshot(com.google.walkaround.proto.Diff.WaveletDiffSnapshot.Builder builderForValue) {
+          result.hasConvSnapshot = true;
+          result.convSnapshot_ = builderForValue.build();
+          return this;
+        }
+        public Builder mergeConvSnapshot(com.google.walkaround.proto.Diff.WaveletDiffSnapshot value) {
+          if (result.hasConvSnapshot() &&
+              result.convSnapshot_ != com.google.walkaround.proto.Diff.WaveletDiffSnapshot.getDefaultInstance()) {
+            result.convSnapshot_ =
+              com.google.walkaround.proto.Diff.WaveletDiffSnapshot.newBuilder(result.convSnapshot_).mergeFrom(value).buildPartial();
+          } else {
+            result.convSnapshot_ = value;
+          }
+          result.hasConvSnapshot = true;
+          return this;
+        }
+        public Builder clearConvSnapshot() {
+          result.hasConvSnapshot = false;
+          result.convSnapshot_ = com.google.walkaround.proto.Diff.WaveletDiffSnapshot.getDefaultInstance();
+          return this;
+        }
+        
+        // @@protoc_insertion_point(builder_scope:proto.ClientVars.StaticClientVars)
+      }
+      
+      static {
+        defaultInstance = new StaticClientVars(true);
+        com.google.walkaround.proto.Walkaround.internalForceInit();
+        defaultInstance.initFields();
+      }
+      
+      // @@protoc_insertion_point(class_scope:proto.ClientVars.StaticClientVars)
     }
     
     public static final class ErrorVars extends
@@ -5089,12 +5566,12 @@ public final class Walkaround {
       // @@protoc_insertion_point(class_scope:proto.ClientVars.ErrorVars)
     }
     
-    // optional .proto.ClientVars.SuccessVars success_vars = 1;
-    public static final int SUCCESS_VARS_FIELD_NUMBER = 1;
-    private boolean hasSuccessVars;
-    private com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars successVars_;
-    public boolean hasSuccessVars() { return hasSuccessVars; }
-    public com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars getSuccessVars() { return successVars_; }
+    // optional .proto.ClientVars.LiveClientVars live_client_vars = 1;
+    public static final int LIVE_CLIENT_VARS_FIELD_NUMBER = 1;
+    private boolean hasLiveClientVars;
+    private com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars liveClientVars_;
+    public boolean hasLiveClientVars() { return hasLiveClientVars; }
+    public com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars getLiveClientVars() { return liveClientVars_; }
     
     // optional .proto.ClientVars.ErrorVars error_vars = 2;
     public static final int ERROR_VARS_FIELD_NUMBER = 2;
@@ -5103,16 +5580,27 @@ public final class Walkaround {
     public boolean hasErrorVars() { return hasErrorVars; }
     public com.google.walkaround.proto.Walkaround.ClientVars.ErrorVars getErrorVars() { return errorVars_; }
     
+    // optional .proto.ClientVars.StaticClientVars static_client_vars = 3;
+    public static final int STATIC_CLIENT_VARS_FIELD_NUMBER = 3;
+    private boolean hasStaticClientVars;
+    private com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars staticClientVars_;
+    public boolean hasStaticClientVars() { return hasStaticClientVars; }
+    public com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars getStaticClientVars() { return staticClientVars_; }
+    
     private void initFields() {
-      successVars_ = com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.getDefaultInstance();
+      liveClientVars_ = com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.getDefaultInstance();
       errorVars_ = com.google.walkaround.proto.Walkaround.ClientVars.ErrorVars.getDefaultInstance();
+      staticClientVars_ = com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.getDefaultInstance();
     }
     public final boolean isInitialized() {
-      if (hasSuccessVars()) {
-        if (!getSuccessVars().isInitialized()) return false;
+      if (hasLiveClientVars()) {
+        if (!getLiveClientVars().isInitialized()) return false;
       }
       if (hasErrorVars()) {
         if (!getErrorVars().isInitialized()) return false;
+      }
+      if (hasStaticClientVars()) {
+        if (!getStaticClientVars().isInitialized()) return false;
       }
       return true;
     }
@@ -5120,11 +5608,14 @@ public final class Walkaround {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      if (hasSuccessVars()) {
-        output.writeMessage(1, getSuccessVars());
+      if (hasLiveClientVars()) {
+        output.writeMessage(1, getLiveClientVars());
       }
       if (hasErrorVars()) {
         output.writeMessage(2, getErrorVars());
+      }
+      if (hasStaticClientVars()) {
+        output.writeMessage(3, getStaticClientVars());
       }
       getUnknownFields().writeTo(output);
     }
@@ -5135,13 +5626,17 @@ public final class Walkaround {
       if (size != -1) return size;
     
       size = 0;
-      if (hasSuccessVars()) {
+      if (hasLiveClientVars()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getSuccessVars());
+          .computeMessageSize(1, getLiveClientVars());
       }
       if (hasErrorVars()) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getErrorVars());
+      }
+      if (hasStaticClientVars()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getStaticClientVars());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -5301,11 +5796,14 @@ public final class Walkaround {
       
       public Builder mergeFrom(com.google.walkaround.proto.Walkaround.ClientVars other) {
         if (other == com.google.walkaround.proto.Walkaround.ClientVars.getDefaultInstance()) return this;
-        if (other.hasSuccessVars()) {
-          mergeSuccessVars(other.getSuccessVars());
+        if (other.hasLiveClientVars()) {
+          mergeLiveClientVars(other.getLiveClientVars());
         }
         if (other.hasErrorVars()) {
           mergeErrorVars(other.getErrorVars());
+        }
+        if (other.hasStaticClientVars()) {
+          mergeStaticClientVars(other.getStaticClientVars());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -5333,12 +5831,12 @@ public final class Walkaround {
               break;
             }
             case 10: {
-              com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.Builder subBuilder = com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.newBuilder();
-              if (hasSuccessVars()) {
-                subBuilder.mergeFrom(getSuccessVars());
+              com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.Builder subBuilder = com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.newBuilder();
+              if (hasLiveClientVars()) {
+                subBuilder.mergeFrom(getLiveClientVars());
               }
               input.readMessage(subBuilder, extensionRegistry);
-              setSuccessVars(subBuilder.buildPartial());
+              setLiveClientVars(subBuilder.buildPartial());
               break;
             }
             case 18: {
@@ -5350,45 +5848,54 @@ public final class Walkaround {
               setErrorVars(subBuilder.buildPartial());
               break;
             }
+            case 26: {
+              com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.Builder subBuilder = com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.newBuilder();
+              if (hasStaticClientVars()) {
+                subBuilder.mergeFrom(getStaticClientVars());
+              }
+              input.readMessage(subBuilder, extensionRegistry);
+              setStaticClientVars(subBuilder.buildPartial());
+              break;
+            }
           }
         }
       }
       
       
-      // optional .proto.ClientVars.SuccessVars success_vars = 1;
-      public boolean hasSuccessVars() {
-        return result.hasSuccessVars();
+      // optional .proto.ClientVars.LiveClientVars live_client_vars = 1;
+      public boolean hasLiveClientVars() {
+        return result.hasLiveClientVars();
       }
-      public com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars getSuccessVars() {
-        return result.getSuccessVars();
+      public com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars getLiveClientVars() {
+        return result.getLiveClientVars();
       }
-      public Builder setSuccessVars(com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars value) {
+      public Builder setLiveClientVars(com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        result.hasSuccessVars = true;
-        result.successVars_ = value;
+        result.hasLiveClientVars = true;
+        result.liveClientVars_ = value;
         return this;
       }
-      public Builder setSuccessVars(com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.Builder builderForValue) {
-        result.hasSuccessVars = true;
-        result.successVars_ = builderForValue.build();
+      public Builder setLiveClientVars(com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.Builder builderForValue) {
+        result.hasLiveClientVars = true;
+        result.liveClientVars_ = builderForValue.build();
         return this;
       }
-      public Builder mergeSuccessVars(com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars value) {
-        if (result.hasSuccessVars() &&
-            result.successVars_ != com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.getDefaultInstance()) {
-          result.successVars_ =
-            com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.newBuilder(result.successVars_).mergeFrom(value).buildPartial();
+      public Builder mergeLiveClientVars(com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars value) {
+        if (result.hasLiveClientVars() &&
+            result.liveClientVars_ != com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.getDefaultInstance()) {
+          result.liveClientVars_ =
+            com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.newBuilder(result.liveClientVars_).mergeFrom(value).buildPartial();
         } else {
-          result.successVars_ = value;
+          result.liveClientVars_ = value;
         }
-        result.hasSuccessVars = true;
+        result.hasLiveClientVars = true;
         return this;
       }
-      public Builder clearSuccessVars() {
-        result.hasSuccessVars = false;
-        result.successVars_ = com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.getDefaultInstance();
+      public Builder clearLiveClientVars() {
+        result.hasLiveClientVars = false;
+        result.liveClientVars_ = com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.getDefaultInstance();
         return this;
       }
       
@@ -5426,6 +5933,43 @@ public final class Walkaround {
       public Builder clearErrorVars() {
         result.hasErrorVars = false;
         result.errorVars_ = com.google.walkaround.proto.Walkaround.ClientVars.ErrorVars.getDefaultInstance();
+        return this;
+      }
+      
+      // optional .proto.ClientVars.StaticClientVars static_client_vars = 3;
+      public boolean hasStaticClientVars() {
+        return result.hasStaticClientVars();
+      }
+      public com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars getStaticClientVars() {
+        return result.getStaticClientVars();
+      }
+      public Builder setStaticClientVars(com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        result.hasStaticClientVars = true;
+        result.staticClientVars_ = value;
+        return this;
+      }
+      public Builder setStaticClientVars(com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.Builder builderForValue) {
+        result.hasStaticClientVars = true;
+        result.staticClientVars_ = builderForValue.build();
+        return this;
+      }
+      public Builder mergeStaticClientVars(com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars value) {
+        if (result.hasStaticClientVars() &&
+            result.staticClientVars_ != com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.getDefaultInstance()) {
+          result.staticClientVars_ =
+            com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.newBuilder(result.staticClientVars_).mergeFrom(value).buildPartial();
+        } else {
+          result.staticClientVars_ = value;
+        }
+        result.hasStaticClientVars = true;
+        return this;
+      }
+      public Builder clearStaticClientVars() {
+        result.hasStaticClientVars = false;
+        result.staticClientVars_ = com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.getDefaultInstance();
         return this;
       }
       
@@ -6297,10 +6841,15 @@ public final class Walkaround {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_proto_ClientVars_UdwLoadData_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_ClientVars_SuccessVars_descriptor;
+    internal_static_proto_ClientVars_LiveClientVars_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_proto_ClientVars_SuccessVars_fieldAccessorTable;
+      internal_static_proto_ClientVars_LiveClientVars_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_ClientVars_StaticClientVars_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_proto_ClientVars_StaticClientVars_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_ClientVars_ErrorVars_descriptor;
   private static
@@ -6357,26 +6906,32 @@ public final class Walkaround {
       "ctResponse\0222\n\016signed_session\030\001 \002(\0132\032.pro",
       "to.SignedObjectSession\022\035\n\025signed_session" +
       "_string\030c \002(\t\022\025\n\rchannel_token\030\002 \001(\t\022\026\n\016" +
-      "object_version\030\003 \002(\003\"\213\004\n\nClientVars\0223\n\014s" +
-      "uccess_vars\030\001 \001(\0132\035.proto.ClientVars.Suc" +
-      "cessVars\022/\n\nerror_vars\030\002 \001(\0132\033.proto.Cli" +
-      "entVars.ErrorVars\032s\n\013UdwLoadData\0220\n\020conn" +
-      "ect_response\030\001 \002(\0132\026.proto.ConnectRespon" +
-      "se\0222\n\010snapshot\030\002 \002(\0132 .proto.WalkaroundW" +
-      "aveletSnapshot\032\375\001\n\013SuccessVars\022\026\n\016client" +
-      "_version\030\001 \002(\005\022\023\n\013random_seed\030\002 \002(\005\022\022\n\nu",
-      "ser_email\030\003 \002(\t\022\030\n\020have_oauth_token\030\004 \002(" +
-      "\010\0225\n\025conv_connect_response\030\n \002(\0132\026.proto" +
-      ".ConnectResponse\0220\n\rconv_snapshot\030\013 \002(\0132" +
-      "\031.diff.WaveletDiffSnapshot\022*\n\003udw\030\024 \001(\0132" +
-      "\035.proto.ClientVars.UdwLoadData\032\"\n\tErrorV" +
-      "ars\022\025\n\rerror_message\030\001 \002(\t\"c\n\023ServerMuta" +
-      "teRequest\022*\n\007session\030\001 \002(\0132\031.proto.Objec" +
-      "tSessionProto\022\017\n\007version\030\002 \002(\003\022\017\n\007payloa" +
-      "d\030\003 \003(\t\"]\n\024ServerMutateResponse\022\031\n\021resul" +
-      "ting_version\030\001 \002(\003\022\026\n\016broadcast_data\030\002 \002",
-      "(\t\022\022\n\nindex_data\030\003 \002(\tB)\n\033com.google.wal" +
-      "karound.protoB\nWalkaround"
+      "object_version\030\003 \002(\003\"\367\005\n\nClientVars\022:\n\020l" +
+      "ive_client_vars\030\001 \001(\0132 .proto.ClientVars" +
+      ".LiveClientVars\022/\n\nerror_vars\030\002 \001(\0132\033.pr" +
+      "oto.ClientVars.ErrorVars\022>\n\022static_clien" +
+      "t_vars\030\003 \001(\0132\".proto.ClientVars.StaticCl" +
+      "ientVars\032s\n\013UdwLoadData\0220\n\020connect_respo" +
+      "nse\030\001 \002(\0132\026.proto.ConnectResponse\0222\n\010sna" +
+      "pshot\030\002 \002(\0132 .proto.WalkaroundWaveletSna",
+      "pshot\032\200\002\n\016LiveClientVars\022\026\n\016client_versi" +
+      "on\030\001 \002(\005\022\023\n\013random_seed\030\002 \002(\005\022\022\n\nuser_em" +
+      "ail\030\003 \002(\t\022\030\n\020have_oauth_token\030\004 \002(\010\0225\n\025c" +
+      "onv_connect_response\030\n \002(\0132\026.proto.Conne" +
+      "ctResponse\0220\n\rconv_snapshot\030\013 \002(\0132\031.diff" +
+      ".WaveletDiffSnapshot\022*\n\003udw\030\024 \001(\0132\035.prot" +
+      "o.ClientVars.UdwLoadData\032\237\001\n\020StaticClien" +
+      "tVars\022\023\n\013random_seed\030\002 \002(\005\022\022\n\nuser_email" +
+      "\030\003 \002(\t\022\030\n\020have_oauth_token\030\004 \002(\010\022\026\n\016conv" +
+      "_object_id\030\n \002(\t\0220\n\rconv_snapshot\030\013 \002(\0132",
+      "\031.diff.WaveletDiffSnapshot\032\"\n\tErrorVars\022" +
+      "\025\n\rerror_message\030\001 \002(\t\"c\n\023ServerMutateRe" +
+      "quest\022*\n\007session\030\001 \002(\0132\031.proto.ObjectSes" +
+      "sionProto\022\017\n\007version\030\002 \002(\003\022\017\n\007payload\030\003 " +
+      "\003(\t\"]\n\024ServerMutateResponse\022\031\n\021resulting" +
+      "_version\030\001 \002(\003\022\026\n\016broadcast_data\030\002 \002(\t\022\022" +
+      "\n\nindex_data\030\003 \002(\tB)\n\033com.google.walkaro" +
+      "und.protoB\nWalkaround"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6460,7 +7015,7 @@ public final class Walkaround {
           internal_static_proto_ClientVars_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_proto_ClientVars_descriptor,
-              new java.lang.String[] { "SuccessVars", "ErrorVars", },
+              new java.lang.String[] { "LiveClientVars", "ErrorVars", "StaticClientVars", },
               com.google.walkaround.proto.Walkaround.ClientVars.class,
               com.google.walkaround.proto.Walkaround.ClientVars.Builder.class);
           internal_static_proto_ClientVars_UdwLoadData_descriptor =
@@ -6471,16 +7026,24 @@ public final class Walkaround {
               new java.lang.String[] { "ConnectResponse", "Snapshot", },
               com.google.walkaround.proto.Walkaround.ClientVars.UdwLoadData.class,
               com.google.walkaround.proto.Walkaround.ClientVars.UdwLoadData.Builder.class);
-          internal_static_proto_ClientVars_SuccessVars_descriptor =
+          internal_static_proto_ClientVars_LiveClientVars_descriptor =
             internal_static_proto_ClientVars_descriptor.getNestedTypes().get(1);
-          internal_static_proto_ClientVars_SuccessVars_fieldAccessorTable = new
+          internal_static_proto_ClientVars_LiveClientVars_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_proto_ClientVars_SuccessVars_descriptor,
+              internal_static_proto_ClientVars_LiveClientVars_descriptor,
               new java.lang.String[] { "ClientVersion", "RandomSeed", "UserEmail", "HaveOauthToken", "ConvConnectResponse", "ConvSnapshot", "Udw", },
-              com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.class,
-              com.google.walkaround.proto.Walkaround.ClientVars.SuccessVars.Builder.class);
-          internal_static_proto_ClientVars_ErrorVars_descriptor =
+              com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.class,
+              com.google.walkaround.proto.Walkaround.ClientVars.LiveClientVars.Builder.class);
+          internal_static_proto_ClientVars_StaticClientVars_descriptor =
             internal_static_proto_ClientVars_descriptor.getNestedTypes().get(2);
+          internal_static_proto_ClientVars_StaticClientVars_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_proto_ClientVars_StaticClientVars_descriptor,
+              new java.lang.String[] { "RandomSeed", "UserEmail", "HaveOauthToken", "ConvObjectId", "ConvSnapshot", },
+              com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.class,
+              com.google.walkaround.proto.Walkaround.ClientVars.StaticClientVars.Builder.class);
+          internal_static_proto_ClientVars_ErrorVars_descriptor =
+            internal_static_proto_ClientVars_descriptor.getNestedTypes().get(3);
           internal_static_proto_ClientVars_ErrorVars_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_proto_ClientVars_ErrorVars_descriptor,

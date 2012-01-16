@@ -16,7 +16,8 @@
 
 package com.google.walkaround.wave.client.rpc;
 
-import com.google.common.base.Preconditions;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.walkaround.proto.ObjectSessionProto;
 import com.google.walkaround.slob.shared.SlobId;
 
@@ -39,37 +40,33 @@ public class WaveletMap {
     // This is the serialized JSON form of the SignedObjectSession protobuf.  We
     // store it in serialized form to avoid the cost of re-serializing it for
     // every request that we send.
-    private final String signedSessionString;
-    private final ObjectSessionProto session;
+    @Nullable private final String signedSessionString;
+    @Nullable private final ObjectSessionProto session;
     // Null means we can't get a live stream of updates for this object.
     @Nullable private final String channelToken;
     private final WaveletDataImpl waveletState;
 
     public WaveletEntry(SlobId objectId,
-        String signedSessionString,
-        ObjectSessionProto session,
+        @Nullable String signedSessionString,
+        @Nullable ObjectSessionProto session,
         @Nullable String channelToken,
         WaveletDataImpl waveletState) {
-      Preconditions.checkNotNull(objectId, "Null objectId");
-      Preconditions.checkNotNull(signedSessionString, "Null signedSessionString");
-      Preconditions.checkNotNull(session, "Null session");
-      Preconditions.checkNotNull(waveletState, "Null waveletState");
-      this.objectId = objectId;
+      this.objectId = checkNotNull(objectId, "Null objectId");
       this.signedSessionString = signedSessionString;
       this.session = session;
       this.channelToken = channelToken;
-      this.waveletState = waveletState;
+      this.waveletState = checkNotNull(waveletState, "Null waveletState");
     }
 
     public SlobId getObjectId() {
       return objectId;
     }
 
-    public String getSignedSessionString() {
+    @Nullable public String getSignedSessionString() {
       return signedSessionString;
     }
 
-    public ObjectSessionProto getSession() {
+    @Nullable public ObjectSessionProto getSession() {
       return session;
     }
 
@@ -82,8 +79,8 @@ public class WaveletMap {
     }
 
     @Override public String toString() {
-      return "WaveletEntry(" + objectId + ", " + signedSessionString + ", "
-          + session + ", " + channelToken + ", " + waveletState + ")";
+      return "WaveletEntry(" + objectId + ", " + signedSessionString + ", " + session + ", "
+          + channelToken + ", " + waveletState + ")";
     }
   }
 
@@ -114,5 +111,9 @@ public class WaveletMap {
         proc.wavelet(data);
       }
     });
+  }
+
+  public int countEntries() {
+    return wavelets.countEntries();
   }
 }
