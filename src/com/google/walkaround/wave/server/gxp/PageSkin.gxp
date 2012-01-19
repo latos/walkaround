@@ -103,8 +103,8 @@
       <call:AnalyticsFragment expr:account='analyticsAccount'/>
     </head>
     <body>
-      <div id='bottom-back1'> </div>
-      <div id='bottom-back2'> </div>
+      <!--div id='bottom-back1'> </div>
+      <div id='bottom-back2'> </div-->
       <div class='main'>
         <div id='header'>
           <span id='title'><gxp:nomsg>walkaround</gxp:nomsg></span>
