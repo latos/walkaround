@@ -111,7 +111,7 @@ public class WaveObjectStoreModel implements SlobModel {
       }
     }
 
-    @Override public String getIndexedHtml() {
+    @Override public String getIndexedContent() {
       return wavelet == null ? "" : TextRenderer.renderToHtml(wavelet);
     }
 

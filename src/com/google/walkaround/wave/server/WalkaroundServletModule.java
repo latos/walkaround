@@ -26,8 +26,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gdata.client.AuthTokenFactory;
 import com.google.gdata.client.GoogleService.SessionExpiredException;
 import com.google.gdata.client.Service.GDataRequest;
-import com.google.gdata.client.Service.GDataRequest.RequestType;
 import com.google.gdata.client.Service.GDataRequestFactory;
+import com.google.gdata.client.Service.GDataRequest.RequestType;
 import com.google.gdata.client.contacts.ContactsService;
 import com.google.gdata.client.http.GoogleGDataRequest;
 import com.google.gdata.client.http.HttpAuthToken;
@@ -65,11 +65,11 @@ import com.google.walkaround.wave.server.auth.InteractiveAuthFilter;
 import com.google.walkaround.wave.server.auth.OAuthCallbackHandler;
 import com.google.walkaround.wave.server.auth.OAuthCredentials;
 import com.google.walkaround.wave.server.auth.OAuthInterstitialHandler;
-import com.google.walkaround.wave.server.auth.OAuthInterstitialHandler.CallbackPath;
 import com.google.walkaround.wave.server.auth.OAuthRequestHelper;
 import com.google.walkaround.wave.server.auth.RpcAuthFilter;
 import com.google.walkaround.wave.server.auth.StableUserId;
 import com.google.walkaround.wave.server.auth.UserContext;
+import com.google.walkaround.wave.server.auth.OAuthInterstitialHandler.CallbackPath;
 import com.google.walkaround.wave.server.auth.XsrfHelper.XsrfTokenExpiredException;
 import com.google.walkaround.wave.server.googleimport.ImportOverviewHandler;
 import com.google.walkaround.wave.server.googleimport.ImportTaskHandler;
@@ -83,15 +83,19 @@ import com.google.walkaround.wave.server.rpc.GadgetsHandler;
 import com.google.walkaround.wave.server.rpc.HistoryHandler;
 import com.google.walkaround.wave.server.rpc.PhotosHandler;
 import com.google.walkaround.wave.server.rpc.SubmitDeltaHandler;
+import com.google.walkaround.wave.server.servlet.ClientHandler;
 import com.google.walkaround.wave.server.servlet.LogoutHandler;
-import com.google.walkaround.wave.server.servlet.LogoutHandler.SelfClosingPageHandler;
 import com.google.walkaround.wave.server.servlet.ServerExceptionFilter;
 import com.google.walkaround.wave.server.servlet.StoreMutateHandler;
 import com.google.walkaround.wave.server.servlet.UndercurrentHandler;
+import com.google.walkaround.wave.server.servlet.LogoutHandler.SelfClosingPageHandler;
 import com.google.walkaround.wave.server.wavemanager.InboxHandler;
 import com.google.walkaround.wave.shared.SharedConstants.Services;
 
 import org.waveprotocol.wave.model.wave.ParticipantId;
+
+import javax.servlet.Filter;
+import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -101,9 +105,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.servlet.Filter;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author ohler@google.com (Christian Ohler)
@@ -125,6 +126,7 @@ public class WalkaroundServletModule extends ServletModule {
   private static final ImmutableMap<String, Class<? extends AbstractHandler>> EXACT_PATH_HANDLERS =
       new ImmutableMap.Builder<String, Class<? extends AbstractHandler>>()
           // Pages that browsers will navigate to.
+          .put("/client", ClientHandler.class)
           .put("/inbox", InboxHandler.class)
           .put("/wave", UndercurrentHandler.class)
           .put("/logout", LogoutHandler.class)
@@ -219,7 +221,7 @@ public class WalkaroundServletModule extends ServletModule {
     }
     filter("*").through(RequestStatsFilter.class);
 
-    serve("/").with(new RedirectServlet("/inbox"));
+    serve("/").with(new RedirectServlet("/client"));
     serve("/admin/").with(new RedirectServlet("/admin"));
     serve("/import/").with(new RedirectServlet("/import"));
     serve("/admin/mapreduce").with(new RedirectServlet("/admin/mapreduce/status"));
@@ -262,7 +264,7 @@ public class WalkaroundServletModule extends ServletModule {
     serve("/admin/mapreduce/*").with(MapReduceServlet.class);
 
     for (String path : Arrays.asList(
-            "/inbox", "/noauth", "/wave", "/import")) {
+            "/client", "/inbox", "/noauth", "/wave", "/import")) {
       filter(path).through(InteractiveAuthFilter.class);
     }
     for (String path : Arrays.asList(

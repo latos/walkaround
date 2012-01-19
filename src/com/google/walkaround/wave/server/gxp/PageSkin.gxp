@@ -74,11 +74,13 @@
         }
 
         .main {
-          padding: 10px;
-          padding-left: 15px;
-          padding-right: 15px;
+          padding: 10px 20px;
           background: white;
-          position: relative;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
         }
 
         #bottom-back1 {
@@ -101,6 +103,8 @@
       <call:AnalyticsFragment expr:account='analyticsAccount'/>
     </head>
     <body>
+      <div id='bottom-back1'> </div>
+      <div id='bottom-back2'> </div>
       <div class='main'>
         <div id='header'>
           <span id='title'><gxp:nomsg>walkaround</gxp:nomsg></span>
@@ -108,8 +112,6 @@
         </div>
         <gxp:eval expr='content'/>
       </div>
-      <div id='bottom-back1'> </div>
-      <div id='bottom-back2'> </div>
     </body>
   </html>
 </gxp:template>

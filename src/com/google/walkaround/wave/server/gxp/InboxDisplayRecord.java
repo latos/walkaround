@@ -18,6 +18,9 @@ package com.google.walkaround.wave.server.gxp;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.gxp.html.HtmlClosure;
+import com.google.gxp.html.HtmlClosures;
+
 /**
  * Information {@link InboxFragment} needs about a wave.
  *
@@ -27,18 +30,18 @@ public class InboxDisplayRecord {
 
   private final String creator;
   private final String title;
-  private final String snippet;
+  private final String snippetHtml;
   private final String lastModified;
   private final String link;
 
   public InboxDisplayRecord(String creator,
       String title,
-      String snippet,
+      String snippetHtml,
       String lastModified,
       String link) {
     this.creator = checkNotNull(creator, "Null creator");
     this.title = checkNotNull(title, "Null title");
-    this.snippet = checkNotNull(snippet, "Null snippet");
+    this.snippetHtml = checkNotNull(snippetHtml, "Null snippet");
     this.lastModified = checkNotNull(lastModified, "Null lastModified");
     this.link = checkNotNull(link, "Null link");
   }
@@ -51,8 +54,12 @@ public class InboxDisplayRecord {
     return title;
   }
 
-  public String getSnippet() {
-    return snippet;
+  public boolean hasSnippet() {
+    return !snippetHtml.isEmpty();
+  }
+
+  public HtmlClosure getSnippetHtml() {
+    return HtmlClosures.fromHtml(snippetHtml);
   }
 
   public String getLastModified() {
@@ -67,7 +74,7 @@ public class InboxDisplayRecord {
     return "InboxDisplayRecord("
         + creator + ", "
         + title + ", "
-        + snippet + ", "
+        + snippetHtml + ", "
         + lastModified + ", "
         + link
         + ")";

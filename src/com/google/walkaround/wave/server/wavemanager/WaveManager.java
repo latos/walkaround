@@ -17,7 +17,6 @@
 package com.google.walkaround.wave.server.wavemanager;
 
 import com.google.inject.Inject;
-import com.google.walkaround.slob.server.SlobManager;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.RetryHelper;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
@@ -37,9 +36,8 @@ import java.util.logging.Logger;
  *
  * @author ohler@google.com (Christian Ohler)
  */
-public class WaveManager implements SlobManager, PermissionCache.PermissionSource {
+public class WaveManager implements PermissionCache.PermissionSource {
 
-  @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(WaveManager.class.getName());
 
   private final WaveIndex index;
@@ -82,10 +80,4 @@ public class WaveManager implements SlobManager, PermissionCache.PermissionSourc
       throw new IOException(e);
     }
   }
-
-  @Override
-  public void update(SlobId objectId, SlobIndexUpdate update) throws IOException {
-    // Nothing to do for now since we index in our pre-commit hook.
-  }
-
 }

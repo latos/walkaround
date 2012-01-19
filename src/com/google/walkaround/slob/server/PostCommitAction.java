@@ -18,22 +18,20 @@ package com.google.walkaround.slob.server;
 
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.slob.shared.SlobModel.ReadableSlob;
-import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
-import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
-import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 
 /**
- * Reliably called some time after {@link SlobStore#mutateObject} commits a
- * sequence of changes to an object.  Should be idempotent.
- *
  * @author ohler@google.com (Christian Ohler)
  */
 public interface PostCommitAction {
 
-  /** Run immediately after commit, with high likelihood, only once. */
+  /** Run immediately after each commit, with high likelihood, only once. */
   void unreliableImmediatePostCommit(SlobId slobId, long resultingVersion, ReadableSlob resultingState);
 
-  /** Run some time after the commit, guaranteed, possibly multiple times. */
+  /**
+   * Run some time after the commit, guaranteed, possibly multiple times, and
+   * possibly multiple successive commits batched into one run. Should be
+   * idempotent, in fact make no assumptions whatever about the number of
+   * commits since last called.
+   */
   void reliableDelayedPostCommit(SlobId slobId);
-
 }

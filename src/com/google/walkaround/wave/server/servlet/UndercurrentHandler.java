@@ -47,22 +47,22 @@ import com.google.walkaround.wave.server.WaveLoader;
 import com.google.walkaround.wave.server.WaveLoader.LoadedWave;
 import com.google.walkaround.wave.server.auth.UserContext;
 import com.google.walkaround.wave.server.conv.ConvStore;
-import com.google.walkaround.wave.server.gxp.Client;
+import com.google.walkaround.wave.server.gxp.Wave;
 import com.google.walkaround.wave.server.udw.UdwStore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.waveprotocol.wave.model.wave.ParticipantId;
 
+import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.annotation.Nullable;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Serves the undercurrent client.
@@ -143,8 +143,9 @@ public class UndercurrentHandler extends AbstractHandler {
     ErrorVarsGsonImpl errorVars = new ErrorVarsGsonImpl();
     errorVars.setErrorMessage(errorMessage);
     setResponseHeaders(resp);
-    Client.write(resp.getWriter(), new GxpContext(req.getLocale()),
-        analyticsAccount, clientVarString(null, null, errorVars), inlineNocacheJs(), channelApiUrl);
+    Wave.write(resp.getWriter(), new GxpContext(req.getLocale()),
+        analyticsAccount, clientVarString(null, null, errorVars), true,
+        inlineNocacheJs(), channelApiUrl);
   }
 
   private void writeLiveClientResponse(HttpServletRequest req, HttpServletResponse resp,
@@ -170,8 +171,9 @@ public class UndercurrentHandler extends AbstractHandler {
       vars.setUdw(udwLoadData);
     }
     setResponseHeaders(resp);
-    Client.write(resp.getWriter(), new GxpContext(req.getLocale()),
-        analyticsAccount, clientVarString(vars, null, null), inlineNocacheJs(), channelApiUrl);
+    Wave.write(resp.getWriter(), new GxpContext(req.getLocale()),
+        analyticsAccount, clientVarString(vars, null, null), true,
+        inlineNocacheJs(), channelApiUrl);
   }
 
   private void writeStaticClientResponse(HttpServletRequest req, HttpServletResponse resp,
@@ -183,8 +185,9 @@ public class UndercurrentHandler extends AbstractHandler {
     vars.setConvObjectId(wave.getConvObjectId().getId());
     vars.setConvSnapshot(wave.getConvSnapshotWithDiffs());
     setResponseHeaders(resp);
-    Client.write(resp.getWriter(), new GxpContext(req.getLocale()),
-        analyticsAccount, clientVarString(null, vars, null), inlineNocacheJs(), channelApiUrl);
+    Wave.write(resp.getWriter(), new GxpContext(req.getLocale()),
+        analyticsAccount, clientVarString(null, vars, null), true,
+        inlineNocacheJs(), channelApiUrl);
   }
 
   @Override

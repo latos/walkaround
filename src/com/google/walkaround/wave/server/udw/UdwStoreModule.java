@@ -21,7 +21,6 @@ import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.inject.PrivateModule;
 import com.google.walkaround.slob.server.AccessChecker;
 import com.google.walkaround.slob.server.PostCommitActionQueue;
-import com.google.walkaround.slob.server.PostMutateHook;
 import com.google.walkaround.slob.server.StoreModuleHelper;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.slob.shared.SlobModel;
@@ -56,7 +55,6 @@ public class UdwStoreModule extends PrivateModule {
           @Override public void checkCanModify(SlobId objectId) {}
           @Override public void checkCanCreate(SlobId objectId) {}
         });
-    bind(PostMutateHook.class).toInstance(PostMutateHook.NO_OP);
     bind(Queue.class).annotatedWith(PostCommitActionQueue.class).toInstance(
         QueueFactory.getQueue("post-commit-udw"));
   }

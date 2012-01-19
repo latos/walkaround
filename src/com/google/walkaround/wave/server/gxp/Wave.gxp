@@ -18,7 +18,7 @@
 -->
 <!DOCTYPE gxp:template SYSTEM
   'http://gxp.googlecode.com/svn/trunk/resources/xhtml.ent'>
-<gxp:template name='com.google.walkaround.wave.server.gxp.Client'
+<gxp:template name='com.google.walkaround.wave.server.gxp.Wave'
   xmlns='http://www.w3.org/1999/xhtml'
   xmlns:expr='http://google.com/2001/gxp/expressions'
   xmlns:call='http://google.com/2001/gxp/call'
@@ -26,6 +26,7 @@
 
   <gxp:param name='analyticsAccount' type='String'/>
   <gxp:param name='vars' type='org.json.JSONObject'/>
+  <gxp:param name='full' type='boolean'/>
   <gxp:param name='gwtBootstrap' type='HtmlClosure'/>
   <gxp:param name='channelApiUrl' type='String'/>
 
@@ -55,7 +56,7 @@
           right: 0;
           /* top: 115px; */
           /* top: 50px; */
-          top: 5px;
+          top: 0;
           bottom: 0;
         }
 
@@ -68,7 +69,6 @@
           bottom: 0;
           border: 1px solid lightGrey;
           border-top: none;
-          /* Expand out of the center line, aiming for a width of ~90 chars. */
           margin-left: -350px;
           margin-right: -350px;
           background-color: white;
@@ -77,11 +77,28 @@
           -moz-transition: all 400ms ease-in-out;
           -webkit-transition: all 400ms ease-in-out;
         }
+        
+        #initialHtml.full {
+          left: 0;
+          right: 0;
+          margin-left: 0;
+          margin-right: 0;
+        }
 
         #savedStateContainer {
+        /* TODO(danilatos): Make this look a bit nicer, and perhaps use a butter-bar
+           for disconnected and logged out notifications */
           text-align: right;
           position: absolute;
-          right: 0;
+          right: 5px;
+          top: 19px;
+          background: #C9E2FC;
+        }
+
+        #enableAvatarsButton {
+          position: absolute;
+          top: 2px;
+          right: 5px;
         }
 
         #logHolder {
@@ -114,7 +131,8 @@
       <script type="text/javascript" expr:src='channelApiUrl'></script>
       <script type="text/javascript">
         function enableAvatars() {
-          window.location.href = "/enable?originalRequest=" + escape(window.location.href);
+          w = window.parent ? window.parent : window;
+          w.location.href = "/enable?originalRequest=" + escape(w.location.href);
         }
       </script>
       <call:AnalyticsFragment expr:account='analyticsAccount'/>
@@ -122,13 +140,13 @@
     <body>
 
       <div id='initialContainer'>
+        <div id='initialHtml' expr:class='full ? "full" : ""'><gxp:msg>Loading...</gxp:msg></div>
         <div id='savedStateContainer'/>
         <div id='enableAvatarsButton' style='display:none'>
           <a href='javascript:enableAvatars()'>
             <gxp:msg>Enable user names and pictures</gxp:msg>
           </a>
         </div>
-        <div id='initialHtml'><gxp:msg>Loading...</gxp:msg></div>
         <div id='logHolder' style='display:none'/>
       </div>
       <!-- HACK(danilatos): It would be simpler to say <body spellcheck='false'>

@@ -16,13 +16,15 @@
 
 package com.google.walkaround.wave.server.servlet;
 
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gxp.base.GxpContext;
+import com.google.gxp.html.HtmlClosure;
 import com.google.inject.Inject;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
 import com.google.walkaround.wave.server.Flag;
 import com.google.walkaround.wave.server.FlagName;
-import com.google.walkaround.wave.server.gxp.AuthPopup;
+import com.google.walkaround.wave.server.gxp.ClientFragment;
+
+import org.waveprotocol.wave.model.wave.ParticipantId;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,38 +33,36 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
- * Logs out the current user.  This is useful for switching between admin and
- * non-admin when running locally.
- *
- * @author ohler@google.com (Christian Ohler)
+ * @author danilatos@google.com (Daniel Danilatos)
  */
-public class LogoutHandler extends AbstractHandler {
-
-  public static class SelfClosingPageHandler extends AbstractHandler {
-    @Inject @Flag(FlagName.ANALYTICS_ACCOUNT) String analyticsAccount;
-
-    @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-      resp.setContentType("text/html");
-      AuthPopup.write(resp.getWriter(), new GxpContext(req.getLocale()),
-          analyticsAccount, null);
-    }
-  }
+public class ClientHandler extends AbstractHandler {
 
   @SuppressWarnings("unused")
-  private static final Logger log = Logger.getLogger(LogoutHandler.class.getName());
+  private static final Logger log = Logger.getLogger(ClientHandler.class.getName());
 
-  public LogoutHandler() {
-  }
+  @Inject ParticipantId participantId;
+  @Inject @Flag(FlagName.ANNOUNCEMENT_HTML) String announcementHtml;
+  @Inject PageSkinWriter page;
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    String redirect;
-    if (req.getParameter("switchUser") != null) {
-      redirect = "/switchSuccess";
-    } else {
-      redirect = "/loggedout.html";
+    String ua = req.getHeader("User-Agent").toLowerCase();
+    if (ua != null && ua.contains("mobile")) {
+      resp.sendRedirect("/inbox");
     }
-    resp.sendRedirect(UserServiceFactory.getUserService().createLogoutURL(redirect));
+    resp.setContentType("text/html");
+    resp.setCharacterEncoding("UTF-8");
+    page.write("Walkaround", participantId.getAddress(),
+        ClientFragment.getGxpClosure(announcementHtml()));
+  }
+
+  private HtmlClosure announcementHtml() {
+    return announcementHtml.isEmpty()
+        ? null
+        : new HtmlClosure() {
+          @Override public void write(Appendable out, GxpContext context) throws IOException {
+            out.append(announcementHtml);
+          }
+        };
   }
 }

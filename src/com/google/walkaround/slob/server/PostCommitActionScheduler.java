@@ -31,15 +31,15 @@ import com.google.walkaround.util.server.RetryHelper;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
-import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.util.server.appengine.MemcacheTable;
+import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+
+import javax.annotation.Nullable;
 
 import java.util.Date;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Logger;
-
-import javax.annotation.Nullable;
 
 /**
  * Schedules task queue tasks that invoke {@link PostCommitAction} in a
@@ -206,6 +206,8 @@ public class PostCommitActionScheduler {
     for (PostCommitAction action : getActions()) {
       log.info("Running reliable post-commit action " + action
           + " on " + slobId + " (" + rootEntityKind + ")");
+      // TODO(danilatos): Should this be wrapped in a try...catch and just log
+      // any exceptions in order to truly reliably run all the post-commit actions?
       action.reliableDelayedPostCommit(slobId);
     }
   }

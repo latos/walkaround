@@ -28,7 +28,9 @@
   <gxp:import class='java.util.List'/>
 
   <gxp:param name='token' type='String'/>
-  <gxp:param name='announcementHtml' type='HtmlClosure'/>
+  <gxp:param name='query' type='String'/>
+  <gxp:param name='embedded' type='boolean'/>
+  <gxp:param name='target' type='String'/>
   <gxp:param name='waveRecords' type='List{InboxDisplayRecord}'/>
 
   <style type='text/css'>
@@ -36,15 +38,6 @@
       z-index: 1000;
     }
     #panel {
-      padding: 10px 40px;
-    }
-    #announcement {
-      padding-left: 1em;
-      padding-right: 1em;
-      padding-bottom: 0;
-      padding-top: 0;
-      border: 2px solid #FC0;
-      background: #FFE475;
     }
     table {
       border-collapse: collapse;
@@ -53,8 +46,10 @@
       width: 100%;
       border-bottom: 1px solid lightgray;
     }
-    td {
+    td, th {
       padding: 10px;
+    }
+    td {
       overflow: hidden;
     }
     th {
@@ -62,20 +57,16 @@
       font-weight: bold;
       border-top: 1px solid lightgray;
       border-bottom: 1px solid lightgray;
-      padding: 10px;
       text-align: left;
     }
     .titlecolumn {
       width: 60%;
     }
 
-    #new-wave {
+    #new-wave, #search {
       display: block;
       text-decoration: none;
       width: 100px;
-      background: #789e35;
-      background: -webkit-gradient(linear, left top, left bottom, from(#9cb869), to(#789e35));
-      background: -moz-linear-gradient(top, #9cb869, #789e35);
       box-shadow: 0px 2px 8px #bbb;
       -moz-box-shadow: 0px 2px 8px #bbb;
       overflow: hidden;
@@ -85,60 +76,104 @@
       color: white;
       text-align: center;
       cursor: pointer;
+      border: none;
+      
+      position: absolute;
     }
+    
+    #new-wave {
+      background: #789e35;
+      background: -webkit-gradient(linear, left top, left bottom, from(#9cb869), to(#789e35));
+      background: -moz-linear-gradient(top, #9cb869, #789e35);
+      left: 0;
+    }
+    
+    #search {
+      background: #68E;
+      background: -webkit-gradient(linear, left top, left bottom, from(#8AE), to(#68E));
+      background: -moz-linear-gradient(top, #8AE, #68E);
+      right: 0;
+    }
+    
+    #query {
+      font-size: 1.1em;
+      position: absolute;
+      left: 120px;
+      right: 120px; /* this doesn't seem to work in firefox... */
+    }
+    
+    #results {
+      position: absolute;
+      top: 50px;
+    }
+    
+    #results.embedded {
+      overflow: auto;
+      bottom: 0px;
+    }
+    
+    body {
+      margin: 0;
+    }
+    
   </style>
 
   <div id='panel'>
 
-    <gxp:if cond='announcementHtml != null'>
-      <div id='announcement'><gxp:eval expr='announcementHtml'/></div>
-      <p/>
-    </gxp:if>
-
-    <form method='post' action='inbox'>
+    <form method='post' action='inbox' expr:target='target' style='float:left'>
       <input type='hidden' name='action' value='newwave'/>
       <input type='hidden' name='token' expr:value='token'/>
       <input id='new-wave' type='submit' value='New wave'/>
     </form>
 
-    <gxp:if cond='waveRecords.isEmpty()'>
-      <!-- Currently, this case is unused since we use Welcome.gxp instead. -->
-      <gxp:else/>
-      <p>
-        <gxp:eval expr='waveRecords.size()'/> <gxp:msg>waves</gxp:msg>
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th><gxp:msg>Creator</gxp:msg></th>
-            <th class='titlecolumn'><gxp:msg>Title</gxp:msg></th>
-            <th><gxp:msg>Last modified</gxp:msg></th>
-          </tr>
-        </thead>
-        <tbody>
-          <gxp:loop var='record' type='InboxDisplayRecord' iterable='waveRecords'>
-            <tr>
-              <td><gxp:eval expr='record.getCreator()'/></td>
-              <td>
-                <a expr:href='record.getLink()' target='_blank'>
-                  <gxp:if
-                     cond='record.getTitle().isEmpty() &amp;&amp; record.getSnippet().isEmpty()'>
-                    <i><gxp:msg>no title</gxp:msg></i>
-                  <gxp:else/>
-                    <b><gxp:eval expr='record.getTitle()'/></b>
-                    <gxp:eval expr='record.getSnippet()'/>
-                  </gxp:if>
-                </a>
-              </td>
-              <td><gxp:eval expr='record.getLastModified()'/></td>
-            </tr>
-          </gxp:loop>
-        </tbody>
-      </table>
-      <br/>
-      <br/>
-    </gxp:if>
-
+    <form method='get' action='inbox' style='float:left; padding-left: 10px'>
+      <input id='query' type='text' name='q' expr:value='query'
+          onfocus='var self=this;setTimeout(function(){self.select();},1)'/>
+      <input id='search' type='submit' value='Search'/>
+      <gxp:if cond='embedded'>
+        <input type='hidden' name='embedded' value='true'/>
+      </gxp:if>
+    </form>
+    
+    <div id='results' expr:class='embedded ? "embedded" : ""'>
+      <gxp:if cond='waveRecords.isEmpty()'>
+        <gxp:msg>(no results)</gxp:msg>
+        <gxp:else/>
+        <p>
+          <gxp:eval expr='waveRecords.size()'/> <gxp:msg>waves</gxp:msg>
+        </p>
+        <div class='container'>
+          <table>
+            <thead>
+              <tr>
+                <th><gxp:msg>Creator</gxp:msg></th>
+                <th class='titlecolumn'><gxp:msg>Title</gxp:msg></th>
+                <th><gxp:msg>Last modified</gxp:msg></th>
+              </tr>
+            </thead>
+            <tbody>
+              <gxp:loop var='record' type='InboxDisplayRecord' iterable='waveRecords'>
+                <tr>
+                  <td><gxp:eval expr='record.getCreator()'/></td>
+                  <td>
+                    <a expr:href='record.getLink()' expr:target='target'>
+                      <gxp:if
+                         cond='record.getTitle().isEmpty() &amp;&amp; !record.hasSnippet()'>
+                        <i><gxp:msg>(no title)</gxp:msg></i>
+                      <gxp:else/>
+                        <b><gxp:eval expr='record.getTitle()'/></b> -
+                        <gxp:eval expr='record.getSnippetHtml()'/>
+                      </gxp:if>
+                    </a>
+                  </td>
+                  <td><gxp:eval expr='record.getLastModified()'/></td>
+                </tr>
+              </gxp:loop>
+            </tbody>
+          </table>
+        </div>
+      </gxp:if>
+    </div>
   </div>
 
 </gxp:template>

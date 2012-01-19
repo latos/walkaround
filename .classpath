@@ -5,6 +5,7 @@
 	<classpathentry kind="src" path="build/gen/messages"/>
 	<classpathentry kind="src" path="build/gen/gxp"/>
 	<classpathentry kind="src" path="more-guava"/>
+	<classpathentry kind="src" path="proto_src"/>
 	<classpathentry kind="lib" path="build/proto"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="third_party/gson/gson-1.7.1.jar"/>
