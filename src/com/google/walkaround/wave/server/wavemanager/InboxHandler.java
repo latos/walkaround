@@ -16,15 +16,10 @@
 
 package com.google.walkaround.wave.server.wavemanager;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.net.UriEscapers;
 import com.google.gxp.base.GxpContext;
 import com.google.gxp.html.HtmlClosure;
 import com.google.inject.Inject;
 import com.google.walkaround.slob.shared.SlobId;
-import com.google.walkaround.util.server.RetryHelper;
-import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
-import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.auth.InvalidSecurityTokenException;
 import com.google.walkaround.util.server.servlet.AbstractHandler;
@@ -37,14 +32,8 @@ import com.google.walkaround.wave.server.auth.XsrfHelper.XsrfTokenExpiredExcepti
 import com.google.walkaround.wave.server.gxp.InboxDisplayRecord;
 import com.google.walkaround.wave.server.gxp.InboxFragment;
 import com.google.walkaround.wave.server.gxp.NoSkin;
-import com.google.walkaround.wave.server.index.WaveIndexer;
-import com.google.walkaround.wave.server.index.WaveIndexer.UserIndexEntry;
 import com.google.walkaround.wave.server.servlet.PageSkinWriter;
 import com.google.walkaround.wave.server.util.RequestUtil;
-
-import org.joda.time.Instant;
-import org.joda.time.LocalDate;
-import org.waveprotocol.wave.model.wave.ParticipantId;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,6 +48,7 @@ import java.util.logging.Logger;
  * @author ohler@google.com (Christian Ohler)
  */
 public class InboxHandler extends AbstractHandler {
+  private static final int RESULTS_PER_PAGE = 30;
 
   @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(InboxHandler.class.getName());
@@ -66,79 +56,44 @@ public class InboxHandler extends AbstractHandler {
   private static final String XSRF_ACTION = "inboxaction";
   private static final String DEFAULT_QUERY = "folder:inbox";
 
-  @Inject ParticipantId participantId;
   @Inject XsrfHelper xsrfHelper;
   @Inject CheckedDatastore datastore;
-  @Inject WaveIndexer userIndex;
+  @Inject Searcher searcher;
   @Inject WaveletCreator waveletCreator;
   @Inject @Flag(FlagName.ANALYTICS_ACCOUNT) String analyticsAccount;
   @Inject PageSkinWriter pageSkinWriter;
   @Inject @Flag(FlagName.ANNOUNCEMENT_HTML) String announcementHtml;
 
-  private String queryEscape(String s) {
-    return UriEscapers.uriQueryStringEscaper(false).escape(s);
-  }
 
-  private String makeWaveLink(SlobId objectId) {
-    return "/wave?id=" + queryEscape(objectId.getId());
-  }
-
-  // XXX XXX Mess
-  private List<InboxDisplayRecord> getWavesInner(String query) throws IOException {
-    ImmutableList.Builder<InboxDisplayRecord> out = ImmutableList.builder();
-    List<UserIndexEntry> waves = userIndex.findWaves(participantId, query, 0, 50);
-    for (UserIndexEntry wave : waves) {
-      out.add(new InboxDisplayRecord(
-          // TODO(danilatos): Retrieve contact details if possible and use name not address.
-          wave.getCreator().getAddress(),
-          wave.getTitle().trim(),
-          // TODO(danilatos): Detect if the snippet redundantly starts with the title,
-          // and strip it out, if we are just displaying a folder (but don't if we
-          // are displaying the context of a search query).
-          wave.getSnippetHtml().trim(),
-          "" + new LocalDate(new Instant(wave.getLastModifiedMillis())),
-          makeWaveLink(wave.getObjectId())));
-    }
-    return out.build();
-  }
-
-  private List<InboxDisplayRecord> getWaves(final String query) throws IOException {
-    try {
-      return new RetryHelper().run(
-          new RetryHelper.Body<List<InboxDisplayRecord>>() {
-            @Override public List<InboxDisplayRecord> run()
-                throws RetryableFailure {
-              try {
-                return getWavesInner(query);
-              } catch (IOException e) {
-                throw new RetryableFailure(e);
-              }
-            }
-          });
-    } catch (PermanentFailure e) {
-      throw new IOException("PermanentFailure reading index", e);
-    }
-  }
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     resp.setContentType("text/html");
     resp.setCharacterEncoding("UTF-8");
     String query = req.getParameter("q");
+    int page;
+    try {
+      String pageParam = req.getParameter("page");
+      page = pageParam == null ? 0 : Integer.parseInt(pageParam);
+    } catch (NumberFormatException e) {
+      page = 0;
+    }
 
     if (query == null || query.trim().isEmpty()) {
       query = DEFAULT_QUERY;
     }
 
     String displayQuery = query.equals(DEFAULT_QUERY) ? "" : query;
-    List<InboxDisplayRecord> waveRecords = getWaves(query);
+    List<InboxDisplayRecord> waveRecords = searcher.searchWaves(query,
+        page * RESULTS_PER_PAGE, RESULTS_PER_PAGE);
     boolean embedded = "true".equals(req.getParameter("embedded"));
     NoSkin.write(resp.getWriter(), new GxpContext(req.getLocale()),
         "Walkaround", analyticsAccount,
         InboxFragment.getGxpClosure(xsrfHelper.createToken(XSRF_ACTION), displayQuery,
             embedded, embedded ? "wave" : "", waveRecords,
             // Only show announcement if mobile.
-            RequestUtil.isMobile(req) ? announcementHtml() : null));
+            RequestUtil.isMobile(req) ? announcementHtml() : null,
+            page));
   }
 
   @Override
@@ -155,7 +110,7 @@ public class InboxHandler extends AbstractHandler {
       SlobId newWaveId = waveletCreator.newConvWithGeneratedId(null);
       // TODO(ohler): Send 303, not 302.  See
       // http://en.wikipedia.org/wiki/Post/Redirect/Get .
-      resp.sendRedirect(makeWaveLink(newWaveId));
+      resp.sendRedirect(Searcher.makeWaveLink(newWaveId));
     } else {
       throw new BadRequestException("Unknown action: " + action);
     }

@@ -34,6 +34,7 @@
   <gxp:param name='target' type='String'/>
   <gxp:param name='waveRecords' type='List{InboxDisplayRecord}'/>
   <gxp:param name='announcementHtml' type='HtmlClosure'/>
+  <gxp:param name='page' type='int'/>
  
   <style type='text/css'>
     .main {
@@ -111,7 +112,7 @@
     
     #results {
       position: absolute;
-      top: 50px;
+      top: 70px;
     }
     
     #results.embedded {
@@ -133,7 +134,28 @@
       height:54px;
       overflow:auto;
     }
+    
+    #paging {
+      position: absolute;
+      top: 35px;
+      left: 0;
+      right: 0;
+      min-width: 455px;
+    }
+    
+    #nav-links {
+      position:absolute;
+      top: 4px;
+      right: 0;
+    }
   </style>
+  
+  <script type='text/javascript'>
+    function search(query) {
+        document.getElementById('query').value = query;
+        document.getElementById('searchform').submit();
+    }
+  </script>
 
   <gxp:if cond='announcementHtml != null'>
     <div id='announcement'><gxp:eval expr='announcementHtml'/></div>
@@ -148,22 +170,37 @@
       <input id='new-wave' type='submit' value='New wave'/>
     </form>
 
-    <form method='get' action='inbox' style='float:left; padding-left: 10px'>
+    <form id='searchform' method='get' action='inbox' style='float:left;'>
       <input id='query' type='text' name='q' expr:value='query'
           onfocus='var self=this;setTimeout(function(){self.select();},1)'/>
       <input id='search' type='submit' value='Search'/>
       <gxp:if cond='embedded'>
         <input type='hidden' name='embedded' value='true'/>
       </gxp:if>
+      <div id='paging'>
+        <gxp:msg>Showing results page:</gxp:msg> <strong><gxp:eval expr='page'/></strong>
+        <button name='page' expr:value='page - 1' 
+            expr:disabled='page == 0'>Previous</button>
+        <button name='page' expr:value='page + 1' 
+            expr:disabled='waveRecords.isEmpty()'>Next</button>
+        <div id='nav-links'>
+          <gxp:msg>Go to:</gxp:msg>
+          <a href='javascript:search("")'>Inbox</a> <!-- uncomment when implemented |
+          <a href='javascript:search("is:unread")'>Unread</a> -->
+        </div>
+      </div>
     </form>
     
     <div id='results' expr:class='embedded ? "embedded" : ""'>
       <gxp:if cond='waveRecords.isEmpty()'>
         <gxp:msg>(no results)</gxp:msg>
         <gxp:else/>
+        <!-- TODO(danilatos): This is less useful now that it's the results-per-page,
+             bring this back when we have the total number of results.
         <p>
           <gxp:eval expr='waveRecords.size()'/> <gxp:msg>waves</gxp:msg>
         </p>
+        -->
         <div class='container'>
           <table>
             <thead>
