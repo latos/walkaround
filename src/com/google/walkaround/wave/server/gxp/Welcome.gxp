@@ -18,6 +18,7 @@
 
   Author: danilatos@google.com (Daniel Danilatos)
 -->
+<!-- TODO(danilatos): Bring this back as a landing page for new users -->
 <gxp:template name='com.google.walkaround.wave.server.gxp.Welcome'
   xmlns='http://www.w3.org/1999/xhtml'
   xmlns:call='http://google.com/2001/gxp/call'
