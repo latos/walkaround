@@ -25,6 +25,7 @@ import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.wave.server.conv.PermissionCache;
 import com.google.walkaround.wave.server.conv.PermissionCache.Permissions;
+import com.google.walkaround.wave.server.wavemanager.WaveAclStore.AclEntry;
 
 import org.waveprotocol.wave.model.wave.ParticipantId;
 
@@ -40,15 +41,15 @@ public class WaveManager implements PermissionCache.PermissionSource {
 
   private static final Logger log = Logger.getLogger(WaveManager.class.getName());
 
-  private final WaveIndex index;
+  private final WaveAclStore aclStore;
   private final CheckedDatastore datastore;
   private final ParticipantId participantId;
 
   @Inject
-  public WaveManager(WaveIndex index,
+  public WaveManager(WaveAclStore aclStore,
       CheckedDatastore datastore,
       ParticipantId participantId) {
-    this.index = index;
+    this.aclStore = aclStore;
     this.datastore = datastore;
     this.participantId = participantId;
   }
@@ -60,11 +61,11 @@ public class WaveManager implements PermissionCache.PermissionSource {
         @Override public Permissions run() throws RetryableFailure, PermanentFailure {
           CheckedTransaction tx = datastore.beginTransaction();
           try {
-            WaveIndex.IndexEntry indexEntry = index.getEntry(tx, objectId);
-            if (indexEntry == null) {
+            AclEntry aclEntry = aclStore.getEntry(tx, objectId);
+            if (aclEntry == null) {
               log.info(objectId + " does not exist; " + participantId + " may not access");
               return new Permissions(false, false);
-            } else if (indexEntry.getAcl().contains(participantId)) {
+            } else if (aclEntry.getAcl().contains(participantId)) {
               log.info(objectId + " exists and " + participantId + " is on the ACL");
               return new Permissions(true, true);
             } else {

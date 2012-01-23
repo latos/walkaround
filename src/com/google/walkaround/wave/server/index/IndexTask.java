@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 public class IndexTask implements PostCommitAction {
   private static final Logger log = Logger.getLogger(IndexTask.class.getName());
 
-  @Inject private Indexer indexer;
+  @Inject private WaveIndexer indexer;
 
   @Override
   public void reliableDelayedPostCommit(final SlobId slobId) {

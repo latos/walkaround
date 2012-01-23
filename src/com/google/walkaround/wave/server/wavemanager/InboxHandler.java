@@ -37,8 +37,8 @@ import com.google.walkaround.wave.server.auth.XsrfHelper.XsrfTokenExpiredExcepti
 import com.google.walkaround.wave.server.gxp.InboxDisplayRecord;
 import com.google.walkaround.wave.server.gxp.InboxFragment;
 import com.google.walkaround.wave.server.gxp.NoSkin;
-import com.google.walkaround.wave.server.index.Indexer;
-import com.google.walkaround.wave.server.index.Indexer.UserIndexEntry;
+import com.google.walkaround.wave.server.index.WaveIndexer;
+import com.google.walkaround.wave.server.index.WaveIndexer.UserIndexEntry;
 import com.google.walkaround.wave.server.servlet.PageSkinWriter;
 import com.google.walkaround.wave.server.util.RequestUtil;
 
@@ -69,7 +69,7 @@ public class InboxHandler extends AbstractHandler {
   @Inject ParticipantId participantId;
   @Inject XsrfHelper xsrfHelper;
   @Inject CheckedDatastore datastore;
-  @Inject Indexer userIndex;
+  @Inject WaveIndexer userIndex;
   @Inject WaveletCreator waveletCreator;
   @Inject @Flag(FlagName.ANALYTICS_ACCOUNT) String analyticsAccount;
   @Inject PageSkinWriter pageSkinWriter;
@@ -89,6 +89,7 @@ public class InboxHandler extends AbstractHandler {
     List<UserIndexEntry> waves = userIndex.findWaves(participantId, query, 0, 50);
     for (UserIndexEntry wave : waves) {
       out.add(new InboxDisplayRecord(
+          // TODO(danilatos): Retrieve contact details if possible and use name not address.
           wave.getCreator().getAddress(),
           wave.getTitle().trim(),
           // TODO(danilatos): Detect if the snippet redundantly starts with the title,

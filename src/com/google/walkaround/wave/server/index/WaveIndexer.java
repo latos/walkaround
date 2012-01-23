@@ -71,8 +71,7 @@ import java.util.logging.Logger;
  * @author danilatos@google.com (Daniel Danilatos)
  *
  */
-// TODO(danilatos) Rename and/or rename WaveIndex
-public class Indexer {
+public class WaveIndexer {
   public static class UserIndexEntry {
     private final SlobId objectId;
     private final ParticipantId creator;
@@ -138,7 +137,7 @@ public class Indexer {
     }
   }
 
-  private static final Logger log = Logger.getLogger(Indexer.class.getName());
+  private static final Logger log = Logger.getLogger(WaveIndexer.class.getName());
 
   private static final String USER_WAVE_INDEX_PREFIX = "USRIDX-";
 
@@ -148,7 +147,7 @@ public class Indexer {
   private final MutationLogFactory mutationLogFactory;
 
   @Inject
-  public Indexer(CheckedDatastore datastore, @ConvStore MutationLogFactory mutationLogFactory,
+  public WaveIndexer(CheckedDatastore datastore, @ConvStore MutationLogFactory mutationLogFactory,
       IndexManager indexManager) {
     this.datastore = datastore;
     this.mutationLogFactory = mutationLogFactory;

@@ -36,7 +36,7 @@ import com.google.walkaround.wave.server.conv.PermissionCache.PermissionSource;
 import com.google.walkaround.wave.server.index.IndexTask;
 import com.google.walkaround.wave.server.model.WaveObjectStoreModel;
 import com.google.walkaround.wave.server.model.WaveObjectStoreModel.ReadableWaveletObject;
-import com.google.walkaround.wave.server.wavemanager.WaveIndex;
+import com.google.walkaround.wave.server.wavemanager.WaveAclStore;
 import com.google.walkaround.wave.server.wavemanager.WaveManager;
 
 import java.util.logging.Logger;
@@ -63,7 +63,7 @@ public class ConvStoreModule extends PrivateModule {
     bind(AccessChecker.class).to(ConvAccessChecker.class);
     bind(PermissionSource.class).to(WaveManager.class);
 
-    final Provider<WaveIndex> index = getProvider(WaveIndex.class);
+    final Provider<WaveAclStore> aclStore = getProvider(WaveAclStore.class);
     Multibinder<PreCommitAction> preCommitActions =
         Multibinder.newSetBinder(binder(), PreCommitAction.class);
     preCommitActions.addBinding().toInstance(
@@ -72,7 +72,7 @@ public class ConvStoreModule extends PrivateModule {
               long resultingVersion, ReadableSlob resultingState)
               throws RetryableFailure, PermanentFailure {
             // TODO(ohler): Introduce generics in SlobModel to avoid the cast.
-            index.get().update(tx, objectId, (ReadableWaveletObject) resultingState);
+            aclStore.get().update(tx, objectId, (ReadableWaveletObject) resultingState);
           }
         });
 

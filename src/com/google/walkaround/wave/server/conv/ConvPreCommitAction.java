@@ -24,7 +24,7 @@ import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.wave.server.model.WaveObjectStoreModel.ReadableWaveletObject;
-import com.google.walkaround.wave.server.wavemanager.WaveIndex;
+import com.google.walkaround.wave.server.wavemanager.WaveAclStore;
 
 /**
  * {@link PreCommitAction} for the conversation wavelet store.
@@ -33,17 +33,17 @@ import com.google.walkaround.wave.server.wavemanager.WaveIndex;
  */
 public class ConvPreCommitAction implements PreCommitAction {
 
-  private final WaveIndex index;
+  private final WaveAclStore aclStore;
 
-  @Inject public ConvPreCommitAction(WaveIndex index) {
-    this.index = index;
+  @Inject public ConvPreCommitAction(WaveAclStore aclStore) {
+    this.aclStore = aclStore;
   }
 
   @Override public void run(CheckedTransaction tx, SlobId objectId,
       long resultingVersion, ReadableSlob resultingState)
       throws RetryableFailure, PermanentFailure {
     // TODO(ohler): Use generics to avoid the cast.
-    index.update(tx, objectId, (ReadableWaveletObject) resultingState);
+    aclStore.update(tx, objectId, (ReadableWaveletObject) resultingState);
   }
 
 }

@@ -46,6 +46,8 @@ import java.util.logging.Logger;
  * Mapreduce mapper that re-indexes and re-extracts ACL metadata from all
  * conversations.
  *
+ * TODO(danilatos): Add re-indexing.
+ *
  * @author ohler@google.com (Christian Ohler)
  */
 public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, NullWritable> {
@@ -56,7 +58,7 @@ public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, Nu
   private static class Handler {
     @Inject CheckedDatastore datastore;
     @Inject @ConvStore SlobFacilities facilities;
-    @Inject WaveIndex index;
+    @Inject WaveAclStore aclStore;
 
     void process(Context context, final Key key) throws PermanentFailure {
       new RetryHelper().run(new RetryHelper.VoidBody() {
@@ -77,7 +79,7 @@ public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, Nu
               }
               StateAndVersion state = mutationLog.reconstruct(null);
               log.info("Re-indexing " + objectId + " at version " + state.getVersion());
-              index.update(tx, objectId, (ReadableWaveletObject) state.getState());
+              aclStore.update(tx, objectId, (ReadableWaveletObject) state.getState());
               tx.commit();
             } finally {
               tx.close();
