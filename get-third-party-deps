@@ -191,6 +191,7 @@ EOF
   [[ -d appengine-mapreduce-read-only ]] || (
     set -x
     svn co -q http://appengine-mapreduce.googlecode.com/svn/trunk/ appengine-mapreduce-read-only
+    svn up -q appengine-mapreduce-read-only
   )
   # TODO(ohler): link our SDK in here
   cd appengine-mapreduce-read-only/java
