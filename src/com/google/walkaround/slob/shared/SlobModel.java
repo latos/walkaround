@@ -16,9 +16,9 @@
 
 package com.google.walkaround.slob.shared;
 
-import java.util.List;
-
 import javax.annotation.Nullable;
+
+import java.util.List;
 
 /**
  * Represents a domain of shared live objects (slobs).
@@ -38,11 +38,6 @@ public interface SlobModel {
      * history.
      */
     @Nullable String snapshot();
-
-    /**
-     * Returns text to be indexed for search purposes.
-     */
-    String getIndexedContent();
   }
 
   /**

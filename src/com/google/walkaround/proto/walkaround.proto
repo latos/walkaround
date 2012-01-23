@@ -214,6 +214,7 @@ message ServerMutateRequest {
 message ServerMutateResponse {
   required int64 resulting_version = 1;
   required string broadcast_data = 2;
-  // TODO(ohler): Eliminate this to make this layer Wave-agnostic.
-  required string index_data = 3;
+  // TODO(danilatos): Delete the next line if we're sure we don't
+  // care about reusing field #3.
+  // required string index_data = 3;
 }

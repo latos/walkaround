@@ -23,9 +23,9 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.datastore.Text;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
@@ -41,23 +41,23 @@ import com.google.walkaround.slob.shared.ClientId;
 import com.google.walkaround.slob.shared.InvalidSnapshot;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.slob.shared.SlobModel;
-import com.google.walkaround.slob.shared.SlobModel.ReadableSlob;
 import com.google.walkaround.slob.shared.StateAndVersion;
+import com.google.walkaround.slob.shared.SlobModel.ReadableSlob;
 import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
+import com.google.walkaround.util.server.appengine.DatastoreUtil;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedIterator;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
-import com.google.walkaround.util.server.appengine.DatastoreUtil;
 import com.google.walkaround.util.shared.Assert;
 
 import org.waveprotocol.wave.model.util.Pair;
+
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-
-import javax.annotation.Nullable;
 
 /**
  * Functionality for traversing and appending to the mutation log.
@@ -308,7 +308,7 @@ public class MutationLog {
   public class DeltaIterator {
     private final CheckedIterator it;
     private final boolean forward;
-    private long previousResultingVersion;
+    private final long previousResultingVersion;
     @Nullable private DeltaEntry peeked = null;
 
     public DeltaIterator(CheckedIterator it, boolean forward) {
@@ -479,17 +479,6 @@ public class MutationLog {
 
     public boolean hasNewDeltas() {
       return !stagedDeltaEntries.isEmpty();
-    }
-
-    /**
-     * Returns the index data of the model at head state (including staged mutations).
-     */
-    // TODO(ohler): Add a generic task queue hook to MutationLog and
-    // SlobStore, and use that to move indexing into an asynchronous task
-    // queue task.  That would make indexing reliable and avoid polluting this
-    // API with SlobManager concerns like indexing.
-    public String getIndexedHtml() {
-      return state.getState().getIndexedContent();
     }
 
     /**

@@ -136,18 +136,16 @@ public class LocalMutationProcessor {
     final Exception exception;
 
     JSONArray broadcastData = null;
-    String indexData = null;
 
     public UpResult(long resultingRevision, Exception exception) {
       this.resultingRevision = resultingRevision;
       this.exception = exception;
     }
 
-    public UpResult(long resultingRevision, JSONArray broadcastData, String indexData) {
+    public UpResult(long resultingRevision, JSONArray broadcastData) {
       this.resultingRevision = resultingRevision;
       this.exception = null;
       this.broadcastData = broadcastData;
-      this.indexData = indexData;
     }
 
     @Override
@@ -161,10 +159,6 @@ public class LocalMutationProcessor {
 
     public JSONArray getBroadcastData() {
       return broadcastData;
-    }
-
-    public String getIndexData() {
-      return indexData;
     }
   }
 
@@ -309,7 +303,7 @@ public class LocalMutationProcessor {
       deltaCache.appendAll(transformedChanges);
 
       log.info("Ops successfully appended (staged for writing)");
-      return lastResult = new UpResult(appender.getStagedVersion(), null);
+      return lastResult = new UpResult(appender.getStagedVersion(), (JSONArray)null);
     }
 
     private UpResult logRejection(UpResult r) {
@@ -341,7 +335,6 @@ public class LocalMutationProcessor {
         }
 
         lastResult.broadcastData = messages;
-        lastResult.indexData = appender.getIndexedHtml();
       }
     }
 
@@ -453,7 +446,6 @@ public class LocalMutationProcessor {
     ServerMutateResponse response = new ServerMutateResponseGsonImpl();
     response.setResultingVersion(result.getResultingRevision());
     response.setBroadcastData(jsonBroadcastData(objectId, result.getBroadcastData()));
-    response.setIndexData(result.getIndexData());
     return response;
   }
 

@@ -6455,19 +6455,11 @@ public final class Walkaround {
     public boolean hasBroadcastData() { return hasBroadcastData; }
     public java.lang.String getBroadcastData() { return broadcastData_; }
     
-    // required string index_data = 3;
-    public static final int INDEX_DATA_FIELD_NUMBER = 3;
-    private boolean hasIndexData;
-    private java.lang.String indexData_ = "";
-    public boolean hasIndexData() { return hasIndexData; }
-    public java.lang.String getIndexData() { return indexData_; }
-    
     private void initFields() {
     }
     public final boolean isInitialized() {
       if (!hasResultingVersion) return false;
       if (!hasBroadcastData) return false;
-      if (!hasIndexData) return false;
       return true;
     }
     
@@ -6479,9 +6471,6 @@ public final class Walkaround {
       }
       if (hasBroadcastData()) {
         output.writeString(2, getBroadcastData());
-      }
-      if (hasIndexData()) {
-        output.writeString(3, getIndexData());
       }
       getUnknownFields().writeTo(output);
     }
@@ -6499,10 +6488,6 @@ public final class Walkaround {
       if (hasBroadcastData()) {
         size += com.google.protobuf.CodedOutputStream
           .computeStringSize(2, getBroadcastData());
-      }
-      if (hasIndexData()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeStringSize(3, getIndexData());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -6668,9 +6653,6 @@ public final class Walkaround {
         if (other.hasBroadcastData()) {
           setBroadcastData(other.getBroadcastData());
         }
-        if (other.hasIndexData()) {
-          setIndexData(other.getIndexData());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -6702,10 +6684,6 @@ public final class Walkaround {
             }
             case 18: {
               setBroadcastData(input.readString());
-              break;
-            }
-            case 26: {
-              setIndexData(input.readString());
               break;
             }
           }
@@ -6749,27 +6727,6 @@ public final class Walkaround {
       public Builder clearBroadcastData() {
         result.hasBroadcastData = false;
         result.broadcastData_ = getDefaultInstance().getBroadcastData();
-        return this;
-      }
-      
-      // required string index_data = 3;
-      public boolean hasIndexData() {
-        return result.hasIndexData();
-      }
-      public java.lang.String getIndexData() {
-        return result.getIndexData();
-      }
-      public Builder setIndexData(java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  result.hasIndexData = true;
-        result.indexData_ = value;
-        return this;
-      }
-      public Builder clearIndexData() {
-        result.hasIndexData = false;
-        result.indexData_ = getDefaultInstance().getIndexData();
         return this;
       }
       
@@ -6928,10 +6885,10 @@ public final class Walkaround {
       "\025\n\rerror_message\030\001 \002(\t\"c\n\023ServerMutateRe" +
       "quest\022*\n\007session\030\001 \002(\0132\031.proto.ObjectSes" +
       "sionProto\022\017\n\007version\030\002 \002(\003\022\017\n\007payload\030\003 " +
-      "\003(\t\"]\n\024ServerMutateResponse\022\031\n\021resulting" +
-      "_version\030\001 \002(\003\022\026\n\016broadcast_data\030\002 \002(\t\022\022" +
-      "\n\nindex_data\030\003 \002(\tB)\n\033com.google.walkaro" +
-      "und.protoB\nWalkaround"
+      "\003(\t\"I\n\024ServerMutateResponse\022\031\n\021resulting" +
+      "_version\030\001 \002(\003\022\026\n\016broadcast_data\030\002 \002(\tB)" +
+      "\n\033com.google.walkaround.protoB\nWalkaroun" +
+      "d"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7063,7 +7020,7 @@ public final class Walkaround {
           internal_static_proto_ServerMutateResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_proto_ServerMutateResponse_descriptor,
-              new java.lang.String[] { "ResultingVersion", "BroadcastData", "IndexData", },
+              new java.lang.String[] { "ResultingVersion", "BroadcastData", },
               com.google.walkaround.proto.Walkaround.ServerMutateResponse.class,
               com.google.walkaround.proto.Walkaround.ServerMutateResponse.Builder.class);
           com.google.protobuf.ExtensionRegistry registry =

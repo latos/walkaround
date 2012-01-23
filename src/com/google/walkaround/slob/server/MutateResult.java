@@ -16,7 +16,6 @@
 
 package com.google.walkaround.slob.server;
 
-import javax.annotation.Nullable;
 
 /**
  * Result of sending a mutation to an object in the object store.
@@ -25,19 +24,13 @@ import javax.annotation.Nullable;
  */
 public final class MutateResult {
   private final long resultingVersion;
-  @Nullable private final String indexData;
 
-  public MutateResult(long resultingVersion, @Nullable String indexData) {
+  public MutateResult(long resultingVersion) {
     this.resultingVersion = resultingVersion;
-    this.indexData = indexData;
   }
 
   public long getResultingVersion() {
     return resultingVersion;
-  }
-
-  @Nullable public String getIndexData() {
-    return indexData;
   }
 
   @Override public String toString() {

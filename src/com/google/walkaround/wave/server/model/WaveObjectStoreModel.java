@@ -37,10 +37,10 @@ import org.waveprotocol.wave.model.operation.wave.WaveletOperation;
 import org.waveprotocol.wave.model.wave.ParticipantId;
 import org.waveprotocol.wave.model.wave.data.impl.WaveletDataImpl;
 
+import javax.annotation.Nullable;
+
 import java.util.Collections;
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 /**
  * @author danilatos@google.com (Daniel Danilatos)
@@ -109,10 +109,6 @@ public class WaveObjectStoreModel implements SlobModel {
           throw new ChangeRejected("Invalid op: " + op, e);
         }
       }
-    }
-
-    @Override public String getIndexedContent() {
-      return wavelet == null ? "" : TextRenderer.renderToHtml(wavelet);
     }
 
     // TODO(ohler): Guarantee that the only method that will ever be called at

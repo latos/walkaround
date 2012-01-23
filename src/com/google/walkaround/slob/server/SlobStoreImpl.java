@@ -260,7 +260,7 @@ public class SlobStoreImpl implements SlobStore {
         // sure Walkaround has the same problems, but let's disallow it anyway.
         "Can't create objects with mutateObject()");
     ServerMutateResponse response = defaultProcessor.mutateObject(req);
-    MutateResult result = new MutateResult(response.getResultingVersion(), response.getIndexData());
+    MutateResult result = new MutateResult(response.getResultingVersion());
     if (response.getBroadcastData() != null) {
       messageRouter.publishMessages(objectId, response.getBroadcastData());
     }
