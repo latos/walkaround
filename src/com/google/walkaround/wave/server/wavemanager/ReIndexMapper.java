@@ -35,6 +35,7 @@ import com.google.walkaround.util.server.appengine.CheckedDatastore;
 import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
 import com.google.walkaround.wave.server.GuiceSetup;
 import com.google.walkaround.wave.server.conv.ConvStore;
+import com.google.walkaround.wave.server.index.WaveIndexer;
 import com.google.walkaround.wave.server.model.WaveObjectStoreModel.ReadableWaveletObject;
 
 import org.apache.hadoop.io.NullWritable;
@@ -45,8 +46,6 @@ import java.util.logging.Logger;
 /**
  * Mapreduce mapper that re-indexes and re-extracts ACL metadata from all
  * conversations.
- *
- * TODO(danilatos): Add re-indexing.
  *
  * @author ohler@google.com (Christian Ohler)
  */
@@ -59,13 +58,17 @@ public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, Nu
     @Inject CheckedDatastore datastore;
     @Inject @ConvStore SlobFacilities facilities;
     @Inject WaveAclStore aclStore;
+    @Inject WaveIndexer indexer;
 
     void process(Context context, final Key key) throws PermanentFailure {
       new RetryHelper().run(new RetryHelper.VoidBody() {
           @Override public void run() throws PermanentFailure, RetryableFailure {
+            SlobId objectId;
+
+            // Update ACL
             CheckedTransaction tx = datastore.beginTransaction();
             try {
-              SlobId objectId = facilities.parseRootEntityKey(key);
+              objectId = facilities.parseRootEntityKey(key);
               MutationLog mutationLog = facilities.getMutationLogFactory().create(tx, objectId);
               try {
                 WaveletMetadata metadata = GsonProto.fromGson(
@@ -83,6 +86,13 @@ public class ReIndexMapper extends AppEngineMapper<Key, Entity, NullWritable, Nu
               tx.commit();
             } finally {
               tx.close();
+            }
+
+            // Update search index
+            try {
+              indexer.index(objectId);
+            } catch (IOException e) {
+              throw new RetryableFailure(e);
             }
           }
         });

@@ -139,7 +139,7 @@ public class WaveIndexer {
 
   private static final Logger log = Logger.getLogger(WaveIndexer.class.getName());
 
-  private static final String USER_WAVE_INDEX_PREFIX = "USRIDX-";
+  private static final String USER_WAVE_INDEX_PREFIX = "USRIDX2-";
 
   private final WaveSerializer serializer;
   private final IndexManager indexManager;
