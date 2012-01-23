@@ -31,7 +31,6 @@ import java.util.logging.Logger;
 * @author danilatos@google.com
 */
 class Util {
-
   private static final Logger log = Logger.getLogger(Util.class.getName());
 
   static String extractTitle(WaveletDataImpl conv) {

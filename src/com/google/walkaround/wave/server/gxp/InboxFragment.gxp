@@ -26,18 +26,25 @@
 
   <gxp:import class='com.google.walkaround.wave.server.gxp.InboxDisplayRecord'/>
   <gxp:import class='java.util.List'/>
+  <gxp:import class='com.google.gxp.css.CssClosures'/>
 
   <gxp:param name='token' type='String'/>
   <gxp:param name='query' type='String'/>
   <gxp:param name='embedded' type='boolean'/>
   <gxp:param name='target' type='String'/>
   <gxp:param name='waveRecords' type='List{InboxDisplayRecord}'/>
-
+  <gxp:param name='announcementHtml' type='HtmlClosure'/>
+ 
   <style type='text/css'>
     .main {
       z-index: 1000;
     }
     #panel {
+      position:absolute;
+      top:<gxp:eval expr='CssClosures.fromCss(announcementHtml != null ? "65px" : "0")'/>;
+      bottom:0;
+      left:0;
+      right:0;
     }
     table {
       border-collapse: collapse;
@@ -115,9 +122,24 @@
     body {
       margin: 0;
     }
-    
+      
+    #announcement {
+      position:absolute;
+      left: 0px;
+      top: 0;
+      background-color: #FFC;
+      width: 100%;
+      padding: 3px;
+      height:54px;
+      overflow:auto;
+    }
   </style>
 
+  <gxp:if cond='announcementHtml != null'>
+    <div id='announcement'><gxp:eval expr='announcementHtml'/></div>
+    <p/>
+  </gxp:if>
+  
   <div id='panel'>
 
     <form method='post' action='inbox' expr:target='target' style='float:left'>

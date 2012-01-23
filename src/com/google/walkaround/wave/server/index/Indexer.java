@@ -37,9 +37,16 @@ import com.google.appengine.api.utils.SystemProperty;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.walkaround.slob.server.MutationLog;
+import com.google.walkaround.slob.server.MutationLog.MutationLogFactory;
 import com.google.walkaround.slob.shared.MessageException;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.slob.shared.StateAndVersion;
+import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
+import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
+import com.google.walkaround.util.server.appengine.CheckedDatastore;
+import com.google.walkaround.util.server.appengine.CheckedDatastore.CheckedTransaction;
+import com.google.walkaround.wave.server.conv.ConvStore;
 import com.google.walkaround.wave.server.model.ServerMessageSerializer;
 import com.google.walkaround.wave.server.model.TextRenderer;
 import com.google.walkaround.wave.shared.IdHack;
@@ -131,18 +138,20 @@ public class Indexer {
     }
   }
 
-  @SuppressWarnings("unused")
   private static final Logger log = Logger.getLogger(Indexer.class.getName());
 
   private static final String USER_WAVE_INDEX_PREFIX = "USRIDX-";
 
   private final WaveSerializer serializer;
-  private final SimpleLoader loader;
   private final IndexManager indexManager;
+  private final CheckedDatastore datastore;
+  private final MutationLogFactory mutationLogFactory;
 
   @Inject
-  public Indexer(SimpleLoader loader, IndexManager indexManager) {
-    this.loader = loader;
+  public Indexer(CheckedDatastore datastore, @ConvStore MutationLogFactory mutationLogFactory,
+      IndexManager indexManager) {
+    this.datastore = datastore;
+    this.mutationLogFactory = mutationLogFactory;
     this.indexManager = indexManager;
     this.serializer = new WaveSerializer(
         new ServerMessageSerializer(), new DocumentFactory<ObservablePluggableMutableDocument>() {
@@ -157,10 +166,12 @@ public class Indexer {
   }
 
   public void index(SlobId slobId) throws IOException {
-    // TODO(danilatos): Remove waves from the inboxes of participants that have
-    // been removed from the wave.
+    // TODO(danilatos): Handle waves for participants that have been removed.
+    // Currently they will remain in the inbox but they won't have access until
+    // we implement snapshotting of the waves at the point the participants
+    // were removed (or similar).
 
-    StateAndVersion rawConv = loader.load(slobId);
+    StateAndVersion rawConv = loadConv(slobId);
     WaveletName convWaveletName = IdHack.convWaveletNameFromConvObjectId(slobId);
 
     WaveletDataImpl convWavelet = deserializeWavelet(convWaveletName,
@@ -208,6 +219,21 @@ public class Indexer {
     }
   }
 
+  private StateAndVersion loadConv(SlobId id) throws IOException {
+    try {
+      CheckedTransaction tx = datastore.beginTransaction();
+      try {
+        MutationLog l = mutationLogFactory.create(tx, id);
+        return l.reconstruct(null);
+      } finally {
+        tx.rollback();
+      }
+    } catch (PermanentFailure e) {
+      throw new IOException(e);
+    } catch (RetryableFailure e) {
+      throw new IOException(e);
+    }
+  }
 
   private Index getIndex(ParticipantId participant) {
     return indexManager.getIndex(
@@ -280,14 +306,14 @@ public class Indexer {
       }
 
       // Workaround for bug where all fields come back empty in local dev mode.
-      boolean hack = SystemProperty.environment.value()
+      boolean HACK = SystemProperty.environment.value()
           == SystemProperty.Environment.Value.Development;
       entries.add(new UserIndexEntry(
           new SlobId(doc.getId()),
-          ParticipantId.ofUnsafe(hack ? "hack@hack.com" : getField(doc, "creator")),
-          hack ? "XXX" : getField(doc, "title"),
+          ParticipantId.ofUnsafe(HACK ? "hack@hack.com" : getField(doc, "creator")),
+          HACK ? "XXX" : getField(doc, "title"),
           snippetHtml,
-          Long.parseLong(hack ? "1" : getField(doc, "modified"))
+          Long.parseLong(HACK ? "1" : getField(doc, "modified"))
           ));
     }
     return entries;

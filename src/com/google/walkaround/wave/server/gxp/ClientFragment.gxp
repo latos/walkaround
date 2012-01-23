@@ -1,6 +1,6 @@
 <?xml version='1.0' ?>
 <!--
-  Copyright (C) 2011 Google Inc.
+  Copyright (C) 2012 Google Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,11 +26,6 @@
  
   <gxp:param name='announcementHtml' type='HtmlClosure'/>
  
-  <gxp:if cond='announcementHtml != null'>
-    <div id='announcement'><gxp:eval expr='announcementHtml'/></div>
-    <p/>
-  </gxp:if>
-  
   <style type='text/css'>
       #left-pane, #right-pane {
         position: absolute;
@@ -58,8 +53,24 @@
         left: 47%;
         right: 15px;
       }
+      
+      #announcement {
+        position:absolute;
+        left: 170px;
+        top: 13px;
+        border: 1px solid #FC0;
+        background-color: #FFC;
+        padding: 2px;
+        height: 20px;
+        overflow: auto;
+      }
   </style>
  
+  <gxp:if cond='announcementHtml != null'>
+    <div id='announcement'><gxp:eval expr='announcementHtml'/></div>
+    <p/>
+  </gxp:if>
+  
   <div id='left-pane'>
     <iframe src='/inbox?embedded=true'/>
   </div>

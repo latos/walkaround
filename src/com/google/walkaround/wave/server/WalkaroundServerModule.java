@@ -256,7 +256,7 @@ public class WalkaroundServerModule extends AbstractModule {
     return BackendServiceFactory.getBackendService();
   }
 
-  @Singleton
+  @Singleton // NOTE(danilatos): The indexing documentation recommends a singleton.
   @Provides
   IndexManager provideIndexManager() {
     return IndexManagerFactory.newIndexManager();

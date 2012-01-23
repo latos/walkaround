@@ -84,6 +84,7 @@ import com.google.walkaround.wave.server.rpc.HistoryHandler;
 import com.google.walkaround.wave.server.rpc.PhotosHandler;
 import com.google.walkaround.wave.server.rpc.SubmitDeltaHandler;
 import com.google.walkaround.wave.server.servlet.ClientHandler;
+import com.google.walkaround.wave.server.servlet.IndexHandler;
 import com.google.walkaround.wave.server.servlet.LogoutHandler;
 import com.google.walkaround.wave.server.servlet.ServerExceptionFilter;
 import com.google.walkaround.wave.server.servlet.StoreMutateHandler;
@@ -126,6 +127,7 @@ public class WalkaroundServletModule extends ServletModule {
   private static final ImmutableMap<String, Class<? extends AbstractHandler>> EXACT_PATH_HANDLERS =
       new ImmutableMap.Builder<String, Class<? extends AbstractHandler>>()
           // Pages that browsers will navigate to.
+          .put("/", IndexHandler.class)
           .put("/client", ClientHandler.class)
           .put("/inbox", InboxHandler.class)
           .put("/wave", UndercurrentHandler.class)
@@ -221,7 +223,6 @@ public class WalkaroundServletModule extends ServletModule {
     }
     filter("*").through(RequestStatsFilter.class);
 
-    serve("/").with(new RedirectServlet("/client"));
     serve("/admin/").with(new RedirectServlet("/admin"));
     serve("/import/").with(new RedirectServlet("/import"));
     serve("/admin/mapreduce").with(new RedirectServlet("/admin/mapreduce/status"));
@@ -264,7 +265,7 @@ public class WalkaroundServletModule extends ServletModule {
     serve("/admin/mapreduce/*").with(MapReduceServlet.class);
 
     for (String path : Arrays.asList(
-            "/client", "/inbox", "/noauth", "/wave", "/import")) {
+            "/", "/client", "/inbox", "/noauth", "/wave", "/import")) {
       filter(path).through(InteractiveAuthFilter.class);
     }
     for (String path : Arrays.asList(

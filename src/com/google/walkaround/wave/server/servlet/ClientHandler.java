@@ -46,10 +46,6 @@ public class ClientHandler extends AbstractHandler {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    String ua = req.getHeader("User-Agent").toLowerCase();
-    if (ua != null && ua.contains("mobile")) {
-      resp.sendRedirect("/inbox");
-    }
     resp.setContentType("text/html");
     resp.setCharacterEncoding("UTF-8");
     page.write("Walkaround", participantId.getAddress(),

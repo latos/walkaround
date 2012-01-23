@@ -19,6 +19,7 @@ package com.google.walkaround.wave.server.wavemanager;
 import com.google.common.collect.ImmutableList;
 import com.google.common.net.UriEscapers;
 import com.google.gxp.base.GxpContext;
+import com.google.gxp.html.HtmlClosure;
 import com.google.inject.Inject;
 import com.google.walkaround.slob.shared.SlobId;
 import com.google.walkaround.util.server.RetryHelper;
@@ -39,6 +40,7 @@ import com.google.walkaround.wave.server.gxp.NoSkin;
 import com.google.walkaround.wave.server.index.Indexer;
 import com.google.walkaround.wave.server.index.Indexer.UserIndexEntry;
 import com.google.walkaround.wave.server.servlet.PageSkinWriter;
+import com.google.walkaround.wave.server.util.RequestUtil;
 
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
@@ -71,6 +73,7 @@ public class InboxHandler extends AbstractHandler {
   @Inject WaveletCreator waveletCreator;
   @Inject @Flag(FlagName.ANALYTICS_ACCOUNT) String analyticsAccount;
   @Inject PageSkinWriter pageSkinWriter;
+  @Inject @Flag(FlagName.ANNOUNCEMENT_HTML) String announcementHtml;
 
   private String queryEscape(String s) {
     return UriEscapers.uriQueryStringEscaper(false).escape(s);
@@ -88,6 +91,9 @@ public class InboxHandler extends AbstractHandler {
       out.add(new InboxDisplayRecord(
           wave.getCreator().getAddress(),
           wave.getTitle().trim(),
+          // TODO(danilatos): Detect if the snippet redundantly starts with the title,
+          // and strip it out, if we are just displaying a folder (but don't if we
+          // are displaying the context of a search query).
           wave.getSnippetHtml().trim(),
           "" + new LocalDate(new Instant(wave.getLastModifiedMillis())),
           makeWaveLink(wave.getObjectId())));
@@ -129,7 +135,9 @@ public class InboxHandler extends AbstractHandler {
     NoSkin.write(resp.getWriter(), new GxpContext(req.getLocale()),
         "Walkaround", analyticsAccount,
         InboxFragment.getGxpClosure(xsrfHelper.createToken(XSRF_ACTION), displayQuery,
-            embedded, embedded ? "wave" : "", waveRecords));
+            embedded, embedded ? "wave" : "", waveRecords,
+            // Only show announcement if mobile.
+            RequestUtil.isMobile(req) ? announcementHtml() : null));
   }
 
   @Override
@@ -152,4 +160,13 @@ public class InboxHandler extends AbstractHandler {
     }
   }
 
+  private HtmlClosure announcementHtml() {
+    return announcementHtml.isEmpty()
+        ? null
+        : new HtmlClosure() {
+          @Override public void write(Appendable out, GxpContext context) throws IOException {
+            out.append(announcementHtml);
+          }
+        };
+  }
 }

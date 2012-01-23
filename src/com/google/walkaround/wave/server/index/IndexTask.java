@@ -25,7 +25,6 @@ import com.google.walkaround.util.server.RetryHelper.PermanentFailure;
 import com.google.walkaround.util.server.RetryHelper.RetryableFailure;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -51,8 +50,7 @@ public class IndexTask implements PostCommitAction {
         }
       });
     } catch (PermanentFailure e) {
-      log.log(Level.SEVERE, "Failed to index " + slobId, e);
-      // Don't propagate, to avoid breaking other tasks that will run.
+      throw new RuntimeException(e);
     }
   }
 
